@@ -44,26 +44,32 @@ Established the runnable project foundation with compatible dependencies, manife
 
 ### Verification Results
 
-| Check | Result | Details |
-|---|---|---|
-| Gradle Sync | PASS | Sync finished successfully with all dependencies resolved and KSP applied |
-| `:app:assembleDebug` | PASS | Built debug APK successfully (`app/build/outputs/apk/debug/app-debug.apk`) |
-| `:app:testDebugUnitTest` | PASS | 1 test passed, 0 skipped, 0 failed |
-| `:app:lintDebug` | PASS | Lint passed with 0 errors |
-| Merged Manifest Inspection | PASS | `android:allowBackup="false"`, no `INTERNET`, no storage permissions, minSdk=24, targetSdk=37, only `USE_BIOMETRIC`, `USE_FINGERPRINT`, and internal signature receiver present |
-| Static Code Inspections | PASS | Zero errors across all project Kotlin and XML files |
-| Exporter Fixture Suite | PASS | Verified in isolated synthetic fixture: extensionless `gradlew`, Room schema `1.json`, Kotlin source included; deletions reflected; secret/signing/env files excluded; secret redaction verified without disk edits; error resilience and snapshot preservation verified; invocation from outside project root verified |
-| Device Launch | NOT RUN | No physical device or running emulator was attached during execution; verified via complete APK compilation and artifact assembly |
+| Check | Result | Timestamp | Source State | Details |
+|---|---|---|---|---|
+| Gradle Sync | PASS | 2026-10-29 00:57:34 PHT | commit `6d9b920` + working tree fixes | Sync finished successfully with all dependencies resolved and KSP applied |
+| `:app:assembleDebug` | PASS | 2026-10-29 01:28:24 PHT | commit `6d9b920` + working tree fixes | Debug APK compiled and assembled successfully (`app/build/outputs/apk/debug/app-debug.apk`) |
+| `:app:testDebugUnitTest` | PASS | 2026-10-29 01:28:36 PHT | commit `6d9b920` + working tree fixes | 1 test passed, 0 skipped, 0 failed |
+| `:app:lintDebug` | PASS | 2026-10-29 01:28:41 PHT | commit `6d9b920` + working tree fixes | Lint passed with 0 errors |
+| Merged Manifest Inspection | PASS | 2026-10-29 01:02:07 PHT | commit `6d9b920` + working tree fixes | `android:allowBackup="false"`, no `INTERNET`, no storage permissions, minSdk=24, targetSdk=37, only `USE_BIOMETRIC`, `USE_FINGERPRINT`, and internal signature receiver present |
+| Static Code Inspections | PASS | 2026-10-29 01:03:41 PHT | commit `6d9b920` + working tree fixes | Zero errors across all project Kotlin and XML files |
+| Exporter Fixture: First Creation & Repeated Atomic Replacement | PASS | 2026-10-29 02:00:37 PHT | `tools/export-source-code.ps1` (`File.Replace` / `Move`) | Verified first creation without pre-existing target, repeated atomic replacement using `[System.IO.File]::Replace` with backup handling, and accurate file deletion reflection |
+| Exporter Fixture: Typed & Untyped Secret Redaction | PASS | 2026-10-29 02:00:37 PHT | `tools/export-source-code.ps1` (`Process-FileContentForReview`) | Verified redaction of typed properties (`val apiKey: String = "..."`), untyped properties, and private const typed properties in review copy while leaving underlying source on disk untouched; verified ordinary nonsensitive typed property (`val appTitle: String = "..."`) remains reviewable |
+| Exporter Fixture: Report Mismatch Error Handling | PASS | 2026-10-29 02:00:38 PHT | `tools/export-source-code.ps1` (Report validation) | Verified that parameter/report outcome mismatch triggers nonzero exit and leaves previous snapshot byte-for-byte identical |
+| Exporter Fixture: Unreadable Source I/O Failure | PASS | 2026-10-29 02:00:39 PHT | `tools/export-source-code.ps1` (I/O error propagation) | Verified that an exclusively locked source file triggers nonzero exit without placeholders and leaves previous snapshot byte-for-byte identical |
+| Exporter Fixture: Locked Destination Replacement Failure | PASS | 2026-10-29 02:00:39 PHT | `tools/export-source-code.ps1` (Atomic replacement safety) | Verified that a locked destination target triggers nonzero exit, cleans up temporary artifacts, and leaves the previous target snapshot byte-for-byte intact |
+| Device Launch | NOT RUN | 2026-10-29 02:00:00 PHT | commit `6d9b920` + working tree fixes | No physical device or running emulator was attached during execution; verified via complete APK compilation and artifact assembly |
 
 ### Toolchain & Version Metadata
 
-| Component | Declared Version | Status |
+| Component | Verified Environment / Declared Version | Status / Source |
 |---|---|---|
+| Android Studio | Android Studio 2026.2.2 (Rabbit 2, build `AI-262.10968.63.2622.16730706`) | Installed IDE; minimum required for AGP 9.5 per official release matrix |
 | AGP | 9.5.0 | Declared in `gradle/libs.versions.toml` |
 | Kotlin | 2.2.10 | Declared in `gradle/libs.versions.toml` |
 | KSP | 2.3.12 | Declared in `gradle/libs.versions.toml` |
 | Gradle | 9.8.2 | Declared in `gradle/wrapper/gradle-wrapper.properties` |
 | Daemon JDK | 25 | Declared in `gradle/gradle-daemon-jvm.properties` |
+| Compose BOM | 2026.09.00 | Declared in `gradle/libs.versions.toml` |
 | compileSdk / targetSdk | 37 | Declared in `app/build.gradle.kts` |
 | minSdk | 24 | Declared in `app/build.gradle.kts` |
 

@@ -7,7 +7,7 @@
     reads metadata from project files, reads structured phase report,
     performs secret redactions in the review copy (leaving source untouched),
     validates the output through a temporary file on the same volume,
-    and atomically replaces the target file.
+    and atomically replaces the target file using System.IO.File.Replace.
 
 .PARAMETER Phase
     The phase number (e.g. 0, 1, 2, 3, 4, 5).
@@ -51,10 +51,14 @@ $ProjectRoot = (Resolve-Path -LiteralPath $ProjectRoot).Path
 
 $outputFile = Join-Path $ProjectRoot 'source-code.txt'
 $tempFile = Join-Path $ProjectRoot 'source-code.txt.tmp'
+$backupFile = Join-Path $ProjectRoot 'source-code.txt.bak'
 
-# --- Clean up any leftover temp file ---
+# --- Clean up any leftover temp/backup files ---
 if (Test-Path -LiteralPath $tempFile) {
     Remove-Item -LiteralPath $tempFile -Force -ErrorAction SilentlyContinue
+}
+if (Test-Path -LiteralPath $backupFile) {
+    Remove-Item -LiteralPath $backupFile -Force -ErrorAction SilentlyContinue
 }
 
 # --- Resolve Phase Report File ---
@@ -181,7 +185,7 @@ function Test-IsReviewableFile($fileItem, $relPath) {
     $ext = [System.IO.Path]::GetExtension($name).ToLowerInvariant()
 
     # Explicit exclusions
-    if ($name -like 'source-code.txt*' -or $name -like '*.tmp') { return $false }
+    if ($name -like 'source-code.txt*' -or $name -like '*.tmp' -or $name -like '*.bak') { return $false }
     if ($name -like '.env*' -or $name -like '*.env') { return $false }
     if ($name -in @('local.properties', 'secrets.properties', 'signing.properties', 'keystore.properties')) { return $false }
     if ($name -like '*secret*.properties' -or $name -like '*signing*.properties' -or $name -like '*credential*.properties') { return $false }
@@ -254,14 +258,31 @@ function Process-FileContentForReview($filePath, $relPath) {
         $lineNum = $i + 1
         $redactedLine = $line
 
-        # Heuristic 1: Variable / constant assignment with sensitive name and literal string
-        if ($line -match '(?i)^\s*(val|var|const\s+val|private\s+val)\s+([a-zA-Z0-9_]+)\s*[:=]\s*"([^"]{6,})"') {
-            $varName = $matches[2]
-            $val = $matches[3]
+        # Heuristic 1A: Kotlin property assignment with double quotes (typed or untyped)
+        # Matches: [modifiers] val/var <name> [: <Type>] = "<literal>"
+        if ($line -match '(?i)^\s*(?:(?:private|protected|internal|public)\s+)?(?:(?:const|override|lateinit|final)\s+)?(?:val|var)\s+([a-zA-Z0-9_]+)(?:\s*:\s*[^=]+)?\s*=\s*"([^"]{6,})"') {
+            $varName = $matches[1]
+            $val = $matches[2]
             if ($varName -match '(?i)(secret|token|api_?key|private_?key|master_?password|vault_?password|store_?pass|key_?pass)') {
                 if ($val -notmatch '(?i)(placeholder|example|android|keeppeer|sample|stringResource|\$|\{|route|screen)' -and
                     $varName -notmatch '(?i)(route|screen|path|tag|name|label|id|action)') {
-                    $redactedLine = $line.Replace("""$val""", """[REDACTED: potential secret at $relPath`:$lineNum]""")
+                    $targetLiteral = """$val"""
+                    $replacementLiteral = """[REDACTED: potential secret at $relPath`:$lineNum]"""
+                    $redactedLine = $line.Replace($targetLiteral, $replacementLiteral)
+                    $redactions.Add("$relPath`:$lineNum ($varName)")
+                }
+            }
+        }
+        # Heuristic 1B: Kotlin property assignment with single quotes (typed or untyped)
+        elseif ($line -match "(?i)^\s*(?:(?:private|protected|internal|public)\s+)?(?:(?:const|override|lateinit|final)\s+)?(?:val|var)\s+([a-zA-Z0-9_]+)(?:\s*:\s*[^=]+)?\s*=\s*'([^']{6,})'") {
+            $varName = $matches[1]
+            $val = $matches[2]
+            if ($varName -match '(?i)(secret|token|api_?key|private_?key|master_?password|vault_?password|store_?pass|key_?pass)') {
+                if ($val -notmatch '(?i)(placeholder|example|android|keeppeer|sample|stringResource|\$|\{|route|screen)' -and
+                    $varName -notmatch '(?i)(route|screen|path|tag|name|label|id|action)') {
+                    $targetLiteral = "'$val'"
+                    $replacementLiteral = "'[REDACTED: potential secret at $relPath`:$lineNum]'"
+                    $redactedLine = $line.Replace($targetLiteral, $replacementLiteral)
                     $redactions.Add("$relPath`:$lineNum ($varName)")
                 }
             }
@@ -397,7 +418,7 @@ foreach ($f in $includedFiles) {
 [void]$sb.AppendLine('  build (compiled outputs, intermediate artifacts), captures (profiler outputs),')
 [void]$sb.AppendLine('  .cxx/.externalNativeBuild (native build intermediates)')
 [void]$sb.AppendLine('Excluded files & patterns:')
-[void]$sb.AppendLine('  source-code.txt, source-code.txt.tmp, *.tmp (snapshot artifacts)')
+[void]$sb.AppendLine('  source-code.txt, source-code.txt.tmp, source-code.txt.bak, *.tmp, *.bak (snapshot artifacts)')
 [void]$sb.AppendLine('  local.properties, secrets.properties, signing.properties, keystore.properties (secrets)')
 [void]$sb.AppendLine('  *.jks, *.keystore, *.p12, *.key, *.pem, *.pkcs12 (signing keys/certificates)')
 [void]$sb.AppendLine('  *.env*, .env (environment files)')
@@ -473,15 +494,36 @@ try {
     }
 } catch {
     Remove-Item -LiteralPath $tempFile -Force -ErrorAction SilentlyContinue
-    throw "Temp file validation failed: $($_.Exception.Message). Previous snapshot preserved."
+    throw "Temp file validation failed: $($_.Exception.Message). Target snapshot not modified."
 }
 
-# --- Atomic Target Replacement ---
+# --- Atomic Target Replacement / Safe First Write ---
+# Uses System.IO.File.Replace for existing target (atomic same-volume replacement without pre-deletion)
+# Uses System.IO.File.Move for first-write path when target does not exist yet.
 try {
-    Move-Item -LiteralPath $tempFile -Destination $outputFile -Force
+    if (Test-Path -LiteralPath $outputFile) {
+        [System.IO.File]::Replace($tempFile, $outputFile, $backupFile, $true)
+        # Clean up temporary backup file after successful atomic replacement
+        if (Test-Path -LiteralPath $backupFile) {
+            Remove-Item -LiteralPath $backupFile -Force -ErrorAction SilentlyContinue
+        }
+    } else {
+        [System.IO.File]::Move($tempFile, $outputFile)
+    }
 } catch {
-    Remove-Item -LiteralPath $tempFile -Force -ErrorAction SilentlyContinue
-    throw "Failed to replace target file '$outputFile': $($_.Exception.Message). Previous snapshot preserved."
+    $replaceErr = $_.Exception.Message
+    $targetExists = Test-Path -LiteralPath $outputFile
+    if (Test-Path -LiteralPath $tempFile) {
+        Remove-Item -LiteralPath $tempFile -Force -ErrorAction SilentlyContinue
+    }
+    if (Test-Path -LiteralPath $backupFile) {
+        Remove-Item -LiteralPath $backupFile -Force -ErrorAction SilentlyContinue
+    }
+    if ($targetExists) {
+        throw "Failed to replace target file '$outputFile': $replaceErr. Previous snapshot was retained on disk."
+    } else {
+        throw "Failed to create target file '$outputFile': $replaceErr. Target snapshot does not exist."
+    }
 }
 
 # --- Report Success ---

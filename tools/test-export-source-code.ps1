@@ -4,8 +4,9 @@
 
 .DESCRIPTION
     Creates an isolated synthetic fixture project in $env:TEMP, exercises
-    the exporter across discovery, exclusions, redactions, deletions,
-    error resilience, and phase reporting, and asserts all contract criteria.
+    the exporter across discovery, exclusions, typed/untyped redactions, deletions,
+    report validation, unreadable source failure, replacement failure, and
+    first-write/repeated atomic replacements.
 #>
 
 $ErrorActionPreference = 'Stop'
@@ -16,6 +17,13 @@ $exporterScript = Join-Path $projectRoot 'tools/export-source-code.ps1'
 
 $testRunId = [System.Guid]::NewGuid().ToString('N').Substring(0, 8)
 $fixtureDir = Join-Path $env:TEMP "Keeppeer-Fixture-$testRunId"
+
+# Guardrail: Ensure fixture directory is strictly within TEMP
+$tempRoot = [System.IO.Path]::GetFullPath($env:TEMP).TrimEnd('\', '/')
+$resolvedFixture = [System.IO.Path]::GetFullPath($fixtureDir)
+if (-not $resolvedFixture.StartsWith($tempRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+    throw "Safety guardrail triggered: fixture directory '$resolvedFixture' is not inside '$tempRoot'."
+}
 
 Write-Host "Creating isolated synthetic fixture at: $fixtureDir" -ForegroundColor Cyan
 New-Item -ItemType Directory -Path $fixtureDir -Force | Out-Null
@@ -123,9 +131,9 @@ try {
     $ErrorActionPreference = $prevEAP
 
     # -------------------------------------------------------------
-    # TEST 1: Run exporter from OUTSIDE fixture directory (e.g. from $env:TEMP)
+    # TEST 1: First creation (no existing snapshot) from OUTSIDE fixture root
     # -------------------------------------------------------------
-    Write-Host "[TEST 1] Invoking exporter from outside fixture root..." -ForegroundColor Yellow
+    Write-Host "[TEST 1] First creation: Invoking exporter from outside fixture root..." -ForegroundColor Yellow
     Push-Location $env:TEMP
     try {
         & powershell.exe -ExecutionPolicy Bypass -File (Join-Path $fixtureToolsDir 'export-source-code.ps1') `
@@ -137,23 +145,20 @@ try {
 
     $snapshot1Path = Join-Path $fixtureDir 'source-code.txt'
     if (-not (Test-Path -LiteralPath $snapshot1Path)) {
-        throw "ASSERTION FAILED: source-code.txt was not created in fixture root"
+        throw "ASSERTION FAILED: source-code.txt was not created on first write"
     }
     $snapshot1Content = [System.IO.File]::ReadAllText($snapshot1Path, [System.Text.Encoding]::UTF8)
 
-    # Check 1: gradlew included
+    # Verify discovery & exclusions
     if ($snapshot1Content -notmatch '===== BEGIN FILE: gradlew =====') {
         throw "ASSERTION FAILED: extensionless gradlew missing from snapshot"
     }
-    # Check 2: Room schema JSON included
     if ($snapshot1Content -notmatch '===== BEGIN FILE: app/schemas/com\.gem\.keeppeer\.data\.local\.AppDatabase/1\.json =====') {
         throw "ASSERTION FAILED: Room schema 1.json missing from snapshot"
     }
-    # Check 3: Foo.kt included
     if ($snapshot1Content -notmatch '===== BEGIN FILE: app/src/main/java/com/gem/keeppeer/Foo\.kt =====') {
         throw "ASSERTION FAILED: Foo.kt missing from snapshot"
     }
-    # Check 4: Secret files strictly excluded from Inventory & Boundaries
     if ($snapshot1Content -match '===== BEGIN FILE: .*signing\.properties' -or $snapshot1Content -match 'fake_super_secret_store_pass') {
         throw "ASSERTION FAILED: signing.properties was leaked into snapshot"
     }
@@ -166,33 +171,28 @@ try {
     if ($snapshot1Content -match '===== BEGIN FILE: .*local\.properties' -or $snapshot1Content -match 'C:\\FakeSdkPath') {
         throw "ASSERTION FAILED: local.properties was leaked into snapshot"
     }
-    # Check 5: Header reflects Phase 1 and outcome blocked
     if ($snapshot1Content -notmatch 'PHASE: 1' -or $snapshot1Content -notmatch 'PHASE OUTCOME: blocked') {
         throw "ASSERTION FAILED: Header does not match Phase 1 blocked"
     }
-    # Check 6: Truthful report with FAIL and NOT RUN, no hardcoded Phase 0 PASS claims
-    if ($snapshot1Content -notmatch 'Database Migration: FAIL') {
-        throw "ASSERTION FAILED: Truthful FAIL result missing from report"
-    }
-    if ($snapshot1Content -notmatch 'Device Unlock Verification: NOT RUN') {
-        throw "ASSERTION FAILED: Truthful NOT RUN result missing from report"
+    if ($snapshot1Content -notmatch 'Database Migration: FAIL' -or $snapshot1Content -notmatch 'Device Unlock Verification: NOT RUN') {
+        throw "ASSERTION FAILED: Truthful check results missing from report"
     }
     if ($snapshot1Content -match 'Phase 0 foundation and hygiene complete') {
         throw "ASSERTION FAILED: Hardcoded Phase 0 completion summary leaked into Phase 1 snapshot"
     }
-    Write-Host "  -> PASS: Discovery, exclusion, and truthful reporting verified." -ForegroundColor Green
+    Write-Host "  -> PASS: First write, discovery, exclusion, and truthful reporting verified." -ForegroundColor Green
 
     # -------------------------------------------------------------
-    # TEST 2: File Deletion Reflection
+    # TEST 2: Repeated atomic replacement & File Deletion Reflection
     # -------------------------------------------------------------
-    Write-Host "[TEST 2] Testing deletion reflection..." -ForegroundColor Yellow
+    Write-Host "[TEST 2] Testing repeated replacement with file deletion reflection..." -ForegroundColor Yellow
     Remove-Item -LiteralPath $fooFile -Force
 
     Push-Location $env:TEMP
     try {
         & powershell.exe -ExecutionPolicy Bypass -File (Join-Path $fixtureToolsDir 'export-source-code.ps1') `
             -Phase 1 -Outcome blocked -ProjectRoot $fixtureDir
-        if ($LASTEXITCODE -ne 0) { throw "Exporter failed on re-export after deletion" }
+        if ($LASTEXITCODE -ne 0) { throw "Exporter failed on repeated replacement" }
     } finally {
         Pop-Location
     }
@@ -204,17 +204,31 @@ try {
     if ($snapshot2Content -match '(?m)^\s+app/src/main/java/com/gem/keeppeer/Foo\.kt$') {
         throw "ASSERTION FAILED: Deleted Foo.kt still present in inventory"
     }
-    Write-Host "  -> PASS: Deletion reflected accurately." -ForegroundColor Green
+    Write-Host "  -> PASS: Repeated atomic replacement succeeded and deletion reflected accurately." -ForegroundColor Green
 
     # -------------------------------------------------------------
-    # TEST 3: Redaction Engine Verification
+    # TEST 3: Typed & Untyped Kotlin Secret Redaction + Safe Typed Property
     # -------------------------------------------------------------
-    Write-Host "[TEST 3] Testing secret redaction engine..." -ForegroundColor Yellow
+    Write-Host "[TEST 3] Testing typed and untyped Kotlin secret redaction..." -ForegroundColor Yellow
     $secretFile = Join-Path $fixtureSrcDir 'SecretConfig.kt'
-    [System.IO.File]::WriteAllText(
-        $secretFile,
-        "package com.gem.keeppeer`n`nobject SecretConfig {`n    val apiKey = `"super_secret_production_key_xyz987`"`n}`n"
-    )
+    $secretSourceCode = @"
+package com.gem.keeppeer
+
+object SecretConfig {
+    // 1. Untyped secret property
+    val apiSecret = "super_secret_untyped_value_456"
+
+    // 2. Ordinary typed secret property
+    val apiKey: String = "super_secret_typed_value_123"
+
+    // 3. Private const typed secret property
+    private const val MASTER_PASSWORD_KEY: String = "super_master_key_secret_789"
+
+    // 4. Normal nonsensitive typed property (MUST NOT be redacted)
+    val appTitle: String = "Completely Safe Application Title"
+}
+"@
+    [System.IO.File]::WriteAllText($secretFile, $secretSourceCode)
 
     Push-Location $env:TEMP
     try {
@@ -226,59 +240,176 @@ try {
     }
 
     $snapshot3Content = [System.IO.File]::ReadAllText($snapshot1Path, [System.Text.Encoding]::UTF8)
-    # The secret value MUST NOT be in the snapshot
-    if ($snapshot3Content -match 'super_secret_production_key_xyz987') {
-        throw "ASSERTION FAILED: Secret value was not redacted in snapshot!"
+
+    # 1. Untyped secret must be redacted
+    if ($snapshot3Content -match 'super_secret_untyped_value_456') {
+        throw "ASSERTION FAILED: Untyped secret was not redacted in snapshot!"
     }
-    # But the redaction marker MUST be present
+    # 2. Typed secret must be redacted
+    if ($snapshot3Content -match 'super_secret_typed_value_123') {
+        throw "ASSERTION FAILED: Typed secret was not redacted in snapshot!"
+    }
+    # 3. Private const typed secret must be redacted
+    if ($snapshot3Content -match 'super_master_key_secret_789') {
+        throw "ASSERTION FAILED: Private const typed secret was not redacted in snapshot!"
+    }
+    # 4. Normal nonsensitive typed property MUST remain reviewable
+    if ($snapshot3Content -notmatch 'Completely Safe Application Title') {
+        throw "ASSERTION FAILED: Normal nonsensitive typed property was erroneously redacted or omitted!"
+    }
+    # 5. Redaction markers present with line context
     if ($snapshot3Content -notmatch '\[REDACTED: potential secret at app/src/main/java/com/gem/keeppeer/SecretConfig\.kt') {
         throw "ASSERTION FAILED: Redaction marker missing in snapshot"
     }
-    # Underlying source file on disk MUST NOT be altered
+    # 6. Underlying source file on disk MUST NOT be altered
     $secretFileDisk = [System.IO.File]::ReadAllText($secretFile, [System.Text.Encoding]::UTF8)
-    if ($secretFileDisk -notmatch 'super_secret_production_key_xyz987') {
+    if ($secretFileDisk -ne $secretSourceCode) {
         throw "ASSERTION FAILED: Underlying source file was modified by redaction engine!"
     }
-    Write-Host "  -> PASS: Redaction engine successfully redacted snapshot without modifying source." -ForegroundColor Green
+    Write-Host "  -> PASS: Typed and untyped secrets redacted; nonsensitive property preserved; source untouched." -ForegroundColor Green
 
     # -------------------------------------------------------------
-    # TEST 4: Error Handling & Previous Snapshot Preservation
+    # TEST 4: Report Mismatch Error Handling & Snapshot Preservation
     # -------------------------------------------------------------
-    Write-Host "[TEST 4] Testing error handling and previous snapshot preservation..." -ForegroundColor Yellow
-    $lastUsableContent = [System.IO.File]::ReadAllText($snapshot1Path, [System.Text.Encoding]::UTF8)
+    Write-Host "[TEST 4] Testing report mismatch failure and snapshot preservation..." -ForegroundColor Yellow
+    $bytesBeforeMismatch = [System.IO.File]::ReadAllBytes($snapshot1Path)
 
-    # Intentionally trigger error: outcome mismatch
     Push-Location $env:TEMP
-    $errorTriggered = $false
+    $mismatchFailed = $false
     $savedEAP = $ErrorActionPreference
     try {
         $ErrorActionPreference = 'Continue'
         $null = & powershell.exe -ExecutionPolicy Bypass -File (Join-Path $fixtureToolsDir 'export-source-code.ps1') `
             -Phase 1 -Outcome complete -ProjectRoot $fixtureDir 2>&1
         if ($LASTEXITCODE -ne 0) {
-            $errorTriggered = $true
+            $mismatchFailed = $true
         }
     } finally {
         $ErrorActionPreference = $savedEAP
         Pop-Location
     }
 
-    if (-not $errorTriggered) {
-        throw "ASSERTION FAILED: Exporter should have failed on outcome mismatch"
+    if (-not $mismatchFailed) {
+        throw "ASSERTION FAILED: Exporter should have failed on report outcome mismatch"
     }
 
-    # Verify previous snapshot was preserved
-    $contentAfterFailedRun = [System.IO.File]::ReadAllText($snapshot1Path, [System.Text.Encoding]::UTF8)
-    if ($contentAfterFailedRun -ne $lastUsableContent) {
-        throw "ASSERTION FAILED: Previous snapshot was corrupted or modified on failed run!"
+    $bytesAfterMismatch = [System.IO.File]::ReadAllBytes($snapshot1Path)
+    if (-not [System.Linq.Enumerable]::SequenceEqual([byte[]]$bytesBeforeMismatch, [byte[]]$bytesAfterMismatch)) {
+        throw "ASSERTION FAILED: Snapshot was modified despite report mismatch failure!"
     }
-    Write-Host "  -> PASS: Failure safely handled; previous snapshot preserved." -ForegroundColor Green
+    Write-Host "  -> PASS: Report mismatch safely failed; previous snapshot byte-for-byte preserved." -ForegroundColor Green
 
-    Write-Host "`nAll fixture assertions passed successfully!" -ForegroundColor Green
+    # -------------------------------------------------------------
+    # TEST 5: Real Unreadable Source Failure & Snapshot Preservation
+    # -------------------------------------------------------------
+    Write-Host "[TEST 5] Testing real unreadable-source I/O failure and snapshot preservation..." -ForegroundColor Yellow
+    $bytesBeforeReadFail = [System.IO.File]::ReadAllBytes($snapshot1Path)
+
+    # Create an unreadable file with an exclusive lock
+    $unreadableFile = Join-Path $fixtureSrcDir 'UnreadableSource.kt'
+    [System.IO.File]::WriteAllText($unreadableFile, "package com.gem.keeppeer`nclass UnreadableSource`n")
+    $exclusiveLockStream = [System.IO.File]::Open(
+        $unreadableFile,
+        [System.IO.FileMode]::Open,
+        [System.IO.FileAccess]::ReadWrite,
+        [System.IO.FileShare]::None
+    )
+
+    $readFailTriggered = $false
+    try {
+        Push-Location $env:TEMP
+        $savedEAP = $ErrorActionPreference
+        try {
+            $ErrorActionPreference = 'Continue'
+            $null = & powershell.exe -ExecutionPolicy Bypass -File (Join-Path $fixtureToolsDir 'export-source-code.ps1') `
+                -Phase 1 -Outcome blocked -ProjectRoot $fixtureDir 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                $readFailTriggered = $true
+            }
+        } finally {
+            $ErrorActionPreference = $savedEAP
+            Pop-Location
+        }
+    } finally {
+        # Release the lock and remove the test file
+        $exclusiveLockStream.Close()
+        $exclusiveLockStream.Dispose()
+        Remove-Item -LiteralPath $unreadableFile -Force -ErrorAction SilentlyContinue
+    }
+
+    if (-not $readFailTriggered) {
+        throw "ASSERTION FAILED: Exporter should have failed when encountering an unreadable source file"
+    }
+
+    $bytesAfterReadFail = [System.IO.File]::ReadAllBytes($snapshot1Path)
+    if (-not [System.Linq.Enumerable]::SequenceEqual([byte[]]$bytesBeforeReadFail, [byte[]]$bytesAfterReadFail)) {
+        throw "ASSERTION FAILED: Snapshot was modified despite unreadable source failure!"
+    }
+    Write-Host "  -> PASS: Unreadable source triggered nonzero failure; previous snapshot byte-for-byte preserved." -ForegroundColor Green
+
+    # -------------------------------------------------------------
+    # TEST 6: Real Atomic Replacement Failure & Target Preservation
+    # -------------------------------------------------------------
+    Write-Host "[TEST 6] Testing real atomic replacement failure (locked destination)..." -ForegroundColor Yellow
+    $bytesBeforeReplaceFail = [System.IO.File]::ReadAllBytes($snapshot1Path)
+
+    # Exclusively lock the destination snapshot to simulate replacement failure
+    $destLockStream = [System.IO.File]::Open(
+        $snapshot1Path,
+        [System.IO.FileMode]::Open,
+        [System.IO.FileAccess]::Read,
+        [System.IO.FileShare]::None
+    )
+
+    $replaceFailTriggered = $false
+    try {
+        Push-Location $env:TEMP
+        $savedEAP = $ErrorActionPreference
+        try {
+            $ErrorActionPreference = 'Continue'
+            $null = & powershell.exe -ExecutionPolicy Bypass -File (Join-Path $fixtureToolsDir 'export-source-code.ps1') `
+                -Phase 1 -Outcome blocked -ProjectRoot $fixtureDir 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                $replaceFailTriggered = $true
+            }
+        } finally {
+            $ErrorActionPreference = $savedEAP
+            Pop-Location
+        }
+    } finally {
+        # Release destination lock
+        $destLockStream.Close()
+        $destLockStream.Dispose()
+    }
+
+    if (-not $replaceFailTriggered) {
+        throw "ASSERTION FAILED: Exporter should have failed when destination file was locked"
+    }
+
+    # Verify destination still exists and is byte-for-byte intact
+    if (-not (Test-Path -LiteralPath $snapshot1Path)) {
+        throw "ASSERTION FAILED: Target snapshot was deleted during replacement failure!"
+    }
+    $bytesAfterReplaceFail = [System.IO.File]::ReadAllBytes($snapshot1Path)
+    if (-not [System.Linq.Enumerable]::SequenceEqual([byte[]]$bytesBeforeReplaceFail, [byte[]]$bytesAfterReplaceFail)) {
+        throw "ASSERTION FAILED: Target snapshot was modified or corrupted during replacement failure!"
+    }
+    # Verify temporary file was cleaned up and not left lying around
+    $tempSnapshotPath = Join-Path $fixtureDir 'source-code.txt.tmp'
+    if (Test-Path -LiteralPath $tempSnapshotPath) {
+        throw "ASSERTION FAILED: Temporary snapshot file was not cleaned up after replacement failure!"
+    }
+    Write-Host "  -> PASS: Replacement failure triggered nonzero exit; previous target byte-for-byte preserved; temp file cleaned." -ForegroundColor Green
+
+    Write-Host "`nAll 6 fixture assertions passed successfully!" -ForegroundColor Green
 } finally {
     # Clean up fixture
     if (Test-Path -LiteralPath $fixtureDir) {
-        Remove-Item -LiteralPath $fixtureDir -Recurse -Force -ErrorAction SilentlyContinue
-        Write-Host "Cleaned up synthetic fixture at: $fixtureDir" -ForegroundColor DarkGray
+        # Check resolved path is inside TEMP before recursive deletion
+        $resolved = [System.IO.Path]::GetFullPath($fixtureDir)
+        if ($resolved.StartsWith($tempRoot, [System.StringComparison]::OrdinalIgnoreCase) -and $resolved -ne $tempRoot) {
+            Remove-Item -LiteralPath $resolved -Recurse -Force -ErrorAction SilentlyContinue
+            Write-Host "Cleaned up synthetic fixture at: $resolved" -ForegroundColor DarkGray
+        }
     }
 }

@@ -1,46 +1,90 @@
 {
   "phase": 0,
   "outcome": "complete",
-  "summary": "Phase 0 foundation and hygiene complete. Configured pinned dependencies in version catalog, applied KSP with Room, SQLCipher, Biometric, and DataStore. Established single-module manual DI architecture. Enforced offline security hygiene: removed INTERNET permission via manifest merger, set android:allowBackup=\"false\" with full data extraction exclusions, lowered minSdk to 24 with adaptive icon backward compatibility, and configured Git/review exclusions. Created Phase 0 documentation, installed the project-local skill, and implemented a robust, reusable, validated source-export tool.",
+  "summary": "Phase 0 foundation and review hygiene complete. Configured pinned dependencies in version catalog, applied KSP with Room, SQLCipher, Biometric, and DataStore. Established single-module manual DI architecture. Enforced offline security hygiene: removed INTERNET permission via manifest merger, set android:allowBackup=\"false\" with full data extraction exclusions, lowered minSdk to 24 with adaptive icon backward compatibility, and configured Git/review exclusions. Installed project-local skill at .agents/skills/password-keeper-android/SKILL.md. Implemented robust atomic snapshot replacement (System.IO.File.Replace), typed/untyped Kotlin secret redaction, and verified all real I/O failure and preservation paths using an automated fixture suite.",
   "checks": [
     {
       "name": "Gradle Sync",
       "result": "PASS",
+      "timestamp": "2026-10-29 00:57:34 PHT",
+      "sourceState": "commit 6d9b920 + working tree fixes",
       "details": "Sync finished successfully with all dependencies resolved and KSP applied"
     },
     {
       "name": ":app:assembleDebug",
       "result": "PASS",
-      "details": "Debug APK compiled and assembled successfully"
+      "timestamp": "2026-10-29 01:28:24 PHT",
+      "sourceState": "commit 6d9b920 + working tree fixes",
+      "details": "Debug APK compiled and assembled successfully (output: app/build/outputs/apk/debug/app-debug.apk)"
     },
     {
       "name": ":app:testDebugUnitTest",
       "result": "PASS",
+      "timestamp": "2026-10-29 01:28:36 PHT",
+      "sourceState": "commit 6d9b920 + working tree fixes",
       "details": "1 passed, 0 skipped, 0 failed"
     },
     {
       "name": ":app:lintDebug",
       "result": "PASS",
+      "timestamp": "2026-10-29 01:28:41 PHT",
+      "sourceState": "commit 6d9b920 + working tree fixes",
       "details": "Lint check passed with 0 errors"
     },
     {
       "name": "Merged Manifest Inspection",
       "result": "PASS",
+      "timestamp": "2026-10-29 01:02:07 PHT",
+      "sourceState": "commit 6d9b920 + working tree fixes",
       "details": "Verified android:allowBackup=\"false\", INTERNET removed, no storage permissions, minSdk=24, targetSdk=37, only USE_BIOMETRIC, USE_FINGERPRINT, and app signature receiver permissions present"
     },
     {
       "name": "Static Code Inspections",
       "result": "PASS",
+      "timestamp": "2026-10-29 01:03:41 PHT",
+      "sourceState": "commit 6d9b920 + working tree fixes",
       "details": "Zero errors and zero warnings across all project Kotlin and XML files"
     },
     {
-      "name": "Exporter Synthetic Fixture Test",
+      "name": "Exporter Fixture: First Creation & Repeated Atomic Replacement",
       "result": "PASS",
-      "details": "Verified in isolated temporary fixture project: extensionless gradlew, Room schema JSON, Kotlin source included; deletions reflected; secret/signing/env files excluded/redacted; read/validation failure aborts replacement cleanly; invocation from outside project root works"
+      "timestamp": "2026-10-29 02:00:37 PHT",
+      "sourceState": "tools/export-source-code.ps1 (System.IO.File.Replace / Move)",
+      "details": "Verified first creation without pre-existing target, repeated atomic replacement using System.IO.File.Replace with backup handling, and accurate file deletion reflection"
+    },
+    {
+      "name": "Exporter Fixture: Typed & Untyped Secret Redaction",
+      "result": "PASS",
+      "timestamp": "2026-10-29 02:00:37 PHT",
+      "sourceState": "tools/export-source-code.ps1 (Process-FileContentForReview)",
+      "details": "Verified redaction of typed properties (val apiKey: String = \"...\"), untyped properties, and private const typed properties in review copy while leaving underlying source on disk untouched; verified ordinary nonsensitive typed property (val appTitle: String = \"...\") remains reviewable"
+    },
+    {
+      "name": "Exporter Fixture: Report Mismatch Error Handling",
+      "result": "PASS",
+      "timestamp": "2026-10-29 02:00:38 PHT",
+      "sourceState": "tools/export-source-code.ps1 (Report validation)",
+      "details": "Verified that parameter/report outcome mismatch triggers nonzero exit and leaves previous snapshot byte-for-byte identical"
+    },
+    {
+      "name": "Exporter Fixture: Unreadable Source I/O Failure",
+      "result": "PASS",
+      "timestamp": "2026-10-29 02:00:39 PHT",
+      "sourceState": "tools/export-source-code.ps1 (I/O error propagation)",
+      "details": "Verified that an exclusively locked source file triggers nonzero exit without placeholders and leaves previous snapshot byte-for-byte identical"
+    },
+    {
+      "name": "Exporter Fixture: Locked Destination Replacement Failure",
+      "result": "PASS",
+      "timestamp": "2026-10-29 02:00:39 PHT",
+      "sourceState": "tools/export-source-code.ps1 (Atomic replacement safety)",
+      "details": "Verified that a locked destination target triggers nonzero exit, cleans up temporary artifacts, and leaves the previous target snapshot byte-for-byte intact"
     },
     {
       "name": "Device Launch",
       "result": "NOT RUN",
+      "timestamp": "2026-10-29 02:00:00 PHT",
+      "sourceState": "commit 6d9b920 + working tree fixes",
       "details": "No physical device or running emulator connected during execution; artifact assembly verified"
     }
   ],

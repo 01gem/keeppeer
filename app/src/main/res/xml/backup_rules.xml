@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Backup rules for API 30 and below (android:fullBackupContent).
+   Exclude all vault databases, key envelopes, and settings files.
+-->
+<full-backup-content>
+    <exclude
+        domain="database"
+        path="." />
+    <exclude
+        domain="sharedpref"
+        path="." />
+    <exclude
+        domain="file"
+        path="." />
+</full-backup-content>

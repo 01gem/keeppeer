@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Keeppeer</string>
+    <string name="placeholder_empty_list">No passwords yet.\nThey will appear here once added.</string>
+</resources>

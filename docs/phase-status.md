@@ -1,13 +1,13 @@
 # Keeppeer — Phase Status
 
-## Current Phase: 0 — Project Foundation ✅
+## Current Phase: 0 — Project Foundation & Review Hygiene ✅
 
 **Status:** Complete  
 **Date:** 2026-10-29
 
 ### Summary
 
-Established the runnable project foundation with compatible dependencies, manifest security hygiene, package structure, documentation, and the reusable source-export helper.
+Established the runnable project foundation with compatible dependencies, manifest security hygiene, package structure, documentation, project-local skill installation, and an audited, truthful, reusable source-export helper verified by an isolated synthetic fixture suite.
 
 ### Completed Items
 
@@ -18,8 +18,8 @@ Established the runnable project foundation with compatible dependencies, manife
 - [x] AndroidX Biometric 1.1.0, DataStore Preferences 1.3.0 declared
 - [x] Test dependencies: JUnit 4.13.2, Coroutines Test 1.11.0, Turbine 1.2.1, AndroidX JUnit 1.3.0, Espresso 3.7.0
 - [x] minSdk lowered from 30 to 24 per project contract
-- [x] Adaptive icon folder moved from `mipmap-anydpi` to `mipmap-anydpi-v26` so minSdk 24 AAPT2 resource linking succeeds
-- [x] `android:allowBackup="false"` with backup/data-extraction exclusion rules
+- [x] Adaptive icon backward compatibility: `mipmap-anydpi-v26` ensures minSdk 24 resource linking succeeds while maintaining vector adaptive icons on API 26+
+- [x] `android:allowBackup="false"` with full cloud-backup and device-transfer exclusion rules
 - [x] INTERNET permission removed via `tools:node="remove"`
 - [x] App label, adaptive icon, Material 3 theme, initial navigation shell
 - [x] Package structure established with documented responsibilities:
@@ -35,30 +35,44 @@ Established the runnable project foundation with compatible dependencies, manife
   - `ui/components` (Shared reusable composables)
   - `ui/navigation` (Navigation graph and routes)
 - [x] `.gitignore` updated for signing, secrets, `.idea/`, vault data, and review snapshots
-- [x] Git initialized with clean tracking
-- [x] README with setup instructions and architecture documentation
+- [x] Project skill installed at `.agents/skills/password-keeper-android/SKILL.md` (no duplicate definitions)
+- [x] README with setup instructions, verified toolchain, and architecture documentation
 - [x] Security documentation in `docs/security.md`
-- [x] Source export helper: `tools/export-source-code.ps1`
+- [x] Structured phase report at `docs/reports/phase-0-report.json`
+- [x] Reusable, audited source export helper: `tools/export-source-code.ps1`
+- [x] Automated fixture test suite: `tools/test-export-source-code.ps1`
 
 ### Verification Results
 
 | Check | Result | Details |
 |---|---|---|
-| Gradle Sync | PASS | Sync finished successfully with all dependencies resolved |
-| `:app:assembleDebug` | PASS | Built debug APK successfully (output: `app-debug.apk`) |
+| Gradle Sync | PASS | Sync finished successfully with all dependencies resolved and KSP applied |
+| `:app:assembleDebug` | PASS | Built debug APK successfully (`app/build/outputs/apk/debug/app-debug.apk`) |
 | `:app:testDebugUnitTest` | PASS | 1 test passed, 0 skipped, 0 failed |
 | `:app:lintDebug` | PASS | Lint passed with 0 errors |
-| Merged Manifest Inspection | PASS | `android:allowBackup="false"`, no `INTERNET`, no storage permissions, minSdk=24, targetSdk=37 |
-| File Code Inspections | PASS | Zero errors across all project Kotlin and XML files |
+| Merged Manifest Inspection | PASS | `android:allowBackup="false"`, no `INTERNET`, no storage permissions, minSdk=24, targetSdk=37, only `USE_BIOMETRIC`, `USE_FINGERPRINT`, and internal signature receiver present |
+| Static Code Inspections | PASS | Zero errors across all project Kotlin and XML files |
+| Exporter Fixture Suite | PASS | Verified in isolated synthetic fixture: extensionless `gradlew`, Room schema `1.json`, Kotlin source included; deletions reflected; secret/signing/env files excluded; secret redaction verified without disk edits; error resilience and snapshot preservation verified; invocation from outside project root verified |
+| Device Launch | NOT RUN | No physical device or running emulator was attached during execution; verified via complete APK compilation and artifact assembly |
 
-### Architectural Decisions
+### Toolchain & Version Metadata
 
-1. **minSdk 24**: Changed from template default of 30 to match project contract requirement.
-2. **Adaptive icon backward compatibility**: Moved `mipmap-anydpi` to `mipmap-anydpi-v26` so devices on API 24–25 use standard raster mipmaps while API 26+ uses adaptive vector icons, satisfying AAPT2 requirements.
-3. **Manual DI**: No DI framework; dependencies will be wired manually.
-4. **KSP 2.3.12**: Decoupled KSP plugin declared and applied for Room annotation processing.
-5. **Single module**: All code in `:app` module as per project contract.
-6. **Application ID preserved**: `com.gem.keeppeer`.
+| Component | Declared Version | Status |
+|---|---|---|
+| AGP | 9.5.0 | Declared in `gradle/libs.versions.toml` |
+| Kotlin | 2.2.10 | Declared in `gradle/libs.versions.toml` |
+| KSP | 2.3.12 | Declared in `gradle/libs.versions.toml` |
+| Gradle | 9.8.2 | Declared in `gradle/wrapper/gradle-wrapper.properties` |
+| Daemon JDK | 25 | Declared in `gradle/gradle-daemon-jvm.properties` |
+| compileSdk / targetSdk | 37 | Declared in `app/build.gradle.kts` |
+| minSdk | 24 | Declared in `app/build.gradle.kts` |
+
+*Note: Declared versions above are parsed directly from repository configuration. Actual resolution occurs at Gradle sync/build time.*
+
+### Git Workspace Status
+
+- **Baseline Commit:** `6d9b920` ("Phase 0")
+- **Current State:** Working tree contains Phase 0 review correction fixes (exporter robustness, structured report, project-local skill installation, fixture test suite, documentation updates).
 
 ### Known Issues & Pending Checks
 

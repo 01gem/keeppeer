@@ -252,6 +252,7 @@ function Process-FileContentForReview($filePath, $relPath) {
     # Read with explicit error propagation (do not swallow errors)
     $lines = [System.IO.File]::ReadAllLines($filePath, [System.Text.Encoding]::UTF8)
     $processedLines = [System.Collections.Generic.List[string]]::new($lines.Length)
+    $fileExtension = [System.IO.Path]::GetExtension($relPath).ToLowerInvariant()
 
     for ($i = 0; $i -lt $lines.Length; $i++) {
         $line = $lines[$i]
@@ -260,7 +261,7 @@ function Process-FileContentForReview($filePath, $relPath) {
 
         # Heuristic 1A: Kotlin property assignment with double quotes (typed or untyped)
         # Matches: [modifiers] val/var <name> [: <Type>] = "<literal>"
-        if ($line -match '(?i)^\s*(?:(?:private|protected|internal|public)\s+)?(?:(?:const|override|lateinit|final)\s+)?(?:val|var)\s+([a-zA-Z0-9_]+)(?:\s*:\s*[^=]+)?\s*=\s*"([^"]{6,})"') {
+        if ($fileExtension -in @('.kt', '.kts') -and $line -match '(?i)^\s*(?:(?:private|protected|internal|public)\s+)?(?:(?:const|override|lateinit|final)\s+)?(?:val|var)\s+([a-zA-Z0-9_]+)(?:\s*:\s*[^=]+)?\s*=\s*"([^"]{6,})"') {
             $varName = $matches[1]
             $val = $matches[2]
             if ($varName -match '(?i)(secret|token|api_?key|private_?key|master_?password|vault_?password|store_?pass|key_?pass)') {
@@ -274,7 +275,7 @@ function Process-FileContentForReview($filePath, $relPath) {
             }
         }
         # Heuristic 1B: Kotlin property assignment with single quotes (typed or untyped)
-        elseif ($line -match "(?i)^\s*(?:(?:private|protected|internal|public)\s+)?(?:(?:const|override|lateinit|final)\s+)?(?:val|var)\s+([a-zA-Z0-9_]+)(?:\s*:\s*[^=]+)?\s*=\s*'([^']{6,})'") {
+        elseif ($fileExtension -in @('.kt', '.kts') -and $line -match "(?i)^\s*(?:(?:private|protected|internal|public)\s+)?(?:(?:const|override|lateinit|final)\s+)?(?:val|var)\s+([a-zA-Z0-9_]+)(?:\s*:\s*[^=]+)?\s*=\s*'([^']{6,})'") {
             $varName = $matches[1]
             $val = $matches[2]
             if ($varName -match '(?i)(secret|token|api_?key|private_?key|master_?password|vault_?password|store_?pass|key_?pass)') {
@@ -287,8 +288,8 @@ function Process-FileContentForReview($filePath, $relPath) {
                 }
             }
         }
-        # Heuristic 2: Properties key-value pair with sensitive key
-        elseif ($line -match '(?i)^\s*([a-zA-Z0-9_.\-]*(?:password|secret|apikey|auth_token|private_key))\s*=\s*(.+)$') {
+        # Heuristic 2: Config key-value pairs only; never redact Kotlin named arguments.
+        elseif ($fileExtension -in @('.properties', '.toml') -and $line -match '(?i)^\s*([a-zA-Z0-9_.\-]*(?:password|secret|apikey|auth_token|private_key))\s*=\s*(.+)$') {
             $key = $matches[1]
             $val = $matches[2].Trim()
             if ($val -and $val -notmatch '(?i)(placeholder|example|\$)') {

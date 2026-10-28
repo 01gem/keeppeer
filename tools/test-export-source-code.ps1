@@ -401,7 +401,41 @@ object SecretConfig {
     }
     Write-Host "  -> PASS: Replacement failure triggered nonzero exit; previous target byte-for-byte preserved; temp file cleaned." -ForegroundColor Green
 
-    Write-Host "`nAll 6 fixture assertions passed successfully!" -ForegroundColor Green
+    # TEST 7: Preserve mapping expressions and synthetic code embedded in scripts,
+    # while still redacting sensitive property-file values.
+    Write-Host "[TEST 7] Testing file-type-aware redaction..." -ForegroundColor Yellow
+    $mappingSource = @'
+fun map(password: String) = Entry(
+    password = password,
+    notes = "synthetic notes",
+)
+'@
+    [System.IO.File]::WriteAllText((Join-Path $fixtureSrcDir 'Mapping.kt'), $mappingSource)
+    $syntheticScript = @'
+# Synthetic Kotlin source used by a test harness; this is not a live credential.
+val apiSecret = "explicit-fixture-only"
+'@
+    [System.IO.File]::WriteAllText((Join-Path $fixtureToolsDir 'synthetic-fixture.ps1'), $syntheticScript)
+    [System.IO.File]::WriteAllText((Join-Path $fixtureDir 'gradle.properties'), "vault_password=synthetic-property-value")
+    & powershell.exe -ExecutionPolicy Bypass -File (Join-Path $fixtureToolsDir 'export-source-code.ps1') `
+        -Phase 1 -Outcome blocked -ProjectRoot $fixtureDir
+    if ($LASTEXITCODE -ne 0) { throw "Exporter failed during file-type redaction test" }
+    $snapshot7Content = [System.IO.File]::ReadAllText($snapshot1Path, [System.Text.Encoding]::UTF8)
+    if (-not $snapshot7Content.Contains('    password = password,')) {
+        throw "ASSERTION FAILED: Ordinary Kotlin named argument was redacted"
+    }
+    if (-not $snapshot7Content.Contains('val apiSecret = "explicit-fixture-only"')) {
+        throw "ASSERTION FAILED: Synthetic source embedded in PowerShell was redacted"
+    }
+    if ($snapshot7Content.Contains('synthetic-property-value')) {
+        throw "ASSERTION FAILED: Sensitive property-file value was not redacted"
+    }
+    if (-not $snapshot7Content.Contains('vault_password = [REDACTED: potential secret at gradle.properties:1]')) {
+        throw "ASSERTION FAILED: Included build property did not receive labeled redaction"
+    }
+    Write-Host "  -> PASS: Mapping and synthetic script preserved; sensitive config value redacted." -ForegroundColor Green
+
+    Write-Host "`nAll 7 fixture assertions passed successfully!" -ForegroundColor Green
 } finally {
     # Clean up fixture
     if (Test-Path -LiteralPath $fixtureDir) {

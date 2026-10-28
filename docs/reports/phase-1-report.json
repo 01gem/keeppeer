@@ -1,0 +1,123 @@
+{
+  "phase": 1,
+  "outcome": "complete",
+  "summary": "Phase 1 implementation and available host verification complete. Finished the existing partial Room/repository foundation and implemented synthetic-entry CRUD, reactive metadata-only literal Unicode-aware search, ID-only Compose navigation, loading/error/missing states, ViewModel-only sensitive drafts, duplicate-save prevention, password masking, favorite/category editing, atomic timestamps, and explicit unencrypted development notices. Disabled release variant before packaging/signing task creation. Preserved offline/backup policy, manual DI, minSdk 24, and exported Room schema. Device execution remains pending, documented separately. No Phase 2+ features were started. Repaired exporter false positives by scoping Kotlin heuristics to Kotlin files and property heuristics to config files; synthetic test code and mapping expressions remain fully reviewable.",
+  "checks": [
+    {
+      "name": ".\\gradlew.bat :app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain (initial run)",
+      "result": "FAIL (resolved)",
+      "timestamp": "2026-10-29 (initial verification; exact completion time not recorded)",
+      "details": "Debug assembly and lint passed; 5 ViewModel/template tests passed, 5 Room tests failed because inherited Robolectric 4.14.1 ASM could not parse JDK 25 class version 69. Updated to verified stable Robolectric 4.17 and documented JDK module access flags. Final run below passes.",
+      "sourceState": "commit 29a8466 plus uncommitted Phase 1 work; resumed existing partial data foundation"
+    },
+    {
+      "name": ".\\gradlew.bat :app:assembleDebug :app:testDebugUnitTest :app:lintDebug :app:assembleDebugAndroidTest --console=plain",
+      "result": "PASS",
+      "timestamp": "2026-10-29 07:12:01 AM PHT",
+      "details": "All four tasks successful. Debug APK and device-test APK assembled. 10 unit tests passed, 0 failures/skips: 5 real Room/SQLite repository tests under Robolectric API 28, 4 ViewModel tests, 1 existing template test. Lint: 0 errors, 10 warnings (redundant label, newer Compose plugin available, 8 unused template resources).",
+      "sourceState": "commit 29a8466 plus uncommitted Phase 1 work; resumed existing partial data foundation"
+    },
+    {
+      "name": "Merged debug AndroidManifest.xml inspection",
+      "result": "PASS",
+      "timestamp": "2026-10-29 (initial verification; exact completion time not recorded)",
+      "details": "Application class registered; minSdk 24, targetSdk 37; allowBackup false; cloud/device-transfer exclusion references retained; no INTERNET or storage permissions. Existing transitive biometric and internal signature permission declarations remain.",
+      "sourceState": "commit 29a8466 plus uncommitted Phase 1 work; resumed existing partial data foundation"
+    },
+    {
+      "name": ".\\gradlew.bat :app:assembleRelease --console=plain",
+      "result": "PASS (expected rejection)",
+      "timestamp": "2026-10-29 07:12:23 AM PHT",
+      "details": "Nonzero exit: assembleRelease task does not exist because AndroidComponents disables the release variant before task creation.",
+      "sourceState": "commit 29a8466 plus uncommitted Phase 1 work; resumed existing partial data foundation"
+    },
+    {
+      "name": ".\\gradlew.bat :app:bundleRelease --console=plain",
+      "result": "PASS (expected rejection)",
+      "timestamp": "2026-10-29 07:12:23 AM PHT",
+      "details": "Nonzero exit: bundleRelease task does not exist because the release variant is disabled; no release APK/AAB generated.",
+      "sourceState": "commit 29a8466 plus uncommitted Phase 1 work; resumed existing partial data foundation"
+    },
+    {
+      "name": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\tools\\test-export-source-code.ps1",
+      "result": "PASS",
+      "timestamp": "2026-10-29 07:17:58 AM PHT (successful final fixture result observed)",
+      "details": "All 7 isolated synthetic fixture assertions passed, including file-type-aware redaction preservation: first creation, discovery/exclusions/truthful reporting, repeated atomic replacement/deletion reflection, typed/untyped redaction with underlying source preserved, report mismatch preservation, unreadable source preservation, locked-target replacement preservation/cleanup, preserved Kotlin named-argument mappings and PowerShell synthetic code, and labeled redaction of included sensitive build-property values.",
+      "sourceState": "commit 29a8466 plus uncommitted Phase 1 work; resumed existing partial data foundation"
+    },
+    {
+      "name": "git -c core.safecrlf=false diff --check",
+      "result": "PASS",
+      "timestamp": "2026-10-29 (before final report/export; exact completion time not recorded)",
+      "details": "Passed after removing a blank EOF line and new Markdown trailing whitespace. Only whitespace, documentation, and exporter tooling changes followed the successful final app build; exporter regression suite passed after its fix.",
+      "sourceState": "commit 29a8466 plus uncommitted Phase 1 work; resumed existing partial data foundation"
+    },
+    {
+      "name": "adb devices",
+      "result": "PASS (no attached devices)",
+      "timestamp": "2026-10-29, during implementation",
+      "details": "Empty attached-device list; device-dependent verification unavailable.",
+      "sourceState": "commit 29a8466 plus uncommitted Phase 1 work; resumed existing partial data foundation"
+    },
+    {
+      "name": ".\\gradlew.bat :app:connectedDebugAndroidTest / interactive runtime checks",
+      "result": "NOT RUN",
+      "timestamp": "2026-10-29",
+      "details": "No connected Android device/emulator. Three new device tests compile: in-memory CRUD, database reopen persistence, and Activity recreation draft/cancel behavior. Interactive launch/restart, rotation, process death, keyboard/insets and API 24/25 checks remain in docs/phase-1-device-checks.md.",
+      "sourceState": "commit 29a8466 plus uncommitted Phase 1 work; resumed existing partial data foundation"
+    }
+  ],
+  "addedPaths": [
+    "app/schemas/com.gem.keeppeer.data.local.AppDatabase/1.json",
+    "app/src/androidTest/java/com/gem/keeppeer/EntryDraftRotationTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/EntryPersistenceTest.kt",
+    "app/src/main/java/com/gem/keeppeer/KeeppeerApplication.kt",
+    "app/src/main/java/com/gem/keeppeer/data/local/AppDatabase.kt",
+    "app/src/main/java/com/gem/keeppeer/data/local/DatabaseProvider.kt",
+    "app/src/main/java/com/gem/keeppeer/data/local/EntryDao.kt",
+    "app/src/main/java/com/gem/keeppeer/data/local/EntryEntity.kt",
+    "app/src/main/java/com/gem/keeppeer/data/repo/EntryRepository.kt",
+    "app/src/main/java/com/gem/keeppeer/data/repo/EntryRepositoryImpl.kt",
+    "app/src/main/java/com/gem/keeppeer/di/AppContainer.kt",
+    "app/src/main/java/com/gem/keeppeer/domain/EntrySummary.kt",
+    "app/src/main/java/com/gem/keeppeer/domain/PasswordEntry.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/components/PrototypePage.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/detail/EntryDetailScreen.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/detail/EntryDetailViewModel.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/edit/EntryEditScreen.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/edit/EntryEditViewModel.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/list/EntryListViewModel.kt",
+    "app/src/test/java/com/gem/keeppeer/EntryEditViewModelTest.kt",
+    "app/src/test/java/com/gem/keeppeer/EntryRepositoryRoomTest.kt",
+    "docs/phase-1-device-checks.md",
+    "docs/reports/phase-1-report.json"
+  ],
+  "modifiedPaths": [
+    ".gitignore",
+    "README.md",
+    "app/build.gradle.kts",
+    "app/src/main/AndroidManifest.xml",
+    "app/src/main/java/com/gem/keeppeer/MainActivity.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/list/PasswordListScreen.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/navigation/KeeppeerNavigation.kt",
+    "docs/phase-status.md",
+    "docs/security.md",
+    "gradle/libs.versions.toml",
+    "tools/export-source-code.ps1",
+    "tools/test-export-source-code.ps1"
+  ],
+  "deletedPaths": [],
+  "unresolvedIssues": [
+    "Plaintext synthetic-only prototype; no real credentials or distribution. Encryption, cryptographic unlock/session/auto-lock, and screen/clipboard protection are Phase 2 work.",
+    "Device tests compiled but not executed; no connected device/emulator. Runtime, restart, actual rotation, process-death and API 24/25 checks remain pending.",
+    "Lint has 10 nonblocking warnings; Gradle reports existing deprecations, and Robolectric Conscrypt emits a JDK native-access warning.",
+    "Search intentionally scans metadata in memory off the main thread for Unicode-aware matching; revisit scalability for large vaults."
+  ],
+  "deviceChecks": "NOT RUN: no connected device/emulator. Instrumentation APK built successfully; see docs/phase-1-device-checks.md.",
+  "draftRestorationPolicy": "All draft fields remain in ViewModel memory across configuration changes; sensitive data is never saved in SavedStateHandle, rememberSaveable, Bundles, arguments, preferences, or logs. Navigation stores IDs only. After process death saved entries reload by ID; unsaved edits can be lost. Reveal resets on rotation/navigation.",
+  "phase2Transition": "Use an explicit verified plaintext-to-SQLCipher migration or obtain confirmation for a synthetic-data reset. Merely swapping the helper factory does not encrypt existing SQLite. Keep release disabled until encrypted storage/authenticated session and lock-time state clearing are verified.",
+  "deviations": [
+    "Used reactive Room metadata projection plus Kotlin contains(ignoreCase=true) instead of SQLite LIKE for consistent Unicode case matching and literal wildcard behavior; no secret fields are selected for lists.",
+    "Updated inherited partial Robolectric dependency from 4.14.1 to verified stable 4.17 after a real JDK 25 incompatibility failure; all tests passed after correction."
+  ]
+}

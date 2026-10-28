@@ -1,6 +1,10 @@
 # Keeppeer — Phase Status
 
-## Current Phase: 0 — Project Foundation & Review Hygiene ✅
+## Current Phase: 1 — Room CRUD & Compose UI
+
+Implementation and host verification complete. Device runtime checks remain pending; see the Phase 1 section below.
+
+## Phase 0 — Project Foundation & Review Hygiene ✅
 
 **Status:** Complete  
 **Date:** 2026-10-29
@@ -97,9 +101,47 @@ Phase 1 will add:
 
 ---
 
-## Phase 1 — Room CRUD & Compose UI ⏳
+## Phase 1 — Room CRUD & Compose UI ✅
 
-**Status:** Not started
+**Status:** Implementation and available host checks complete; device checks pending.
+
+**Date:** 2026-10-29
+
+**Source:** commit `29a8466` plus uncommitted Phase 1 changes (including the partial data foundation already present when work resumed).
+
+### Implemented
+
+- Room version-1 EntryEntity/EntryDao/AppDatabase and exported schema; application-level manual DI registered in the manifest; replaceable plaintext DatabaseProvider with no destructive migration.
+- CRUD repository with exact passwords/notes, nullable optional values, creation timestamps assigned once, and atomic updates that preserve creation time and strictly advance update time.
+- Metadata-only list projection and reactive Unicode-aware case-insensitive search across title/username/URL/category. Literal substring filtering in Kotlin avoids SQLite's ASCII-only LIKE case folding and treats wildcard characters literally. It scans metadata off the main thread; no password/note enters list state.
+- LazyColumn list with stable IDs, search, add FAB, loading/error/retry and empty states. ID-only add/detail/edit navigation; validation, save/cancel, delete confirmation, and missing/deleted-entry handling.
+- Immutable StateFlow ViewModels, lifecycle-aware Compose collection, duplicate-save guards, masked password/reveal controls, editable favorite/category, and scrollable forms with system/IME insets.
+- Drafts live only in ViewModel memory, survive rotation, and are intentionally lost after process death. Saved entries reload by ID; reveal state resets on recreation/navigation. Sensitive drafts are never written to saved state, arguments, preferences, or logs.
+- Persistent synthetic-only development notice. Release variant disabled using AndroidComponents beforeVariants, so packaging/signing tasks cannot be created.
+
+### Verification (Philippine time, 2026-10-29)
+
+| Check | Result | Time | Details |
+|---|---|---|---|
+| `.\\gradlew.bat :app:assembleDebug :app:testDebugUnitTest :app:lintDebug :app:assembleDebugAndroidTest --console=plain` | PASS | 07:12:01 AM | All four tasks successful; debug and instrumentation APKs assembled |
+| Unit tests | PASS | 07:12:01 AM | 10 tests, 0 failures/skips: 5 Room/repository tests, 4 edit-ViewModel tests, 1 existing template test |
+| Lint | PASS with warnings | 07:12:01 AM | 0 errors, 10 warnings: redundant activity label, newer Compose plugin available, 8 unused template resources |
+| Merged debug manifest inspection | PASS | During initial verification | KeeppeerApplication registered; minSdk 24, targetSdk 37; backup disabled; no Internet/storage permissions; backup exclusion resources retained |
+| `:app:assembleRelease` and `:app:bundleRelease` | PASS: blocked as intended | 07:12:23 AM | Each invocation failed task selection because its release task does not exist; no release variant is generated |
+| `powershell -NoProfile -ExecutionPolicy Bypass -File .\\tools\\test-export-source-code.ps1` | PASS | 07:17:58 AM (observed) | All 7 exporter fixture assertions passed, including file-type-aware redaction, atomic replacement and failure preservation |
+| `adb devices` | PASS: no devices attached | Earlier this session | Device-dependent execution unavailable |
+| `:app:connectedDebugAndroidTest`, interactive runtime/rotation/restart checks | NOT RUN | — | Test APK compiles; requires a connected device/emulator. See phase-1-device-checks.md |
+
+The first host test run used the inherited partial implementation's Robolectric 4.14.1 and failed five Room tests with `Unsupported class file major version 69` under JDK 25. Updated to verified stable Robolectric 4.17 with its documented JDK module access flags; all tests then passed. Existing Gradle deprecation and test-native-access warnings remain nonblocking.
+
+### Changed files and handoff
+
+- Added the data/domain/DI/application foundation, EntrySummary projection, list/edit/detail ViewModels and screens, PrototypePage, Room schema, focused JVM and instrumentation tests, device checklist, and structured Phase 1 report.
+- Modified app Gradle configuration/version catalog, manifest/MainActivity wiring, list/navigation screens, README, security/status documentation, and snapshot backup ignore rules. Updated the exporter and its regression suite to eliminate false-positive source redactions.
+- Deleted paths: none. Full path lists and exact check history are in `docs/reports/phase-1-report.json`.
+- Reuse `tools/export-source-code.ps1 -Phase 1 -Outcome complete` for the mandatory current source-code.txt review snapshot. Maintained the existing exporter and fixture helper: Kotlin redaction applies only to Kotlin files, and properties redaction only to configuration files. A new regression checks preservation of mapping expressions/synthetic test code and real labeled redaction of an included build-property value.
+- Phase 2 must use a verified explicit plaintext-to-SQLCipher migration or obtain confirmation for a synthetic-data reset. Replacing the helper factory alone does not encrypt this file. Add real cryptographic authentication/session ownership, lock-time database closure/state clearing, auto-lock and screen/clipboard protection before enabling any release.
+- No generator, CSV, encryption, fake lock, or Phase 4 list filters were implemented. Stop after this Phase 1 handoff.
 
 ## Phase 2 — Encrypted Vault & Authentication ⏳
 

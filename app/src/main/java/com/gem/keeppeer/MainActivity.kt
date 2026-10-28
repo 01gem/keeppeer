@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KeeppeerTheme {
-                KeeppeerApp()
+                KeeppeerApp((application as KeeppeerApplication).container.entryRepository)
             }
         }
     }

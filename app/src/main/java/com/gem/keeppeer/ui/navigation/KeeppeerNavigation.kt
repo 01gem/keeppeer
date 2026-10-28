@@ -1,64 +1,74 @@
 package com.gem.keeppeer.ui.navigation
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.gem.keeppeer.R
+import androidx.compose.runtime.*
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.navigation.NavType
+import androidx.navigation.compose.*
+import androidx.navigation.navArgument
+import com.gem.keeppeer.data.repo.EntryRepository
+import com.gem.keeppeer.ui.detail.EntryDetailScreen
+import com.gem.keeppeer.ui.detail.EntryDetailViewModel
+import com.gem.keeppeer.ui.edit.EntryEditScreen
+import com.gem.keeppeer.ui.edit.EntryEditViewModel
+import com.gem.keeppeer.ui.list.EntryListViewModel
 import com.gem.keeppeer.ui.list.PasswordListScreen
 
-/**
- * Navigation route definitions for the app.
- */
-@Suppress("unused")
-object Routes {
-    const val LOCK = "lock"
-    const val PASSWORD_LIST = "password_list"
-    const val PASSWORD_EDIT = "password_edit"
-    const val SETTINGS = "settings"
-    const val EXPORT = "export"
-}
+private const val LIST = "entries"
+private const val ADD = "entry/new"
+private const val DETAIL = "entry/{entryId}"
+private const val EDIT = "entry/{entryId}/edit"
 
-/**
- * Root composable that hosts the navigation graph.
- * Phase 0: minimal shell — shows a placeholder password list screen.
- * Phase 1 will add real CRUD screens and navigation.
- * Phase 2 will add the lock screen as the start destination.
- */
-@OptIn(ExperimentalMaterial3Api::class)
+// Only numeric IDs enter navigation arguments. ViewModels own all entry data.
 @Composable
-fun KeeppeerApp() {
-    val navController = rememberNavController()
-
-    NavHost(
-        navController = navController,
-        startDestination = Routes.PASSWORD_LIST,
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        composable(Routes.PASSWORD_LIST) {
-            Scaffold(
-                topBar = {
-                    CenterAlignedTopAppBar(
-                        title = {
-                            Text(
-                                text = stringResource(R.string.app_name),
-                                style = MaterialTheme.typography.titleLarge,
-                            )
-                        },
-                    )
-                },
-            ) { innerPadding ->
-                PasswordListScreen(modifier = Modifier.padding(innerPadding))
+fun KeeppeerApp(repository: EntryRepository) {
+    val nav = rememberNavController()
+    NavHost(navController = nav, startDestination = LIST) {
+        composable(LIST) {
+            val vm: EntryListViewModel = viewModel(factory = viewModelFactory {
+                initializer { EntryListViewModel(repository) }
+            })
+            val state by vm.state.collectAsStateWithLifecycle()
+            PasswordListScreen(state, vm::search, vm::retry,
+                onAdd = { nav.navigate(ADD) },
+                onEntry = { nav.navigate("entry/$it") },
+            )
+        }
+        composable(ADD) {
+            val vm: EntryEditViewModel = viewModel(factory = viewModelFactory {
+                initializer { EntryEditViewModel(repository, null) }
+            })
+            val state by vm.state.collectAsStateWithLifecycle()
+            LaunchedEffect(state.savedId) {
+                state.savedId?.let { id ->
+                    nav.navigate("entry/$id") { popUpTo(LIST) }
+                }
             }
+            EntryEditScreen(state, false, vm::change, vm::save, { nav.popBackStack() }, vm::load)
+        }
+        composable(DETAIL, arguments = listOf(navArgument("entryId") { type = NavType.LongType })) { backStack ->
+            val id = requireNotNull(backStack.arguments).getLong("entryId")
+            val vm: EntryDetailViewModel = viewModel(factory = viewModelFactory {
+                initializer { EntryDetailViewModel(repository, id) }
+            })
+            val state by vm.state.collectAsStateWithLifecycle()
+            LaunchedEffect(state.deleted) {
+                if (state.deleted) nav.popBackStack(LIST, inclusive = false)
+            }
+            EntryDetailScreen(state, { nav.popBackStack() }, { nav.navigate("entry/$id/edit") }, vm::delete, vm::retry)
+        }
+        composable(EDIT, arguments = listOf(navArgument("entryId") { type = NavType.LongType })) { backStack ->
+            val id = requireNotNull(backStack.arguments).getLong("entryId")
+            val vm: EntryEditViewModel = viewModel(factory = viewModelFactory {
+                initializer { EntryEditViewModel(repository, id) }
+            })
+            val state by vm.state.collectAsStateWithLifecycle()
+            LaunchedEffect(state.savedId) {
+                if (state.savedId != null) nav.popBackStack()
+            }
+            EntryEditScreen(state, true, vm::change, vm::save, { nav.popBackStack() }, vm::load)
         }
     }
 }

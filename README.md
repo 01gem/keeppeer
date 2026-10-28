@@ -2,7 +2,7 @@
 
 An offline-only Android password keeper built with Kotlin, Jetpack Compose, and Material 3. All data stays on-device with no network access.
 
-> ⚠️ **Development prototype** — This app is under active development and is **not ready for real credentials**. The upcoming Phase 1 plaintext database stores synthetic data only.
+> ⚠️ **Phase 1 development prototype** — The SQLite database is **unencrypted**. Use synthetic entries only. The release variant is disabled; this app is not ready for real credentials or distribution.
 
 ## Features (V1 Roadmap)
 
@@ -85,7 +85,7 @@ The project uses a structured, verifiable source-code review workflow:
 1. **Update Structured Report**: Before exporting, update or create the phase report file at `docs/reports/phase-<Phase>-report.json` with actual check results (PASS/FAIL/NOT RUN), execution timestamps, added/modified/deleted paths, and implementation notes.
 2. **Execute Exporter**:
    ```powershell
-   .\tools\export-source-code.ps1 -Phase 0 -Outcome complete
+   .\tools\export-source-code.ps1 -Phase 1 -Outcome complete
    ```
    The exporter discovers all reviewable source, verifies project metadata, applies heuristic secret redaction to the review copy without modifying disk files, validates boundaries, and atomically replaces `source-code.txt` using `System.IO.File.Replace`.
 3. **Verify Exporter Functionality**:
@@ -93,7 +93,29 @@ The project uses a structured, verifiable source-code review workflow:
    ```powershell
    .\tools\test-export-source-code.ps1
    ```
-   This creates an isolated synthetic temporary project, testing first write, repeated atomic replacement, typed/untyped secret redaction, deletion reflection, unreadable-source I/O failure, report outcome mismatch, and locked-destination replacement failure.
+   This creates an isolated synthetic temporary project with seven checks: first write, repeated atomic replacement/deletion reflection, typed/untyped secret redaction, unreadable-source I/O failure, report outcome mismatch, locked-destination replacement failure, and file-type-aware redaction. The last check preserves ordinary Kotlin mappings and synthetic source embedded in scripts while verifying labeled redaction of an included sensitive build-property value.
+
+## Phase 1: CRUD prototype
+
+- Add a synthetic entry from the list, open its details, edit it, or delete it after confirmation. Cancel/back discards the draft without writing.
+- Title is required. Passwords and notes retain exact input, including spaces, Unicode, and line breaks. Username, URL, category, and notes are optional. Favorite/category values are editable and stored; their list filters arrive in Phase 4.
+- Search is a case-insensitive literal substring match across title, username, URL, and category. Kotlin matches Unicode case variants on a Room metadata-only projection because SQLite LIKE/NOCASE only folds ASCII. Percent signs, underscores, and backslashes are literal. Passwords and notes are neither selected for list rows nor searched. This scans metadata in memory, appropriate for the small offline prototype.
+- Creation sets both timestamps to the same epoch millisecond. Updates preserve stored creation time and strictly advance modification time, even within one millisecond or after a clock rollback.
+- Each navigation destination owns a ViewModel and exposes immutable StateFlow state collected with the lifecycle. Navigation contains numeric IDs only.
+- Drafts survive rotation in ViewModel memory. Password reveal resets on rotation/navigation. After process death, saved entries reload by ID and unsaved sensitive drafts are lost. No draft, password, notes, or search text is written to saved state/preferences.
+- Manual DI uses KeeppeerApplication and AppContainer. DatabaseProvider is the replaceable database-opening boundary; no destructive migration fallback is configured.
+- Phase 2 must implement an explicitly verified plaintext-to-SQLCipher migration or obtain confirmation to reset synthetic data. Installing a SQLCipher helper alone does not encrypt an existing database. Keep release disabled until real vault/session protection is verified.
+
+Verification results are in [docs/phase-status.md](docs/phase-status.md) and [docs/reports/phase-1-report.json](docs/reports/phase-1-report.json). Device steps are in [docs/phase-1-device-checks.md](docs/phase-1-device-checks.md).
+
+Additional checks:
+
+```powershell
+.\gradlew.bat :app:assembleDebugAndroidTest
+.\gradlew.bat :app:connectedDebugAndroidTest
+```
+
+Room/repository tests run against real in-memory SQLite under Robolectric 4.17 / API 28 (verified against the [official compatibility table](https://robolectric.org/compatibility_table/) and [JDK setup guidance](https://robolectric.org/getting-started/)); device instrumentation covers in-memory CRUD, persistence after database reopen, rotation, and cancel. Device tests require a connected emulator/device. The lifecycle-runtime-compose dependency stays pinned to Lifecycle 2.11.0, verified using the IDE version lookup and [official lifecycle guidance](https://developer.android.com/topic/libraries/architecture/lifecycle).
 
 ## Phase Status
 

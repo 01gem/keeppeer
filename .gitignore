@@ -23,6 +23,7 @@ keystore.properties
 # Generated review snapshot
 source-code.txt
 source-code.txt.tmp
+source-code.txt.bak
 
 # Secrets / environment
 .env

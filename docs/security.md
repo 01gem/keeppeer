@@ -4,7 +4,7 @@
 
 Keeppeer is an offline-only password keeper. All credentials remain on-device with no network access.
 
-## Current Security Posture (Phase 0)
+## Current Security Posture (Phase 1 plaintext prototype)
 
 ### Network Isolation
 
@@ -27,6 +27,15 @@ Keeppeer is an offline-only password keeper. All credentials remain on-device wi
 - No permissions are declared by the app.
 - `INTERNET` is proactively removed from any dependency that may add it.
 - No broad storage permissions (`READ_EXTERNAL_STORAGE`, `WRITE_EXTERNAL_STORAGE`, `MANAGE_EXTERNAL_STORAGE`). CSV import/export will use SAF (`ACTION_OPEN_DOCUMENT` / `ACTION_CREATE_DOCUMENT`).
+
+### Phase 1 Data and UI boundaries
+
+- The database is `keeppeer_prototype.db`, plaintext Room SQLite, for synthetic data only. A development warning appears on every screen.
+- The release variant is disabled before task creation, including packaging/signing. Debug builds are development artifacts and must not be distributed.
+- List/search SQL selects metadata only; passwords and notes are available only through ID-based detail/edit access. Search uses literal Unicode-aware case-insensitive matching in Kotlin off the main thread.
+- Passwords are masked by default in detail/edit; reveal state resets on recreation/navigation. Full draft fields live only in destination ViewModels. They survive rotation but are deliberately lost on process death. IDs are the only entry values in navigation arguments.
+- There is no lock or encryption in this phase. Screenshot/clipboard protection and authenticated sessions remain Phase 2 work.
+- No destructive migration or automatic reset is used. Phase 2 must verify an explicit encryption migration or obtain confirmation for a synthetic-data reset. It must close the database on lock, clear all entry/draft state, and gate the database-opening boundary on cryptographic authentication.
 
 ## Planned Security Features
 

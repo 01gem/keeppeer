@@ -49,7 +49,10 @@ class VaultSession(
     private var timer: Job? = null
     private var backgroundAt: Long? = null
     private var inForeground = false
-    private var biometricApproval: Long? = null
+    private var biometricApproval: Pair<Long, Cipher>? = null
+    fun cancelBiometricEnrollment(cipher: Cipher) {
+        if (biometricApproval?.second === cipher) biometricApproval = null
+    }
     private val mutableTimeout = MutableStateFlow(
         LockTimeout.entries.firstOrNull { it.name == preferences.getString("timeout", null) } ?: LockTimeout.IMMEDIATE)
     val timeout = mutableTimeout.asStateFlow()
@@ -86,6 +89,7 @@ class VaultSession(
         clipboard.clear()
     }
     fun background() {
+        BiometricDiagnostics.record(BiometricStage.SESSION_BACKGROUND)
         inForeground = false
         clipboard.clear()
         biometricApproval = null
@@ -98,6 +102,7 @@ class VaultSession(
     }
     fun lock() {
         serial++
+        BiometricDiagnostics.record(BiometricStage.SESSION_GENERATION)
         attempt?.cancel()
         attempt = null
         managementJobs.toList().forEach { it.cancel() }
@@ -149,6 +154,7 @@ class VaultSession(
     }
     private fun authenticate(password: CharArray, setup: Boolean) {
         val ticket = ++serial
+        BiometricDiagnostics.record(BiometricStage.SESSION_GENERATION)
         mutableState.value = VaultState(VaultStage.UNLOCKING)
         attempt = scope.launch {
             var result: VaultAccess? = null
@@ -237,45 +243,97 @@ class VaultSession(
         }
     }
 
-    fun prepareBiometricEnrollment(password: CharArray, done: (Cipher?) -> Unit) {
+    fun prepareBiometricEnrollment(password: CharArray, done: (Cipher?, BiometricResult) -> Unit) {
+        BiometricDiagnostics.record(BiometricStage.PASSWORD_INPUT)
+        if (password.isEmpty()) {
+            done(null, BiometricResult(BiometricOutcome.EMPTY_PASSWORD, BiometricStage.PASSWORD_INPUT))
+            return
+        }
         val access = state.value.access
+        if (access == null || !inForeground) {
+            password.fill('\u0000')
+            done(null, BiometricResult(BiometricOutcome.SESSION_EXPIRED, BiometricStage.SESSION_CHECK))
+            return
+        }
+        biometricApproval = null
         manage {
-            var cipher: Cipher? = null
+            var stage = BiometricStage.SESSION_CHECK
             try {
-                withContext(Dispatchers.IO) {
+                val cipher = withContext(Dispatchers.IO) {
                     gate.withLock {
-                        check(access != null && state.value.access === access)
+                        check(state.value.access === access)
+                        stage = BiometricStage.PASSWORD_ENVELOPE_READ
                         val wrapped = envelopes.read()
+                        stage = BiometricStage.PASSWORD_VERIFY
+                        BiometricDiagnostics.record(stage)
                         val verified = try { crypto.unwrap(password, wrapped) } finally { wrapped.fill(0) }
                         try { check(java.security.MessageDigest.isEqual(verified, access.key)) }
                         finally { verified.fill(0) }
                         currentCoroutineContext().ensureActive()
+                        stage = BiometricStage.SESSION_CHECK
                         check(state.value.access === access)
-                        cipher = biometrics.encryptionCipher()
+                        stage = BiometricStage.AVAILABILITY
+                        val code = biometrics.availabilityCode()
+                        BiometricDiagnostics.record(stage, code = code)
+                        if (code != androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS)
+                            return@withLock null
+                        stage = BiometricStage.KEY_GENERATE
+                        biometrics.encryptionCipher()
                     }
                 }
-                if (state.value.access === access && access != null && inForeground) {
-                    biometricApproval = access.id
-                    done(cipher)
-                } else done(null)
-            } catch (_: Exception) { done(null) }
-            finally { password.fill('\u0000') }
+                if (state.value.access !== access || !inForeground) {
+                    done(null, BiometricResult(BiometricOutcome.SESSION_EXPIRED, BiometricStage.SESSION_CHECK))
+                } else if (cipher == null) {
+                    done(null, BiometricResult(BiometricOutcome.UNAVAILABLE, BiometricStage.AVAILABILITY))
+                } else {
+                    biometricApproval = access.id to cipher
+                    done(cipher, BiometricResult.ok())
+                }
+            } catch (error: Exception) {
+                val result = if (stage == BiometricStage.SESSION_CHECK || error is CancellationException) {
+                    BiometricDiagnostics.record(BiometricStage.SESSION_CANCELLED, error)
+                    BiometricResult(BiometricOutcome.SESSION_EXPIRED, BiometricStage.SESSION_CHECK)
+                } else BiometricDiagnostics.failure(stage, error)
+                done(null, result)
+                if (error is CancellationException) throw error
+            } finally { password.fill('\u0000') }
         }
     }
-    fun finishBiometricEnrollment(cipher: Cipher, done: (Boolean) -> Unit) {
+    fun finishBiometricEnrollment(cipher: Cipher, done: (BiometricResult) -> Unit) {
         val access = state.value.access
         val approved = biometricApproval
         biometricApproval = null
         manage {
+            var stage = BiometricStage.APPROVAL_CHECK
             try {
                 withContext(Dispatchers.IO) {
                     gate.withLock {
-                        check(access != null && approved == access.id && state.value.access === access && inForeground)
+                        BiometricDiagnostics.record(stage)
+                        check(access != null && approved?.first == access.id && approved.second === cipher)
+                        stage = BiometricStage.SESSION_CHECK
+                        BiometricDiagnostics.record(stage)
+                        check(state.value.access === access)
+                        stage = BiometricStage.FOREGROUND_CHECK
+                        BiometricDiagnostics.record(stage)
+                        check(inForeground && !deviceLocked())
+                        currentCoroutineContext().ensureActive()
+                        stage = BiometricStage.ENCRYPT_FINAL
                         biometrics.save(cipher, access.key)
                     }
                 }
-                done(true)
-            } catch (_: Exception) { done(false) }
+                if (state.value.access === access && inForeground) {
+                    BiometricDiagnostics.record(BiometricStage.COMPLETE)
+                    done(BiometricResult.ok())
+                } else done(BiometricResult(BiometricOutcome.SESSION_EXPIRED, BiometricStage.SESSION_CHECK))
+            } catch (error: Exception) {
+                val result = if (stage in listOf(BiometricStage.APPROVAL_CHECK, BiometricStage.SESSION_CHECK,
+                        BiometricStage.FOREGROUND_CHECK) || error is CancellationException) {
+                    BiometricDiagnostics.record(stage, error)
+                    BiometricResult(BiometricOutcome.SESSION_EXPIRED, stage)
+                } else BiometricDiagnostics.failure(stage, error)
+                done(result)
+                if (error is CancellationException) throw error
+            }
         }
     }
     fun disableBiometric(done: (Boolean) -> Unit) {
@@ -286,9 +344,12 @@ class VaultSession(
             done(removed)
         }
     }
-    fun unlockBiometric(cipher: Cipher) {
-        if (state.value.stage !in listOf(VaultStage.LOCKED, VaultStage.RECOVERABLE_ERROR)) return
+    fun unlockBiometric(cipher: Cipher, done: (BiometricResult) -> Unit = {}) {
+        if (state.value.stage !in listOf(VaultStage.LOCKED, VaultStage.RECOVERABLE_ERROR)) {
+            done(BiometricResult(BiometricOutcome.SESSION_EXPIRED, BiometricStage.SESSION_CHECK)); return
+        }
         val ticket = ++serial
+        BiometricDiagnostics.record(BiometricStage.SESSION_GENERATION)
         mutableState.value = VaultState(VaultStage.UNLOCKING)
         attempt = scope.launch {
             var result: VaultAccess? = null
@@ -298,7 +359,9 @@ class VaultSession(
                         check(envelopes.exists() && activeDatabaseExists())
                         val key = biometrics.decrypt(cipher)
                         try {
-                            val db = EncryptedDatabaseProvider.open(context, key)
+                            val db = BiometricDiagnostics.at(BiometricStage.DATABASE_OPEN) {
+                                EncryptedDatabaseProvider.open(context, key)
+                            }
                             result = VaultAccess(ticket, db, key, passwordAuthenticated = false)
                         } catch (failure: Exception) { key.fill(0); throw failure }
                     }
@@ -306,10 +369,18 @@ class VaultSession(
                 if (serial == ticket && inForeground && !deviceLocked()) {
                     mutableState.value = VaultState(VaultStage.UNLOCKED, result)
                     result = null
-                } else if (serial == ticket) lock()
-            } catch (_: Exception) {
+                    BiometricDiagnostics.record(BiometricStage.COMPLETE)
+                    done(BiometricResult.ok())
+                } else {
+                    if (serial == ticket) lock()
+                    done(BiometricResult(BiometricOutcome.SESSION_EXPIRED, BiometricStage.SESSION_CHECK))
+                }
+            } catch (error: Exception) {
+                val failure = BiometricDiagnostics.failure(BiometricStage.DECRYPT_FINAL, error)
                 if (serial == ticket) mutableState.value = VaultState(VaultStage.RECOVERABLE_ERROR,
-                    message = "Biometric unlock unavailable. Use your master password; re-enable biometrics in Security settings.")
+                    message = failure.message())
+                done(failure)
+                if (error is CancellationException) throw error
             } finally {
                 result?.let { abandoned -> abandoned.revoke(); withContext(NonCancellable + Dispatchers.IO) { abandoned.close() } }
             }

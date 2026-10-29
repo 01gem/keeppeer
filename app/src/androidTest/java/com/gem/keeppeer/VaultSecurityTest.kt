@@ -89,6 +89,8 @@ class VaultSecurityTest {
         main { session.lock() }
         assertNull(session.state.value.access)
         try { access.repository.getById(id); fail("Stale repository must be revoked") } catch (_: IllegalStateException) {}
+        try { access.repository.create(PasswordEntry(title = "Synthetic stale write", password = "synthetic")); fail("Stale writes must be revoked") }
+        catch (_: IllegalStateException) {}
         val restarted = VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false })
         assertEquals(VaultStage.LOCKED, restarted.state.value.stage)
         main { restarted.foreground(); restarted.unlock(password) }
@@ -110,6 +112,9 @@ class VaultSecurityTest {
         val resumed = VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false })
         main { resumed.foreground(); resumed.unlock(password) }
         unlocked(resumed)
+        val resumedKey = crypto.unwrap(password, store.read())
+        try { assertArrayEquals("Pending creation must retain its original generated key", key, resumedKey) }
+        finally { resumedKey.fill(0) }
         assertFalse(store.readRecord().creationPending)
         main { resumed.lock() }
         // Wait until the revoked database has closed before simulating file loss.

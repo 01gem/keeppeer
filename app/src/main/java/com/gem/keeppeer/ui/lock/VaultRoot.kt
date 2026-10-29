@@ -18,7 +18,7 @@ import com.gem.keeppeer.ui.components.PrototypePage
 import com.gem.keeppeer.ui.navigation.KeeppeerApp
 import javax.crypto.Cipher
 
-typealias BiometricAction = (Boolean, Cipher, (Boolean) -> Unit) -> Unit
+typealias BiometricAction = (Boolean, Cipher, (BiometricResult) -> Unit) -> Unit
 
 @Composable
 fun VaultRoot(session: VaultSession, biometric: BiometricAction) {
@@ -74,11 +74,11 @@ private fun LockScreen(state: VaultState, session: VaultSession, biometric: Biom
                         OutlinedButton(onClick = {
                             try {
                                 val cipher = session.biometrics.decryptionCipher()
-                                biometric(false, cipher) { success ->
-                                    if (!success) biometricMessage = "Biometrics cancelled or unavailable. Use your master password."
+                                biometric(false, cipher) { result ->
+                                    if (!result.success) biometricMessage = result.message()
                                 }
-                            } catch (_: Exception) {
-                                biometricMessage = "Biometric key unavailable or invalidated. Use your master password and re-enable in Security settings."
+                            } catch (error: Exception) {
+                                biometricMessage = BiometricDiagnostics.failure(BiometricStage.DECRYPT_INIT, error).message()
                             }
                         }) { Text("Unlock with biometrics") }
                     }
@@ -114,6 +114,7 @@ private fun SecuritySettings(session: VaultSession, biometric: BiometricAction, 
     var message by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
     var enabled by remember { mutableStateOf(session.biometrics.enabled()) }
+    var confirmBiometric by remember { mutableStateOf(false) }
     BackHandler(enabled = busy) {}
     PrototypePage("Security settings", if (busy) null else back) {
         Column(Modifier.fillMaxWidth().weight(1f).verticalScroll(rememberScrollState()).padding(16.dp),
@@ -141,7 +142,7 @@ private fun SecuritySettings(session: VaultSession, biometric: BiometricAction, 
             HorizontalDivider()
             Text("Biometric unlock", style = MaterialTheme.typography.titleMedium)
             Text(if (enabled) "Enabled. Master password fallback remains available."
-                else if (session.biometrics.available()) "Available. Enter your current master password above to enable."
+                else if (session.biometrics.available()) "Available. Enable biometrics to confirm your current master password."
                 else "Strong biometrics are unavailable or not enrolled. Master password unlock remains available.")
             if (enabled) OutlinedButton(enabled = !busy, onClick = {
                 session.disableBiometric { removed ->
@@ -150,17 +151,52 @@ private fun SecuritySettings(session: VaultSession, biometric: BiometricAction, 
                 }
             }) { Text("Disable biometrics") }
             else Button(enabled = !busy && session.biometrics.available(), onClick = {
-                val password = current.toCharArray(); current = ""; busy = true
-                session.prepareBiometricEnrollment(password) { cipher ->
-                    if (cipher == null) { message = "Password verification or biometric setup failed."; busy = false }
-                    else biometric(true, cipher) { success ->
-                        enabled = session.biometrics.enabled()
-                        message = if (success) "Biometric unlock enabled." else "Biometrics cancelled or unavailable. Password unlock remains available."
-                        busy = false
-                    }
-                }
+                confirmBiometric = true
             }) { Text("Enable biometrics") }
             message?.let { Text(it) }
         }
     }
+    if (confirmBiometric) BiometricPasswordDialog(
+        dismiss = { confirmBiometric = false },
+        confirm = { password ->
+            confirmBiometric = false
+            busy = true
+            session.prepareBiometricEnrollment(password) { cipher, result ->
+                if (cipher == null) { message = result.message(); busy = false }
+                else biometric(true, cipher) { outcome ->
+                    enabled = session.biometrics.enabled()
+                    message = if (outcome.success) "Biometric unlock enabled." else outcome.message()
+                    busy = false
+                }
+            }
+        },
+    )
+}
+
+/** Confirmation is local memory only and independent of the password-change form. */
+@Composable
+internal fun BiometricPasswordDialog(dismiss: () -> Unit, confirm: (CharArray) -> Unit) {
+    var password by remember { mutableStateOf("") }
+    var error by remember { mutableStateOf<String?>(null) }
+    AlertDialog(
+        onDismissRequest = { password = ""; dismiss() },
+        title = { Text("Confirm biometric enrollment") },
+        text = {
+            Column {
+                Text("Enter your current master password. Then authenticate with a strong biometric.")
+                PasswordInput("Current master password for biometrics", password, { password = it; error = null })
+                error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+            }
+        },
+        confirmButton = { TextButton(onClick = {
+            if (password.isEmpty()) error = BiometricResult(
+                BiometricOutcome.EMPTY_PASSWORD, BiometricStage.PASSWORD_INPUT).message()
+            else {
+                val input = password.toCharArray()
+                password = ""
+                confirm(input)
+            }
+        }) { Text("Continue to fingerprint") } },
+        dismissButton = { TextButton(onClick = { password = ""; dismiss() }) { Text("Cancel") } },
+    )
 }

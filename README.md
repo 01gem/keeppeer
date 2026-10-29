@@ -107,7 +107,7 @@ The project uses a structured, verifiable source-code review workflow:
 - A first-creation journal permits password-authenticated resumption after interruption. Missing/corrupt active vaults or unavailable Keystore keys fail closed without recreating data.
 - Instrumentation uses isolated synthetic file directories and unique test Keystore aliases. It does not reset a developer's normal vault.
 
-See [security.md](docs/security.md), [phase status](docs/phase-status.md), and the [device checklist](docs/phase-2-device-checks.md) for limitations and actual verification.
+See [security.md](docs/security.md), [phase status](docs/phase-status.md), and the [device checklist](docs/phase-2-device-checks.md) for limitations and actual verification. The [biometric investigation](docs/phase-2-biometric-diagnosis.md) records the reproduced post-scan failure, focused AAD ordering fix, test evidence and installed APK identity. Enrollment now uses its own current-password confirmation dialog; it does not use the password-change fields. Phase 2 remains incomplete.
 
 ## Phase 1: preserved CRUD behavior
 
@@ -122,12 +122,17 @@ See [security.md](docs/security.md), [phase status](docs/phase-status.md), and t
 
 Verification results are in [docs/phase-status.md](docs/phase-status.md) and [docs/reports/phase-1-report.json](docs/reports/phase-1-report.json). Device steps are in [docs/phase-1-device-checks.md](docs/phase-1-device-checks.md).
 
-Additional checks:
+Additional device checks (preserve an installed vault with in-place replacements and the isolated runner):
 
 ```powershell
-.\gradlew.bat :app:assembleDebugAndroidTest
-.\gradlew.bat :app:connectedDebugAndroidTest
+.\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+adb shell pm list instrumentation
+adb shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner
 ```
+
+Confirm host/installed APK identities and runner target before execution. Do not uninstall, clear app data or use a harness that removes the normal app. See the Phase 2 checklist/report for source-specific counts and remaining hardware/API checks.
 
 Room/repository tests run against real in-memory SQLite under Robolectric 4.17 / API 28 (verified against the [official compatibility table](https://robolectric.org/compatibility_table/) and [JDK setup guidance](https://robolectric.org/getting-started/)); device instrumentation covers in-memory CRUD, persistence after database reopen, rotation, and cancel. Device tests require a connected emulator/device. The lifecycle-runtime-compose dependency stays pinned to Lifecycle 2.11.0, verified using the IDE version lookup and [official lifecycle guidance](https://developer.android.com/topic/libraries/architecture/lifecycle).
 

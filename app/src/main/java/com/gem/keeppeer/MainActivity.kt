@@ -12,7 +12,7 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.gem.keeppeer.security.VaultSession
+import com.gem.keeppeer.security.*
 import com.gem.keeppeer.ui.lock.VaultRoot
 import com.gem.keeppeer.ui.theme.KeeppeerTheme
 import javax.crypto.Cipher
@@ -20,10 +20,10 @@ import javax.crypto.Cipher
 class MainActivity : FragmentActivity() {
     private val session: VaultSession get() = (application as KeeppeerApplication).container.session
     private var prompt: BiometricPrompt? = null
-    private var promptDone: ((Boolean) -> Unit)? = null
+    private var cancelPrompt: (() -> Unit)? = null
     private val screenOff = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.action == Intent.ACTION_SCREEN_OFF) { prompt?.cancelAuthentication(); session.lock() }
+            if (intent?.action == Intent.ACTION_SCREEN_OFF) { cancelPrompt?.invoke(); session.lock() }
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,43 +34,80 @@ class MainActivity : FragmentActivity() {
             ContextCompat.RECEIVER_NOT_EXPORTED)
         setContent { KeeppeerTheme { VaultRoot(session, ::authenticateBiometric) } }
     }
-    override fun onStart() { super.onStart(); session.foreground() }
+    override fun onStart() {
+        super.onStart()
+        BiometricDiagnostics.record(BiometricStage.ACTIVITY_START)
+        session.foreground()
+    }
     override fun onStop() {
-        prompt?.cancelAuthentication()
-        // A configuration change does not count as backgrounding.
+        BiometricDiagnostics.record(BiometricStage.ACTIVITY_STOP)
+        cancelPrompt?.invoke()
         if (!isChangingConfigurations) session.background()
         super.onStop()
     }
     override fun onDestroy() {
-        prompt?.cancelAuthentication()
-        promptDone = null
+        BiometricDiagnostics.record(BiometricStage.ACTIVITY_DESTROY)
+        cancelPrompt?.invoke()
         unregisterReceiver(screenOff)
         super.onDestroy()
     }
-    private fun authenticateBiometric(enroll: Boolean, cipher: Cipher, done: (Boolean) -> Unit) {
-        prompt?.cancelAuthentication()
-        promptDone = done
-        val expected = cipher
-        prompt = BiometricPrompt(this, ContextCompat.getMainExecutor(this),
+    private fun authenticateBiometric(enroll: Boolean, cipher: Cipher, done: (BiometricResult) -> Unit) {
+        cancelPrompt?.invoke()
+        var completed = false
+        var awaitingPrompt = true
+        lateinit var localPrompt: BiometricPrompt
+        fun complete(result: BiometricResult) {
+            if (completed) return
+            completed = true
+            if (enroll && !result.success) session.cancelBiometricEnrollment(cipher)
+            if (prompt === localPrompt) { prompt = null; cancelPrompt = null }
+            done(result)
+        }
+        localPrompt = BiometricPrompt(this, ContextCompat.getMainExecutor(this),
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    BiometricDiagnostics.record(BiometricStage.PROMPT_SUCCEEDED)
+                    if (completed || !awaitingPrompt) return
+                    awaitingPrompt = false
                     val authenticated = result.cryptoObject?.cipher
-                    val callback = promptDone
-                    promptDone = null
-                    if (authenticated !== expected) { callback?.invoke(false); return }
-                    if (enroll) session.finishBiometricEnrollment(authenticated) { callback?.invoke(it) }
-                    else { session.unlockBiometric(authenticated); callback?.invoke(true) }
+                    BiometricDiagnostics.record(BiometricStage.CIPHER_BINDING)
+                    if (authenticated !== cipher) {
+                        complete(BiometricResult(BiometricOutcome.CIPHER_MISMATCH, BiometricStage.CIPHER_BINDING))
+                        return
+                    }
+                    if (enroll) session.finishBiometricEnrollment(authenticated, ::complete)
+                    else session.unlockBiometric(authenticated, ::complete)
+                }
+                override fun onAuthenticationFailed() {
+                    // A rejected scan is nonterminal: the system prompt permits another attempt.
+                    BiometricDiagnostics.record(BiometricStage.PROMPT_FAILED)
                 }
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                    promptDone?.invoke(false)
-                    promptDone = null
+                    BiometricDiagnostics.record(BiometricStage.PROMPT_ERROR, code = errorCode)
+                    if (!awaitingPrompt) return
+                    val outcome = when (errorCode) {
+                        BiometricPrompt.ERROR_CANCELED, BiometricPrompt.ERROR_USER_CANCELED,
+                        BiometricPrompt.ERROR_NEGATIVE_BUTTON -> BiometricOutcome.CANCELLED
+                        BiometricPrompt.ERROR_LOCKOUT, BiometricPrompt.ERROR_LOCKOUT_PERMANENT -> BiometricOutcome.LOCKOUT
+                        else -> BiometricOutcome.UNAVAILABLE
+                    }
+                    complete(BiometricResult(outcome, BiometricStage.PROMPT_ERROR, errorCode))
                 }
             })
+        prompt = localPrompt
+        cancelPrompt = {
+            BiometricDiagnostics.record(BiometricStage.SESSION_CANCELLED)
+            complete(BiometricResult(BiometricOutcome.SESSION_EXPIRED, BiometricStage.SESSION_CANCELLED))
+            localPrompt.cancelAuthentication()
+        }
         try {
-            prompt?.authenticate(BiometricPrompt.PromptInfo.Builder()
+            BiometricDiagnostics.record(BiometricStage.PROMPT_LAUNCH)
+            localPrompt.authenticate(BiometricPrompt.PromptInfo.Builder()
                 .setTitle(if (enroll) "Enable biometric unlock" else "Unlock Keeppeer")
                 .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
                 .setNegativeButtonText("Use master password").build(), BiometricPrompt.CryptoObject(cipher))
-        } catch (_: Exception) { promptDone?.invoke(false); promptDone = null }
+        } catch (error: Exception) {
+            complete(BiometricDiagnostics.failure(BiometricStage.PROMPT_LAUNCH, error))
+        }
     }
 }

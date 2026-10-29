@@ -1,6 +1,39 @@
 # Keeppeer — Phase Status
 
-## Phase 2 — Encrypted vault and authenticated sessions
+## Phase 2 verification continuation — 2026-10-29
+
+**Outcome: incomplete. Release remains disabled; Phase 3 is not started.**
+
+**Final current full suite: PASS — 21 expected/executed/passed, 0 failed/skipped, completed in 647.604 s at 2026-10-29 01:50:59 PM PHT.** Test APK `347d3b00c03f61cb9c5a1b09cdaa50bc14f45e5b792eba67690477d9c95ac369`; installed/host app and test hashes match. Final Unicode KDF portable/platform: 11,693/15,528 ms at 600,000 iterations; 1,675 main-loop ticks, maximum gap 17 ms. Selection/Ctrl+C expiry: 30,015 ms. All 7 exporter fixtures passed at 01:52:13 PM PHT.
+
+Retained trace from the interrupted attempt shows ACTIVITY_START at 01:31:00.871, fixture generation at 01:31:01.426, ACTIVITY_STOP/SESSION_BACKGROUND/generation revocation at 01:31:04.691, then restart at 01:31:06.041. This explains authentication cancellation; the initiating Activity transition is unidentified. The later full pass is separate evidence, not a claim to have reconstructed that transition.
+
+Current source reference: commit `76487e762bea52aa03aefffff39e121991065c17` plus the local diagnostic/AAD-fix tree and this follow-up's test/document changes. Production code is unchanged in this follow-up. Installed/host app SHA-256: `58c3e0827ad6339f4fc2e16f2c1c167cf466727d6d2b4b2cae94eb55083bda06`. Device: Samsung SM-A125F, Android 12/API 31, app ABI arm64-v8a (device also reports armeabi-v7a/armeabi).
+
+- Restored direct isolated original-suite run: **17 expected/executed/passed, 0 failed/skipped; completed in 442.505 s**, 12:45:13–12:52:44 PM PHT. Test APK `dd5579a90ba810189235628724521e0e6d594395806be9e1635304abde670914`.
+- Added four synthetic acceptance tests and strengthened pending-original-key, stale-write and rotation-reveal assertions. First expanded run: **21 executed, 20 passed, 1 failed, 0 skipped**, completed in 643.717 s at 01:07:31 PM PHT; test APK `bef493645caad79301059dd2f197f7ea2bc165b8deea99313805068c2177b3fb`. The failure was the new test's incorrect expectation that Password semantics disappear after reveal. Replaced it with actual TextLayoutResult checks; the test now verifies revealed text before rotation and masked text afterward.
+- Corrected rotation target: **1/1 passed**, 34.062 s, 01:10:19 PM PHT. Corrected test APK `2ae9601a922290b5e7ca1a75dc10d921d8f7dccabf332d84eef2f81777280f00`. Full current-suite execution is recorded separately in the structured report; a targeted pass is not substituted for it.
+- The next full run (test APK `2ae9601a922290b5e7ca1a75dc10d921d8f7dccabf332d84eef2f81777280f00`) completed at 01:24:45 PM PHT: **21 executed, 20 passed, 1 failed, 0 skipped**, 516.971 s. Rotation passed; the new setup test found its validation message outside the viewport after keyboard input. Added `performScrollTo()` before the visibility assertion, preserving all validation/no-vault-created checks. The corrected setup target passed **1/1 in 42.187 s** at 01:28:27 PM PHT. Viewport-corrected test APK: `e3397300e3602c52906c03488b82bc529d61bd1fcc1b873f36abb3c5433c00d1`.
+- That next 21-test attempt was stopped for investigation after a 120-second pre-rotation fixture unlock timeout: 11 test starts, 10 complete results (9 passes/1 failure), 11 tests without complete results. It did not produce a completed runner summary and is not a passing run. Device inspection found connected/Awake/screen ON/no keyguard input restriction; no recent sleep or evidence of connection loss. Exact setup-timeout cause remains unconfirmed. Test setup now waits for idle UI, asserts an actually resumed Activity, waits for a terminal crypto state and explicitly asserts UNLOCKED. No longer timeout, forced foreground, reset or production change. Current test APK: `347d3b00c03f61cb9c5a1b09cdaa50bc14f45e5b792eba67690477d9c95ac369`; its complete-run result is recorded separately in the report. A subsequent green run does not establish the old timeout's cause.
+- Host app/test assembly and lint passed after test changes. The 15 JVM tests executed successfully earlier in this follow-up (0 failures/skips); unchanged JVM tasks were up to date on subsequent builds. Lint remains 0 errors/14 warnings. Merged manifest retains minSdk 24, disabled backup, no Internet/storage permissions. Release variant remains disabled.
+- Actual normal-phone checks (about 01:10–01:15 PM PHT): cold launch locked; real fingerprint CryptoObject success -> DECRYPT_AAD -> DECRYPT_FINAL -> DATABASE_OPEN -> COMPLETE; existing entry-list access; Security -> Lock now; actual Samsung prompt cancellation via Use master password (code 13); successful fingerprint retry; Home/return locked. Existing entries were not opened/exported, no master password was collected, and the working wrapper/enrollment was preserved.
+- New synthetic checks passed individually in the first expanded run: canceled legacy-reset dialog preserves data, short/mismatched setup rejected, proper setup succeeds; malformed device-envelope length/version/tag preserve exact files and password access after restoration; missing biometric key never regenerates itself; known portable KDF vector plus production-cost Unicode agreement/main-looper progress; Ctrl+C selection copy sensitive marking, about-30-second expiry, and background/foreground clearing. Final-run measurements and counts remain separate from that first expanded run.
+
+Still mandatory: API 24 and API 25 native Keystore/SQLCipher/KDF execution (no attached matching devices, AVDs or installed system images); successful normal-vault password fallback/original-entry-content confirmation; failed scan/lockout/enrollment invalidation/unsupported hardware/disable-re-enable and prompt lifecycle matrix; real timed 1-/5-minute returns and timer-suspended sleep; process-death draft checks, screen-lock and screenshot/recording/recents/dialog/OEM checks. Touch-menu cut, physical keyboard and actually denied clipboard access/retry remain unverified. Monotonic below/at-boundary tests are distinct from real timers. The prompt retry authenticated before Home, so it does not establish prompt-background cancellation.
+
+Commands, source/artifact identities, actual completion counts, timings and inspection-tool limitations are retained in [the structured report](reports/phase-2-report.json) and [device checklist](phase-2-device-checks.md). The unidentified old APK's preparation uncertainty is historical and is not the reason this phase remains open.
+
+## Historical Phase 2 biometric diagnostic follow-up — 2026-10-29
+
+The post-prompt failure was reproduced on the hash-verified diagnostic APK: PROMPT_SUCCEEDED, expected Cipher and approval/session/foreground checks passed, then ENCRYPT_FINAL failed with IllegalBlockSizeException before wrapper write. This was not cancellation or wrong password. The initial preparation error remains a separate unknown.
+
+The pre-update SM-A125F/API 31 installed APK hash differs from the local pre-edit APK. Exact installed source revision is unknown. This follow-up adds stage-specific results/debug diagnostics, exact Cipher/session approval, per-prompt completion and an independent current-password confirmation dialog. No authentication strength, lifetime or lifecycle exemption changes; no data reset. That finalization failure implicates pre-authentication AAD. The focused fix defers the unchanged AAD until immediately before doFinal in both directions, after actual CryptoObject authentication. A new synthetic format/AAD compatibility/tamper regression accompanies the change; final-source phone verification is recorded in the structured report.
+
+Current diagnostic checks: host assembly, 15 JVM tests and lint passed (0 errors, 14 warnings). Direct isolated instrumentation on SM-A125F/API 31 passed all 16 tests in 397.114 seconds, completion observed 2026-10-29 09:37:05 AM PHT. This includes both new dialog/rejection tests and the previously interrupted native/lifecycle/KDF regressions. Real fixed-build fingerprint enrollment now passes ENCRYPT_AAD, ENCRYPT_FINAL, WRAPPER_WRITE and COMPLETE after a real success callback and Cipher/session checks. This confirms encryption/wrapper persistence on the phone and supports the AAD ordering diagnosis. Real biometric decrypt/database open and original-entry/password-fallback confirmation remain separately pending. After the AAD fix, host assembly/15 JVM tests/lint passed again; all 3 targeted biometric device tests passed in 84.001 seconds, including single-AAD/v1 compatibility and tamper rejection. Final installed/host APK SHA-256 is 3554c74680f7aeff0ca0edd2b67793a09f63246a99448b598346676303b3d1e1. The earlier full 16-test pass is pre-AAD-fix; no final full 17-test run is claimed.
+
+See [biometric investigation](phase-2-biometric-diagnosis.md) and [structured results](reports/phase-2-report.json) for artifact hashes, evidence, tests and unresolved manual checks. Phase 2 remains incomplete, release disabled, Phase 3 not started.
+
+## Historical Phase 2 implementation verification — Encrypted vault and authenticated sessions
 
 **Outcome: incomplete — required hardware/API verification remains pending.**
 
@@ -173,7 +206,7 @@ The first host test run used the inherited partial implementation's Robolectric 
 
 ## Phase 2 — Encrypted Vault & Authentication ⏳
 
-**Status:** Not started
+**Status:** Implemented; verification incomplete. See current Phase 2 and biometric diagnostic sections above.
 
 ## Phase 3 — CSV Import/Export ⏳
 

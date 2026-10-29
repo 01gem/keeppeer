@@ -23,7 +23,7 @@ private const val EDIT = "entry/{entryId}/edit"
 
 // Only numeric IDs enter navigation arguments. ViewModels own all entry data.
 @Composable
-fun KeeppeerApp(repository: EntryRepository) {
+fun KeeppeerApp(repository: EntryRepository, onSettings: () -> Unit, onCopy: (String) -> Boolean) {
     val nav = rememberNavController()
     NavHost(navController = nav, startDestination = LIST) {
         composable(LIST) {
@@ -34,6 +34,7 @@ fun KeeppeerApp(repository: EntryRepository) {
             PasswordListScreen(state, vm::search, vm::retry,
                 onAdd = { nav.navigate(ADD) },
                 onEntry = { nav.navigate("entry/$it") },
+                onSettings = onSettings,
             )
         }
         composable(ADD) {
@@ -57,7 +58,7 @@ fun KeeppeerApp(repository: EntryRepository) {
             LaunchedEffect(state.deleted) {
                 if (state.deleted) nav.popBackStack(LIST, inclusive = false)
             }
-            EntryDetailScreen(state, { nav.popBackStack() }, { nav.navigate("entry/$id/edit") }, vm::delete, vm::retry)
+            EntryDetailScreen(state, { nav.popBackStack() }, { nav.navigate("entry/$id/edit") }, vm::delete, vm::retry, onCopy)
         }
         composable(EDIT, arguments = listOf(navArgument("entryId") { type = NavType.LongType })) { backStack ->
             val id = requireNotNull(backStack.arguments).getLong("entryId")

@@ -1,0 +1,123 @@
+{
+  "phase": 2,
+  "outcome": "incomplete",
+  "summary": "Phase 2 implementation is in place: SQLCipher Room vault; random DB key; versioned PBKDF2-HMAC-SHA256/AES-GCM envelopes; independent Keystore storage and per-use biometric wrappers; authenticated initialization journal; explicit synthetic plaintext reset; password setup/unlock/change; centralized revocable session and repository; background/screen lock and memory-state teardown; secure windows and centralized sensitive clipboard. CRUD and project offline/minSdk/backup boundaries are preserved. Phase verification is incomplete: final instrumentation lost its device connection, API 24/25 native execution is unavailable, and biometric/manual coverage remains pending. Release stays disabled. No Phase 3 work was started. Active-vault opens now also reject truncated files and Room onCreate/schema recreation; those new native regressions await a device.",
+  "baselineRevision": "76dbb7be35362533e1fe608e5dad4e69caa82ec2",
+  "checks": [
+    {
+      "name": ".\\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest --console=plain (initial implementation run)",
+      "result": "FAIL (resolved)",
+      "details": "Compilation saw an intermediate biometric constructor signature. Corrected; subsequent complete host commands passed.",
+      "timestamp": "2026-10-29; exact initial completion time not recorded"
+    },
+    {
+      "name": ".\\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest :app:lintDebug --console=plain (initial full host verification)",
+      "result": "PASS",
+      "details": "Debug app and instrumentation APKs assembled; 13 host tests passed (3 crypto, 5 repository/Room, 4 edit ViewModel, 1 template); lint had no errors. This was before the final platform-KDF/management-job refinements.",
+      "timestamp": "2026-10-29; unit crypto suite began 07:54:57 AM PHT"
+    },
+    {
+      "name": ".\\gradlew.bat :app:connectedDebugAndroidTest --console=plain (initial device run)",
+      "result": "FAIL: 9/11 passed",
+      "details": "Samsung SM-A125F, Android 12/API 31. Passed native SQLCipher correct-key reopen, wrong-key/plain-SQLite rejection, device Keystore envelope, failed-write preservation, current-password change/same DB key, cold-session lock, stale-repository rejection, initialization recovery/missing-active-DB preservation, timeout boundaries/device-lock gate, confirmed legacy reset, and existing SQLite CRUD tests. UI test exceeded its 30-second setup wait; clipboard test lacked a focused Activity. Tests were corrected; portable KDF latency led to the equivalent platform implementation on API 26+.",
+      "timestamp": "2026-10-29; before final implementation refinements"
+    },
+    {
+      "name": ".\\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest :app:lintDebug :app:connectedDebugAndroidTest --console=plain",
+      "result": "HOST PASS; DEVICE INTERRUPTED",
+      "details": "Updated debug app/test APKs, 13 host unit tests and lint passed. Final device suite expected 13 tests; only the SQLCipher encryption/reopen/key-rejection test completed and passed. Connection dropped during rotation/UI execution; runner reported status -1 and incomplete run, then device not found. Do not treat the remaining 12 tests or Unicode portable/platform KDF comparison as passed.",
+      "timestamp": "2026-10-29 08:15:52 AM PHT (device result XML)"
+    },
+    {
+      "name": "Merged debug manifest and production source inspection",
+      "result": "PASS (static inspection)",
+      "details": "minSdk 24, targetSdk 37, backup disabled, no Internet/storage permission. No active secret logs, SavedStateHandle/rememberSaveable secret storage, plaintext production provider or destructive migration fallback found. FLAG_SECURE and CryptoObject/actual Cipher operations inspected; this does not substitute for manual device checks.",
+      "timestamp": "2026-10-29"
+    },
+    {
+      "name": "adb devices (after interruption)",
+      "result": "PASS: no devices attached",
+      "details": "No connected device remained for further native/UI execution.",
+      "timestamp": "2026-10-29 after interrupted run"
+    },
+    {
+      "name": "API 24 and API 25 Keystore/SQLCipher runtime compatibility",
+      "result": "NOT RUN",
+      "details": "No corresponding devices or installed emulator system images. Bouncy Castle API-compatible path is implemented and host vectors pass; actual native/Keystore checks remain mandatory."
+    },
+    {
+      "name": "Biometric success/failure/invalidation; actual screen-lock/process-death; screenshot/recents; 30-second clipboard/OEM restrictions; picker-return behavior",
+      "result": "NOT RUN / PENDING",
+      "details": "Source paths and manual checklist supplied. New lifecycle UI test compiles but was not reached in the interrupted final device run. No file picker exemption was added; actual CSV/picker workflow is Phase 3."
+    },
+    {
+      "name": "wait_for_index_completion (IDE-suggested helper)",
+      "result": "UNAVAILABLE",
+      "details": "The suggested special command is not installed in this PowerShell environment. File writes succeeded; Gradle compilation is used for validation."
+    },
+    {
+      "name": ".\\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest :app:lintDebug --console=plain (final stable source)",
+      "result": "PASS",
+      "timestamp": "2026-10-29 00:27:32 UTC (UTC; observed after completion)",
+      "details": "Final active-file/schema guards compiled. Debug app and current 14-test instrumentation APK assembled. All 13 host tests passed with no failures/skips. Lint: 0 errors, 14 warnings (3 empty super calls, redundant label, newer Compose plugin, 8 unused resources, UseKtx suggestion). Existing Gradle/native-access warnings are nonblocking. Device execution remains unavailable."
+    },
+    {
+      "name": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\tools\\test-export-source-code.ps1",
+      "result": "PASS",
+      "timestamp": "2026-10-29 08:27:38 AM PHT",
+      "details": "All 7 isolated fixture assertions passed: first creation, repeated atomic replacement/deletion reflection, secret redaction without source changes, report mismatch preservation, unreadable source failure preservation, locked destination preservation/cleanup, and file-type-aware synthetic-source preservation."
+    },
+    {
+      "name": "git -c core.safecrlf=false diff --check",
+      "result": "PASS",
+      "details": "No whitespace errors in final code/documentation changes."
+    }
+  ],
+  "addedPaths": [
+    "app/src/androidTest/java/com/gem/keeppeer/EncryptedVaultTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/SyntheticTestRunner.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/VaultLifecycleUiTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/VaultSecurityTest.kt",
+    "app/src/main/java/com/gem/keeppeer/security/BiometricVault.kt",
+    "app/src/main/java/com/gem/keeppeer/security/CryptoManager.kt",
+    "app/src/main/java/com/gem/keeppeer/security/EnvelopeStore.kt",
+    "app/src/main/java/com/gem/keeppeer/security/SensitiveClipboard.kt",
+    "app/src/main/java/com/gem/keeppeer/security/SensitiveClipboardProvider.kt",
+    "app/src/main/java/com/gem/keeppeer/security/VaultAccess.kt",
+    "app/src/main/java/com/gem/keeppeer/security/VaultSession.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/lock/VaultRoot.kt",
+    "app/src/test/java/com/gem/keeppeer/CryptoManagerTest.kt",
+    "docs/phase-2-device-checks.md",
+    "docs/reports/phase-2-report.json"
+  ],
+  "modifiedPaths": [
+    ".gitignore",
+    "README.md",
+    "app/build.gradle.kts",
+    "app/src/androidTest/java/com/gem/keeppeer/EntryDraftRotationTest.kt",
+    "app/src/main/java/com/gem/keeppeer/KeeppeerApplication.kt",
+    "app/src/main/java/com/gem/keeppeer/MainActivity.kt",
+    "app/src/main/java/com/gem/keeppeer/data/local/AppDatabase.kt",
+    "app/src/main/java/com/gem/keeppeer/data/local/DatabaseProvider.kt",
+    "app/src/main/java/com/gem/keeppeer/di/AppContainer.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/components/PrototypePage.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/detail/EntryDetailScreen.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/detail/EntryDetailViewModel.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/edit/EntryEditScreen.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/edit/EntryEditViewModel.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/list/EntryListViewModel.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/list/PasswordListScreen.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/navigation/KeeppeerNavigation.kt",
+    "docs/phase-status.md",
+    "docs/security.md",
+    "gradle/libs.versions.toml"
+  ],
+  "deletedPaths": [],
+  "unresolvedIssues": [
+    "The final device run did not complete. The current test APK includes 14 tests after adding active-schema recreation coverage; reconnect a device and rerun. Earlier initial-run successes are recorded separately from final-source verification.",
+    "API 24/25 native and Keystore behavior, Unicode platform/portable KDF device comparison, biometric and manual lifecycle/screenshot/clipboard checks remain pending. Missing/truncated active-file and active-schema creation guards were added after the disconnect; their instrumentation checks are compiled but await execution.",
+    "Portable PBKDF2 may be slow on older devices; API 26+ uses the platform implementation with identical algorithm/cost.",
+    "Release variant intentionally remains disabled until required protections are verified. Synthetic entries only; no distribution."
+  ],
+  "deviceChecks": "Initial API 31 suite: 9/11 passed. Updated final suite: SQLCipher test passed, connection dropped during the UI test, remainder unverified. No API 24/25 devices or emulator images. Follow docs/phase-2-device-checks.md."
+}

@@ -65,6 +65,11 @@ class EntryEditViewModel(
         mutableState.update { it.copy(draft = transform(it.draft), titleError = false, error = null) }
     }
 
+    override fun onCleared() {
+        mutableState.value = EntryEditState()
+        super.onCleared()
+    }
+
     fun save() {
         val current = state.value
         if (current.loading || current.loadFailed || current.saving || current.missing || current.savedId != null) return

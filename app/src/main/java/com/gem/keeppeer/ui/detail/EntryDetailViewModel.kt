@@ -45,6 +45,11 @@ class EntryDetailViewModel(
         }
     }
 
+    override fun onCleared() {
+        mutableState.value = EntryDetailState()
+        super.onCleared()
+    }
+
     fun delete() {
         if (state.value.loading || state.value.deleting || state.value.deleted || state.value.entry == null) return
         mutableState.update { it.copy(deleting = true, error = null) }

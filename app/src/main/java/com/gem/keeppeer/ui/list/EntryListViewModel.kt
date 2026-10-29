@@ -41,5 +41,10 @@ class EntryListViewModel(private val repository: EntryRepository) : ViewModel() 
         }
     }
 
+    override fun onCleared() {
+        mutableState.value = EntryListState()
+        super.onCleared()
+    }
+
     fun retry() = search(state.value.query)
 }

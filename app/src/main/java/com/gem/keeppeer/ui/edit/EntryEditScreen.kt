@@ -53,6 +53,7 @@ fun EntryEditScreen(
                 OutlinedTextField(
                     value = draft.password, onValueChange = { value -> onChange { it.copy(password = value) } },
                     label = { Text("Password") }, enabled = enabled,
+                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Password),
                     visualTransformation = if (reveal) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = { TextButton(onClick = { reveal = !reveal }) { Text(if (reveal) "Hide" else "Show") } },
                     modifier = Modifier.fillMaxWidth(),

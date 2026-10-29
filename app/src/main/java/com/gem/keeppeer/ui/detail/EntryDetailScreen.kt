@@ -20,9 +20,11 @@ fun EntryDetailScreen(
     onEdit: () -> Unit,
     onDelete: () -> Unit,
     onRetry: () -> Unit,
+    onCopy: (String) -> Boolean,
 ) {
     var reveal by remember { mutableStateOf(false) }
     var confirmDelete by remember { mutableStateOf(false) }
+    var copyStatus by remember { mutableStateOf<String?>(null) }
     BackHandler(enabled = state.deleting) { }
     PrototypePage(title = "Entry details", onBack = if (state.deleting) null else onBack) {
         when {
@@ -38,12 +40,17 @@ fun EntryDetailScreen(
                 val entry = state.entry
                 Text(entry.title, style = MaterialTheme.typography.headlineSmall)
                 DetailValue("Username", entry.username)
+                entry.username?.let { value -> TextButton(onClick = { copyStatus = if (onCopy(value)) "Copied for about 30 seconds." else "Clipboard unavailable." }) { Text("Copy username") } }
                 Text("Password", style = MaterialTheme.typography.labelLarge)
                 Text(if (reveal) entry.password else "••••••••")
                 TextButton(onClick = { reveal = !reveal }) { Text(if (reveal) "Hide password" else "Show password") }
+                TextButton(onClick = { copyStatus = if (onCopy(entry.password)) "Copied for about 30 seconds." else "Clipboard unavailable." }) { Text("Copy password") }
                 DetailValue("URL", entry.url)
+                entry.url?.let { value -> TextButton(onClick = { copyStatus = if (onCopy(value)) "Copied for about 30 seconds." else "Clipboard unavailable." }) { Text("Copy URL") } }
                 DetailValue("Category", entry.category)
                 DetailValue("Notes", entry.notes)
+                entry.notes?.let { value -> TextButton(onClick = { copyStatus = if (onCopy(value)) "Copied for about 30 seconds." else "Clipboard unavailable." }) { Text("Copy notes") } }
+                copyStatus?.let { Text(it) }
                 Text(if (entry.isFavorite) "Favorite: Yes" else "Favorite: No")
                 Text("Created: " + DateFormat.getDateTimeInstance().format(Date(entry.createdAt)))
                 Text("Updated: " + DateFormat.getDateTimeInstance().format(Date(entry.updatedAt)))

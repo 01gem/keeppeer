@@ -12,7 +12,14 @@ class EntryDraftRotationTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
 
     @Test fun draftSurvivesActivityRecreationAndCancelDoesNotWrite() {
-        val repository = (compose.activity.application as KeeppeerApplication).container.entryRepository
+        val session = (compose.activity.application as KeeppeerApplication).container.session
+        compose.runOnUiThread {
+            if (session.state.value.stage == com.gem.keeppeer.security.VaultStage.FIRST_RUN)
+                session.setup("synthetic test master".toCharArray(), "synthetic test master".toCharArray())
+            else session.unlock("synthetic test master".toCharArray())
+        }
+        compose.waitUntil(120_000) { session.state.value.access != null }
+        val repository = requireNotNull(session.state.value.access).repository
         val before = runBlocking { repository.observeAll().first().map { it.id } }
         compose.onNodeWithText("Add").performClick()
         compose.onNodeWithText("Title *").performTextInput("Synthetic rotation")

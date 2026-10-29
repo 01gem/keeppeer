@@ -28,7 +28,7 @@ fun PrototypePage(
         Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()) {
             Surface(color = MaterialTheme.colorScheme.errorContainer) {
                 Text(
-                    "Development prototype • Unencrypted database • Synthetic entries only",
+                    "Phase 2 development build • Security verification in progress • Synthetic entries only",
                     Modifier.fillMaxWidth().padding(12.dp),
                     style = MaterialTheme.typography.labelLarge,
                 )

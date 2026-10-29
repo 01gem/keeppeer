@@ -18,9 +18,11 @@ fun PasswordListScreen(
     onRetry: () -> Unit,
     onAdd: () -> Unit,
     onEntry: (Long) -> Unit,
+    onSettings: () -> Unit,
 ) {
     PrototypePage(
         title = "Keeppeer",
+        actions = { TextButton(onClick = onSettings) { Text("Security") } },
         floatingActionButton = { FloatingActionButton(onClick = onAdd) { Text("Add", Modifier.padding(16.dp)) } },
     ) {
         OutlinedTextField(

@@ -17,7 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.gem.keeppeer.SyntheticTestRunner"
     }
 
     buildTypes {
@@ -79,6 +79,10 @@ dependencies {
     implementation(libs.sqlcipher.android)
     implementation(libs.androidx.sqlite.ktx)
 
+    // Vetted lightweight PBKDF2 for API 24–25; platform SHA256 PBKDF2 on API 26+.
+    implementation(libs.bouncycastle)
+    implementation(libs.androidx.fragment.ktx)
+
     // Biometric
     implementation(libs.androidx.biometric)
 
@@ -107,9 +111,8 @@ ksp {
     arg("room.schemaLocation", "$projectDir/schemas")
 }
 
-// Phase 1 stores plaintext synthetic data. Disable release at variant creation,
-// before any APK/AAB packaging or signing task can produce an artifact.
-// Phase 2 must retain this restriction until encrypted-vault verification passes.
+// Retain the development release restriction until Phase 2's API 24/25,
+// biometric and lifecycle device verification matrix is complete.
 androidComponents {
     beforeVariants(selector().withBuildType("release")) { variant ->
         variant.enable = false

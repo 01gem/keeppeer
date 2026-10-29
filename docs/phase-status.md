@@ -1,8 +1,36 @@
 # Keeppeer — Phase Status
 
-## Current Phase: 1 — Room CRUD & Compose UI
+## Phase 2 — Encrypted vault and authenticated sessions
 
-Implementation and host verification complete. Device runtime checks remain pending; see the Phase 1 section below.
+**Outcome: incomplete — required hardware/API verification remains pending.**
+
+Baseline: commit `76dbb7be35362533e1fe608e5dad4e69caa82ec2`; changes are local, uncommitted work.
+
+Implemented:
+
+- Replaced the production plaintext provider with SQLCipher Android's Room 2 SupportOpenHelperFactory and explicit native initialization. Successful schema access proves unlock before publishing a session.
+- Added versioned, authenticated password envelopes; random 32-byte DB keys; PBKDF2-HMAC-SHA256 at 600,000 iterations; fresh salts/nonces; AES-GCM; and a separate Keystore device envelope in no-backup storage.
+- API 26+ uses platform PBKDF2; API 24–25 explicitly uses Bouncy Castle 1.86. No algorithm/cost downgrade or minSdk change.
+- Added crash-resumable authenticated initialization, fail-closed missing/corrupt active vault handling, confirmed synthetic legacy reset (including sidecars), and atomic current-password-verified password changes around the same DB key.
+- Added an application-scoped session, revocable repositories, cancelled vault/credential work, database close and buffer cleanup, decrypted ViewModel/nav teardown, first-run/locked/error screens, and Security settings.
+- Immediate/default, 1-minute and 5-minute background timeouts use elapsed time plus return-time enforcement. Rotation is excluded; a process-lifetime screen-off receiver locks the vault.
+- Added FLAG_SECURE, centralized sensitive clipboard ownership/expiry (including Compose copy/cut), and optional per-use CryptoObject-bound biometric wrapping/unlock with password fallback and explicit disable/re-enable handling.
+- Preserved CRUD/search, in-memory rotation drafts, exact entry values, ID-only routes, offline permissions and backup exclusions. No later phase was started.
+
+Verification:
+
+- Initial host command `.\\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest :app:lintDebug --console=plain`: PASS; 13 unit tests, no failures/skips, lint with no errors.
+- Initial device command `.\\gradlew.bat :app:connectedDebugAndroidTest --console=plain` on Samsung SM-A125F / Android 12 / API 31: 9 of 11 passed. UI setup exceeded its 30-second wait; clipboard access without a focused Activity raised an error. Both test conditions were corrected. API 26+ now uses the equivalent platform KDF for better performance; a device comparison covers Unicode compatibility with the portable path.
+- Updated combined host/device run: host assembly, 13 unit tests and lint passed. The expected 13-test device suite lost its connection during rotation/UI execution at 08:15:52 AM PHT; only the SQLCipher test completed and passed. Remaining tests were not verified. Follow-up active-file and Room schema-creation guards add further pending regression coverage (14 tests in the current test APK).
+- Final stable-source host command `.\\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest :app:lintDebug --console=plain`: PASS (observed 08:27:32 AM PHT). All 13 host tests passed, no failures/skips; current 14-test instrumentation APK assembled. Lint: 0 errors, 14 warnings (3 empty super calls, redundant label, newer plugin suggestion, 8 unused resources, UseKtx). Native-access/Gradle warnings remain nonblocking.
+- `powershell -NoProfile -ExecutionPolicy Bypass -File .\\tools\\test-export-source-code.ps1`: PASS, all 7 fixture assertions (08:27:38 AM PHT). Existing exporter reused; new BC/Fragment versions moved into the version section so they appear in the review header. Current snapshot is generated after documentation/report completion.
+
+Pending: actual API 24 and API 25 native Keystore/SQLCipher execution (no emulator system images installed), biometric success/cancellation/lockout/enrollment-change matrix, real screen-lock/process-kill and screenshot/recents checks, and timed clipboard behavior under OEM restrictions. Automated monotonic return tests do not substitute for every real sleep/timer scenario. Follow [phase-2-device-checks.md](phase-2-device-checks.md). Full key lifecycle, storage format, reset policy and limits: [security.md](security.md). Structured report: [reports/phase-2-report.json](reports/phase-2-report.json).
+
+
+## Current Phase: 2 — Encrypted vault and authenticated sessions
+
+Implementation is in place. Overall outcome remains **incomplete** until the API 24–25 and biometric/manual device verification matrix is complete. Release packaging stays disabled. See the Phase 2 section below.
 
 ## Phase 0 — Project Foundation & Review Hygiene ✅
 

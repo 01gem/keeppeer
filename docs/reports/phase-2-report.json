@@ -1,9 +1,21 @@
 {
   "phase": 2,
   "outcome": "incomplete",
-  "summary": "Phase 2 remains incomplete and release disabled. The final current isolated suite completed: 21 expected/executed/passed, 0 failed/skipped, 647.604 seconds on SM-A125F/Android 12/API 31/arm64-v8a. Original 17-test pass, two full 20-pass/1-harness-fail runs, corrected targets and an interrupted fixture-timeout attempt are retained separately with artifact hashes. Four acceptance tests and stronger key-retention/stale-write/reveal assertions were added; production code, post-authentication AAD, KDF cost, vault data and working biometric wrapper were preserved. Current normal-phone evidence confirms real fingerprint decrypt/doFinal/database opening and existing entry-list access, Lock now, actual cancellation/fallback UI, retry and Home/return locking. API 24/25 and the remaining hardware/manual matrix are not verified. No Phase 3 work.",
+  "summary": "Phase 2 remains incomplete; release disabled. User selected Samsung SM-A125F/RR8R402RR7T and emulator work stopped. New app c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169 installed in place. Six affected phone checks passed (6/0/0, test831d329e...,214.107s); final capture guard test passed (1/0/0, testfc7f89c1...,52.468s). Latest assembly/lint/15JVM pass; native-recording control and all synthetic protected frames visually reviewed; protected PNGs empty/inconclusive. Earlier exact API24 21/0/1 and API25 22/0/0 artifacts, accepted original physical API31 21/21 and failure histories retained separately. CRITICAL unresolved normal-phone state: after cold normal-app launch, Create your vault displayed and expected normal DB/envelope paths absent. No pre-update file baseline was captured, so timing/cause is unknown; no setup/reset/recovery or enrollment changes performed. Tests used isolated synthetic contexts; no normal vault contents/keys collected. User clarification pending. Enrollment invalidation, physical keyboard, screenshot and wider OEM matrix remain open. No Phase3/distribution.",
   "baselineRevision": "76dbb7be35362533e1fe608e5dad4e69caa82ec2",
   "checks": [
+    {
+      "name": "Final Samsung continuation assembly, lint, JVM and whitespace checks",
+      "result": "PASS",
+      "timestamp": "2026-10-29 16:11:38 UTC",
+      "details": "Host assembly/AndroidTest packaging, lint and testDebugUnitTest completed successfully (46s final build); 15 JVM tests,0 failures/errors/skips; lint0 errors/14 warnings. git -c core.safecrlf=false diff --check passed after documentation updates. Phone affected6/6 and final capture1/1 are distinct artifact-scoped records under remainingChecksContinuation.phoneContinuation. No new complete23-test suite claimed. Normal-vault first-run/file absence is unresolved; verification success does not establish normal-vault preservation."
+    },
+    {
+      "name": "Normal-vault password fallback and existing entries after enabling biometrics",
+      "result": "PASS (user-reported; not independently observed)",
+      "timestamp": "2026-10-29; exact observation time not supplied",
+      "details": "After enabling biometrics, master-password unlock works and existing entries are intact. Reported in the originating review chat and supplied by the continuation prompt. No password or entry contents collected; previous direct-observation history retained."
+    },
     {
       "name": "adb shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner (FINAL synchronized source)",
       "result": "PASS",
@@ -219,7 +231,8 @@
     "app/src/androidTest/java/com/gem/keeppeer/BiometricEnrollmentTest.kt",
     "app/src/test/java/com/gem/keeppeer/BiometricDiagnosticsTest.kt",
     "docs/phase-2-biometric-diagnosis.md",
-    "app/src/androidTest/java/com/gem/keeppeer/VaultVerificationTest.kt"
+    "app/src/androidTest/java/com/gem/keeppeer/VaultVerificationTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/SecureCaptureTest.kt"
   ],
   "modifiedPaths": [
     ".gitignore",
@@ -247,18 +260,992 @@
     "app/src/main/java/com/gem/keeppeer/ui/lock/VaultRoot.kt",
     "docs/phase-2-device-checks.md",
     "docs/reports/phase-2-report.json",
-    "app/src/androidTest/java/com/gem/keeppeer/VaultSecurityTest.kt"
+    "app/src/androidTest/java/com/gem/keeppeer/VaultSecurityTest.kt",
+    "app/src/main/res/values/themes.xml"
   ],
   "deletedPaths": [],
   "unresolvedIssues": [
-    "API 24 and API 25 native Keystore/SQLCipher/KDF execution remains NOT RUN: no matching attached device, AVD or installed SDK system image.",
-    "Successful normal-vault master-password fallback and original-entry-content confirmation remain pending. Current real biometric decrypt/database opening and existing entry-list access, actual cancellation/fallback UI, retry and Lock now are confirmed.",
-    "Actual failed scans/lockout, unsupported/no enrollment, enrollment-change/key invalidation, disable/re-enable and prompt rotation/background/screen-lock matrix remain pending. Preserve the normal working wrapper/enrollment.",
-    "Real timed 1-/5-minute and suspended-timer return, process-death draft clearing, screen lock, screenshot/recording/recents/dialog/OEM behavior, touch-menu cut/physical keyboard and actually denied clipboard-access retry remain unverified. Deterministic below/at-boundary enforcement and synthetic clipboard expiry/background/foreground endpoints passed.",
-    "An earlier fixture-unlock timeout was interrupted for diagnosis. Retained stage trace shows Activity stop/background session revocation during unlock; the origin of that Activity transition is still unidentified. Final idle/resumed/terminal-state-asserting test setup completed all 21 tests; this does not reconstruct the old transition or complete the broader lifecycle matrix.",
-    "Release remains disabled; no Phase 3 work, automatic upload or distribution."
+    "Normal-phone persistent-vault discrepancy: cold normal app shows Create your vault and expected normal DB/envelope files are absent. No pre-update file metadata baseline; cause/time unknown. No setup/reset/recovery or further normal-phone authentication. Need user's app-data history before proceeding.",
+    "Enrollment-change invalidated-key failure unverified: API25 old key remained usable after fingerprint count1→2; modern emulator attempt stopped when user selected phone. Do not alter working phone enrollment; use a suitable disposable device/provider. Missing-key tests are separate.",
+    "Physical keyboard, actual screenshot-button/OS policy, Samsung recents and wider OEM/unsupported/no-enrollment manual matrix remain unresolved. Current PNG attempts empty/inconclusive; native decoded recording samples have explicit scope and short/static timelines.",
+    "Current final test APK includes new capture journey (23 total tests). Full22-test API24(21pass/0fail/1no-enrollment skip) and API25(22pass/0fail/0skip) used their earlier exact artifacts. Final phone6/6 and capture1/1 are targeted results, not a new complete23-test suite or fresh normal-vault fingerprint authentication.",
+    "Earlier failed/interrupted/diagnostic attempts retain separate identities/counts. Release remains disabled; no Phase3, automatic upload or distribution."
   ],
-  "deviceChecks": "SM-A125F/Android 12/API 31/arm64-v8a. Final current suite: 21 expected/executed/passed, 0 failed/skipped, completed 647.604 s at 01:50:59 PM PHT. App 58c3e0827ad6339f4fc2e16f2c1c167cf466727d6d2b4b2cae94eb55083bda06; test 347d3b00c03f61cb9c5a1b09cdaa50bc14f45e5b792eba67690477d9c95ac369; installed/host hashes match. Final KDF portable/platform 11693/15528 ms at 600000 iterations, main ticks 1675/max gap 17 ms; keyboard selection expiry 30015 ms. Earlier complete/failed/targeted/interrupted runs remain separate. Real normal-app fingerprint decrypt/database open, Lock now, cancel code 13/retry/Home return observed. Normal password fallback and broader API/hardware/manual matrix remain pending.",
+  "remainingChecksContinuation": {
+    "baselineRevision": "382fdcaa7f818869820389ed78a195db05320d2e",
+    "scope": "Only remaining Phase 2 checks. Accepted API 31 result/artifact identity and failed/interrupted history preserved; complete API 31 suite not rerun.",
+    "userReportedEvidence": {
+      "date": "2026-10-29",
+      "observationTime": null,
+      "result": "PASS (user-reported)",
+      "statement": "After enabling biometrics, master-password unlock works and existing entries are intact.",
+      "source": "User confirmation from the originating review chat, supplied in phase-2-remaining-checks-prompt.md.",
+      "independentlyObservedByAgent": false,
+      "privacy": "No password or entry contents requested, collected or inferred."
+    },
+    "apiEnvironmentWork": {
+      "result": "EXECUTED: separate API 24 and API 25 disposable AVDs",
+      "host": "Windows x86_64, Intel Core i3-N305, 8247566336 bytes RAM, WHPX 10.0.26300 installed and usable",
+      "initialFreeDiskBytes": 58897915904,
+      "tools": "Android CLI installed from official Windows installer; CLI metrics disabled on subsequent commands.",
+      "selectedImages": [
+        "system-images/android-24/google_apis/x86_64@27.0.0",
+        "system-images/android-25/google_apis/x86_64@18.0.0"
+      ],
+      "toolVersions": {
+        "emulator": "37.2.12",
+        "platformTools": "37.0.1",
+        "commandLineTools": "23.0"
+      },
+      "profiles": [
+        "Nexus 5X / Keeppeer_Phase2_API24_20261029",
+        "Nexus 5X / Keeppeer_Phase2_API25_20261029"
+      ],
+      "runtime": "WHPX; x86_64 Google APIs images; 1536 MB RAM, 2 cores, SwiftShader, headless/no audio/no snapshots; one emulator at a time on 8 GB host.",
+      "creation": "avdmanager create avd -n <profile> -k system-images;android-24|25;google_apis;x86_64 -d Nexus 5X; subprocess JAVA_HOME points to installed JDK 25 (default Java 8 was unsuitable).",
+      "identity": "Host SHA-256 recorded; device Android 7 native sha1sum matches host SHA-1 for exact installed app/test APKs. Native sha256sum unavailable. Failed adb pull/stream collector attempts were not accepted as identity evidence. SHA-1 here identifies APK bytes only; password KDF remains PBKDF2-HMAC-SHA256/600000."
+    },
+    "sourceChanges": {
+      "baseline": "382fdcaa7f818869820389ed78a195db05320d2e",
+      "production": "Earlier runs used unchanged app 58c3e0827ad6339f4fc2e16f2c1c167cf466727d6d2b4b2cae94eb55083bda06. Current app now includes only the demonstrated Biometric compatibility pin, AppCompat host theme and secure DialogFragment window callback. CryptoManager, BiometricVault, VaultSession, post-authentication AAD, KDF cost, wrapper format, minSdk/offline/backup/release restrictions remain unchanged. The normal phone APK was later updated in place at the user's request; its enrollment/normal vault were not accessed by synthetic tests. See phoneContinuation for exact new identities. The later demonstrated Compose 1.12 touch-toolbar crash is corrected by retaining the AndroidClipboard native metadata bridge while routing writes through SensitiveClipboard. Latest phone app was rebuilt/repackaged as c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169 with no subsequent production-source change after the 0752 clipboard adapter build; APK identities are not equated. Normal persistent-vault state is unresolved: see phoneContinuation.normalVaultDiscrepancy.",
+      "paths": [
+        "app/src/androidTest/java/com/gem/keeppeer/SyntheticTestRunner.kt",
+        "app/src/androidTest/java/com/gem/keeppeer/VaultSecurityTest.kt",
+        "app/src/androidTest/java/com/gem/keeppeer/VaultVerificationTest.kt"
+      ],
+      "reason": "Android 7 ClipboardManager constructs a Handler on the requesting thread; synthetic fixtures now create the service/session on Android main Looper, as production Application DI already does. API 25 setup test coordinate/IME taps left rejected fields uncleared; semantic field replacement/button action makes validation independent of coordinate timing. Diagnostic field-clear and intended synthetic InputText assertions added; timeout unchanged; terminal UNLOCKED asserted. EditableText masks passwords, so the intermediate raw-value assertion against it was incorrect and replaced with InputText; that diagnostic failure is retained.",
+      "isolation": "SyntheticTestRunner replaces the Application; SyntheticVaultContext routes DB/noBackup/preferences to unique cache namespaces and test-only aliases. Earlier normal emulator synthetic vault remained accessible. Later phone execution is explicitly scoped in phoneContinuation; normal persistent-vault paths were absent on cold launch and no pre-update file baseline exists, so normal-vault preservation is not independently established.",
+      "currentTestSha256": "fc7f89c1d75d9a5b45e6231bcae9d221a2965e0821b205d3061a0c878af21345",
+      "currentPaths": [
+        "app/src/androidTest/java/com/gem/keeppeer/SyntheticTestRunner.kt",
+        "app/src/androidTest/java/com/gem/keeppeer/VaultSecurityTest.kt",
+        "app/src/androidTest/java/com/gem/keeppeer/VaultVerificationTest.kt",
+        "app/src/androidTest/java/com/gem/keeppeer/BiometricEnrollmentTest.kt",
+        "app/src/main/java/com/gem/keeppeer/MainActivity.kt",
+        "app/src/main/res/values/themes.xml",
+        "gradle/libs.versions.toml",
+        "README.md",
+        "docs/phase-status.md",
+        "docs/phase-2-device-checks.md",
+        "docs/security.md",
+        "docs/reports/phase-2-report.json",
+        "app/src/main/java/com/gem/keeppeer/security/SensitiveClipboardProvider.kt",
+        "app/src/androidTest/java/com/gem/keeppeer/SecureCaptureTest.kt"
+      ],
+      "currentAppSha256": "c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169"
+    },
+    "runs": [
+      {
+        "api": 24,
+        "android": "7.0",
+        "model": "Android SDK built for x86_64",
+        "abi": "x86_64",
+        "avd": "Keeppeer_Phase2_API24_20261029",
+        "serial": "emulator-5554",
+        "sourceRevision": "382fdcaa7f818869820389ed78a195db05320d2e",
+        "appSha256": "58c3e0827ad6339f4fc2e16f2c1c167cf466727d6d2b4b2cae94eb55083bda06",
+        "testSha256": "347d3b00c03f61cb9c5a1b09cdaa50bc14f45e5b792eba67690477d9c95ac369",
+        "command": "adb -s emulator-5554 shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "startedAt": "2026-10-29T15:02:37.7463109+08:00",
+        "completedAt": "2026-10-29T15:03:24.0771033+08:00",
+        "seconds": 41.796,
+        "expected": 21,
+        "started": 21,
+        "passed": 12,
+        "failed": 8,
+        "skipped": 1,
+        "completed": true,
+        "result": "FAIL (test fixture construction on non-Looper thread)",
+        "details": "Eight failures originate in Android 7 ClipboardManager constructing a default Handler when fixtures request that service off main. Production Application DI constructs it on main; no product defect identified. One strong-biometric dialog assumption skipped because no enrollment. Native SQLCipher reopen/key rejection/schema guards, device Keystore envelope preservation and portable KDF executed successfully.",
+        "metrics": {
+          "portableMs": 996,
+          "selectedMs": 796,
+          "selectedBackend": "portable",
+          "iterations": 600000,
+          "mainTicks": 69,
+          "maxMainGapMs": 39
+        }
+      },
+      {
+        "api": 24,
+        "android": "7.0",
+        "model": "Android SDK built for x86_64",
+        "abi": "x86_64",
+        "avd": "Keeppeer_Phase2_API24_20261029",
+        "serial": "emulator-5554",
+        "sourceRevision": "382fdcaa7f818869820389ed78a195db05320d2e",
+        "appSha256": "58c3e0827ad6339f4fc2e16f2c1c167cf466727d6d2b4b2cae94eb55083bda06",
+        "testSha256": "8eadbfc4844e50169b84465e0bb145fcede9bece3c150128c0851498c42b5da4",
+        "command": "adb -s emulator-5554 shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "startedAt": "2026-10-29T17:09:31.4772227+08:00",
+        "completedAt": "2026-10-29T17:11:22.9626360+08:00",
+        "seconds": 104.84,
+        "expected": 21,
+        "started": 21,
+        "passed": 20,
+        "failed": 0,
+        "skipped": 1,
+        "completed": true,
+        "result": "PASS for 20 checks; 1 enrollment-dependent check skipped",
+        "details": "Fixed fixture/service construction on Android main Looper. No production changes. No fingerprint enrolled, so the strong-biometric enrollment-dialog assumption skipped; no actual biometric success claimed. Native Keystore/SQLCipher, setup/password/key preservation, stale handles, initialization guards, portable KDF and keyboard clipboard checks passed.",
+        "metrics": {
+          "portableMs": 1177,
+          "selectedMs": 859,
+          "selectedBackend": "portable",
+          "iterations": 600000,
+          "mainTicks": 71,
+          "maxMainGapMs": 95,
+          "selectionKeyboardCopyExpiryMs": 30054
+        },
+        "testInstalledAndHostSha1": "40a32cee4c0be862e558fe0bf90420014f62c6ba",
+        "appInstalledAndHostSha1": "38b7825022911828760089533fb51f1a388c069a",
+        "runnerSummary": "OK (21 tests); raw status has one assumption skip",
+        "sourceState": "382fdcaa7f818869820389ed78a195db05320d2e plus main-Looper fixture-only changes; no production change."
+      },
+      {
+        "api": 25,
+        "android": "7.1.1",
+        "model": "Android SDK built for x86_64",
+        "abi": "x86_64",
+        "avd": "Keeppeer_Phase2_API25_20261029",
+        "serial": "emulator-5556",
+        "sourceRevision": "382fdcaa7f818869820389ed78a195db05320d2e",
+        "appSha256": "58c3e0827ad6339f4fc2e16f2c1c167cf466727d6d2b4b2cae94eb55083bda06",
+        "testSha256": "8eadbfc4844e50169b84465e0bb145fcede9bece3c150128c0851498c42b5da4",
+        "command": "adb -s emulator-5556 shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "startedAt": "2026-10-29T17:17:52.3753115+08:00",
+        "completedAt": "2026-10-29T17:19:37.1869241+08:00",
+        "seconds": 102.248,
+        "expected": 21,
+        "started": 21,
+        "passed": 19,
+        "failed": 1,
+        "skipped": 1,
+        "completed": true,
+        "result": "FAIL: reveal rendering assertion; native security checks passed",
+        "details": "Rotation test expected revealed TextLayoutResult after Show but immediately read masked text before recreation. No product defect established; unchanged targeted rerun passed. Strong-enrollment UI assumption skipped. No assertions weakened or wait extended.",
+        "metrics": {
+          "portableMs": 1290,
+          "selectedMs": 962,
+          "selectedBackend": "portable",
+          "iterations": 600000,
+          "mainTicks": 86,
+          "maxMainGapMs": 51,
+          "selectionKeyboardCopyExpiryMs": 30034
+        },
+        "testInstalledAndHostSha1": "40a32cee4c0be862e558fe0bf90420014f62c6ba",
+        "appInstalledAndHostSha1": "38b7825022911828760089533fb51f1a388c069a",
+        "runnerSummary": "Tests run: 21, Failures: 1",
+        "sourceState": "382fdcaa7f818869820389ed78a195db05320d2e plus main-Looper fixture-only changes; production APK unchanged"
+      },
+      {
+        "command": "adb -s emulator-5556 shell am instrument -w -r -e class com.gem.keeppeer.EntryDraftRotationTest com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "startedAt": "2026-10-29T17:21:05.6439724+08:00",
+        "completedAt": "2026-10-29T17:21:22.4887844+08:00",
+        "expected": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "completed": true,
+        "seconds": 11.908,
+        "sourceTestSha256": "8eadbfc4844e50169b84465e0bb145fcede9bece3c150128c0851498c42b5da4",
+        "result": "PASS unchanged rerun; initial failure retained separately"
+      },
+      {
+        "api": 25,
+        "android": "7.1.1",
+        "model": "Android SDK built for x86_64",
+        "abi": "x86_64",
+        "avd": "Keeppeer_Phase2_API25_20261029",
+        "serial": "emulator-5556",
+        "sourceRevision": "382fdcaa7f818869820389ed78a195db05320d2e",
+        "appSha256": "58c3e0827ad6339f4fc2e16f2c1c167cf466727d6d2b4b2cae94eb55083bda06",
+        "testSha256": "8eadbfc4844e50169b84465e0bb145fcede9bece3c150128c0851498c42b5da4",
+        "command": "adb -s emulator-5556 shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "startedAt": "2026-10-29T17:23:25.0706917+08:00",
+        "completedAt": "2026-10-29T17:27:12.3441400+08:00",
+        "seconds": 224.954,
+        "expected": 21,
+        "started": 21,
+        "passed": 19,
+        "failed": 1,
+        "skipped": 1,
+        "completed": true,
+        "result": "FAIL: setup UI wait timed out; rotation and native security checks passed",
+        "details": "Same app/test artifacts. Prior reveal assertion passed unchanged in full run; setup validation UI timed out waiting for access after valid-submit sequence. No source fix or longer wait applied; unchanged setup target rerun follows. No complete green full API 25 suite is claimed.",
+        "metrics": {
+          "portableMs": 1374,
+          "selectedMs": 875,
+          "selectedBackend": "portable",
+          "iterations": 600000,
+          "mainTicks": 86,
+          "maxMainGapMs": 97,
+          "selectionKeyboardCopyExpiryMs": 30080
+        },
+        "testInstalledAndHostSha1": "40a32cee4c0be862e558fe0bf90420014f62c6ba",
+        "appInstalledAndHostSha1": "38b7825022911828760089533fb51f1a388c069a",
+        "runnerSummary": "Tests run: 21, Failures: 1",
+        "sourceState": "382fdcaa7f818869820389ed78a195db05320d2e plus main-Looper fixture-only changes; production APK unchanged"
+      },
+      {
+        "api": 25,
+        "command": "adb -s emulator-5556 shell am instrument -w -r -e class com.gem.keeppeer.VaultVerificationTest#cancelLegacyResetPreservesDataAndSetupRequiresMatchingStrongPassword com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "testSha256": "8eadbfc4844e50169b84465e0bb145fcede9bece3c150128c0851498c42b5da4",
+        "startedAt": "2026-10-29T17:32:33.3854920+08:00",
+        "completedAt": "2026-10-29T17:34:48.7397212+08:00",
+        "expected": 1,
+        "started": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "completed": true,
+        "seconds": 131.697,
+        "result": "FAIL: unchanged setup UI access wait reproduced (120-second limit)"
+      },
+      {
+        "api": 25,
+        "testSha256": "330b48fac09830814fe15d31df310d1be82973bc1788d92bbdfd3a6e0690d1c8",
+        "startedAt": "2026-10-29T17:42:06.4691571+08:00",
+        "completedAt": "2026-10-29T17:42:24.2882661+08:00",
+        "expected": 1,
+        "started": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "completed": true,
+        "seconds": 11.973,
+        "result": "FAIL: added diagnostic proves rejected submit left Master password uncleared; no product change."
+      },
+      {
+        "api": 25,
+        "command": "same isolated targeted setup test",
+        "testSha256": "46a9d66a60feb0971ca18562912afaa32c11386dfe9ac96d797ab8d8563e1318",
+        "startedAt": "2026-10-29T17:44:49.3909855+08:00",
+        "completedAt": "2026-10-29T17:45:07.6927954+08:00",
+        "expected": 1,
+        "started": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "completed": true,
+        "seconds": 11.939,
+        "result": "FAIL (agent-added diagnostic): EditableText is transformed password display, not raw input; incorrect raw-value comparison corrected using InputText. No product defect."
+      },
+      {
+        "api": 25,
+        "command": "same isolated targeted setup test",
+        "testSha256": "5221f945cd2b7104e0a0e8fb2f53698055e4522acc593b6936206bcf66db0f50",
+        "startedAt": "2026-10-29T17:46:02.6628718+08:00",
+        "completedAt": "2026-10-29T17:46:26.2059921+08:00",
+        "expected": 1,
+        "started": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "completed": true,
+        "seconds": 16.758,
+        "result": "FAIL (agent-added diagnostic): EditableText is transformed password display, not raw input; incorrect raw-value comparison corrected using InputText. No product defect."
+      },
+      {
+        "api": 25,
+        "command": "same isolated targeted setup test",
+        "testSha256": "b5267badc86ea5f39d19de355bfc3fbca4f73366cd00b7ce9d3b27ccfc784bf4",
+        "startedAt": "2026-10-29T17:47:17.9713210+08:00",
+        "completedAt": "2026-10-29T17:47:37.2415053+08:00",
+        "expected": 1,
+        "started": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "completed": true,
+        "seconds": 13.287,
+        "result": "PASS: semantic input/button action and raw InputText diagnostics; encrypted setup and rejected-input assertions retained."
+      },
+      {
+        "api": 25,
+        "android": "7.1.1",
+        "model": "Android SDK built for x86_64",
+        "abi": "x86_64",
+        "avd": "Keeppeer_Phase2_API25_20261029",
+        "serial": "emulator-5556",
+        "sourceRevision": "382fdcaa7f818869820389ed78a195db05320d2e",
+        "appSha256": "58c3e0827ad6339f4fc2e16f2c1c167cf466727d6d2b4b2cae94eb55083bda06",
+        "testSha256": "b5267badc86ea5f39d19de355bfc3fbca4f73366cd00b7ce9d3b27ccfc784bf4",
+        "command": "adb -s emulator-5556 shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "startedAt": "2026-10-29T17:47:48.8380587+08:00",
+        "completedAt": "2026-10-29T17:49:37.5325369+08:00",
+        "seconds": 104.452,
+        "expected": 21,
+        "started": 21,
+        "passed": 20,
+        "failed": 0,
+        "skipped": 1,
+        "completed": true,
+        "result": "PASS for 20 checks; 1 enrollment-dependent check skipped",
+        "details": "Full completed suite after fixture Looper and semantic setup-input/action synchronization corrections. Native Keystore, native SQLCipher and portable KDF security/preservation checks passed. No enrolled strong fingerprint, so the enrollment-dialog assumption skipped. Prior failures retained separately.",
+        "metrics": {
+          "portableMs": 1225,
+          "selectedMs": 896,
+          "selectedBackend": "portable",
+          "iterations": 600000,
+          "mainTicks": 81,
+          "maxMainGapMs": 32,
+          "selectionKeyboardCopyExpiryMs": 30075
+        },
+        "testInstalledAndHostSha1": "5bc588cd7f48e2159b49b13ff4e53593eb5041b1",
+        "appInstalledAndHostSha1": "38b7825022911828760089533fb51f1a388c069a",
+        "runnerSummary": "OK (21 tests); raw statuses contain one assumption skip",
+        "sourceState": "382fdcaa7f818869820389ed78a195db05320d2e plus main-Looper fixtures and setup test semantic-input/action/diagnostic assertions only; no production changes"
+      }
+    ],
+    "manualChecks": [
+      {
+        "check": "1-minute below-boundary wall-clock return",
+        "device": "API 25 disposable x86_64 emulator, unchanged app 58c3e08",
+        "result": "PASS",
+        "startedAt": "2026-10-29T17:50:35.9924773+08:00",
+        "completedAt": "2026-10-29T17:51:24.4263229+08:00",
+        "absenceMs": 45670,
+        "observation": "Returned to unlocked Security settings after Home. Screen remained awake; no clock injection. Exact threshold covered separately by deterministic tests.",
+        "log": "shell-159.log"
+      },
+      {
+        "check": "1-minute at-or-beyond-boundary wall-clock return",
+        "result": "PASS",
+        "startedAt": "2026-10-29T17:51:39.4394798+08:00",
+        "completedAt": "2026-10-29T17:52:42.5041640+08:00",
+        "absenceMs": 60430,
+        "observation": "Home/return at 60.43 s shows Keeppeer locked with empty master-password field; no settings/draft screen.",
+        "log": "shell-160.log"
+      },
+      {
+        "check": "5-minute below-boundary wall-clock return",
+        "result": "PASS",
+        "startedAt": "2026-10-29T17:53:34.9669433+08:00",
+        "completedAt": "2026-10-29T17:58:10.4772551+08:00",
+        "absenceMs": 270733,
+        "observation": "5 minutes selected/checked. Returned to unlocked Security settings after 270.73 s Home absence, no injected clock.",
+        "log": "shell-165.log"
+      },
+      {
+        "check": "5-minute expiry after suspended background process",
+        "result": "PASS with ordering limit",
+        "startedAt": "2026-10-29T17:58:46.6287641+08:00",
+        "completedAt": "2026-10-29T18:03:50.7812870+08:00",
+        "suspendedAbsenceMs": 300486,
+        "observation": "Home, run-as kill -STOP PID 7727; ps shows same process state T before and after actual 300 s wait. CONT then am start returned locked with empty password field. No app timer could execute during stopped interval. CONT precedes foreground request: overdue timer versus foreground callback order is not distinguished; deterministic foreground-boundary tests are separate.",
+        "log": "shell-166.log"
+      },
+      {
+        "check": "Secure-window screenshot/recording/recents, API 25",
+        "date": "2026-10-29",
+        "result": "Recents PASS; screenshot inconclusive; recording BLOCKED",
+        "observation": "Revealed known synthetic saved-entry password in normal app. CLI/native screencap returned 0-byte files; Home control produced readable 396093-byte PNG. No decoded protected screenshot was available, so no screenshot-protection pass inferred. Settled readable 165346-byte recents PNG shows Keeppeer title with blank white content and no entry/draft/password. Native screenrecord command is absent in this API 25 image; no MP4/frame success claimed. Temporary FFmpeg 9.0.2 archive hash verified but absent recorder prevented decode.",
+        "artifacts": [
+          "%TEMP%/keeppeer-api25-detail.png",
+          "%TEMP%/keeppeer-api25-detail-native.png",
+          "%TEMP%/keeppeer-api25-home-control.png",
+          "%TEMP%/keeppeer-api25-recents-settled.png"
+        ],
+        "limits": "Emulator only; physical OEM screenshot/dialog/recording matrix remains open."
+      },
+      {
+        "check": "Actual process death, unsaved edit/reveal and Back",
+        "result": "PASS on API 25",
+        "startedAt": "2026-10-29T18:10:22.0435589+08:00",
+        "coldLaunchObservedAt": "2026-10-29T18:10:27.6118751+08:00",
+        "observation": "Saved synthetic entry through normal UI. Opened Edit, enabled reveal, changed title without saving. run-as kill -KILL PID 7727; cold am start showed locked empty password UI; later PID 9480. Back twice returned Home; reopening still locked. Only after master-password UI authentication did list show original saved title and opening details reset to masked password/Show password. No unsaved title or revealed screen restored.",
+        "limits": "Emulated Android 7.1.1; not physical OEM saved-state/process policy."
+      },
+      {
+        "check": "Disposable fingerprint enrollment and availability",
+        "result": "FAIL: demonstrated dependency incompatibility; fix validation pending",
+        "date": "2026-10-29",
+        "observation": "API 25 Settings completed fingerprint enrollment (finger 1) with a disposable PIN; dumpsys fingerprint reports user 0 count=1, hardware feature present, USE_FINGERPRINT granted. Despite enrollment, app Security settings reports strong biometrics unavailable/not enrolled and Enable remains unavailable; unchanged targeted enrollment-dialog test still assumption-skips. No strong availability gate bypassed, no callback fabricated, no biometric doFinal success claimed.",
+        "targetedRun": {
+          "command": "adb -s emulator-5556 shell am instrument -w -r -e class com.gem.keeppeer.BiometricEnrollmentTest#enrollmentDialogRejectsBlankAndDoesNotUsePasswordChangeFields com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+          "testSha256": "b5267badc86ea5f39d19de355bfc3fbca4f73366cd00b7ce9d3b27ccfc784bf4",
+          "startedAt": "2026-10-29T18:14:27.4507845+08:00",
+          "completedAt": "2026-10-29T18:14:40.0225605+08:00",
+          "seconds": 7.265,
+          "expected": 1,
+          "started": 1,
+          "passed": 0,
+          "failed": 0,
+          "skipped": 1,
+          "completed": true
+        },
+        "nextAction": "Verify the pinned Biometric compatibility fix on this same enrolled API 25 device, then exercise CryptoObject outcomes. Do not bypass availability or modify the physical phone enrollment."
+      },
+      {
+        "check": "Actual screen lock from revealed details",
+        "result": "PASS on API 25",
+        "startedAt": "2026-10-29T18:18:01.7432603+08:00",
+        "completedAt": "2026-10-29T18:18:32.7437037+08:00",
+        "observation": "Revealed synthetic saved entry, SLEEP, trust manager deviceLocked=1, WAKEUP and keyguard PIN entry. Only after system PIN unlock, app displayed Keeppeer locked with empty master-password field; no details or revealed content accessible. 5-minute timeout was selected, demonstrating screen lock overrides grace period.",
+        "limits": "Editing/prompt screen-lock cases recorded separately; no physical phone action."
+      },
+      {
+        "check": "First actual legacy fingerprint prompt after dependency fix",
+        "appSha256": "bf4fd8beb7b26113c61acb1a2c17028804a7a528355da773fb0c160da4f3743d",
+        "testSha256": "e20879ecc5fa054fc60a0946c4af5d508be14b814ecc619bdf9a5a0addf45b65",
+        "result": "FAIL: host theme crash; regression/fix in progress",
+        "date": "2026-10-29",
+        "promptSubmitObservedAt": "2026-10-29T18:39:33.5134018+08:00",
+        "deviceCrashAt": "2026-10-29 10:39:30.173 (emulator UTC clock)",
+        "observation": "Password-confirmed enrollment reached actual legacy fingerprint dialog; app crashed with IllegalStateException requiring Theme.AppCompat in AppCompatDelegateImpl/AlertDialog.onCreate/DialogFragment.onStart. No biometric scan or doFinal success claimed. This manual failure is separate from the earlier completed 21/21 suite, whose dialog test did not previously reach the native prompt.",
+        "fix": "Theme.Keeppeer parent changes from platform Theme.Material.Light.NoActionBar to Theme.AppCompat.DayNight.NoActionBar. Existing enrolled-device test now opens the real prompt, waits for its native accessibility title, cancels through Back, and asserts no wrapper was written and password access retained. No mock success; app crypto/session code unchanged."
+      },
+      {
+        "check": "Legacy biometric dialog window protection",
+        "appSha256": "407b0a19dce84ccbdcbf0d9b437353d74dc4738935bdef9473db4e3ce4f5f515",
+        "result": "FAIL: actual app-owned dialog lacks FLAG_SECURE; correction in progress",
+        "date": "2026-10-29",
+        "observation": "Actual API 25 enrollment prompt visible (title Enable biometric unlock / Touch the fingerprint sensor / USE MASTER PASSWORD). dumpsys window: activity fl=0x81812100 includes 0x2000; app-owned type-2 fingerprint dialog fl=0x01820002 does not. Negative fallback cancelled and preserved unlocked password access. No fingerprint scan or wrapper success claimed for this attempt.",
+        "fix": "MainActivity registers recursive FragmentLifecycleCallbacks to add FLAG_SECURE to app-owned DialogFragment windows in start dispatch, unregistering on destroy. Enrolled native-prompt test inspects actual showing compat DialogFragment windows before cancellation and requires secure flags."
+      },
+      {
+        "check": "Actual emulated fingerprint enrollment/decryption after fixes",
+        "api": 25,
+        "appSha256": "3f2097ec0fa02b661659a6f2cee5ec452bb668635c8efb26b332882ef81260ab",
+        "result": "PASS (emulated native HAL; not physical fingerprint)",
+        "observationCompleteAt": "2026-10-29T19:10:51.6883149+08:00",
+        "observation": "Normal app reopened its pre-update synthetic vault with master password. Dedicated password confirmation plus emu finger touch 1 produced availability=0, matching Cipher binding, approval/session/foreground checks, ENCRYPT_AAD/ENCRYPT_FINAL/WRAPPER_WRITE/COMPLETE. Lock now and a second enrolled-finger operation reached DECRYPT_AAD/DECRYPT_FINAL/DATABASE_OPEN/COMPLETE; the pre-existing saved synthetic title returned. No callback-only success or gate bypass. Initial collector filtered DEBUG records at INFO priority; corrected DEBUG-only same-PID filter recovered the actual stages without repeating enrollment.",
+        "phone": "Physical phone APK, working wrapper, enrollment and data unchanged."
+      },
+      {
+        "check": "Rejected scan/retry, lockout and password fallback",
+        "api": 25,
+        "appSha256": "3f2097ec0fa02b661659a6f2cee5ec452bb668635c8efb26b332882ef81260ab",
+        "result": "PASS (emulated native fingerprint service)",
+        "observationCompleteAt": "2026-10-29T19:16:24.9028248+08:00",
+        "observation": "Unenrolled finger 99 produced PROMPT_FAILED, kept the real prompt open and did not reach DECRYPT_FINAL for that operation. Enrolled finger 1 retried successfully and returned the saved synthetic title. A fresh prompt plus five bad emulated scans produced native PROMPT_ERROR code=7 and visible lockout/password-fallback message. Master-password unlock subsequently reopened the same saved entry; working biometric wrapper and data preserved. No claim that password completion preceded the OS timed-lockout deadline; no callback injected."
+      },
+      {
+        "check": "Actual prompt rotation/background/screen-lock and stale finger",
+        "api": 25,
+        "appSha256": "3f2097ec0fa02b661659a6f2cee5ec452bb668635c8efb26b332882ef81260ab",
+        "result": "PASS (emulated native prompt/OS lifecycle)",
+        "observationCompleteAt": "2026-10-29T19:21:48.6144861+08:00",
+        "observation": "Rotation cancelled prompt; late finger did not unlock. Home/background cancelled prompt; return and late finger stayed locked. Screen lock cancelled prompt; system PIN unlock returned locked; late finger ignored.",
+        "details": "Android settings rotation caused actual Activity configuration change; Home and SLEEP/WAKEUP were real OS transitions. Each began with a displayed native decrypt prompt. No fingerprint success injected; subsequent emulated enrolled-finger events did not reopen the vault after cancellation. Restricted stages show Activity/session cancellation; no decrypt/database open after the final cancelled prompt. Portrait restored and accelerometer rotation re-enabled."
+      },
+      {
+        "check": "Actual enrollment-change key invalidation attempt",
+        "api": 25,
+        "appSha256": "3f2097ec0fa02b661659a6f2cee5ec452bb668635c8efb26b332882ef81260ab",
+        "result": "NOT VERIFIED: old key remained usable on this image",
+        "observedAt": "2026-10-29T19:28:16.8289417+08:00",
+        "observation": "Settings successfully added a second fingerprint (native count 1 -> 2). Old wrapper Cipher initialized, and after emu finger touch 2 actual DECRYPT_FINAL/DATABASE_OPEN/COMPLETE succeeded. Thus this run did not exercise an invalidated-key failure. Code still requests setInvalidatedByBiometricEnrollment(true); no setting/gate weakened, no key-deletion surrogate called invalidation.",
+        "nextAction": "Test on API 31 disposable image/provider or suitable spare physical device that actually invalidates the authentication-bound key. Do not change the user's working physical enrollment."
+      },
+      {
+        "check": "Disable/re-enable with password and entry preservation",
+        "api": 25,
+        "appSha256": "3f2097ec0fa02b661659a6f2cee5ec452bb668635c8efb26b332882ef81260ab",
+        "result": "PASS (emulated native CryptoObject)",
+        "observationCompleteAt": "2026-10-29T19:35:37.8094662+08:00",
+        "observation": "Disable succeeded; after Lock now the biometric choice was absent and master-password authentication reopened the existing saved entry. Re-enable required the dedicated current-password dialog and an actual emulated finger-2 operation; after another lock, biometric DECRYPT_FINAL/DATABASE_OPEN completed. Saved synthetic title and exact known synthetic entry password were checked through UI; reveal was reset to masked. Separate key-invalidation failure remains unverified on this image."
+      },
+      {
+        "check": "Screen lock clears actual unsaved edit and reveal",
+        "api": 25,
+        "appSha256": "3f2097ec0fa02b661659a6f2cee5ec452bb668635c8efb26b332882ef81260ab",
+        "result": "PASS",
+        "startedAt": "2026-10-29T22:16:37.2449125+08:00",
+        "observationCompleteAt": "2026-10-29T22:18:35.4119192+08:00",
+        "observation": "Edited existing synthetic title without saving and revealed its password; SLEEP, real keyguard PIN unlock returned Keeppeer locked. Master-password authentication reopened original saved title. Re-entering Edit showed no unsaved title and Show (masked) state. No reset or saved-state injection."
+      },
+      {
+        "check": "Touch-menu Cut and OS-denied clipboard clear/foreground retry with newer clip",
+        "api": 25,
+        "appSha256": "0752f431044628cc0ee78ee30c90fd67c658723f760b60a76bfa511fa4fda240",
+        "testSha256": "80b973bbc4addd0662f322922b3aa7301a12b4193f64c1b409f9e69d7b6dbd30",
+        "result": "PASS (controlled actual AppOps denial; physical keyboard/OEM restrictions separate)",
+        "startedAt": "2026-10-29T22:52:04+08:00",
+        "completedAt": "2026-10-29T22:56:12+08:00",
+        "observation": "Normal UI Notes long-press CUT worked without crash. READ_CLIPBOARD changed from baseline allow to ignore using Android AppOps; Home left actual owned synthetic clip intact (observed through shell Clipboard Binder consumer). Restoring allow and foregrounding replaced owned clip with empty API-25 clip. Repeated denied/background scenario; copied a different synthetic word through native Settings Search COPY. Binder consumer observed the same newer unrelated value before and after access restoration/app foreground. READ_CLIPBOARD restored to baseline allow. No fake clipboard manager or callbacks; AppOps get showed ignore/allow but this Android 7 checkOp path did not emit rejectTime, so no reject timestamp claimed.",
+        "limits": "Explicitly imposed OS denial, not an observed natural OEM focus policy. Ctrl+C is injected; physical keyboard remains unexecuted."
+      }
+    ],
+    "dependencyCompatibilityFix": {
+      "status": "IMPLEMENTED; validation in progress",
+      "trigger": "Disposable API 25 enrollment completed and native fingerprint service reported one enrolled template/permission granted, but Biometric 1.1.0 still reported unavailable. This is a demonstrated app dependency incompatibility, not proof that enrolled emulators cannot support strong fingerprint.",
+      "rootCause": "Resolved Core 1.19.1 FingerprintManagerCompat source unconditionally returns false for hardware/enrollment and authenticate is a no-op. Biometric 1.1.0 canAuthenticateCompat uses this class below API 28 (also some later legacy checks).",
+      "change": "Pin androidx.biometric:biometric:1.4.0-alpha07, which owns an internal legacy fingerprint compatibility bridge; preserve Core 1.19.1 and app cryptographic/session implementation.",
+      "stablePolicyDeviation": "Official release page and Studio version lookup confirm stable Biometric remains 1.1.0 and current preview is 1.4.0-alpha07. The pinned preview is a justified compatibility exception; no broad Core downgrade, minSdk change or weakened auth gate. Release stays disabled and affected native checks must pass.",
+      "regression": "Before the enrollment-dependent UI assumption on API 24..27, compare public native hardware/enrollment capability metadata via test-only reflection (platform fingerprint class removed from compileSdk 37). If the native service has an enrolled fingerprint, require Biometric availability instead of silently skipping. No templates, keys or authentication callback obtained/faked.",
+      "sources": [
+        "https://developer.android.com/jetpack/androidx/releases/core",
+        "https://developer.android.com/jetpack/androidx/releases/biometric"
+      ],
+      "phone": "Existing physical phone APK, vault, working wrapper and enrollment remain unchanged. Accepted API 31 evidence applies to app 58c3e... only; do not automatically claim the new dependency artifact is physically verified.",
+      "validation": {
+        "build": {
+          "command": ":app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest :app:lintDebug --console=plain",
+          "result": "PASS (actual Gradle daemon after tool timeout)",
+          "completedAt": "2026-10-29T18:30:36.695+08:00",
+          "duration": "5m50s",
+          "jvm": {
+            "passed": 15,
+            "failed": 0,
+            "skipped": 0
+          },
+          "lint": {
+            "errors": 0,
+            "warnings": 14
+          },
+          "note": "MCP caller timed out at 300 seconds; no duplicate build started. Fresh XML JVM results and final daemon BUILD SUCCESSFUL establish actual completion."
+        },
+        "target": {
+          "api": 25,
+          "appSha256": "bf4fd8beb7b26113c61acb1a2c17028804a7a528355da773fb0c160da4f3743d",
+          "testSha256": "e20879ecc5fa054fc60a0946c4af5d508be14b814ecc619bdf9a5a0addf45b65",
+          "command": "adb -s emulator-5556 shell am instrument -w -r -e class com.gem.keeppeer.BiometricEnrollmentTest#enrollmentDialogRejectsBlankAndDoesNotUsePasswordChangeFields com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+          "startedAt": "2026-10-29T18:34:54.1843186+08:00",
+          "completedAt": "2026-10-29T18:35:12.2846969+08:00",
+          "seconds": 13.942,
+          "expected": 1,
+          "started": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "completed": true,
+          "result": "PASS: same enrolled legacy device now reports available; dialog empty/wrong-password/cancel validation passes.",
+          "installedAndHostAppSha1": "afc253f9367c935e02e0cdbfc681e0312c3c0a74",
+          "installedAndHostTestSha1": "6942feb59af3f6c7b7d036cbe6007cbba605e6d5"
+        },
+        "full": {
+          "api": 25,
+          "android": "7.1.1",
+          "model": "Android SDK built for x86_64",
+          "abi": "x86_64",
+          "avd": "Keeppeer_Phase2_API25_20261029",
+          "serial": "emulator-5556",
+          "sourceRevision": "382fdcaa7f818869820389ed78a195db05320d2e",
+          "appSha256": "bf4fd8beb7b26113c61acb1a2c17028804a7a528355da773fb0c160da4f3743d",
+          "testSha256": "e20879ecc5fa054fc60a0946c4af5d508be14b814ecc619bdf9a5a0addf45b65",
+          "command": "adb -s emulator-5556 shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+          "startedAt": "2026-10-29T18:36:08.7923945+08:00",
+          "completedAt": "2026-10-29T18:37:57.5722331+08:00",
+          "seconds": 106.229,
+          "expected": 21,
+          "started": 21,
+          "passed": 21,
+          "failed": 0,
+          "skipped": 0,
+          "completed": true,
+          "result": "PASS: all 21 checks, enrolled API 25",
+          "details": "Same API 25 disposable enrollment that produced unavailable/skip with Biometric 1.1.0 now passes native-capability check and complete suite. Actual biometric per-use cryptographic success is a separate normal-app manual check.",
+          "metrics": {
+            "portableMs": 1253,
+            "selectedMs": 771,
+            "selectedBackend": "portable",
+            "iterations": 600000,
+            "mainTicks": 104,
+            "maxMainGapMs": 108,
+            "selectionKeyboardCopyExpiryMs": 30080
+          },
+          "testInstalledAndHostSha1": "6942feb59af3f6c7b7d036cbe6007cbba605e6d5",
+          "appInstalledAndHostSha1": "afc253f9367c935e02e0cdbfc681e0312c3c0a74",
+          "runnerSummary": "OK (21 tests); 21 raw passes, no failure/skip",
+          "sourceState": "382fdcaa7f818869820389ed78a195db05320d2e plus test fixture/driver/native-enrollment regression and pinned Biometric 1.4.0-alpha07 compatibility correction"
+        },
+        "appSha256": "bf4fd8beb7b26113c61acb1a2c17028804a7a528355da773fb0c160da4f3743d",
+        "testSha256": "e20879ecc5fa054fc60a0946c4af5d508be14b814ecc619bdf9a5a0addf45b65",
+        "limit": "Full 21-pass result precedes discovery of the native legacy dialog host-theme crash. It is retained, not represented as proof of actual biometric doFinal."
+      }
+    },
+    "additionalDisposableEnvironment": {
+      "purpose": "API 31 x86_64 Google APIs r14, Keeppeer_Phase2_API31_20261029 created for recording/current-biometric checks without touching phone; not a repeat of accepted physical full suite.",
+      "status": "Image/AVD ready but not yet booted; API 25 compatibility/theme defects are being fixed first.",
+      "nativeRecordingAPI25Blocker": "/system/bin/sh: screenrecord: not found; empty protected screencap not accepted as decoded protection evidence; Home control and settled blank recents PNG inspected.",
+      "bootIssue": {
+        "result": "ENVIRONMENT FAILURE before Keeppeer checks",
+        "observation": "First API31 boot with1536MB took about5min; CLI layout empty; native uiautomator found System UI isn't responding while Settings PIN confirmation was foreground. No Keeppeer launch/test/capture had run. Host freephysicalmemory1147964KiB of8054264KiB; memory-pressure cause not proven. Restarted same AVD with2048MB without wiping, retaining PIN/APKs; recovery checks pending.",
+        "date": "2026-10-29"
+      },
+      "affectedRunBeforeBackDriverFix": {
+        "api": 31,
+        "appSha256": "0752f431044628cc0ee78ee30c90fd67c658723f760b60a76bfa511fa4fda240",
+        "testSha256": "80b973bbc4addd0662f322922b3aa7301a12b4193f64c1b409f9e69d7b6dbd30",
+        "command": "adb -s emulator-5558 shell am instrument -w -r -e class 'com.gem.keeppeer.BiometricEnrollmentTest,com.gem.keeppeer.VaultVerificationTest#touchMenuCutUsesSensitiveClipboardBoundary,com.gem.keeppeer.VaultVerificationTest#keyboardSelectionCopyExpiresAndBackgroundReturnClearsOwnedClip' com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "expected": 5,
+        "started": 5,
+        "passed": 4,
+        "failed": 1,
+        "skipped": 0,
+        "seconds": 125.837,
+        "startedAt": "2026-10-29T23:18:44.1894590+08:00",
+        "completedAt": "2026-10-29T23:20:59.9436143+08:00",
+        "completed": true,
+        "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/8ad9a43e-c81a-4949-b5d7-5ef418fa3370/session/agent/shell-logs/shell-756.log",
+        "metrics": [
+          "KeeppeerVerification API=31 selectionKeyboardCopyExpiryMs=30038"
+        ]
+      },
+      "capturesBeforePhoneSwitch": {
+        "appSha256": "0752f431044628cc0ee78ee30c90fd67c658723f760b60a76bfa511fa4fda240",
+        "png": "0 bytes; inconclusive",
+        "mp4Bytes": 5060,
+        "decodedFrame": "Direct FFmpeg extraction decoded one 540x960 frame (5263-byte PNG); visually black app/status area with visible OS navigation buttons while synthetic saved-entry password was revealed in UI. Duration N/A; fps filter initially dropped this zero-duration/static sample, direct decode succeeded.",
+        "limit": "No decoded control frame before user requested device switch, so no full recorder-protection acceptance claimed.",
+        "stopped": "On user device-switch instruction; API31 enrollment-change invalidation not attempted."
+      }
+    },
+    "legacyDialogThemeFix": {
+      "result": "PASS on API 25; historical crash retained",
+      "resource": "app/src/main/res/values/themes.xml",
+      "reason": "Actual API 25 prompt launch after the compatibility correction crashed: native AppCompat dialog requires Theme.AppCompat host, whereas the original host used android:Theme.Material.Light.NoActionBar.",
+      "change": "Theme.AppCompat.DayNight.NoActionBar; existing Compose Material 3 theme remains. No crypto/session/AAD/KDF/minSdk change.",
+      "test": "Enrolled-device test now opens actual native/compat biometric prompt and cancels without fake success, requiring no wrapper write and preserved password access.",
+      "validation": {
+        "harnessConflict": {
+          "api": 25,
+          "appSha256": "407b0a19dce84ccbdcbf0d9b437353d74dc4738935bdef9473db4e3ce4f5f515",
+          "testSha256": "66846311e20189186b132adf7fec90308bf794aeb37aadd048c0a7bdd9217a8b",
+          "command": "targeted enrolled-dialog/native-prompt test",
+          "startedAt": "2026-10-29T18:47:44.6219156+08:00",
+          "completedAt": "2026-10-29T18:48:01.1453840+08:00",
+          "expected": 1,
+          "started": 1,
+          "reportedPasses": 0,
+          "reportedFailures": 1,
+          "skipped": 0,
+          "completed": false,
+          "result": "INCOMPLETE: UiAutomationService already registered; runner reports Process crashed, no completed test summary",
+          "details": "Android CLI layout instrumentation retained the sole accessibility automation connection. Stop only com.android.cli.interact.instrumentation before the unchanged direct instrumentation rerun; no source/assertion weakening or vault reset."
+        },
+        "unchangedTarget": {
+          "api": 25,
+          "appSha256": "407b0a19dce84ccbdcbf0d9b437353d74dc4738935bdef9473db4e3ce4f5f515",
+          "testSha256": "66846311e20189186b132adf7fec90308bf794aeb37aadd048c0a7bdd9217a8b",
+          "command": "adb -s emulator-5556 shell am instrument -w -r -e class com.gem.keeppeer.BiometricEnrollmentTest#enrollmentDialogRejectsBlankAndDoesNotUsePasswordChangeFields com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+          "startedAt": "2026-10-29T18:49:06.4647274+08:00",
+          "completedAt": "2026-10-29T18:49:27.5950301+08:00",
+          "seconds": 16.301,
+          "expected": 1,
+          "started": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "completed": true,
+          "result": "PASS: actual native/compat fingerprint prompt opens under AppCompat theme, Back cancels, no wrapper written, password access retained; native capability regression passes."
+        },
+        "fullSuite": {
+          "api": 25,
+          "android": "7.1.1",
+          "model": "Android SDK built for x86_64",
+          "abi": "x86_64",
+          "avd": "Keeppeer_Phase2_API25_20261029",
+          "serial": "emulator-5556",
+          "sourceRevision": "382fdcaa7f818869820389ed78a195db05320d2e",
+          "appSha256": "407b0a19dce84ccbdcbf0d9b437353d74dc4738935bdef9473db4e3ce4f5f515",
+          "testSha256": "66846311e20189186b132adf7fec90308bf794aeb37aadd048c0a7bdd9217a8b",
+          "command": "adb -s emulator-5556 shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+          "startedAt": "2026-10-29T18:49:41.7923090+08:00",
+          "completedAt": "2026-10-29T18:51:34.0960665+08:00",
+          "seconds": 109.937,
+          "expected": 21,
+          "started": 21,
+          "passed": 21,
+          "failed": 0,
+          "skipped": 0,
+          "completed": true,
+          "result": "PASS: all 21 checks, enrolled API 25",
+          "details": "Complete current suite includes actual native/compat prompt launch and Back cancellation without wrapper write or lost password access. Native Keystore/SQLCipher and portable KDF checks pass. No biometric success fabricated; real emulated cryptographic completion remains a separate manual check.",
+          "metrics": {
+            "portableMs": 1145,
+            "selectedMs": 830,
+            "selectedBackend": "portable",
+            "iterations": 600000,
+            "mainTicks": 73,
+            "maxMainGapMs": 59,
+            "selectionKeyboardCopyExpiryMs": 30051
+          },
+          "testInstalledAndHostSha1": "1e26160c4d2a666367b6a62c1bef960371518d1b",
+          "appInstalledAndHostSha1": "3decbc21c53bb49ab0b4cf4a94675b3ea4ec598f",
+          "runnerSummary": "OK (21 tests); 21 raw passes, no failure/skip",
+          "sourceState": "382fdcaa7f818869820389ed78a195db05320d2e plus test fixture/driver/native-prompt regressions, Biometric 1.4.0-alpha07 pin and AppCompat host theme"
+        }
+      }
+    },
+    "secureDialogWindowFix": {
+      "result": "PASS on enrolled API 25; further API coverage pending",
+      "trigger": "Actual app-owned legacy prompt showed fl=0x01820002 (no FLAG_SECURE), while underlying activity fl=0x81812100 included secure.",
+      "change": "MainActivity registers recursive FragmentLifecycleCallbacks and sets FLAG_SECURE on DialogFragment windows during start dispatch before drawing; unregister on Activity destroy. New regression inspects the actual showing compat prompt windows before cancel.",
+      "paths": [
+        "app/src/main/java/com/gem/keeppeer/MainActivity.kt",
+        "app/src/androidTest/java/com/gem/keeppeer/BiometricEnrollmentTest.kt"
+      ],
+      "assemblyLint": "Studio :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug passed; lint 0 errors/14 warnings.",
+      "currentAppSha256": "3f2097ec0fa02b661659a6f2cee5ec452bb668635c8efb26b332882ef81260ab",
+      "currentTestSha256": "38fbaecf84225ab0ce5f5f95de96778ec30efcae7150b69427ce05a65eac8923",
+      "fullAPI25Suite": {
+        "api": 25,
+        "android": "7.1.1",
+        "model": "Android SDK built for x86_64",
+        "abi": "x86_64",
+        "avd": "Keeppeer_Phase2_API25_20261029",
+        "serial": "emulator-5556",
+        "sourceRevision": "382fdcaa7f818869820389ed78a195db05320d2e",
+        "appSha256": "3f2097ec0fa02b661659a6f2cee5ec452bb668635c8efb26b332882ef81260ab",
+        "testSha256": "38fbaecf84225ab0ce5f5f95de96778ec30efcae7150b69427ce05a65eac8923",
+        "command": "adb -s emulator-5556 shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "startedAt": "2026-10-29T19:02:11.9577480+08:00",
+        "completedAt": "2026-10-29T19:03:58.3954992+08:00",
+        "seconds": 103.987,
+        "expected": 21,
+        "started": 21,
+        "passed": 21,
+        "failed": 0,
+        "skipped": 0,
+        "completed": true,
+        "result": "PASS: all 21 checks, enrolled API 25",
+        "details": "All current native security/UI tests pass, including actual legacy prompt display, secure window flags, cancel/no wrapper write/password access. No biometric success fabricated; emulated HAL doFinal is a separate normal-app journey.",
+        "metrics": {
+          "portableMs": 1168,
+          "selectedMs": 720,
+          "selectedBackend": "portable",
+          "iterations": 600000,
+          "mainTicks": 100,
+          "maxMainGapMs": 85,
+          "selectionKeyboardCopyExpiryMs": 30094
+        },
+        "testInstalledAndHostSha1": "5a520902c440a9391ae376c180109617465a575c",
+        "appInstalledAndHostSha1": "2cd098aaef3022df77c77704f7c046dd2398d60e",
+        "runnerSummary": "OK (21 tests); 21 raw passes, no failure/skip",
+        "sourceState": "382fdcaa7f818869820389ed78a195db05320d2e plus fixture/driver/native prompt+window regressions, Biometric 1.4.0-alpha07, AppCompat theme and recursive secure DialogFragment windows"
+      }
+    },
+    "clipboardTouchFix": {
+      "trigger": "Actual API 25 long press crashed: IllegalArgumentException extracting native clipboard reference from a wrapper that did not implement AndroidClipboard (2026-10-29 14:19:54 emulator UTC).",
+      "change": "Local adapter implements AndroidClipboard and delegates native manager metadata; sensitive current/legacy write paths retained. Narrow VisibleForTests suppression documents pinned Compose 1.12 contract.",
+      "assemblyLint": {
+        "errors": 0,
+        "warnings": 14
+      },
+      "targetedPass": {
+        "api": 25,
+        "appSha256": "0752f431044628cc0ee78ee30c90fd67c658723f760b60a76bfa511fa4fda240",
+        "testSha256": "80b973bbc4addd0662f322922b3aa7301a12b4193f64c1b409f9e69d7b6dbd30",
+        "command": "[DateTimeOffset]::Now.ToString('o'); & 'C:/Users/gemdu/AppData/Local/Android/Sdk/platform-tools/adb.exe' -s emulator-5556 shell am instrument -w -r -e class 'com.gem.keeppeer.VaultVerificationTest#touchMenuCutUsesSensitiveClipboardBoundary' com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner; [DateTimeOffset]::Now.ToString('o')",
+        "expected": 1,
+        "started": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 10.809,
+        "startedAt": "2026-10-29T22:46:29.1224263+08:00",
+        "completedAt": "2026-10-29T22:46:43.5080269+08:00",
+        "completed": true,
+        "log": "C:\\Users\\gemdu\\.android\\studio\\agent\\conversations\\Keeppeer-3e303456340a7b8dc0dbedcd81c5b1\\8ad9a43e-c81a-4949-b5d7-5ef418fa3370\\session\\agent\\shell-logs\\shell-600.log",
+        "metrics": []
+      },
+      "history": [
+        {
+          "appSha256": "0752f431044628cc0ee78ee30c90fd67c658723f760b60a76bfa511fa4fda240",
+          "testSha256": "fc4fe24708b8979130c1c4eee28c6aec33ff1e7a7aad65d724ef5a6848dbb50a",
+          "result": "FAIL",
+          "startedAt": "2026-10-29T22:34:45.6362770+08:00",
+          "completedAt": "2026-10-29T22:35:11.7108547+08:00",
+          "expected": 1,
+          "started": 1,
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "seconds": 23.323,
+          "details": "No app crash; touch target at center of multiline field did not expose Cut. Corrected first populated line long-press coordinate, explicitly asserted noncollapsed selection, accepted native action contentDescription."
+        },
+        {
+          "api": 25,
+          "appSha256": "0752f431044628cc0ee78ee30c90fd67c658723f760b60a76bfa511fa4fda240",
+          "testSha256": "80b973bbc4addd0662f322922b3aa7301a12b4193f64c1b409f9e69d7b6dbd30",
+          "command": "[DateTimeOffset]::Now.ToString('o'); & 'C:/Users/gemdu/AppData/Local/Android/Sdk/platform-tools/adb.exe' -s emulator-5556 shell am instrument -w -r -e class 'com.gem.keeppeer.VaultVerificationTest#touchMenuCutUsesSensitiveClipboardBoundary' com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner; [DateTimeOffset]::Now.ToString('o')",
+          "expected": 1,
+          "started": 1,
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "seconds": 124.462,
+          "startedAt": "2026-10-29T22:43:19.4143736+08:00",
+          "completedAt": "2026-10-29T22:45:27.5451573+08:00",
+          "completed": true,
+          "log": "C:\\Users\\gemdu\\.android\\studio\\agent\\conversations\\Keeppeer-3e303456340a7b8dc0dbedcd81c5b1\\8ad9a43e-c81a-4949-b5d7-5ef418fa3370\\session\\agent\\shell-logs\\shell-589.log",
+          "metrics": [],
+          "details": "Fixture unlock timed out behind boot-time system keyguard. dumpsys trust subsequently verified deviceLocked=1. System PIN entry after swipe dismissed it (deviceLocked=0); unchanged rerun passed. Cut not reached in this failure."
+        }
+      ],
+      "currentFullAPI25Suite": {
+        "api": 25,
+        "appSha256": "0752f431044628cc0ee78ee30c90fd67c658723f760b60a76bfa511fa4fda240",
+        "testSha256": "80b973bbc4addd0662f322922b3aa7301a12b4193f64c1b409f9e69d7b6dbd30",
+        "command": "adb -s emulator-5556 shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "expected": 22,
+        "started": 22,
+        "passed": 22,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 116.245,
+        "startedAt": "2026-10-29T22:47:05.7635028+08:00",
+        "completedAt": "2026-10-29T22:49:04.3871316+08:00",
+        "completed": true,
+        "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/8ad9a43e-c81a-4949-b5d7-5ef418fa3370/session/agent/shell-logs/shell-604.log",
+        "metrics": [
+          "KeeppeerVerification API=25 kdfIterations=600000 portableMs=1217 selectedMs=850 mainTicks=81 maxMainGapMs=56 selectedBackend=portable",
+          "KeeppeerVerification API=25 selectionKeyboardCopyExpiryMs=30102"
+        ]
+      },
+      "currentFullAPI24Suite": {
+        "api": 24,
+        "appSha256": "0752f431044628cc0ee78ee30c90fd67c658723f760b60a76bfa511fa4fda240",
+        "testSha256": "80b973bbc4addd0662f322922b3aa7301a12b4193f64c1b409f9e69d7b6dbd30",
+        "command": "adb -s emulator-5554 shell am instrument -w -r com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "expected": 22,
+        "started": 22,
+        "passed": 21,
+        "failed": 0,
+        "skipped": 1,
+        "seconds": 118.243,
+        "startedAt": "2026-10-29T22:58:24.8082798+08:00",
+        "completedAt": "2026-10-29T23:00:25.4718215+08:00",
+        "completed": true,
+        "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/8ad9a43e-c81a-4949-b5d7-5ef418fa3370/session/agent/shell-logs/shell-676.log",
+        "metrics": [
+          "KeeppeerVerification API=24 kdfIterations=600000 portableMs=1231 selectedMs=857 mainTicks=81 maxMainGapMs=43 selectedBackend=portable",
+          "KeeppeerVerification API=24 selectionKeyboardCopyExpiryMs=30052"
+        ]
+      }
+    },
+    "phoneContinuation": {
+      "requestedDevice": "RR8R402RR7T / Samsung SM-A125F / Android 12 / API 31 / arm64-v8a",
+      "scope": "User explicitly switched subsequent execution to this phone; emulator stopped, no further emulator interaction. Updates use adb install -r; SyntheticTestRunner application/context isolation rechecked. No uninstall/clear/reset, enrollment change or normal-vault capture.",
+      "priorInstalledAppSha256": "58c3e0827ad6339f4fc2e16f2c1c167cf466727d6d2b4b2cae94eb55083bda06",
+      "installedAppSha256": "c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169",
+      "initialTestSha256": "04cb9ebe1439dd88c592a67bbd00a8d8572a5e4e1e1975c18f76ddd4a3817ef6",
+      "initialAffectedRun": {
+        "api": 31,
+        "appSha256": "c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169",
+        "testSha256": "04cb9ebe1439dd88c592a67bbd00a8d8572a5e4e1e1975c18f76ddd4a3817ef6",
+        "command": "adb -s RR8R402RR7T shell am instrument -w -r -e class 'com.gem.keeppeer.BiometricEnrollmentTest,com.gem.keeppeer.VaultVerificationTest#touchMenuCutUsesSensitiveClipboardBoundary,com.gem.keeppeer.VaultVerificationTest#keyboardSelectionCopyExpiresAndBackgroundReturnClearsOwnedClip,com.gem.keeppeer.SecureCaptureTest' com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "expected": 6,
+        "started": 6,
+        "passed": 3,
+        "failed": 3,
+        "skipped": 0,
+        "seconds": 173.9,
+        "startedAt": "2026-10-29T23:38:11.1166575+08:00",
+        "completedAt": "2026-10-29T23:41:11.8608307+08:00",
+        "completed": true,
+        "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/8ad9a43e-c81a-4949-b5d7-5ef418fa3370/session/agent/shell-logs/shell-827.log",
+        "metrics": [
+          "KeeppeerVerification API=31 selectionKeyboardCopyExpiryMs=30067"
+        ],
+        "details": "Three passes; three driver failures: injected system Back rejected, native Cut accessibility action false, immediate Settings root null. Resolved with grounded OS Back/tap and explicit root/resume/focus synchronization; no production/authentication/crypto changes."
+      },
+      "currentChecks": "Completed: 6/6 affected checks on831d test, followed by1/1 final fc7 capture-only target. Added enrollment assumption to new capture journey so absent enrollment is a declared skip. Full current23-test suite not rerun/claimed; prior22-test API24/25 and accepted21-test original API31 results keep original identities.",
+      "testDriverCorrections": [
+        "System-owned API28+ prompt is outside Espresso's app-window root. UiAutomation's injected key was rejected on Samsung. Use shell input keyevent 4 and explicitly wait until native prompt title disappears; wrapper-no-write/password-access assertions retained.",
+        "Samsung native Cut node was found and selection asserted, but accessibility ACTION_CLICK returned false. Ground a real OS input tap in the current native Cut node's screen bounds; assert field removal, actual clipboard value, ownership and sensitive flag.",
+        "Capture control must wait for the actual Settings root and then resumed/focused app before fixture authentication. New capture journey is guarded by SyntheticTestApplication and enrollment; only synthetic revealed draft/confirmation dialog plus generic Display Settings are captured. Captures require separate decoded visual review."
+      ],
+      "affectedRun": {
+        "api": 31,
+        "appSha256": "c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169",
+        "testSha256": "831d329e8efd363109f157ff60d53766aa195bf8bdb7f3df4ea0c7018e461054",
+        "command": "adb -s RR8R402RR7T shell am instrument -w -r -e class 'com.gem.keeppeer.BiometricEnrollmentTest,com.gem.keeppeer.VaultVerificationTest#touchMenuCutUsesSensitiveClipboardBoundary,com.gem.keeppeer.VaultVerificationTest#keyboardSelectionCopyExpiresAndBackgroundReturnClearsOwnedClip,com.gem.keeppeer.SecureCaptureTest' com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "expected": 6,
+        "started": 6,
+        "passed": 6,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 214.107,
+        "startedAt": "2026-10-29T23:45:36.7871777+08:00",
+        "completedAt": "2026-10-29T23:49:17.4455208+08:00",
+        "completed": true,
+        "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/8ad9a43e-c81a-4949-b5d7-5ef418fa3370/session/agent/shell-logs/shell-835.log",
+        "metrics": [
+          "KeeppeerVerification API=31 selectionKeyboardCopyExpiryMs=30063"
+        ]
+      },
+      "finalCaptureTarget": {
+        "api": 31,
+        "appSha256": "c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169",
+        "testSha256": "fc7f89c1d75d9a5b45e6231bcae9d221a2965e0821b205d3061a0c878af21345",
+        "command": "adb -s RR8R402RR7T shell am instrument -w -r -e class 'com.gem.keeppeer.SecureCaptureTest' com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "expected": 1,
+        "started": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 52.468,
+        "startedAt": "2026-10-29T23:54:51.3726800+08:00",
+        "completedAt": "2026-10-29T23:55:50.3277464+08:00",
+        "completed": true,
+        "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/8ad9a43e-c81a-4949-b5d7-5ef418fa3370/session/agent/shell-logs/shell-844.log",
+        "metrics": []
+      },
+      "finalTestSha256": "fc7f89c1d75d9a5b45e6231bcae9d221a2965e0821b205d3061a0c878af21345",
+      "hostChecks": {
+        "command": ".\\gradlew.bat :app:assembleDebugAndroidTest :app:lintDebug :app:testDebugUnitTest --console=plain",
+        "result": "PASS",
+        "buildSeconds": 46,
+        "jvm": {
+          "tests": 15,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "lint": {
+          "errors": 0,
+          "warnings": 14
+        },
+        "mergedManifest": "minSdk24,target37; allowBackup=false; explicit backup/data-transfer rules; no Internet/broad storage permissions. Release variant disabled.",
+        "sourceRevision": "382fdcaa7f818869820389ed78a195db05320d2e plus uncommitted paths"
+      },
+      "recordingEvidence": {
+        "result": "PASS for visually reviewed native-recording samples; PNG screenshot attempts INCONCLUSIVE",
+        "method": "SyntheticTestRunner + SyntheticTestApplication fail-closed guard. Generic Display Settings control; actual revealed synthetic draft; masked password-confirmation Compose dialog. Native screencap and screenrecord --size540x960 --time-limit5. FFmpeg9.0.2/ffprobe counted frames; complete contact sheets visually reviewed.",
+        "sixCheckRun": {
+          "artifacts": "/data/local/tmp/keeppeer-phase2-capture-10653164",
+          "controlPngBytes": 74506,
+          "controlFrames": 1,
+          "draftFrames": 35,
+          "dialogFrames": 11,
+          "draftVideoSeconds": 0.637622,
+          "dialogVideoSeconds": 0.221056
+        },
+        "finalRun": {
+          "artifacts": "/data/local/tmp/keeppeer-phase2-capture-11040134",
+          "localFolder": "C:/Users/gemdu/AppData/Local/Temp/keeppeer-phone-capture-11040134",
+          "controlPngBytes": 74157,
+          "controlMp4Bytes": 17619,
+          "controlFrames": 1,
+          "controlVideoSeconds": 0,
+          "draftPngBytes": 0,
+          "draftMp4Bytes": 5587,
+          "draftFrames": 26,
+          "draftVideoSeconds": 0.487578,
+          "dialogPngBytes": 0,
+          "dialogMp4Bytes": 4866,
+          "dialogFrames": 1,
+          "dialogVideoSeconds": 0
+        },
+        "observation": "Readable generic control. Every decoded draft/dialog sample shows black app content with OS bars/navigation/IME controls only; no synthetic password/draft/dialog fields visible. Protected PNGs0bytes are not counted as screenshot protection proof.",
+        "limits": "Requested5seconds yields static/short changed-frame timelines, not5seconds of independently encoded frames. No production entry screens, notification shade or other apps' recents captured. Physical screenshot-button policy, recents/OEM matrix remain unverified."
+      },
+      "normalVaultDiscrepancy": {
+        "result": "UNRESOLVED; normal-phone authentication/setup stopped",
+        "observedAt": "2026-10-29T23:56:36+08:00 through 2026-10-30T00:04:48+08:00",
+        "observation": "After force-stop/relaunch normal com.gem.keeppeer, filtered UI labels report Master password/Create your vault instead of locked/biometric choices. Activity process metadata confirms KeeppeerApplication and /data/user/0/com.gem.keeppeer (UID10358). Expected no_backup/vault-envelope.bin, .bak, biometric-envelope.bin and databases/keeppeer_vault.db are absent. Directory metadata read only; no envelope, DB or key material read/collected.",
+        "metadata": "no_backup and databases directory timestamps2026-10-29 23:56:36+08:00, normal cold launch; firstInstallTime2026-10-29 08:14:00,lastUpdateTime23:36:20. Three isolated cache fixture envelopes dated23:38,23:46,23:55 remain; no biometric wrapper found in that bounded synthetic-cache glob. The later exact-path metadata check also found no vault-envelope.bin.new, biometric-envelope.bin.bak/.new or encrypted-database WAL/SHM/journal sidecars. No payloads read.",
+        "limits": "No normal-file existence/hash baseline before in-place update; cannot determine when/why files became absent or independently confirm earlier vault preservation. Source paths/initial-state logic unchanged; fixture contexts route files/aliases to unique test namespaces. These facts do not establish the cause or restore any prior data.",
+        "actions": "No setup, reset, uninstall, clear-data, key/enrollment changes or automatic recovery. Normal app and inspector force-stopped after metadata inspection. Existing fixture/runtime data left in place. User asked whether app data had been cleared/reinstalled/reset; answer pending. Fresh real fingerprint/password checks on normal phone paused.",
+        "nextAction": "Clarify the phone's app-data history before any setup or recovery. For future in-place updates, record normal encrypted-file existence/size/timestamps before and after; never export their contents."
+      }
+    }
+  },
+  "deviceChecks": "See remainingChecksContinuation.phoneContinuation for current Samsung targeted runs, capture visual review and unresolved normal-vault first-run discrepancy. currentVerification retains original accepted physical API31 history. API24/25 native/full runs remain artifact-specific. Phase2 incomplete.",
   "currentVerification": {
     "baselineRevision": "76487e762bea52aa03aefffff39e121991065c17",
     "sourceState": "Local uncommitted diagnostic/AAD-fix production tree at task start; this follow-up changes only instrumentation tests and verification documentation.",

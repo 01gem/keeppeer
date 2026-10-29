@@ -94,6 +94,16 @@ class BiometricEnrollmentTest {
     }
     @Test fun enrollmentDialogRejectsBlankAndDoesNotUsePasswordChangeFields() {
         val session = setup()
+        if (android.os.Build.VERSION.SDK_INT in 24..27) {
+            // The platform service is absent from compileSdk 37; inspect only its public legacy
+            // capability methods on the old device. No key/template data or auth callback is read.
+            val native = compose.activity.getSystemService("fingerprint")
+            val enrolled = native != null &&
+                native.javaClass.getMethod("isHardwareDetected").invoke(native) == true &&
+                native.javaClass.getMethod("hasEnrolledFingerprints").invoke(native) == true
+            if (enrolled) assertTrue("Enrolled legacy fingerprint must remain available through Biometric compatibility",
+                session.biometrics.available())
+        }
         org.junit.Assume.assumeTrue("Strong biometric enrollment required for the settings button", session.biometrics.available())
         compose.onNodeWithText("Security").performClick()
         compose.onNodeWithText("Enable biometrics").performScrollTo().performClick()
@@ -110,5 +120,42 @@ class BiometricEnrollmentTest {
         compose.onNodeWithText("Cancel", useUnmergedTree = true).performClick()
         compose.onNodeWithText("Confirm biometric enrollment").assertDoesNotExist()
         assertNotNull(session.state.value.access)
+
+        // Open the actual platform/compat fingerprint window: checking availability alone
+        // misses legacy dialog theme crashes. Cancel without fabricating biometric success.
+        compose.onNodeWithText("Enable biometrics").performScrollTo().performClick()
+        compose.onNodeWithText("Current master password for biometrics")
+            .performTextReplacement("synthetic test master")
+        compose.onNodeWithText("Continue to fingerprint")
+            .performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick) { assertTrue(it()) }
+        compose.waitUntil(30_000) {
+            InstrumentationRegistry.getInstrumentation().uiAutomation.rootInActiveWindow
+                ?.findAccessibilityNodeInfosByText("Enable biometric unlock")?.isNotEmpty() == true
+        }
+        if (android.os.Build.VERSION.SDK_INT < 28) compose.runOnUiThread {
+            fun secureDialogCount(manager: androidx.fragment.app.FragmentManager): Int =
+                manager.fragments.sumOf { fragment ->
+                    val window = (fragment as? androidx.fragment.app.DialogFragment)
+                        ?.dialog?.takeIf { it.isShowing }?.window
+                    if (window != null) assertTrue("App-owned fingerprint dialog must be FLAG_SECURE",
+                        window.attributes.flags and android.view.WindowManager.LayoutParams.FLAG_SECURE != 0)
+                    (if (window != null) 1 else 0) + secureDialogCount(fragment.childFragmentManager)
+                }
+            assertTrue("Actual compat fingerprint dialog must exist",
+                secureDialogCount(compose.activity.supportFragmentManager) > 0)
+        }
+        // API 28+ owns the prompt in System UI, outside Espresso's app-window root.
+        val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
+        android.os.ParcelFileDescriptor.AutoCloseInputStream(
+            automation.executeShellCommand("input keyevent 4")
+        ).use { it.readBytes() }
+        // Verify the observable cancellation; command completion alone is not evidence.
+        compose.waitUntil(10_000) {
+            automation.rootInActiveWindow?.findAccessibilityNodeInfosByText("Enable biometric unlock")
+                ?.isEmpty() == true
+        }
+        compose.waitForIdle()
+        assertFalse("Cancelled native prompt must not write a wrapper", session.biometrics.enabled())
+        assertNotNull("Cancelling enrollment must preserve password access", session.state.value.access)
     }
 }

@@ -11,7 +11,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import com.gem.keeppeer.security.*
 import com.gem.keeppeer.ui.lock.VaultRoot
 import com.gem.keeppeer.ui.theme.KeeppeerTheme
@@ -21,6 +24,14 @@ class MainActivity : FragmentActivity() {
     private val session: VaultSession get() = (application as KeeppeerApplication).container.session
     private var prompt: BiometricPrompt? = null
     private var cancelPrompt: (() -> Unit)? = null
+    // Legacy biometric prompts are app-owned DialogFragments with separate windows.
+    // Set the flag in the start dispatch, before the first dialog frame is drawn.
+    private val secureDialogs = object : FragmentManager.FragmentLifecycleCallbacks() {
+        override fun onFragmentStarted(manager: FragmentManager, fragment: Fragment) {
+            (fragment as? DialogFragment)?.dialog?.window
+                ?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        }
+    }
     private val screenOff = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == Intent.ACTION_SCREEN_OFF) { cancelPrompt?.invoke(); session.lock() }
@@ -29,6 +40,7 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        supportFragmentManager.registerFragmentLifecycleCallbacks(secureDialogs, true)
         enableEdgeToEdge()
         ContextCompat.registerReceiver(this, screenOff, IntentFilter(Intent.ACTION_SCREEN_OFF),
             ContextCompat.RECEIVER_NOT_EXPORTED)
@@ -48,6 +60,7 @@ class MainActivity : FragmentActivity() {
     override fun onDestroy() {
         BiometricDiagnostics.record(BiometricStage.ACTIVITY_DESTROY)
         cancelPrompt?.invoke()
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(secureDialogs)
         unregisterReceiver(screenOff)
         super.onDestroy()
     }

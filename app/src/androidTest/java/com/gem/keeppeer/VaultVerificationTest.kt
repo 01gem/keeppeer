@@ -8,6 +8,8 @@ import android.os.Looper
 import android.os.SystemClock
 import androidx.activity.compose.setContent
 import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.text.TextRange
@@ -55,7 +57,7 @@ class VaultVerificationTest {
         val legacy = context.getDatabasePath(EncryptedDatabaseProvider.LEGACY_NAME)
         val contents = "disposable synthetic Phase 1 data"
         legacy.writeText(contents)
-        val session = VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false })
+        val session = syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
         try {
             compose.runOnUiThread {
                 session.foreground()
@@ -72,20 +74,40 @@ class VaultVerificationTest {
             compose.onNodeWithText("Delete synthetic data").performClick()
             compose.waitUntil(10_000) { session.state.value.stage == VaultStage.FIRST_RUN }
             assertFalse(legacy.exists())
-            compose.onNodeWithText("Master password").performTextInput("short")
-            compose.onNodeWithText("Confirm master password").performTextInput("short")
-            compose.onNodeWithText("Create vault").performScrollTo().performClick()
+            compose.onNodeWithText("Master password").performTextReplacement("short")
+            compose.onNodeWithText("Confirm master password").performTextReplacement("short")
+            // Validate the button action independently of coordinate/IME timing on API 24/25.
+            compose.onNodeWithText("Create vault").performScrollTo()
+                .performSemanticsAction(SemanticsActions.OnClick) { assertTrue(it()) }
             compose.onNodeWithText("Use at least 12 characters and matching passwords.")
                 .performScrollTo().assertIsDisplayed()
             assertFalse(context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists())
-            compose.onNodeWithText("Master password").performTextInput("synthetic test master")
-            compose.onNodeWithText("Confirm master password").performTextInput("synthetic mismatch master")
-            compose.onNodeWithText("Create vault").performScrollTo().performClick()
+            for (label in listOf("Master password", "Confirm master password")) {
+                assertTrue("Rejected setup must clear $label", compose.onNodeWithText(label)
+                    .fetchSemanticsNode().config[SemanticsProperties.InputText].text.isEmpty())
+            }
+            compose.onNodeWithText("Master password").performTextReplacement("synthetic test master")
+            compose.onNodeWithText("Confirm master password").performTextReplacement("synthetic mismatch master")
+            // Validate the button action independently of coordinate/IME timing on API 24/25.
+            compose.onNodeWithText("Create vault").performScrollTo()
+                .performSemanticsAction(SemanticsActions.OnClick) { assertTrue(it()) }
             assertFalse(context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists())
-            compose.onNodeWithText("Master password").performTextInput("synthetic test master")
-            compose.onNodeWithText("Confirm master password").performTextInput("synthetic test master")
-            compose.onNodeWithText("Create vault").performScrollTo().performClick()
-            compose.waitUntil(120_000) { session.state.value.access != null }
+            for (label in listOf("Master password", "Confirm master password")) {
+                assertTrue("Rejected setup must clear $label", compose.onNodeWithText(label)
+                    .fetchSemanticsNode().config[SemanticsProperties.InputText].text.isEmpty())
+            }
+            compose.onNodeWithText("Master password").performTextReplacement("synthetic test master")
+            compose.onNodeWithText("Confirm master password").performTextReplacement("synthetic test master")
+            for (label in listOf("Master password", "Confirm master password")) {
+                assertTrue("Valid setup must receive the intended synthetic value in $label",
+                    compose.onNodeWithText(label).fetchSemanticsNode()
+                        .config[SemanticsProperties.InputText].text == "synthetic test master")
+            }
+            // Validate the button action independently of coordinate/IME timing on API 24/25.
+            compose.onNodeWithText("Create vault").performScrollTo()
+                .performSemanticsAction(SemanticsActions.OnClick) { assertTrue(it()) }
+            compose.waitUntil(120_000) { session.state.value.stage != VaultStage.UNLOCKING }
+            assertEquals(session.state.value.message, VaultStage.UNLOCKED, session.state.value.stage)
             assertTrue(context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists())
         } finally { main { session.lock() } }
     }
@@ -138,7 +160,7 @@ class VaultVerificationTest {
 
     @Test fun malformedEnvelopesAndMissingBiometricKeyPreservePasswordVault() = runBlocking {
         val context = SyntheticVaultContext(instrumentation.targetContext)
-        val session = VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false })
+        val session = syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
         main { session.foreground(); session.setup(password, password) }
         val access = opened(session)
         val id = access.repository.create(PasswordEntry(title = "Synthetic preservation", password = "synthetic entry"))
@@ -178,9 +200,60 @@ class VaultVerificationTest {
         } finally { main { session.lock() }; original.fill(0) }
     }
 
+    @Test fun touchMenuCutUsesSensitiveClipboardBoundary() {
+        val session = appSession()
+        val manager = syntheticOnMain { compose.activity.getSystemService(ClipboardManager::class.java) }
+        val automation = instrumentation.uiAutomation
+        val originalFlags = automation.serviceInfo.flags
+        try {
+            automation.serviceInfo = automation.serviceInfo.apply {
+                flags = flags or android.accessibilityservice.AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
+            }
+            compose.onNodeWithText("Add").performClick()
+            val text = "syntheticcutfixture"
+            compose.onNodeWithText("Notes (optional)").performScrollTo().performTextReplacement(text)
+            compose.onNodeWithText("Notes (optional)").performTouchInput {
+                // The center of a multiline field can be below its single populated line.
+                longClick(androidx.compose.ui.geometry.Offset(center.x * 0.3f, center.y * 0.7f))
+            }
+            val selection = compose.onNodeWithText("Notes (optional)").fetchSemanticsNode()
+                .config[SemanticsProperties.TextSelectionRange]
+            assertFalse("Touch long press must select the synthetic word", selection.collapsed)
+            val cutLabel = compose.activity.getString(android.R.string.cut)
+            var cut: android.view.accessibility.AccessibilityNodeInfo? = null
+            compose.waitUntil(15_000) {
+                cut = automation.windows.asSequence().mapNotNull { it.root }
+                    .flatMap { it.findAccessibilityNodeInfosByText(cutLabel).asSequence() }
+                    .firstOrNull {
+                        (it.text ?: it.contentDescription)?.toString()?.equals(cutLabel, ignoreCase = true) == true
+                    }
+                cut != null
+            }
+            // Some OEM toolbars expose the label but reject accessibility ACTION_CLICK.
+            // Ground a real OS touch in the current native Cut node, then verify its effects.
+            val bounds = android.graphics.Rect()
+            requireNotNull(cut).getBoundsInScreen(bounds)
+            assertFalse("Native Cut must have visible bounds", bounds.isEmpty)
+            android.os.ParcelFileDescriptor.AutoCloseInputStream(automation.executeShellCommand(
+                "input tap ${bounds.centerX()} ${bounds.centerY()}"
+            )).use { it.readBytes() }
+            compose.onNodeWithText("Notes (optional)").assertTextEquals("Notes (optional)", "")
+            main {
+                assertEquals(text, manager.primaryClip?.getItemAt(0)?.text?.toString())
+                assertTrue("Touch Cut must use central ownership",
+                    manager.primaryClipDescription?.label?.toString()?.startsWith("Keeppeer:") == true)
+                assertTrue("Touch Cut must mark data sensitive",
+                    manager.primaryClipDescription?.extras?.getBoolean("android.content.extra.IS_SENSITIVE") == true)
+            }
+        } finally {
+            automation.serviceInfo = automation.serviceInfo.apply { flags = originalFlags }
+            main { session.clipboard.clear(); session.lock() }
+        }
+    }
+
     @Test fun keyboardSelectionCopyExpiresAndBackgroundReturnClearsOwnedClip() = runBlocking {
         val session = appSession()
-        val manager = compose.activity.getSystemService(ClipboardManager::class.java)
+        val manager = syntheticOnMain { compose.activity.getSystemService(ClipboardManager::class.java) }
         compose.onNodeWithText("Add").performClick()
         val text = "synthetic selected clipboard"
         compose.onNodeWithText("Notes (optional)").performScrollTo().performTextInput(text)

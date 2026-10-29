@@ -25,7 +25,7 @@ class VaultSecurityTest {
     }
     private fun fixture(): Pair<SyntheticVaultContext, VaultSession> {
         val context = SyntheticVaultContext(instrumentation.targetContext)
-        return context to VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false })
+        return context to syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
     }
     private suspend fun setup(session: VaultSession): VaultAccess {
         main { session.foreground(); session.setup(password, password) }
@@ -91,7 +91,7 @@ class VaultSecurityTest {
         try { access.repository.getById(id); fail("Stale repository must be revoked") } catch (_: IllegalStateException) {}
         try { access.repository.create(PasswordEntry(title = "Synthetic stale write", password = "synthetic")); fail("Stale writes must be revoked") }
         catch (_: IllegalStateException) {}
-        val restarted = VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false })
+        val restarted = syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
         assertEquals(VaultStage.LOCKED, restarted.state.value.stage)
         main { restarted.foreground(); restarted.unlock(password) }
         withTimeout(120_000) { restarted.state.first { it.stage == VaultStage.RECOVERABLE_ERROR } }
@@ -109,7 +109,7 @@ class VaultSecurityTest {
         val store = EnvelopeStore(context, context.namespace + ".storage.v1")
         store.initializeStorageKey()
         store.write(crypto.wrap(password, key), creationPending = true)
-        val resumed = VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false })
+        val resumed = syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
         main { resumed.foreground(); resumed.unlock(password) }
         unlocked(resumed)
         val resumedKey = crypto.unwrap(password, store.read())
@@ -120,7 +120,7 @@ class VaultSecurityTest {
         // Wait until the revoked database has closed before simulating file loss.
         delay(500)
         assertTrue(context.deleteDatabase(EncryptedDatabaseProvider.VAULT_NAME))
-        val missing = VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false })
+        val missing = syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
         main { missing.foreground(); missing.unlock(password) }
         withTimeout(120_000) { missing.state.first { it.stage == VaultStage.RECOVERABLE_ERROR } }
         assertFalse(context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists())
@@ -139,8 +139,10 @@ class VaultSecurityTest {
         val context = SyntheticVaultContext(instrumentation.targetContext)
         var elapsed = 10L
         var locked = false
-        val session = VaultSession(context, SensitiveClipboard(context), context.namespace,
-            elapsedTime = { elapsed }, deviceLocked = { locked })
+        val session = syntheticOnMain {
+            VaultSession(context, SensitiveClipboard(context), context.namespace,
+                elapsedTime = { elapsed }, deviceLocked = { locked })
+        }
         setup(session)
         main { session.background() }
         assertNull(session.state.value.access)
@@ -168,7 +170,7 @@ class VaultSecurityTest {
         val context = SyntheticVaultContext(instrumentation.targetContext)
         val legacy = context.getDatabasePath(EncryptedDatabaseProvider.LEGACY_NAME)
         legacy.writeText("synthetic plaintext prototype")
-        val session = VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false })
+        val session = syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
         assertEquals(VaultStage.LEGACY_RESET, session.state.value.stage)
         assertTrue(legacy.exists())
         main { session.foreground(); session.setup(password, password) }
@@ -181,8 +183,9 @@ class VaultSecurityTest {
 
     @Test fun clipboardReplacementDoesNotEraseUnrelatedContent() {
         val context = instrumentation.targetContext
-        val manager = context.getSystemService(ClipboardManager::class.java)
-        val clipboard = SensitiveClipboard(context)
+        val (manager, clipboard) = syntheticOnMain {
+            context.getSystemService(ClipboardManager::class.java) to SensitiveClipboard(context)
+        }
         androidx.test.core.app.ActivityScenario.launch(MainActivity::class.java).use {
             instrumentation.waitForIdleSync()
             main {

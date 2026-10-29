@@ -2,7 +2,7 @@
 
 An offline-only Android password keeper built with Kotlin, Jetpack Compose, and Material 3. All data stays on-device with no network access.
 
-> **Phase 2 security development build** — Encrypted SQLCipher vault and authenticated sessions are implemented. Use synthetic entries while the API/hardware verification matrix remains pending. Release packaging stays disabled; do not distribute this build.
+> **Phase 2 security development build** — Samsung affected checks passed 6/6; final capture target and 15 JVM tests passed. **Normal-phone persistent-vault state is unresolved:** cold launch showed first-run and expected normal files were absent; no setup/reset or recovery was performed. Earlier API 24/25 and original API 31 runs retain their exact artifacts. See [the device checklist](docs/phase-2-device-checks.md). Phase 2 remains incomplete and release packaging disabled; do not distribute.
 
 ## Features (V1 Roadmap)
 
@@ -30,7 +30,7 @@ An offline-only Android password keeper built with Kotlin, Jetpack Compose, and 
 | Room Runtime & Compiler | 2.8.5 | Declared in `gradle/libs.versions.toml` |
 | SQLCipher Android | 4.20.0 | `net.zetetic:sqlcipher-android` |
 | AndroidX SQLite KTX | 2.7.1 | `androidx.sqlite:sqlite-ktx` |
-| AndroidX Biometric | 1.1.0 | `androidx.biometric:biometric` |
+| AndroidX Biometric | 1.4.0-alpha07 | Pinned preview exception: fixes legacy fingerprint compatibility with Core 1.19.1; see security report |
 | Bouncy Castle | 1.86 | Lightweight PBKDF2-HMAC-SHA256 for API 24–25 |
 | Fragment | 1.9.1 | FragmentActivity biometric host |
 | DataStore Preferences | 1.3.0 | `androidx.datastore:datastore-preferences` |
@@ -100,7 +100,7 @@ The project uses a structured, verifiable source-code review workflow:
 ## Phase 2: encrypted vault and lock
 
 - First run confirms a strong master password and explains irreversible password/device-key loss. Existing Phase 1 data requires an explicitly confirmed synthetic reset; no silent migration/reset occurs.
-- A random DB key is wrapped with PBKDF2-HMAC-SHA256 (600,000 iterations) and AES-GCM, then additionally protected by a distinct Android Keystore key in no-backup storage. Bouncy Castle's vetted KDF also supports API 24–25; those native device checks remain part of the verification matrix.
+- A random DB key is wrapped with PBKDF2-HMAC-SHA256 (600,000 iterations) and AES-GCM, then additionally protected by a distinct Android Keystore key in no-backup storage. Bouncy Castle's vetted KDF supports API 24–25. Native Keystore/SQLCipher/KDF suites have now executed on separate API 24/25 x86_64 emulators: pre-correction suites each completed with 20 passes and one enrollment-dependent skip. Enrollment then exposed Biometric 1.1.0/Core 1.19.1 incompatibility; the pinned Biometric preview correction and its separate reruns are recorded in the report. Artifact-specific results and remaining hardware checks are in the phase report.
 - Only authenticated sessions can open SQLCipher or obtain a usable repository. Lock revokes old handles, cancels vault work, closes Room, clears decrypted ViewModels/navigation and resets reveal state.
 - Security settings provide Lock now, immediate/1-minute/5-minute background timeouts, password change, and optional CryptoObject-bound biometric unlock with password fallback. CSV export-before-change is a nudge until Phase 3.
 - Screens use FLAG_SECURE. Copies (including Compose selection/cut) are sensitive, clear after about 30 seconds and on lock/background where supported, and preserve newer unrelated clips.

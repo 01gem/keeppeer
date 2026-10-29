@@ -1,6 +1,50 @@
 # Keeppeer — Phase Status
 
-## Phase 2 verification continuation — 2026-10-29
+## Samsung continuation — 2026-10-29/30
+
+**Phase 2 remains incomplete; release disabled. Normal persistent-vault state is unresolved.** Subsequent device work used Samsung SM-A125F / Android 12 / API 31 / `RR8R402RR7T` as requested; the emulator was stopped. App SHA-256 `c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169` was installed in place. No uninstall, clear-data, normal-vault setup/reset, enrollment change or automatic recovery was performed.
+
+Six affected isolated checks passed **6/6, 0 failed/skipped**, 214.107 s, completed 2026-10-29 11:49:17 PM PHT (test `831d329e8efd363109f157ff60d53766aa195bf8bdb7f3df4ea0c7018e461054`). They cover native prompt cancellation/wrapper preservation, password/enrollment rejection, AAD compatibility, touch Cut, clipboard ownership/sensitive marking and 30,063 ms expiry, plus synthetic capture collection. OEM Back/Cut drivers use grounded OS input and verify actual effects. New capture-only enrollment precondition avoids a false failure without enrolled hardware; final test `fc7f89c1d75d9a5b45e6231bcae9d221a2965e0821b205d3061a0c878af21345` passed its affected capture target **1/1**, 52.468 s at 11:55:50 PM PHT. No complete current 23-test run is claimed. Latest host assembly, 15 JVM tests and lint (0 errors/14 warnings) passed.
+
+Native recording samples were decoded and visually checked against a readable generic Display Settings control. Final capture: one control frame, 26 revealed synthetic-draft frames and one confirmation-dialog frame; all app content is black in protected samples, with OS controls/bars visible. These static/short timelines are scoped samples, despite the recorder's requested five seconds. Protected PNGs were empty, so screenshot protection remains **INCONCLUSIVE**. Only synthetic app screens and generic settings were captured; no normal entry screens or other apps' recents were collected.
+
+**Unexpected normal-phone state:** after force-stop and normal cold launch, filtered UI labels showed “Create your vault.” Expected normal database/envelope paths were absent; normal `KeeppeerApplication` and data directory were verified. Isolated test-cache envelopes remain. Pre-update normal-file metadata was not captured, so the time/cause of the absence is unknown and prior normal-vault preservation cannot be independently confirmed. No new vault was created, no recovery attempted and no keys/entry/envelope contents collected. Normal app/inspector were stopped. User clarification about app-data history is pending; fresh normal-phone fingerprint/password checks are on hold.
+
+Enrollment-change invalidation still needs a suitable disposable device/provider; the API 25 old key remained usable after enrollment changed. Physical keyboard, actual screenshot-button policy, Samsung recents and wider unsupported/no-enrollment/OEM checks remain open. Earlier API 24/25 and accepted original API 31 results below retain their exact artifacts; user-reported fallback/intact entries dated 2026-10-29 remain historical evidence, with no invented exact time. See [structured results](reports/phase-2-report.json) for commands, failed histories, source scope and the storage discrepancy.
+
+## Earlier emulator continuation evidence — 2026-10-29
+
+**Historical emulator artifacts.** App SHA-256 `0752f431044628cc0ee78ee30c90fd67c658723f760b60a76bfa511fa4fda240`; test `80b973bbc4addd0662f322922b3aa7301a12b4193f64c1b409f9e69d7b6dbd30`; baseline `382fdcaa7f818869820389ed78a195db05320d2e` plus the changes described here. The physical API 31 accepted 21/21 result below retains its original artifacts and is historical acceptance, not a pass for this changed app.
+
+Demonstrated fixes: pin Biometric 1.4.0-alpha07 for the obsolete Core fingerprint bridge; use an AppCompat host theme for the real legacy prompt; secure app-owned DialogFragment windows; retain Compose 1.12's AndroidClipboard native metadata bridge while routing selection/cut writes through SensitiveClipboard. The actual touch-menu crash is fixed. Crypto/session gates, post-authentication AAD, wrapper format, 600,000-iteration KDF, minSdk 24 and offline/backup/release restrictions are preserved.
+
+Current enrolled API 25 x86_64 full native suite: **22 started/passed, 0 failed/skipped**, 116.245 s, completed 10:49:04 PM PHT. Includes actual legacy prompt/secure flags/cancel, touch Cut/sensitive ownership, native Keystore/SQLCipher, portable KDF, preservation/session/UI and clipboard expiry (30,102 ms). Current API 24 x86_64 full suite completed **21 passed, 0 failed, 1 no-enrollment skip**, 118.243 s at 11:00:25 PM PHT; touch Cut passed, clipboard expiry was 30,052 ms. Earlier 20/0/1 artifact results remain history. Full commands, identities and failed/targeted histories are in [the report](reports/phase-2-report.json).
+
+Actual disposable API 25 manual checks passed: real 1-minute below/expired returns; 5-minute below return and 300-second stopped-process expiry (timer/foreground ordering limit recorded); process death/Back/cold lock; screen lock clears unsaved edit/reveal; emulated native CryptoObject enrollment/decrypt; rejected scan/retry, lockout/password fallback; prompt rotation/Home/screen-lock cancellation; disable/re-enable preserving the saved synthetic entry. Controlled Android AppOps read denial retained the owned clip on background; restored access/foreground cleared it, and a newer clip copied in Settings survived the same retry. This is imposed OS denial, not a natural OEM-policy observation. No physical keyboard result is claimed.
+
+Enrollment-change invalidation remains **NOT VERIFIED**: API 25 fingerprint count changed 1→2, but the old authenticated key still decrypted. Missing-key tests are separate. API 25 recents showed blank protected content; screenshot tools produced empty files (inconclusive), and native screenrecord was unavailable. Modern emulator capture/invalidation checks and physical/OEM coverage remain pending. The normal phone's vault, keys, enrollment, wrapper and APK were preserved. User-reported password fallback/intact entries dated 2026-10-29 remain recorded with no invented exact time or independent-observation claim.
+
+The sections below preserve earlier artifact-specific evidence; their then-pending rows are superseded only by explicit current results above and in the structured report.
+
+## Remaining Phase 2 checks — 2026-10-29
+
+### Biometric compatibility correction
+
+Disposable API 25 enrollment exposed a real dependency defect: Biometric 1.1.0 calls Core's legacy FingerprintManagerCompat, but resolved Core 1.19.1 deliberately returns false/no-op. The device had one enrolled fingerprint and granted USE_FINGERPRINT, yet the app reported unavailable. Pin Biometric **1.4.0-alpha07**, whose internal legacy bridge avoids the no-op, as a documented preview exception: official lookup still lists 1.1.0 as latest stable. Core, crypto/session implementation, wrapper format, post-authentication AAD, KDF cost and minSdk are unchanged.
+
+New app SHA-256: `bf4fd8beb7b26113c61acb1a2c17028804a7a528355da773fb0c160da4f3743d`; new test: `e20879ecc5fa054fc60a0946c4af5d508be14b814ecc619bdf9a5a0addf45b65`. Assembly, all 15 JVM tests and lint (0 errors/14 warnings) completed successfully at 06:30:36 PM PHT; the Studio tool timed out after 300 s, but the actual Gradle daemon finished successfully after 5m50s. On the same enrolled API 25 AVD, the strengthened native-capability/dialog target passed **1/1, 0 skips**, 13.942 s at 06:35:12 PM PHT. Full post-fix native suites/manual outcomes are recorded separately in the report. The physical phone remains on its previously accepted APK; its prior success is not automatically transferred to this preview artifact.
+
+### Earlier continuation evidence (before dependency correction)
+
+The user subsequently confirmed in the originating review chat that, after enabling biometrics, master-password unlock works and existing entries are intact. **PASS (user-reported), dated 2026-10-29; exact observation time not supplied.** The agent did not independently observe the password or entry contents and has not requested them. This supersedes the earlier pending user-confirmation item below.
+
+The accepted 21/21 API 31 run and exact app/test identities below are carried forward without rerunning that complete suite. Current baseline is commit `382fdcaa7f818869820389ed78a195db05320d2e`. Those earlier API 24/25 runs used unchanged production APK `58c3e0827ad6339f4fc2e16f2c1c167cf466727d6d2b4b2cae94eb55083bda06` with Android 7 fixture/synchronization test corrections. The later dependency correction above has separate app/test identities; the accepted physical API 31 pass is not claimed for the new artifact.
+
+Separate API 24/25 x86_64 Google APIs AVDs now execute real Android Keystore, native SQLCipher and production-cost portable KDF tests. API 24 full run: **20 pass / 0 fail / 1 enrollment-dependent skip**, 104.840 s, completed 05:11:22 PM PHT, test `8eadbfc4844e50169b84465e0bb145fcede9bece3c150128c0851498c42b5da4`. API 25 final full run: **20 pass / 0 fail / 1 enrollment-dependent skip**, 104.452 s, completed 05:49:37 PM PHT, test `b5267badc86ea5f39d19de355bfc3fbca4f73366cd00b7ce9d3b27ccfc784bf4`. No fingerprint is enrolled in those full runs. Raw skip statuses are counted despite the runner's “OK (21 tests)” headline. The initial fixture failures, API 25 reveal/submit failures, diagnostic assertion mistakes and corrected targets remain separate in `remainingChecksContinuation` in the structured report.
+
+Before the dependency correction, only tests changed: Android 7 ClipboardManager fixtures are constructed on the main Looper; setup validation uses semantic field replacement/button actions and verifies raw InputText, field clearing and terminal authentication. Manual normal-app touch setup also succeeded on API 25. Authentication, KDF cost, AAD ordering, minSdk and production files are preserved. Remaining manual checks are recorded separately. **Phase 2 stays incomplete and release disabled.**
+
+## Prior verification continuation — 2026-10-29
 
 **Outcome: incomplete. Release remains disabled; Phase 3 is not started.**
 

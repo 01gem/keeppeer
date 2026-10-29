@@ -1,6 +1,16 @@
 # Keeppeer — Phase Status
 
-## Samsung continuation — 2026-10-29/30
+## Read-only vault-context reconciliation — 2026-10-30
+
+**Phase 2 remains incomplete; release disabled. The discrepancy concerns instance/storage context; no data-loss, recovery or file-preservation conclusion is established.** The user reports that the existing vault unlocks and entries are visible on the same phone, with no uninstall, clear-data, device or Android-profile switch (2026-10-30; exact time unknown; not independently observed).
+
+Read-only metadata matches the earlier Samsung serial, Android user 0, package UID 10358 and installed app SHA-256. During this inspection the launcher was foreground and no main Keeppeer PID existed; a cached companion test-package process is not evidence of active instrumentation. Conventional owner-user vault paths returned per-path `No such file` statuses under the verified app UID, with readable parent directories. Three UUID test-cache database/envelope pairs remain as unselected candidates. Their existence does not identify the user's accessible session.
+
+**Correction:** the earlier `class=KeeppeerApplication` process/package metadata was a declared application name, not proof of the actual runtime Application class or VaultSession context. The active session's resolved database/envelope paths and alias namespace are still unknown. The supplied user confirmation supersedes the earlier app-data-history question.
+
+No app start/stop/restart, instrumentation, build/install, cache/data/key/enrollment change, migration or payload/capture collection occurred in this investigation. The smallest next observation is passive package/user/PID metadata while the user already has the accessible vault visible, then vault-file descriptor targets if readable without changing that process. No diagnostic deployment or restart is permitted here. Prior artifact-scoped results and other manual gaps remain unchanged. See [the metadata-only investigation](phase-2-vault-context-check.md).
+
+## Historical Samsung continuation — 2026-10-29/30
 
 **Phase 2 remains incomplete; release disabled. Normal persistent-vault state is unresolved.** Subsequent device work used Samsung SM-A125F / Android 12 / API 31 / `RR8R402RR7T` as requested; the emulator was stopped. App SHA-256 `c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169` was installed in place. No uninstall, clear-data, normal-vault setup/reset, enrollment change or automatic recovery was performed.
 
@@ -8,7 +18,7 @@ Six affected isolated checks passed **6/6, 0 failed/skipped**, 214.107 s, comple
 
 Native recording samples were decoded and visually checked against a readable generic Display Settings control. Final capture: one control frame, 26 revealed synthetic-draft frames and one confirmation-dialog frame; all app content is black in protected samples, with OS controls/bars visible. These static/short timelines are scoped samples, despite the recorder's requested five seconds. Protected PNGs were empty, so screenshot protection remains **INCONCLUSIVE**. Only synthetic app screens and generic settings were captured; no normal entry screens or other apps' recents were collected.
 
-**Unexpected normal-phone state:** after force-stop and normal cold launch, filtered UI labels showed “Create your vault.” Expected normal database/envelope paths were absent; normal `KeeppeerApplication` and data directory were verified. Isolated test-cache envelopes remain. Pre-update normal-file metadata was not captured, so the time/cause of the absence is unknown and prior normal-vault preservation cannot be independently confirmed. No new vault was created, no recovery attempted and no keys/entry/envelope contents collected. Normal app/inspector were stopped. User clarification about app-data history is pending; fresh normal-phone fingerprint/password checks are on hold.
+**Prior package-path observation (interpretation corrected on 2026-10-30):** an ordinary package launch displayed first-run labels and conventional-path checks reported missing files. Declared ApplicationInfo/data-directory metadata was recorded; the actual runtime Application class and session context were not verified. No pre-update normal-file baseline exists. Subsequent user-reported vault accessibility without uninstall/clear-data/device/profile switch supersedes the earlier pending history question. Current findings are an unresolved identity/storage-context discrepancy, not established data loss, recovery or preservation of a particular file set. See the read-only reconciliation above.
 
 Enrollment-change invalidation still needs a suitable disposable device/provider; the API 25 old key remained usable after enrollment changed. Physical keyboard, actual screenshot-button policy, Samsung recents and wider unsupported/no-enrollment/OEM checks remain open. Earlier API 24/25 and accepted original API 31 results below retain their exact artifacts; user-reported fallback/intact entries dated 2026-10-29 remain historical evidence, with no invented exact time. See [structured results](reports/phase-2-report.json) for commands, failed histories, source scope and the storage discrepancy.
 

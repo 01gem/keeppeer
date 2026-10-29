@@ -2,7 +2,7 @@
 
 An offline-only Android password keeper built with Kotlin, Jetpack Compose, and Material 3. All data stays on-device with no network access.
 
-> **Phase 2 security development build** — Samsung affected checks passed 6/6; final capture target and 15 JVM tests passed. **Normal-phone persistent-vault state is unresolved:** cold launch showed first-run and expected normal files were absent; no setup/reset or recovery was performed. Earlier API 24/25 and original API 31 runs retain their exact artifacts. See [the device checklist](docs/phase-2-device-checks.md). Phase 2 remains incomplete and release packaging disabled; do not distribute.
+> **Phase 2 security development build** — The user reports the existing vault is accessible without uninstall/clear-data/profile change. Read-only checks leave an unresolved identity/storage-context discrepancy; the earlier declared Application-name metadata did not prove runtime context. No data loss, recovery or normal-file-preservation pass is established. See [the metadata-only investigation](docs/phase-2-vault-context-check.md). Earlier artifact-scoped test results remain unchanged. Phase 2 is incomplete and release packaging disabled; do not distribute.
 
 ## Features (V1 Roadmap)
 

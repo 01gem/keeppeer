@@ -1,9 +1,15 @@
 {
   "phase": 2,
   "outcome": "incomplete",
-  "summary": "Phase 2 remains incomplete; release disabled. User selected Samsung SM-A125F/RR8R402RR7T and emulator work stopped. New app c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169 installed in place. Six affected phone checks passed (6/0/0, test831d329e...,214.107s); final capture guard test passed (1/0/0, testfc7f89c1...,52.468s). Latest assembly/lint/15JVM pass; native-recording control and all synthetic protected frames visually reviewed; protected PNGs empty/inconclusive. Earlier exact API24 21/0/1 and API25 22/0/0 artifacts, accepted original physical API31 21/21 and failure histories retained separately. CRITICAL unresolved normal-phone state: after cold normal-app launch, Create your vault displayed and expected normal DB/envelope paths absent. No pre-update file baseline was captured, so timing/cause is unknown; no setup/reset/recovery or enrollment changes performed. Tests used isolated synthetic contexts; no normal vault contents/keys collected. User clarification pending. Enrollment invalidation, physical keyboard, screenshot and wider OEM matrix remain open. No Phase3/distribution.",
+  "summary": "Phase2 remains incomplete; release disabled. Read-only vault-context reconciliation records user-reported existing-vault access/visible entries on2026-10-30 without uninstall, clear-data or device/profile switch; exact time unknown. Same Samsung/device/user0/UID10358/app c103... identity verified. No live main PID or visible Keeppeer Activity in current inspection; actual Application/session storage/alias namespace unknown. App-UID absolute-path metadata returns ENOENT for conventional vault files; three UUID cache DB/envelope candidate pairs remain. Earlier declared ApplicationInfo class was incorrectly treated as runtime-class proof and is corrected. No data loss, recovery, confirmed active synthetic context or normal-file-preservation pass claimed. No app start/stop, instrumentation/build/install, data/key/enrollment changes or payload collection. Prior artifact-scoped native and targeted results retained unchanged. Next: passive identity/context observation while user already has vault visible.",
   "baselineRevision": "76dbb7be35362533e1fe608e5dad4e69caa82ec2",
   "checks": [
+    {
+      "name": "Focused read-only vault-context reconciliation",
+      "result": "PARTIAL: metadata established; live session context unavailable",
+      "timestamp": "2026-10-30T00:47:45+08:00",
+      "details": "No main PID; launcher foreground. Same device/user0/UID/build. Per-path app-UID metadata distinguishes ENOENT from permission denial; candidate metadata only. User-reported existing vault access recorded with unknown exact time. No normal preservation/recovery/data-loss conclusion; no build/tests/install/restart or vault payload access. See vaultContextReconciliation."
+    },
     {
       "name": "Final Samsung continuation assembly, lint, JVM and whitespace checks",
       "result": "PASS",
@@ -232,7 +238,8 @@
     "app/src/test/java/com/gem/keeppeer/BiometricDiagnosticsTest.kt",
     "docs/phase-2-biometric-diagnosis.md",
     "app/src/androidTest/java/com/gem/keeppeer/VaultVerificationTest.kt",
-    "app/src/androidTest/java/com/gem/keeppeer/SecureCaptureTest.kt"
+    "app/src/androidTest/java/com/gem/keeppeer/SecureCaptureTest.kt",
+    "docs/phase-2-vault-context-check.md"
   ],
   "modifiedPaths": [
     ".gitignore",
@@ -265,7 +272,7 @@
   ],
   "deletedPaths": [],
   "unresolvedIssues": [
-    "Normal-phone persistent-vault discrepancy: cold normal app shows Create your vault and expected normal DB/envelope files are absent. No pre-update file metadata baseline; cause/time unknown. No setup/reset/recovery or further normal-phone authentication. Need user's app-data history before proceeding.",
+    "Identity/storage-context discrepancy remains: user reports existing vault accessible with no uninstall/clear/profile/device switch, while current conventional owner-user paths are missing and no live main PID exists to bind the accessible session to storage. Earlier declared ApplicationInfo was overinterpreted as runtime class. Need time-correlated passive metadata while vault already visible, with no launch/restart/deploy or data writes.",
     "Enrollment-change invalidated-key failure unverified: API25 old key remained usable after fingerprint count1→2; modern emulator attempt stopped when user selected phone. Do not alter working phone enrollment; use a suitable disposable device/provider. Missing-key tests are separate.",
     "Physical keyboard, actual screenshot-button/OS policy, Samsung recents and wider OEM/unsupported/no-enrollment manual matrix remain unresolved. Current PNG attempts empty/inconclusive; native decoded recording samples have explicit scope and short/static timelines.",
     "Current final test APK includes new capture journey (23 total tests). Full22-test API24(21pass/0fail/1no-enrollment skip) and API25(22pass/0fail/0skip) used their earlier exact artifacts. Final phone6/6 and capture1/1 are targeted results, not a new complete23-test suite or fresh normal-vault fingerprint authentication.",
@@ -1235,17 +1242,269 @@
         "limits": "Requested5seconds yields static/short changed-frame timelines, not5seconds of independently encoded frames. No production entry screens, notification shade or other apps' recents captured. Physical screenshot-button policy, recents/OEM matrix remain unverified."
       },
       "normalVaultDiscrepancy": {
-        "result": "UNRESOLVED; normal-phone authentication/setup stopped",
+        "result": "UNRESOLVED IDENTITY/STORAGE-CONTEXT DISCREPANCY; see vaultContextReconciliation",
         "observedAt": "2026-10-29T23:56:36+08:00 through 2026-10-30T00:04:48+08:00",
-        "observation": "After force-stop/relaunch normal com.gem.keeppeer, filtered UI labels report Master password/Create your vault instead of locked/biometric choices. Activity process metadata confirms KeeppeerApplication and /data/user/0/com.gem.keeppeer (UID10358). Expected no_backup/vault-envelope.bin, .bak, biometric-envelope.bin and databases/keeppeer_vault.db are absent. Directory metadata read only; no envelope, DB or key material read/collected.",
+        "observation": "Historical ordinary package/user0 launch displayed first-run labels; named conventional file paths reported missing. Declared ApplicationInfo class/dataDir were recorded, not the actual runtime Application or resolved VaultSession context. Current read-only evidence and user-reported accessibility are reconciled only to the limits in vaultContextReconciliation.",
         "metadata": "no_backup and databases directory timestamps2026-10-29 23:56:36+08:00, normal cold launch; firstInstallTime2026-10-29 08:14:00,lastUpdateTime23:36:20. Three isolated cache fixture envelopes dated23:38,23:46,23:55 remain; no biometric wrapper found in that bounded synthetic-cache glob. The later exact-path metadata check also found no vault-envelope.bin.new, biometric-envelope.bin.bak/.new or encrypted-database WAL/SHM/journal sidecars. No payloads read.",
         "limits": "No normal-file existence/hash baseline before in-place update; cannot determine when/why files became absent or independently confirm earlier vault preservation. Source paths/initial-state logic unchanged; fixture contexts route files/aliases to unique test namespaces. These facts do not establish the cause or restore any prior data.",
-        "actions": "No setup, reset, uninstall, clear-data, key/enrollment changes or automatic recovery. Normal app and inspector force-stopped after metadata inspection. Existing fixture/runtime data left in place. User asked whether app data had been cleared/reinstalled/reset; answer pending. Fresh real fingerprint/password checks on normal phone paused.",
-        "nextAction": "Clarify the phone's app-data history before any setup or recovery. For future in-place updates, record normal encrypted-file existence/size/timestamps before and after; never export their contents."
+        "actions": "No setup, reset, uninstall, clear-data, key/enrollment changes or automatic recovery. Normal app and inspector force-stopped after metadata inspection. Existing fixture/runtime data left in place. User asked whether app data had been cleared/reinstalled/reset; answer pending. Fresh real fingerprint/password checks on normal phone paused. Subsequent user confirmation supplied on2026-10-30 states existing vault currently unlocks/entries visible without uninstall, clear-data or device/profile switch (exact time unknown; user-reported). This supersedes the earlier pending history question. New investigation made no app/process/data changes.",
+        "nextAction": "Obtain only time-correlated foreground package/user/PID metadata when user already has accessible vault visible, without launching/restarting. If a live PID exists, app-UID vault-filename-filtered read-only FD targets may identify open DB paths. Report denied/unavailable access as limitation; no instrumentation/deploy/heap inspection.",
+        "originalObservationBeforeContextReconciliation": "After force-stop/relaunch normal com.gem.keeppeer, filtered UI labels report Master password/Create your vault instead of locked/biometric choices. Activity process metadata confirms KeeppeerApplication and /data/user/0/com.gem.keeppeer (UID10358). Expected no_backup/vault-envelope.bin, .bak, biometric-envelope.bin and databases/keeppeer_vault.db are absent. Directory metadata read only; no envelope, DB or key material read/collected."
       }
     }
   },
-  "deviceChecks": "See remainingChecksContinuation.phoneContinuation for current Samsung targeted runs, capture visual review and unresolved normal-vault first-run discrepancy. currentVerification retains original accepted physical API31 history. API24/25 native/full runs remain artifact-specific. Phase2 incomplete.",
+  "deviceChecks": "Latest read-only reconciliation is in vaultContextReconciliation and docs/phase-2-vault-context-check.md. User access confirmation is recorded as user-reported only. Earlier runtime-class overclaim corrected; current active session/storage binding unknown. All artifact-scoped prior API/phone results and other manual gaps unchanged; Phase2 incomplete/release disabled.",
+  "vaultContextReconciliation": {
+    "result": "READ-ONLY CHECKS COMPLETED TO METADATA BOUNDARY; live session context unresolved",
+    "reviewedSnapshot": {
+      "timestamp": "2026-10-30 12:11:46 AM PHT (UTC+08:00)",
+      "bytes": 555553
+    },
+    "completionMarker": "2026-10-30T00:47:45+08:00",
+    "userReportedEvidence": {
+      "date": "2026-10-30",
+      "exactTime": "not supplied",
+      "result": "USER-REPORTED; not independently observed",
+      "observation": "Existing vault currently unlocks and entries are visible on the same phone, with no uninstall, clear-data, device or Android-profile switch.",
+      "source": "Originating review chat confirmation supplied by the vault-context-check prompt",
+      "limit": "No credential/entry contents collected. Does not establish live package/session context, preservation of a specific file set, data loss or recovery."
+    },
+    "preservation": "No build/install/instrumentation, app launch/restart/force-stop, cache/data cleanup, enrollment/key change, migration/copy/rekey or recovery. No passwords/entries/database or envelope payloads/raw keys/diagnostic captures collected. Documentation and source snapshot only changed.",
+    "identity": {
+      "serial": "RR8R402RR7T",
+      "model": "SM-A125F",
+      "android": "12",
+      "api": 31,
+      "androidUser": 0,
+      "foregroundComponent": "com.sec.android.app.launcher/.activities.LauncherActivity",
+      "mainPackage": "com.gem.keeppeer",
+      "uid": 10358,
+      "versionCode": 1,
+      "versionName": "1.0",
+      "dataDir": "/data/user/0/com.gem.keeppeer",
+      "appPath": "/data/app/~~dyU3rt05QVCSXWse3AWDLQ==/com.gem.keeppeer-r5oIsgxq4fXC-3_ldhxOKw==/base.apk",
+      "appSha256": "c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169",
+      "firstInstallTime": "2026-10-29 08:14:00 device local",
+      "lastUpdateTime": "2026-10-29 23:36:20 device local",
+      "pidof": {
+        "stdout": "",
+        "exitCode": 1,
+        "repeated": true
+      },
+      "mainProcessInventory": "No main/colon-suffixed Keeppeer process in filtered ps inventory",
+      "companionTestProcess": {
+        "package": "com.gem.keeppeer.test",
+        "pid": 3375,
+        "uid": 10359,
+        "limit": "Not foreground and not evidence of active instrumentation or user's accessible vault"
+      },
+      "instrumentation": "No ActiveInstrumentation entry in filtered dumpsys activity processes",
+      "comparison": "Device/user0/package UID/installed APK path/hash match earlier observation. Earlier main PID3921; no current main PID. Icon/label not used for identity."
+    },
+    "runtime": {
+      "applicationClass": null,
+      "containerClass": null,
+      "activeSessionContext": null,
+      "resolvedDatabase": null,
+      "resolvedEnvelopes": null,
+      "keyAliasNamespace": null,
+      "reason": "No live main process or visible vault in this inspection. Existing Studio debug tool builds/deploys; not used. No restart, debugger deployment or heap dump attempted.",
+      "correction": "Earlier class=KeeppeerApplication was declared ApplicationInfo metadata, not proof of actual runtime Application class. Ordinary launch intent alone also does not identify VaultSession context."
+    },
+    "inspectionIdentity": {
+      "uid": 10358,
+      "gid": 10358,
+      "selinuxDomain": "runas_app",
+      "cwd": "/data/user/0/com.gem.keeppeer",
+      "parentControls": "no_backup and databases stat status0, directory3488bytes, mtimeEpoch1793289396 =2026-10-29T23:56:36+08:00"
+    },
+    "conventionalPaths": {
+      "command": "adb -s RR8R402RR7T shell run-as com.gem.keeppeer stat -c %n:%F:%s:%Y <absolute-path>; capture LASTEXITCODE immediately for each path",
+      "results": [
+        {
+          "path": "/data/user/0/com.gem.keeppeer/no_backup",
+          "status": 0,
+          "result": "METADATA_READ",
+          "metadata": "/data/user/0/com.gem.keeppeer/no_backup:directory:3488:1793289396"
+        },
+        {
+          "path": "/data/user/0/com.gem.keeppeer/databases",
+          "status": 0,
+          "result": "METADATA_READ",
+          "metadata": "/data/user/0/com.gem.keeppeer/databases:directory:3488:1793289396"
+        },
+        {
+          "path": "/data/user/0/com.gem.keeppeer/no_backup/vault-envelope.bin",
+          "status": 1,
+          "result": "NO_SUCH_FILE",
+          "errorClassification": "No such file or directory; no permission-denied error observed"
+        },
+        {
+          "path": "/data/user/0/com.gem.keeppeer/no_backup/vault-envelope.bin.bak",
+          "status": 1,
+          "result": "NO_SUCH_FILE",
+          "errorClassification": "No such file or directory; no permission-denied error observed"
+        },
+        {
+          "path": "/data/user/0/com.gem.keeppeer/no_backup/vault-envelope.bin.new",
+          "status": 1,
+          "result": "NO_SUCH_FILE",
+          "errorClassification": "No such file or directory; no permission-denied error observed"
+        },
+        {
+          "path": "/data/user/0/com.gem.keeppeer/no_backup/biometric-envelope.bin",
+          "status": 1,
+          "result": "NO_SUCH_FILE",
+          "errorClassification": "No such file or directory; no permission-denied error observed"
+        },
+        {
+          "path": "/data/user/0/com.gem.keeppeer/databases/keeppeer_vault.db",
+          "status": 1,
+          "result": "NO_SUCH_FILE",
+          "errorClassification": "No such file or directory; no permission-denied error observed"
+        },
+        {
+          "path": "/data/user/0/com.gem.keeppeer/databases/keeppeer_vault.db-wal",
+          "status": 1,
+          "result": "NO_SUCH_FILE",
+          "errorClassification": "No such file or directory; no permission-denied error observed"
+        },
+        {
+          "path": "/data/user/0/com.gem.keeppeer/databases/keeppeer_vault.db-shm",
+          "status": 1,
+          "result": "NO_SUCH_FILE",
+          "errorClassification": "No such file or directory; no permission-denied error observed"
+        }
+      ],
+      "conclusion": "Specific conventional owner-user paths missing with readable parents. No permission-denied error. Not proof that an active accessible session uses these paths or that all vault data is absent."
+    },
+    "candidateMetadata": {
+      "root": "/data/user/0/com.gem.keeppeer/cache",
+      "scope": "Only keeppeer.test.* directory metadata and known vault DB/envelope filenames; five dirs, three regular-file DB/envelope pairs",
+      "candidates": [
+        {
+          "root": "/data/user/0/com.gem.keeppeer/cache/keeppeer.test.23cc2b6d-d810-47ed-9fe3-72f12544c3c8",
+          "namespaceFromDirectory": "keeppeer.test.23cc2b6d-d810-47ed-9fe3-72f12544c3c8",
+          "database": {
+            "name": "keeppeer_vault.db",
+            "type": "regular file",
+            "bytes": 16384,
+            "mtimeEpoch": 1793289349
+          },
+          "envelope": {
+            "name": "no-backup/vault-envelope.bin",
+            "type": "regular file",
+            "bytes": 121,
+            "mtimeEpoch": 1793289324
+          },
+          "associationWithUserEntries": "UNKNOWN; not opened/decrypted/selected/copied/promoted"
+        },
+        {
+          "root": "/data/user/0/com.gem.keeppeer/cache/keeppeer.test.93f341f8-0f32-43eb-89d4-ddf3f91322cf",
+          "namespaceFromDirectory": "keeppeer.test.93f341f8-0f32-43eb-89d4-ddf3f91322cf",
+          "database": {
+            "name": "keeppeer_vault.db",
+            "type": "regular file",
+            "bytes": 16384,
+            "mtimeEpoch": 1793288799
+          },
+          "envelope": {
+            "name": "no-backup/vault-envelope.bin",
+            "type": "regular file",
+            "bytes": 121,
+            "mtimeEpoch": 1793288762
+          },
+          "associationWithUserEntries": "UNKNOWN; not opened/decrypted/selected/copied/promoted"
+        },
+        {
+          "root": "/data/user/0/com.gem.keeppeer/cache/keeppeer.test.ebd54a02-9b75-442f-b017-1e14479942e5",
+          "namespaceFromDirectory": "keeppeer.test.ebd54a02-9b75-442f-b017-1e14479942e5",
+          "database": {
+            "name": "keeppeer_vault.db",
+            "type": "regular file",
+            "bytes": 16384,
+            "mtimeEpoch": 1793288354
+          },
+          "envelope": {
+            "name": "no-backup/vault-envelope.bin",
+            "type": "regular file",
+            "bytes": 121,
+            "mtimeEpoch": 1793288317
+          },
+          "associationWithUserEntries": "UNKNOWN; not opened/decrypted/selected/copied/promoted"
+        }
+      ],
+      "additionalDirectorySuffixes": [
+        "0a760dad-de01-4134-b92c-51bb151c6e4a",
+        "cd89f022-1653-43a2-b8a8-eb48c24b4905"
+      ],
+      "biometricPattern": "No match for cache/keeppeer.test.*/no-backup/biometric-envelope.bin; mixed stat batch status1 due unmatched glob, not global failure",
+      "testPackage": "UID10359/cwd /data/user/0/com.gem.keeppeer.test separately verified; specific conventional and bounded cache candidates returned no-such-file/no-match"
+    },
+    "sourceMappings": {
+      "normal": "KeeppeerApplication -> DefaultAppContainer uses normal application context; default namespace keeppeer, expected aliases keeppeer.storage.v1 / keeppeer.biometric.v1; DB databases/keeppeer_vault.db and envelopes no_backup/*.bin",
+      "synthetic": "SyntheticTestRunner -> SyntheticTestApplication uses SyntheticVaultContext with UUID cache/keeppeer.test.<UUID>; DB directly under root, envelopes in no-backup; expected source aliases keeppeer.test.<UUID>.storage.v1 / .biometric.v1",
+      "observedActiveMapping": "UNKNOWN",
+      "keyStoreEnumeration": false
+    },
+    "priorCommandAudit": {
+      "initialFormat": "stat -c '%n %s %y' through ADB; output showed %s/%y parsed as filenames, so size/time fields invalid",
+      "status": "Initial aggregate outer0 followed later commands; individual stat status not captured. Missing-path errors still scoped to named conventional paths; earlier cwd/effective UID not independently verified at that moment.",
+      "laterCommands": "No-space directory stat worked. Cache batch had successes plus unmatched biometric glob. dumpsys activity instrumentation was unsupported, not evidence of no instrumentation.",
+      "currentEvidence": "Absolute-path per-status app-UID stat confirms current conventional-path ENOENT rather than permission denial; historical runtime context remains unproved."
+    },
+    "conclusions": {
+      "established": [
+        "Same static device/user/package/build identity",
+        "Current no main PID/launcher foreground",
+        "Current specific conventional paths ENOENT under expected app UID",
+        "Bounded synthetic-cache candidates remain"
+      ],
+      "userReported": [
+        "Existing vault access and visible entries without uninstall/clear/profile/device change on2026-10-30; exact time unknown"
+      ],
+      "corrected": [
+        "Declared application metadata was overinterpreted as runtime class"
+      ],
+      "unknown": [
+        "Live package/PID at moment of accessible vault",
+        "Actual runtime Application/container/session context and resolved storage/aliases",
+        "Candidate relationship to user entries",
+        "Cause/time behind differing observations"
+      ],
+      "notClaimed": [
+        "Data loss",
+        "Successful recovery",
+        "Confirmed active test-context use",
+        "Passing preservation of a particular normal file set"
+      ]
+    },
+    "nextAction": "Obtain only time-correlated foreground package/user/PID metadata when user already has accessible vault visible, without launching/restarting. If a live PID exists, app-UID vault-filename-filtered read-only FD targets may identify open DB paths. Report denied/unavailable access as limitation; no instrumentation/deploy/heap inspection.",
+    "conditionalProposal": "Only if active cache-backed use is confirmed: preserve exact files/namespace/aliases in place, then present an explicit authenticated migration design with validated destination and retained original before writes. No migration/reset/copy/rekey performed or authorized here.",
+    "detailsDocument": "docs/phase-2-vault-context-check.md",
+    "carriedForward": "All artifact-scoped API24/API25/API31 and targeted Samsung runs unchanged. No tests/builds rerun. Other manual gaps unchanged; release disabled; Phase2 incomplete; no Phase3.",
+    "repositoryRevision": "7be0e6df4371dd48d624c45acc8f750e7266fd0c",
+    "closingObservation": {
+      "pidofExitCode": 1,
+      "mainPid": null,
+      "foreground": "user0 Samsung launcher",
+      "appAction": "none",
+      "limit": "No accessible main session available for runtime or FD context binding; no application was launched to obtain one."
+    },
+    "workspaceChecks": {
+      "result": "PASS",
+      "checks": [
+        "JSON parses",
+        "Original accepted currentVerification unchanged",
+        "Prior native runs unchanged",
+        "Prior check entries unchanged",
+        "New metadata-only document included",
+        "git diff --check"
+      ],
+      "changes": "README, phase-status, security, device checklist, phase2-report, new context-check document; no app/test source changes in this task",
+      "testsBuilds": "Not run: explicitly read-only investigation"
+    }
+  },
   "currentVerification": {
     "baselineRevision": "76487e762bea52aa03aefffff39e121991065c17",
     "sourceState": "Local uncommitted diagnostic/AAD-fix production tree at task start; this follow-up changes only instrumentation tests and verification documentation.",

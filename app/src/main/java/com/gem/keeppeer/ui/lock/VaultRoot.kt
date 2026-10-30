@@ -16,6 +16,7 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import com.gem.keeppeer.security.*
 import com.gem.keeppeer.ui.components.PrototypePage
 import com.gem.keeppeer.ui.navigation.KeeppeerApp
+import com.gem.keeppeer.ui.privacy.ProtectDialogWindow
 import javax.crypto.Cipher
 
 typealias BiometricAction = (Boolean, Cipher, (BiometricResult) -> Unit) -> Unit
@@ -50,6 +51,11 @@ private fun LockScreen(state: VaultState, session: VaultSession, biometric: Biom
         Column(Modifier.fillMaxWidth().weight(1f).verticalScroll(rememberScrollState()).padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)) {
             when (state.stage) {
+                VaultStage.CHECKING -> { CircularProgressIndicator(); Text("Checking vault availability…") }
+                VaultStage.UNAVAILABLE -> {
+                    Text("Vault unavailable", style = MaterialTheme.typography.titleLarge)
+                    Text("Vault creation is disabled to preserve existing material. There is no automatic reset or recovery. Full app-data removal can also remove initialization evidence; this safeguard cannot restore missing entries.")
+                }
                 VaultStage.UNLOCKING -> { CircularProgressIndicator(); Text("Opening encrypted vault…") }
                 VaultStage.LEGACY_RESET -> {
                     Text("Phase 1 plaintext development data found", style = MaterialTheme.typography.titleLarge)
@@ -90,7 +96,7 @@ private fun LockScreen(state: VaultState, session: VaultSession, biometric: Biom
     }
     if (confirmReset) AlertDialog(
         onDismissRequest = { confirmReset = false },
-        title = { Text("Permanently delete synthetic Phase 1 data?") },
+        title = { ProtectDialogWindow(); Text("Permanently delete synthetic Phase 1 data?") },
         text = { Text("All plaintext prototype entries will be removed. Removal cannot guarantee erasure from flash storage. Continue only if these entries are synthetic and disposable.") },
         confirmButton = { TextButton(onClick = { confirmReset = false; session.resetLegacy() }) { Text("Delete synthetic data") } },
         dismissButton = { TextButton(onClick = { confirmReset = false }) { Text("Cancel") } },
@@ -180,7 +186,7 @@ internal fun BiometricPasswordDialog(dismiss: () -> Unit, confirm: (CharArray) -
     var error by remember { mutableStateOf<String?>(null) }
     AlertDialog(
         onDismissRequest = { password = ""; dismiss() },
-        title = { Text("Confirm biometric enrollment") },
+        title = { ProtectDialogWindow(); Text("Confirm biometric enrollment") },
         text = {
             Column {
                 Text("Enter your current master password. Then authenticate with a strong biometric.")

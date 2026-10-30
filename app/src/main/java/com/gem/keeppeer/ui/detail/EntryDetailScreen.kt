@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gem.keeppeer.ui.components.PrototypePage
 import com.gem.keeppeer.ui.components.StatusMessage
+import com.gem.keeppeer.ui.privacy.ProtectDialogWindow
 import java.text.DateFormat
 import java.util.Date
 
@@ -67,7 +68,7 @@ fun EntryDetailScreen(
     if (confirmDelete && state.entry != null) {
         AlertDialog(
             onDismissRequest = { confirmDelete = false },
-            title = { Text("Delete entry?") },
+            title = { ProtectDialogWindow(); Text("Delete entry?") },
             text = { Text("This permanently deletes this synthetic entry.") },
             confirmButton = { TextButton(onClick = { confirmDelete = false; onDelete() }) { Text("Delete") } },
             dismissButton = { TextButton(onClick = { confirmDelete = false }) { Text("Cancel") } },

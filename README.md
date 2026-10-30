@@ -2,7 +2,17 @@
 
 An offline-only Android password keeper built with Kotlin, Jetpack Compose, and Material 3. All data stays on-device with no network access.
 
-> **Phase 2 security development build** — The user reports the existing vault is accessible without uninstall/clear-data/profile change. Read-only checks leave an unresolved identity/storage-context discrepancy; the earlier declared Application-name metadata did not prove runtime context. No data loss, recovery or normal-file-preservation pass is established. See [the metadata-only investigation](docs/phase-2-vault-context-check.md). Earlier artifact-scoped test results remain unchanged. Phase 2 is incomplete and release packaging disabled; do not distribute.
+> **Phase2 security development build — incomplete.** The opacity fix has a full API31 window lifecycle pass and concealed actual live Recents evidence. The approved controlled clipboard pair passed2/2; sharing was restored to its original enabled state. Final API25 window task return still fails, and the final API31 fixture rerun was blocked before execution by a new wake/menu approval rejection. **Release disabled; Phase3 unstarted; do not distribute.**
+
+Final production app SHA-2561c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc; final test6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433. The full31window pass, approved biometric3/3, rotation/lifecycle/actualRecents and clipboard passes retain their actual earlier test-package identities and failed containing groups. Final assembly/test assembly/lint passed,0errors14warnings. See [current correction, approvals/rejections, exact counts and remaining bounded checks](docs/phase-2-window-lifecycle-clipboard.md) and [Phase2 report](docs/reports/phase-2-report.json).
+
+The new sharing approval was executed enabled→disabled→enabled with ordinary UI verification; no host clipboard value was read/exported or production clipboard/security permissions changed. Recovery stays closed by the disposable-entry decision,cause unknown,preserved files untouched. Defender's clean full-scan report remains uninspected user testimony; old classification unknown,protection unchanged. Personal Samsung/wireless aliases were not operated on. No full matrix or unavailable capture retry. Earlier sections below are historical where superseded by this continuation.
+
+### Previous privacy closeout (historical)
+
+> **Phase 2 security development build** — The prior-initialization guard prevents defined silent-setup cases. Core acceptance is covered, but a revealed synthetic draft remained visible in this API31 provider's direct live Recents card; Phase2 stays incomplete for that privacy gap. Ordinary system screenshots and an actual app-owned dialog produced valid protected images. Original missing entries were disposable tests; recovery is no longer requested, cause remains unknown, and preserved material remains untouched. Release stays disabled; Phase3 unstarted; do not distribute. See [privacy closeout](docs/phase-2-privacy-closeout.md).
+
+Current evidence: approved biometric3/3 and selected22/22 on each API24/API25/API31 remain closed with original identities. The ineffective recents-exclusion trial was reverted; no app/test/build/exporter change is retained. The final rebuilt app has a distinct hash and passed only the affected rotation/lifecycle pair2/2,0fail/skip,52.089s; assembly/lint passed. The user's2026-10-30 full-scan/no-new-alerts report is recorded as user-reported, exact time unknown, not a false-positive verdict or an Android test gate. Only the named live-recents requirement remains open; hardware/OEM limits remain explicit. See [acceptance coverage and the precise next observation](docs/phase-2-privacy-closeout.md).
 
 ## Features (V1 Roadmap)
 
@@ -97,6 +107,8 @@ The project uses a structured, verifiable source-code review workflow:
    ```
    This creates an isolated synthetic temporary project with seven checks: first write, repeated atomic replacement/deletion reflection, typed/untyped secret redaction, unreadable-source I/O failure, report outcome mismatch, locked-destination replacement failure, and file-type-aware redaction. The last check preserves ordinary Kotlin mappings and synthetic source embedded in scripts while verifying labeled redaction of an included sensitive build-property value.
 
+   Run `.\tools\test-source-export-privacy.ps1` for the separate host-only incident privacy fixture. The exporter prunes reserved preservation/capture/runtime directories, excludes sensitive filename families even with reviewable extensions, and skips links/junctions. Payloads and detailed preservation manifests must remain app-private, outside this repository and export.
+
 ## Phase 2: encrypted vault and lock
 
 - First run confirms a strong master password and explains irreversible password/device-key loss. Existing Phase 1 data requires an explicitly confirmed synthetic reset; no silent migration/reset occurs.
@@ -104,8 +116,8 @@ The project uses a structured, verifiable source-code review workflow:
 - Only authenticated sessions can open SQLCipher or obtain a usable repository. Lock revokes old handles, cancels vault work, closes Room, clears decrypted ViewModels/navigation and resets reveal state.
 - Security settings provide Lock now, immediate/1-minute/5-minute background timeouts, password change, and optional CryptoObject-bound biometric unlock with password fallback. CSV export-before-change is a nudge until Phase 3.
 - Screens use FLAG_SECURE. Copies (including Compose selection/cut) are sensitive, clear after about 30 seconds and on lock/background where supported, and preserve newer unrelated clips.
-- A first-creation journal permits password-authenticated resumption after interruption. Missing/corrupt active vaults or unavailable Keystore keys fail closed without recreating data.
-- Instrumentation uses isolated synthetic file directories and unique test Keystore aliases. It does not reset a developer's normal vault.
+- A durable, namespace-bound STARTED/COMPLETE marker guards first creation and is backfilled only after authenticated open of older valid vaults. Inspection runs off main with creation disabled while checking. Existing aliases, markers, envelope siblings or SQLite sidecars block silent fresh setup when required material is missing; errors fail closed. The existing creationPending envelope still resumes with its original key. Full data/key removal can erase these signals; this is prevention, not recovery.
+- Instrumentation source routes fixture files and aliases to isolated synthetic contexts. Historical test passes do not establish normal-vault preservation.
 
 See [security.md](docs/security.md), [phase status](docs/phase-status.md), and the [device checklist](docs/phase-2-device-checks.md) for limitations and actual verification. The [biometric investigation](docs/phase-2-biometric-diagnosis.md) records the reproduced post-scan failure, focused AAD ordering fix, test evidence and installed APK identity. Enrollment now uses its own current-password confirmation dialog; it does not use the password-change fields. Phase 2 remains incomplete.
 
@@ -122,7 +134,7 @@ See [security.md](docs/security.md), [phase status](docs/phase-status.md), and t
 
 Verification results are in [docs/phase-status.md](docs/phase-status.md) and [docs/reports/phase-1-report.json](docs/reports/phase-1-report.json). Device steps are in [docs/phase-1-device-checks.md](docs/phase-1-device-checks.md).
 
-Additional device checks (preserve an installed vault with in-place replacements and the isolated runner):
+Historical device-check procedure (paused during the current vault incident; do not execute this procedure as part of preservation/history review):
 
 ```powershell
 .\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest

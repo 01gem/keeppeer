@@ -1,9 +1,379 @@
 {
   "phase": 2,
   "outcome": "incomplete",
-  "summary": "Phase2 remains incomplete; release disabled. Read-only vault-context reconciliation records user-reported existing-vault access/visible entries on2026-10-30 without uninstall, clear-data or device/profile switch; exact time unknown. Same Samsung/device/user0/UID10358/app c103... identity verified. No live main PID or visible Keeppeer Activity in current inspection; actual Application/session storage/alias namespace unknown. App-UID absolute-path metadata returns ENOENT for conventional vault files; three UUID cache DB/envelope candidate pairs remain. Earlier declared ApplicationInfo class was incorrectly treated as runtime-class proof and is corrected. No data loss, recovery, confirmed active synthetic context or normal-file-preservation pass claimed. No app start/stop, instrumentation/build/install, data/key/enrollment changes or payload collection. Prior artifact-scoped native and targeted results retained unchanged. Next: passive identity/context observation while user already has vault visible.",
+  "summary": "Weak original-opacity ownership fixes hidden Window re-registration without exposing closing windows or strongly retaining destroyed windows. Corrected production app1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc; final test6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433. Full API31 window regression1/1,23.728s at earlier test1c2fa358; actual revealed-draft Recents transition/settled own card concealed and normal Back return observed. Explicitly approved isolated clipboard pair2/2,0fail/skip,58.101s,expiry30056ms at testfde7e6ce; sharing enabled→disabled→enabled,original restored/verified. Approved Bio3 and rotation individual passes in626; actualRecents/lifecycle individual passes in643, containing group failures retained. Final API25 Window0pass/1fail/0skip,19.751s at own-task return; final API31 fixture rerun notstarted after new wake/menu review rejection. Assembly/test assembly/lint PASS,0errors14warnings. Phase2 incomplete only for bounded affected window verification. Recovery closed/disposable,cause unknown; preserved material untouched. Defender clean scan user-reported/uninspected; protection unchanged. Release disabled;Phase3 unstarted.",
+  "vaultPreservationInvestigation": {
+    "result": "PRIVATE PRESERVATION COMPLETED; original vault, cause and recovery unknown",
+    "marker": "2026-10-30T01:21:32+08:00",
+    "repositoryRevision": "401d359",
+    "latestUserEvidence": {
+      "observation": "Create your vault from the usual Keeppeer phone icon",
+      "date": "2026-10-30",
+      "exactTime": "not supplied",
+      "afterReviewedSnapshot": {
+        "timestamp": "2026-10-30 12:49:59 AM PHT (UTC+08:00)",
+        "revision": "7be0e6d",
+        "bytes": 588408
+      },
+      "reportedChanges": "No uninstall, clear-data, phone change or Android-profile switch reported",
+      "earlierAccess": "Retained as historical user-reported evidence; latest setup report takes precedence"
+    },
+    "scope": "App-UID bounded metadata and new private opaque copies only; local history/docs/export safeguards. No app start/stop/restart, Android build/tests/install, instrumentation, passwords, setup, DB open/decrypt, root, original permissions/rename/delete, keys/aliases/enrollment, migration or recovery.",
+    "identity": {
+      "serial": "RR8R402RR7T",
+      "model": "SM-A125F",
+      "api": 31,
+      "user": 0,
+      "package": "com.gem.keeppeer",
+      "uid": 10358,
+      "appSha256": "c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169",
+      "foreground": "com.sec.android.app.launcher/.activities.LauncherActivity",
+      "mainPid": null,
+      "pidofExit": 1,
+      "companion": "com.gem.keeppeer.test PID3375 UID10359; not proof of instrumentation",
+      "activeInstrumentation": "No active instrumentation match in filtered process metadata; no-match is scoped to that filter",
+      "runtimeContext": "UNKNOWN; declared ApplicationInfo is not actual runtime context",
+      "fdLimit": "No main PID for FD binding; no other-UID descriptors inspected"
+    },
+    "inventory": {
+      "exactPaths": 132,
+      "presentRegularFiles": 6,
+      "absent": 126,
+      "permissionDenials": 0,
+      "pathStatus": "stat status0/regular file or status1/ENOENT captured immediately per path",
+      "parents": "Verified normal app/no_backup/databases/cache and five prior UUID root/no-backup parents are readable directories; no unexpected links followed",
+      "scope": "84 known current/legacy DB, sidecar, envelope/AtomicFile paths in six normal/UUID contexts plus48 source-derived synthetic-encrypted-test.db / synthetic-persistence-test.db paths and sidecars",
+      "normalAndLegacy": "Checked normal database/envelopes, prototype DB, SQLite sidecars and AtomicFile .bak/.new siblings absent",
+      "candidates": "Same three historical UUID cache DB/password-envelope pairs; two other UUID contexts have no checked files",
+      "beforeAfterInventoryComparisonExit": 0,
+      "details": "Exact inventories, source/destination metadata and integrity hashes private; not included in repository/export"
+    },
+    "preservation": {
+      "payloadCount": 6,
+      "payloadBytes": 49515,
+      "privateDirectory": "/data/user/0/com.gem.keeppeer/no_backup/keeppeer-preservation/20261030-011428-PHT",
+      "permissions": "Directory700, payloads/private metadata600, UID/GID10358; umask077",
+      "spaceAvailableKiB": 88119888,
+      "mapping": "Relative cache/keeppeer.test.<UUID>/DB and no-backup/envelope paths retained; originals/namespaces unchanged",
+      "integrity": "Before/after source size/mtime/inode and SHA-256 stable; destination SHA-256 equals source; per-file and final byte comparisons exit0",
+      "privateManifest": "Exact source mapping and before/after metadata/hashes retained only inside private directory; no payload/hash/manifest pulled to host",
+      "consistency": "Best-effort evidence copies only. No DB engine opened; FD/transactional consistency unverified. Not a verified restore point or portable backup.",
+      "keyDependencies": "Original device/app Keystore required; normal/candidate expected source-derived aliases remain unchanged, alias existence unknown; no probe/deployment/key generation"
+    },
+    "historyAudit": {
+      "result": "PARTIAL; no action explains later absence",
+      "repository": "401d359 vs7be0e6d changes exactly six docs/report files; no app/test/config changes between cited review exports",
+      "runnerEvidence": "Early Phase2 shell-63.log lines118-165 records failed uninstall attempts for app/test packages: wireless target disconnected, Gradle FAILED in10m20s. No exact log timestamp retained; separate report XML time08:15:52 AM PHT2026-10-29. This proves attempted cleanup, not successful uninstall; later normal access is recorded.",
+      "lateRuns": "Retained shell-835 and844 logs confirm6/6 and1/1 synthetic runner results on their historical artifacts; not normal-file preservation",
+      "configuration": "Current CLEAR_APP_STORAGE=false and no orchestrator/clearPackageData option found in searched build history; configuration is not proof of execution",
+      "deletions": "Production confirmed legacy reset and synthetic-context test delete/truncate paths inspected; no observed invocation ties them to missing normal files",
+      "limits": [
+        "No pre-update normal-file/hash/resolved-context baseline",
+        "Studio cannot serialize full agent JSONL; indexed previews truncated",
+        "Some historically referenced logs not in retained bounded inventory",
+        "Missing history is not proof cleanup never occurred"
+      ],
+      "cause": "UNKNOWN"
+    },
+    "recovery": {
+      "supported": false,
+      "originalCandidateAssociation": "UNKNOWN",
+      "existingKeyAvailability": "UNKNOWN",
+      "proposal": "No evidence-supported exact source/destination recovery route. Do not restore/promote/rewrite/rekey/migrate/reset.",
+      "missingEvidence": [
+        "Provenance binding an existing pair to the original user vault and namespace",
+        "Existing device-bound key availability through already authorized read-only app inspection",
+        "Successful normal session's pre-absence resolved files or relevant action/baseline history"
+      ]
+    },
+    "preventionProposal": "Separate future review: prior-initialization marker committed after authenticated verified creation can block silent setup after selective file loss; legitimate existing alias evidence must not generate keys. Older installs without markers remain ambiguous. Define interrupted-creation/version behavior. Marker also disappears with clear-data/uninstall. No production fix/deployment in this task.",
+    "exportPrivacy": {
+      "changes": [
+        "Reserved keeppeer-preservation/incident-payloads/private-captures/no_backup/no-backup directories pruned",
+        "Sensitive filename families excluded even with reviewable extensions",
+        "Reparse points skipped",
+        "Matching .gitignore safeguards; no private incident material in project"
+      ],
+      "checks": [
+        "Existing seven host exporter fixtures PASS",
+        "New host-only privacy fixture PASS: five private directories/seven filename families; ordinary source retained"
+      ],
+      "androidChecks": "NOT RUN by scope"
+    },
+    "changedPaths": {
+      "added": [
+        "tools/test-source-export-privacy.ps1"
+      ],
+      "modified": [
+        ".gitignore",
+        "README.md",
+        "docs/phase-status.md",
+        "docs/security.md",
+        "docs/phase-2-device-checks.md",
+        "docs/phase-2-vault-context-check.md",
+        "docs/reports/phase-2-report.json",
+        "tools/export-source-code.ps1"
+      ],
+      "deleted": []
+    },
+    "nextAction": "Latest setup-screen report supersedes waiting for an accessible session. Review vaultPreservationInvestigation and safe source export. Seek only existing provenance linking a candidate to the original vault/namespace, required existing-key availability and pre-absence resolved-path/history evidence. No passwords, accessible entry list, repeated setup attempts, broad test matrix, recovery writes or deployment.",
+    "detailsDocument": "docs/phase-2-vault-context-check.md",
+    "phaseStatus": "Phase2 incomplete; release disabled; Phase3 unstarted"
+  },
+  "safeContinuation": {
+    "result": "Guard implemented; scoped API31 verification passed after timing-fixture correction; Phase2 acceptance incomplete",
+    "baselineReviewedExport": {
+      "timestamp": "2026-10-30 01:25:58 AM PHT (UTC+08:00)",
+      "revision": "401d359",
+      "bytes": 621582
+    },
+    "source": {
+      "baseRevision": "401d359ec16b8430b20c0a4c161017fa3e74617b",
+      "status": "Uncommitted guard/source/test/docs changes; earlier preservation/export-privacy changes retained",
+      "changedPaths": {
+        "added": [
+          "app/src/main/java/com/gem/keeppeer/security/VaultInitialization.kt",
+          "app/src/androidTest/java/com/gem/keeppeer/VaultInitializationTest.kt",
+          "app/src/androidTest/java/com/gem/keeppeer/VaultAvailabilityUiTest.kt",
+          "app/src/androidTest/java/com/gem/keeppeer/VaultScreenshotPolicyTest.kt",
+          "docs/phase-2-initialization-guard.md"
+        ],
+        "modified": [
+          "app/src/main/java/com/gem/keeppeer/security/VaultSession.kt",
+          "app/src/main/java/com/gem/keeppeer/security/EnvelopeStore.kt",
+          "app/src/main/java/com/gem/keeppeer/security/BiometricVault.kt",
+          "app/src/main/java/com/gem/keeppeer/ui/lock/VaultRoot.kt",
+          "app/src/androidTest/java/com/gem/keeppeer/SyntheticTestRunner.kt",
+          "app/src/androidTest/java/com/gem/keeppeer/VaultSecurityTest.kt",
+          "app/src/androidTest/java/com/gem/keeppeer/VaultVerificationTest.kt",
+          "app/src/androidTest/java/com/gem/keeppeer/BiometricEnrollmentTest.kt",
+          "app/src/androidTest/java/com/gem/keeppeer/VaultLifecycleUiTest.kt",
+          "app/src/androidTest/java/com/gem/keeppeer/EntryDraftRotationTest.kt",
+          "app/src/androidTest/java/com/gem/keeppeer/SecureCaptureTest.kt",
+          "README.md",
+          "docs/phase-status.md",
+          "docs/security.md",
+          "docs/phase-2-device-checks.md",
+          "docs/phase-2-vault-context-check.md",
+          "docs/reports/phase-2-report.json"
+        ],
+        "deleted": []
+      },
+      "details": "docs/phase-2-initialization-guard.md"
+    },
+    "userDeviceOverride": {
+      "instruction": "continue task and use device adb-RR8R402RR7T-jsNzTx._adb-tls-connect._tcp samsung a125f rather than an emulator",
+      "scope": "In-place app/test install and targeted fresh synthetic namespaces on this exact Samsung. No uninstall, clear-data/cache, normal-vault setup/password attempt/recovery, candidate/preservation operation or personal fingerprint enrollment change.",
+      "serial": "adb-RR8R402RR7T-jsNzTx._adb-tls-connect._tcp",
+      "model": "SM-A125F",
+      "api": 31,
+      "user": 0,
+      "isolation": "Verified model/API/user, merged test runner/target package and installed instrumentation registration before execution. SyntheticTestApplication replaces normal DI; UUID cache/no-backup paths and exact UUID aliases. Direct am instrument only, no connected-device cleanup harness."
+    },
+    "guard": {
+      "states": "CHECKING on start/relock; FIRST_RUN only after successful absence inspection; UNAVAILABLE hides setup and impossible unlock controls; usable password envelope preserves password fallback/pending recovery",
+      "evidence": "Bounded native lstat/type/readability/ancestor checks on context-local marker, password/biometric envelopes and .bak/.new, encrypted/prototype DBs and -wal/-shm/-journal. Exact namespace storage and biometric containsAlias only; errors propagate. No preference/directory-only completion inference, unrelated namespace scan or preservation import.",
+      "record": "vault-initialization-v1.bin; bounded512-byte parser, version/namespace/STARTED-or-COMPLETE. AtomicFile file sync and parent fsync; no secret/key bytes.",
+      "provisioning": "Recheck under serialized setup immediately before provisioning; process-local serialized start inspection/commit. STARTED before keys/envelope/DB. Write failure stops provisioning. COMPLETE only after authenticated DB open/schema verification; failure closes access and retains material for authenticated retry.",
+      "crashes": "Started/no usable envelope -> unavailable/no regeneration. Started plus usable creationPending -> authenticate and resume existing key. Marker-less existing valid vault -> authenticated completion marker without rekeying/replacing existing DB/envelope.",
+      "lifecycle": "Generation/cancellation/repository revocation retained. Keystore/durable guard work off main; secret buffers cleared on rejected and completed operations. Wrapper file paths lazily resolved.",
+      "limits": "Full data/key removal can erase evidence; absent marker in an older install is not proof of no earlier vault. No historical-cause or recovery claim.",
+      "unchanged": "minSdk24, offline/backup policy, dependencies (Biometric1.4.0-alpha07 exception retained), PBKDF2 cost, SQLCipher schema, envelope/key formats, per-use CryptoObject/Cipher binding and post-authentication AAD"
+    },
+    "artifacts": {
+      "appSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+      "firstTestSha256": "820f3929b8f0e246dcae3f16bc066d9df3ed90700b63eea2584ca062bb6800a8",
+      "timingCorrectionTestSha256": "b8f21ca3dc8e4c482749e70b26326f72d2337fd187c7f03cc9f5c6d55304867f",
+      "finalTestSha256": "cfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a",
+      "installedHashesMatchHost": true
+    },
+    "host": {
+      "result": "PASS",
+      "checks": [
+        "IDE Gradle assembleDebug/assembleDebugAndroidTest/testDebugUnitTest/lintDebug passed on final production source",
+        "15 JVM tests passed,0 failed/skipped",
+        "Lint0 errors/14 warnings",
+        "Later test-only changes compiled/packaged with lint success"
+      ],
+      "noDependencyChanges": true
+    },
+    "runs": [
+      {
+        "scope": "New guard native/UI regressions",
+        "result": "PASS",
+        "expected": 11,
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0,
+        "nativeSeconds": 132.738,
+        "appSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+        "testSha256": "820f3929b8f0e246dcae3f16bc066d9df3ed90700b63eea2584ca062bb6800a8",
+        "log": "shell-11.log",
+        "coverage": "Fresh/restarted and marker-less valid vault/key/entry retention; loss of both files with unchanged actual Keystore key challenge; alias-only and namespace isolation; residual/unreadable/error evidence; initial/final marker failure; interrupted provisioning/pending recovery; stale setup; checking/unavailable UI and secret clearing."
+      },
+      {
+        "scope": "Affected existing security/session/UI regression group",
+        "result": "FAIL retained as history; timing fixture subsequently corrected",
+        "expected": 11,
+        "passed": 10,
+        "failed": 1,
+        "skipped": 0,
+        "nativeSeconds": 324.344,
+        "appSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+        "testSha256": "820f3929b8f0e246dcae3f16bc066d9df3ed90700b63eea2584ca062bb6800a8",
+        "log": "shell-12.log",
+        "failure": "monotonicReturnEnforcesAllTimeoutOptionsAndDeviceLock expected UNLOCKED but observed LOCKED. Fixture waited before foreground, then called foreground+unlock together; foreground could initiate a new CHECKING inspection, correctly rejecting premature unlock.",
+        "passes": "Password change/restart/wrong password and repository revocation; pending/missing/truncated DB; explicit legacy reset; device-bound envelope/failed replacement; encrypted reopen/wrong-key/plain SQLite/schema guards; malformed/missing biometric-key fallback; validation/cancel UI; background/lock draft revocation; rotation/reveal/cancel."
+      },
+      {
+        "scope": "Timing correction and initial screenshot test",
+        "result": "1 PASS /1 FAIL; retained history",
+        "expected": 2,
+        "passed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "nativeSeconds": 97.052,
+        "appSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+        "testSha256": "b8f21ca3dc8e4c482749e70b26326f72d2337fd187c7f03cc9f5c6d55304867f",
+        "log": "shell-17.log",
+        "timing": "PASS after waiting for availability inspection after foregrounding; timeout/authentication/generation assertions unchanged.",
+        "screenshotFailure": "Settings accessibility-root readiness timeout before any screenshot. Subsequent bounded metadata: awake/deviceLocked0/DisplaySettingsActivity foreground. Exact root mismatch unproved; readiness changed to resolved foreground component metadata, without relaxing protection/control assertions."
+      },
+      {
+        "scope": "Corrected screenshot-only capability check",
+        "result": "UNAVAILABLE; not a protection pass",
+        "expected": 1,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 1,
+        "nativeSeconds": 4.722,
+        "appSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+        "testSha256": "cfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a",
+        "log": "shell-25.log",
+        "detail": "Resolved generic Display Settings control reached; UiAutomation.takeScreenshot returned null for control. Assumption status-4 records unavailable. Runner summary OK(1 test) is not counted as a pass. No valid control, no protected captures or visual protection conclusion; no repeated capture-path attempts."
+      }
+    ],
+    "screenshotStatus": "UNAVAILABLE for this Samsung UiAutomation path: no control bitmap. Earlier empty PNGs and prior artifact-scoped decoded recording samples remain historical. Current physical screenshot-button/recents/dialog image policy not verified. No security flags removed; no other-app recents captured.",
+    "blockedBiometricClass": {
+      "result": "NOT RUN; explicit approval requested/pending",
+      "action": "BiometricEnrollmentTest",
+      "reason": "Automatic approval review rejected the request because retained user scope excludes enrollment changes, and instructed exclusion of this class.",
+      "response": "Excluded class from unaffected run; did not rename/indirectly invoke rejected tests. Class source uses synthetic app aliases/wrappers and prompt cancellation without Android enrollment change, but execution still awaits explicit approval.",
+      "nativePasswordFallback": "Missing biometric-key/password fallback regression did run and pass separately; this is not actual invalidation or biometric-success evidence."
+    },
+    "api24_25": {
+      "result": "NOT RUN on new guard/app",
+      "environment": "Initial dedicated API31 AVD launch failed Unknown AVD name; no .ini registrations and -list-avds empty despite old AVD directories. User then selected physical Samsung rather than emulator. No AVD wipe or further emulator execution. Earlier API24/25 results retained on their original artifacts only."
+    },
+    "defender": {
+      "result": "UNRESOLVED; no false-positive verdict",
+      "source": "User-supplied continuation prompt reports Trojan:Win32/Commando.A!ml on encoded PowerShell around2026-10-30 01:12 AM PHT; exact Defender-event correlation unverified.",
+      "failedAttempts": [
+        {
+          "operation": "Bounded parent/candidate metadata and free-space command launch",
+          "result": "CreateProcess error5 /Access is denied; not executed or passed"
+        },
+        {
+          "operation": "Bounded normal vault-parent metadata/free-space command launch",
+          "result": "CreateProcess error5 /Access is denied; not executed or passed"
+        }
+      ],
+      "separation": "Failed launches are separate from later completed preservation evidence. Changing shells/subsequent success does not prove safety. No blocked command replay, item restore/allow, exclusion, security-control change or obfuscation."
+    },
+    "incident": {
+      "status": "UNRESOLVED",
+      "latestUserReport": "Create your vault; earlier access historical; exact observation time unknown",
+      "preservation": "Prior reported six candidates/49515bytes at private no_backup preservation path retained as historical evidence; no candidate/preservation reads/writes or fixture import in this continuation.",
+      "cause": "UNKNOWN",
+      "originalVaultIdentity": "UNKNOWN",
+      "recoverability": "UNKNOWN; guard is prevention, not recovery",
+      "noNewNormalVaultPreservationClaim": true
+    },
+    "remaining": [
+      "Native guard/directory durability and affected behavior on authorized API24/API25 targets",
+      "Explicit approval for rejected BiometricEnrollmentTest; current actual per-use biometric success/marker path remains manual/unverified",
+      "Actual enrollment-change invalidation/password fallback on suitable disposable provider; no personal enrollment change",
+      "Screenshot API/control unavailable; physical screenshot policy, Samsung recents and dialog image checks remain open",
+      "Physical keyboard hardware interaction; do not label injected input as physical evidence",
+      "Original-vault incident/user decision and Defender correlation/verdict remain unresolved"
+    ],
+    "history": "All earlier check entries, accepted currentVerification and earlier failed/interrupted/native artifact records remain unchanged and historical; current scoped runs above are not a full current-suite pass.",
+    "phase": "Phase2 incomplete; release disabled; Phase3 unstarted"
+  },
   "baselineRevision": "76dbb7be35362533e1fe608e5dad4e69caa82ec2",
   "checks": [
+    {
+      "name": "Final source/report/document validation",
+      "result": "PASS",
+      "timestamp": "2026-10-30 04:21:16 UTC",
+      "details": "JSON parses; phase incomplete; previous check entries/accepted verification/native/preservation histories unchanged. Current summaries aligned; screenshots not counted as protection pass. git diff --check exited0. Atomic source export follows."
+    },
+    {
+      "name": "Prior-initialization guard host compilation, JVM and lint",
+      "result": "PASS",
+      "details": "Final production app assembled, test sources packaged;15 JVM passes,0 failures/skips;lint0errors/14warnings. Later test-only timing/control corrections compiled. See safeContinuation for source/app/test identities.",
+      "timestamp": "2026-10-30 (PHT); exact wall-clock completion instant not recorded; native durations/artifact scopes retained"
+    },
+    {
+      "name": "New native guard and availability UI regressions on explicitly selected Samsung",
+      "result": "PASS (11/11;132.738s)",
+      "details": "App269295...54e3d/test820f3929...6800a8 installed/host hash match. Actual files/AtomicFile/Keystore/SQLCipher and injected failure boundaries, no mocked authentication. See scoped run and isolation.",
+      "timestamp": "2026-10-30 (PHT); exact wall-clock completion instant not recorded; native durations/artifact scopes retained"
+    },
+    {
+      "name": "Affected existing regression group on new app",
+      "result": "FAIL retained (10/11 passes;1 timing fixture failure;324.344s)",
+      "details": "Test820f3929...6800a8. Foreground can start CHECKING; immediate combined unlock was correctly rejected. Other10passed. Fixture now waits after foreground; no timeout/auth assertion relaxed.",
+      "timestamp": "2026-10-30 (PHT); exact wall-clock completion instant not recorded; native durations/artifact scopes retained"
+    },
+    {
+      "name": "Corrected timing and initial screenshot-control journey",
+      "result": "PARTIAL: timing PASS; screenshot readiness FAIL (97.052s)",
+      "details": "Testb8f21ca3...04867f. Timing correction passed. Settings accessibility-root condition timed out before capture; following bounded metadata showed awake/unlocked DisplaySettings foreground. Replaced control readiness with resolved foreground-component check; failure retained.",
+      "timestamp": "2026-10-30 (PHT); exact wall-clock completion instant not recorded; native durations/artifact scopes retained"
+    },
+    {
+      "name": "Screenshot-only capability on corrected test artifact",
+      "result": "UNAVAILABLE (0pass/0fail/1skip;4.722s)",
+      "details": "Final testcfbc6259...56e1a; control UiAutomation screenshot returned null after foreground verification. Status-4/assumption means no protection pass, despite runner OK(1 test). No image/valid control for visual review; capture path not repeatedly retried.",
+      "timestamp": "2026-10-30 (PHT); exact wall-clock completion instant not recorded; native durations/artifact scopes retained"
+    },
+    {
+      "name": "Biometric enrollment test request",
+      "result": "REJECTED BY AUTOMATIC APPROVAL REVIEW; NOT RUN",
+      "details": "Review enforced retained no-enrollment restriction and required exclusion of BiometricEnrollmentTest. Unaffected checks proceeded; explicit approval question pending. No indirect invocation or real enrollment change.",
+      "timestamp": "2026-10-30 (PHT); exact wall-clock completion instant not recorded; native durations/artifact scopes retained"
+    },
+    {
+      "name": "Final report/document consistency and whitespace checks",
+      "result": "PASS",
+      "timestamp": "2026-10-30T01:25:11+08:00",
+      "details": "JSON parses; phase incomplete; all prior check entries/currentVerification/biometric history unchanged; prior native continuation differs only in superseded incident nextAction. Current summaries agree on setup report, private preservation and unknown recovery/cause. git diff --check independently exited0. Final atomic export follows."
+    },
+    {
+      "name": "Bounded app-UID inventory and private opaque preservation",
+      "result": "PASS for scoped preservation; recovery/consistency UNKNOWN",
+      "timestamp": "2026-10-30T01:21:32+08:00",
+      "details": "132 paths:6 present/126ENOENT, readable parents/no permission denial. Six copies49515bytes; source size/mtime/inode/hash stable, destination SHA-256/byte equality; before/after inventories equal. Private mode700/600 UID10358. No original identity, key availability or consistent restore-point claim."
+    },
+    {
+      "name": "Available project/deployment/runner history audit without replay",
+      "result": "PARTIAL; cause UNKNOWN",
+      "timestamp": "2026-10-30T01:21:32+08:00",
+      "details": "Early retained runner output shows failed uninstall attempts with disconnected target; no proof of successful deletion, and later normal access is recorded. Current configured storage-clear false is not runtime proof. JSONL serialization/truncated previews and missing old logs limit completeness. See vaultPreservationInvestigation."
+    },
+    {
+      "name": "Host-only source-export privacy fixture",
+      "result": "PASS",
+      "timestamp": "2026-10-30T01:19:32+08:00",
+      "details": "tools/test-source-export-privacy.ps1: ordinary source retained; five private directories and seven sensitive filename families excluded. Synthetic temporary fixture removed. No Android/device interaction."
+    },
+    {
+      "name": "Existing atomic source-export host fixtures after privacy safeguards",
+      "result": "PASS",
+      "timestamp": "2026-10-30T01:19:51+08:00",
+      "details": "tools/test-export-source-code.ps1: all seven fixture assertions passed; temporary synthetic fixture cleaned. No Android tests/build/install performed."
+    },
     {
       "name": "Focused read-only vault-context reconciliation",
       "result": "PARTIAL: metadata established; live session context unavailable",
@@ -215,6 +585,231 @@
       "result": "PASS",
       "timestamp": "2026-10-29; after final-source host/device checks",
       "details": "No whitespace errors in current tracked changes."
+    },
+    {
+      "name": "Reviewed source and current artifact comparison",
+      "result": "PASS",
+      "timestamp": "2026-10-30 current disposable continuation",
+      "details": "78 app/toolchain source/config files matched reviewed12:21:51 PM PHT snapshot; host app/test SHA-256 matched. Production/test unchanged; no rebuild or new host-test claim."
+    },
+    {
+      "name": "Exact-serial selected22 native guard/security/UI checks on disposable API24",
+      "result": "PASS",
+      "timestamp": "2026-10-30 disposable continuation",
+      "details": "22/22 passed,0failed,0skipped,57.395s; shell-52.log; app2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d,testcfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a. Unavailable; host artifact hashes verified and fresh direct installs returned Success. Selection recorded in guardVerificationContinuation; no full-suite claim."
+    },
+    {
+      "name": "Exact-serial selected22 native guard/security/UI checks on disposable API25",
+      "result": "PASS",
+      "timestamp": "2026-10-30 disposable continuation",
+      "details": "22/22 passed,0failed,0skipped,57.945s; shell-65.log; app2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d,testcfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a. Not independently checked; host artifact hashes verified and fresh direct installs returned Success. Selection recorded in guardVerificationContinuation; no full-suite claim."
+    },
+    {
+      "name": "Exact-serial selected22 native guard/security/UI checks on disposable API31",
+      "result": "PASS",
+      "timestamp": "2026-10-30 disposable continuation",
+      "details": "22/22 passed,0failed,0skipped,166.763s; shell-219.log; app2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d,testcfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a. App and test installed base.apk SHA-256 independently matched host. Selection recorded in guardVerificationContinuation; no full-suite claim."
+    },
+    {
+      "name": "API31 normal-app real per-use biometric marker completion and actual enrollment invalidation",
+      "result": "PASS (emulated provider only)",
+      "timestamp": "2026-10-30 approximately 01:10–01:15 PM PHT",
+      "details": "Native CryptoObject-bound encrypt/decrypt/database-open completed; synthetic marker-only absence backfilled expected45-byte COMPLETE record after cold biometric open, entry retained. Provider enrollment1->2 genuinely raised KeyPermanentlyInvalidatedException; password fallback retained same entry. No mocked callback, personal device or key-deletion substitute."
+    },
+    {
+      "name": "API31 native protected screenshot and separate CLI dialog/own-recents checks",
+      "result": "UNAVAILABLE; not protection passes",
+      "timestamp": "2026-10-30 current disposable continuation",
+      "details": "Native0pass/0fail/1skip,17.853s, shell-82.log: valid readable control/blackFraction0.0, protected draft null. Separate CLI readable1080x1920/99181-byte control visually reviewed; protected-dialog/own-recents attempts exit0 but0-byte files. No protected pixels; no repeats or security-control changes. Prior recording/capture history retained."
+    },
+    {
+      "name": "BiometricEnrollmentTest on new disposable API24 requested group",
+      "result": "AUTOMATIC REVIEW REJECTED; NOT RUN",
+      "timestamp": "2026-10-30 current disposable continuation",
+      "details": "The command still includes BiometricEnrollmentTest, which retained instructions identify as blocked and unrun pending explicit approval; limiting it to a disposable API 24 emulator does not authorize that class. Stopped; class excluded from allowed22-test groups. Additional explicit approval unanswered; no rename/indirect invocation."
+    },
+    {
+      "name": "New explicit human approval for existing BiometricEnrollmentTest",
+      "result": "APPROVAL RECORDED (disposable-only)",
+      "timestamp": "2026-10-30 current user instruction",
+      "details": "Only the3 named existing tests on synthetic disposable emulators. Personal Samsung/all wireless aliases excluded. User also reports prior Approve disposable-emulator tests answer in originating review chat; no independent external-chat verification claimed. Historical automatic-review rejections remain unchanged; new exact class command accepted without rerouting."
+    },
+    {
+      "name": "Current source/artifact/registered synthetic AVD/runner verification",
+      "result": "PASS",
+      "timestamp": "2026-10-30 01:41:27 PM PHT (UTC+08:00)",
+      "details": "All78 current app/toolchain source/config files matched reviewed01:23:09 PM PHT/749200-byte snapshot; host and retained installed app/test SHA-256 matched stated artifacts. Registered dedicated AVD rediscovered as emulator-5580,qemu1/API31/x86_64/boot1,2 enrolled synthetic fingerprints. Installed SyntheticTestRunner target and UUID file/preferences/alias isolation verified. No build/install required. Wrapper MIME and stopped UI-inspector limitations recorded separately, not app failures."
+    },
+    {
+      "name": "adb -s emulator-5580 shell am instrument -w -r -e class com.gem.keeppeer.BiometricEnrollmentTest com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+      "result": "PASS",
+      "timestamp": "2026-10-30 01:41:27 PM PHT (UTC+08:00)",
+      "details": "Expected3;started3;executed3;passed3;failed0;skipped0;native143.002seconds;OK (3 tests);INSTRUMENTATION_CODE:-1;host exit0;log shell-254.log. All three exact approved names unchanged, native dialog test not skipped. No fabricated success callback or assertion weakening. App2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d;testcfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a."
+    },
+    {
+      "name": "User decision for unavailable original entries",
+      "result": "DECISION RECORDED; RECOVERY NO LONGER REQUESTED",
+      "timestamp": "2026-10-30 current user instruction",
+      "details": "Original unavailable entries were disposable test entries. Resolves recovery priority only; cause remains unknown, no recovery claimed, no deletion/reset/rekey authorized. Historical incident and preserved files retained unchanged; no personal phone/candidate/preservation access."
+    },
+    {
+      "name": "Original Phase2 acceptance/source reconciliation",
+      "result": "PARTIAL — only live-recents privacy gap remains",
+      "timestamp": "2026-10-30 privacy closeout",
+      "details": "Read original phase-2-security.txt clauses1–10/A1–A4.78 final app/toolchain source/config files match reviewed guard. Closed approval/biometric/core groups and recovery decision remain closed; scan/hardware universality are not added Android gates. Full evidence/limits in privacyCloseout.acceptanceMatrix."
+    },
+    {
+      "name": "Ordinary Android system screenshot control and revealed synthetic draft",
+      "result": "PASS (API31 provider, recorded app2692954)",
+      "timestamp": "2026-10-30 08:53:16 UTC",
+      "details": "Exact emulator-5582 KEYCODE_SYSRQ. Readable generic system-produced1080x1920/91793-byte PNG and decoded protected1080x1920/8818-byte PNG visually reviewed. Protected content/keyboard black with system navigation only. Valid PNG evidence, not a null/empty bitmap or asserted refusal; no failed capture API replay."
+    },
+    {
+      "name": "Actual app-owned Compose confirmation dialog ordinary screenshot",
+      "result": "PASS (manifest-only trial appd9c8494)",
+      "timestamp": "2026-10-30 09:16:22 UTC",
+      "details": "Actual synthetic Delete-entry dialog visually observed; system-produced1080x1920/13894-byte PNG decoded/visually reviewed: app/dialog black, system bars/navigation only. Cancel selected; no entry deleted. Window/dialog source unchanged across baseline/trial/final; full identities recorded separately."
+    },
+    {
+      "name": "Direct live current-task Recents",
+      "result": "FAIL / UNRESOLVED",
+      "timestamp": "2026-10-30 08:54:59 UTC",
+      "details": "Two settled own-app live views retained revealed unsaved synthetic draft and keyboard on reviewed app2692954. Activity remained RESUMED/focused, SECURE flags present, no ACTIVITY_STOP in safe current-PID trace. No definitive universal platform cause or persisted-thumbnail conclusion. Named original privacy requirement remains open."
+    },
+    {
+      "name": "Manifest excludeFromRecents trial and reversion",
+      "result": "NO VERIFIED FIX — REVERTED",
+      "timestamp": "2026-10-30 privacy closeout",
+      "details": "Trialappd9c8494 had actual EXCLUDE_FROM_RECENTS intent0x10800000, but own live locked-app card still appeared. Home→Recents removed the backgrounded card; this does not close original live exposure. Attribute removed again; no lifecycle/auth/guard hack retained."
+    },
+    {
+      "name": "Trial affected EntryDraftRotationTest,VaultLifecycleUiTest",
+      "result": "PASS (not recents protection evidence)",
+      "timestamp": "2026-10-30 privacy closeout",
+      "details": "2expected/started/executed/passed,0fail/skip,54.630s,OK(2tests),shell-321.log; appd9c8494a3fe1a7c727d3f19b8ec40f410e5c5ed9c63bb1d1682894d421ff99d5/testcfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a. No full matrix or closed biometric rerun."
+    },
+    {
+      "name": "Restored-source debug assembly/lint, APK manifest and installed hash",
+      "result": "PASS (new binary identity)",
+      "timestamp": "2026-10-30 privacy closeout",
+      "details": "IDE Gradle assembleDebug/lintDebug succeeded after reversion. Final source exactly restored; APK Analyzer confirms no excludeFromRecents, minSdk24/target37, backup disabled and no INTERNET/broad-storage permission. Rebuilt appa6c3dfe4f52a13dd3240fe56a33f5839c38c1486132742d13193edf96d9aa061 matched installed base.apk. Binary differs from reviewed2692954; cause not investigated, old pass identities not changed. No fresh JVM count or lint warning recount."
+    },
+    {
+      "name": "Final affected EntryDraftRotationTest,VaultLifecycleUiTest on restored-source artifact",
+      "result": "PASS",
+      "timestamp": "2026-10-30 privacy closeout",
+      "details": "2expected/started/executed/passed,0fail/skip,52.089s,OK(2tests),nativecode-1/hostexit0,shell-351.log; appa6c3dfe4f52a13dd3240fe56a33f5839c38c1486132742d13193edf96d9aa061/testcfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a. UUID fixture isolation retained. Only this affected pair rerun; all prior exact counts unchanged."
+    },
+    {
+      "name": "User-reported Defender full-scan outcome",
+      "result": "USER-REPORTED; NOT INDEPENDENTLY INSPECTED",
+      "timestamp": "2026-10-30; exact time unknown",
+      "details": "User reports originating-chat statement after latest reviewed export: “Full scan finished; no threats or new alerts.” No false-positive attribution verdict follows. Defender remained enabled/unchanged; no restore/allow/exclusion/bypass or blocked encoded-command replay. Historical classification is separate from Android acceptance."
+    },
+    {
+      "name": "Focused correction app/test assembly and lint",
+      "result": "PASS",
+      "details": "Final appf74c15d03e76d04da4a3e6d30b58fe77a54114fd95caf8404010cc18b674dd37,test691f1b4c0144a70e5badfa1d3a016dccb3e7ce2d62aea1193271c66897302992; lint0errors14warnings."
+    },
+    {
+      "name": "Actual OS live Recents regression on API31",
+      "result": "PASS",
+      "details": "1/1,0fail/skip,45.339s,shell-439.log; actual Recents action while RESUMED plus draft/dialog return. Live pixel evidence recorded separately."
+    },
+    {
+      "name": "Affected API31 regression selection",
+      "result": "FAIL",
+      "details": "8expected/executed,6pass/2clipboard failures/0skip,226.910s,shell-440.log. Approved biometric3/3,rotation,lifecycle,all-timeout/device-lock passed."
+    },
+    {
+      "name": "Isolated clipboard retries, unchanged APKs/assertions",
+      "result": "FAIL",
+      "details": "Each2expected/executed,0pass/2fail/0skip;35.997s shell-442.log and29.975s shell-445.log. Owned label replaced by host clipboard; rejected sharing-toggle change remains unchanged."
+    },
+    {
+      "name": "Focused API25 compatibility",
+      "result": "PARTIAL",
+      "details": "3expected/executed,2pass/0fail/1skip,22.008s,shell-564.log. Strong enrollment unavailable; runnerOK(3tests) includes skip."
+    },
+    {
+      "name": "Final actual live UI and per-use/screen-lock observations",
+      "result": "PASS with provider/sampling limits",
+      "details": "Direct own draft/dialog Recents concealed; ordinary protected dialog PNG13169bytes decoded; Home/grace/60.068s expiry/Back/screen lock under minute grace and real CryptoObject encrypt/decrypt/cancel/unmatched/retry retained entry. No physical/universal claim."
+    },
+    {
+      "name": "Window opacity ownership correction and final host assembly/lint",
+      "result": "PASS",
+      "details": "Weak restoration map; only production PrivacyWindows changed. Final app/test assembly and lint0errors14warnings. app1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc; final test6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433."
+    },
+    {
+      "name": "Approved controlled clipboard sharing comparison and restoration",
+      "result": "PASS",
+      "details": "Explicit approval separate from historical rejection; original enabled, isolated disabled, restored enabled/visually verified. Only2unchanged named methods2/2pass,0fail/skip,58.101s,expiry30056ms,app1c3adda7/testfde7e6ce,shell631. No host clipboard value read/exported or security/permissions/AppOps change."
+    },
+    {
+      "name": "Focused window continuation shell-616.log",
+      "result": "FAIL",
+      "details": "{\"log\":\"shell-616.log\",\"expected\":7,\"started\":2,\"passed\":0,\"failed\":1,\"skipped\":0,\"seconds\":null,\"finalCode\":0,\"finalResult\":\"Process crashed.\",\"windowSteps\":[],\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"9a066b5c82bfd14cf7693f6403fdc919d2440f11dc98d004208ed9c8be8b864b\",\"api\":31,\"serial\":\"emulator-5590\",\"executedToCompletion\":1,\"aborted\":1,\"notStarted\":5,\"shellExitCode\":0,\"scope\":\"Window plus LiveRecents began; first failed teardown, second aborted by exact synthetic force-stop;5notstarted.\"}"
+    },
+    {
+      "name": "Focused window continuation shell-625.log",
+      "result": "FAIL",
+      "details": "{\"log\":\"shell-625.log\",\"expected\":1,\"started\":1,\"passed\":0,\"failed\":1,\"skipped\":0,\"seconds\":73.017,\"finalCode\":-1,\"finalResult\":\"FAILURES!!!\",\"windowSteps\":[\"ORIGINAL_VISIBLE\",\"RECENTS_REDACTED\",\"SAME_WINDOW_STOPPED\",\"ORIGINAL_ALPHA_RESTORED\",\"CLOSING_STAYS_REDACTED\"],\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"fde7e6ce34566c3f121f4b576cf7af0fffaf6184b2ce5dbeacb582df433684df\",\"api\":31,\"serial\":\"emulator-5590\",\"executedToCompletion\":1,\"aborted\":0,\"notStarted\":0,\"shellExitCode\":0,\"scope\":\"Window fulltest failed return/teardown after partial correct alpha/redaction.\"}"
+    },
+    {
+      "name": "Focused window continuation shell-626.log",
+      "result": "FAIL",
+      "details": "{\"log\":\"shell-626.log\",\"expected\":6,\"started\":6,\"passed\":4,\"failed\":2,\"skipped\":0,\"seconds\":116.964,\"finalCode\":-1,\"finalResult\":\"FAILURES!!!\",\"windowSteps\":[],\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"fde7e6ce34566c3f121f4b576cf7af0fffaf6184b2ce5dbeacb582df433684df\",\"api\":31,\"serial\":\"emulator-5590\",\"executedToCompletion\":6,\"aborted\":0,\"notStarted\":0,\"shellExitCode\":0,\"scope\":\"BiometricEnrollmentTest3 and EntryDraftRotationTest passed; LiveRecents and lifecycle failed; leaked MINUTE fixture timeout identified.\"}"
+    },
+    {
+      "name": "Focused window continuation shell-635.log",
+      "result": "FAIL",
+      "details": "{\"log\":\"shell-635.log\",\"expected\":3,\"started\":3,\"passed\":1,\"failed\":2,\"skipped\":0,\"seconds\":76.762,\"finalCode\":-1,\"finalResult\":\"FAILURES!!!\",\"windowSteps\":[\"ORIGINAL_VISIBLE\",\"BODY_FAILURE_AssertionError\"],\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"b46aee9c3a8b7c59db98f2f7a2444d93e1c3a398cf4c108daf800dc3129f3b4b\",\"api\":31,\"serial\":\"emulator-5590\",\"executedToCompletion\":3,\"aborted\":0,\"notStarted\":0,\"shellExitCode\":0,\"scope\":\"Lifecycle passed; Window and LiveRecents failed; no blanket pass.\"}"
+    },
+    {
+      "name": "Focused window continuation shell-643.log",
+      "result": "FAIL",
+      "details": "{\"log\":\"shell-643.log\",\"expected\":3,\"started\":3,\"passed\":2,\"failed\":1,\"skipped\":0,\"seconds\":224.503,\"finalCode\":-1,\"finalResult\":\"FAILURES!!!\",\"windowSteps\":[\"ORIGINAL_VISIBLE\",\"RECENTS_REDACTED\",\"SAME_WINDOW_STOPPED\",\"BODY_FAILURE_AssertionError\"],\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"b614e566cbb691875b311d8db217723762737d2d637ab43be2b9c0be3f030b71\",\"api\":31,\"serial\":\"emulator-5590\",\"executedToCompletion\":3,\"aborted\":0,\"notStarted\":0,\"shellExitCode\":0,\"scope\":\"Actual OS LiveRecentsPrivacyTest and VaultLifecycleUiTest passed; Window task-return failed.\"}"
+    },
+    {
+      "name": "Focused window continuation shell-648.log",
+      "result": "FAIL",
+      "details": "{\"log\":\"shell-648.log\",\"expected\":1,\"started\":1,\"passed\":0,\"failed\":1,\"skipped\":0,\"seconds\":28.869,\"finalCode\":-1,\"finalResult\":\"FAILURES!!!\",\"windowSteps\":[\"ORIGINAL_VISIBLE\",\"RECENTS_REDACTED\",\"SAME_WINDOW_STOPPED\",\"ORIGINAL_ALPHA_RESTORED\",\"CLOSING_STAYS_REDACTED\",\"BODY_FAILURE_AssertionError\"],\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"09628af7f2ace329ed46f6b9e6a1161619badd31fc19478b334c741ff24ac5f5\",\"api\":31,\"serial\":\"emulator-5590\",\"executedToCompletion\":1,\"aborted\":0,\"notStarted\":0,\"shellExitCode\":0,\"scope\":\"Window failed parent-return after hidden dismissal; partial milestones not a full pass.\"}"
+    },
+    {
+      "name": "Focused window continuation shell-653.log",
+      "result": "PASS",
+      "details": "{\"log\":\"shell-653.log\",\"expected\":1,\"started\":1,\"passed\":1,\"failed\":0,\"skipped\":0,\"seconds\":23.728,\"finalCode\":-1,\"finalResult\":\"OK (1 test)\",\"windowSteps\":[\"ORIGINAL_VISIBLE\",\"RECENTS_REDACTED\",\"SAME_WINDOW_STOPPED\",\"ORIGINAL_ALPHA_RESTORED\",\"CLOSING_STAYS_REDACTED\",\"PARENT_RETURNED\",\"BEFORE_RECREATE\",\"AFTER_RECREATE\",\"RECREATED_VISIBLE\",\"DISMISSED_PARENT_VISIBLE\"],\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"1c2fa35877a3238653858d39d36384003fb14a06bcf142c237ee04d792181f40\",\"api\":31,\"serial\":\"emulator-5590\",\"executedToCompletion\":1,\"aborted\":0,\"notStarted\":0,\"shellExitCode\":0,\"scope\":\"Complete real Window lifecycle/stop-start/0.8restoration/unfocused closing/recreation regression passed.\"}"
+    },
+    {
+      "name": "Focused window continuation shell-692.log",
+      "result": "NOT RUN",
+      "details": "{\"log\":\"shell-692.log\",\"expected\":1,\"started\":0,\"passed\":0,\"failed\":0,\"skipped\":0,\"seconds\":null,\"finalCode\":null,\"finalResult\":\"Not invoked: host cmd quoting error; exit2\",\"windowSteps\":[],\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"1c2fa35877a3238653858d39d36384003fb14a06bcf142c237ee04d792181f40\",\"api\":25,\"serial\":\"emulator-5592\",\"executedToCompletion\":0,\"aborted\":0,\"notStarted\":1,\"shellExitCode\":2,\"scope\":\"Host invocation quoting failure; no native test started; not a skip or security block.\"}"
+    },
+    {
+      "name": "Focused window continuation shell-693.log",
+      "result": "FAIL",
+      "details": "{\"log\":\"shell-693.log\",\"expected\":1,\"started\":1,\"passed\":0,\"failed\":1,\"skipped\":0,\"seconds\":12.465,\"finalCode\":-1,\"finalResult\":\"FAILURES!!!\",\"windowSteps\":[\"ORIGINAL_VISIBLE\",\"RECENTS_REDACTED\",\"SAME_WINDOW_STOPPED\",\"ORIGINAL_ALPHA_RESTORED\",\"BODY_FAILURE_IllegalStateException\"],\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"1c2fa35877a3238653858d39d36384003fb14a06bcf142c237ee04d792181f40\",\"api\":25,\"serial\":\"emulator-5592\",\"executedToCompletion\":1,\"aborted\":0,\"notStarted\":0,\"shellExitCode\":0,\"scope\":\"Original0.8 restored, then dismissNow after Fragment state save failed.\"}"
+    },
+    {
+      "name": "Focused window continuation shell-697.log",
+      "result": "FAIL",
+      "details": "{\"log\":\"shell-697.log\",\"expected\":1,\"started\":1,\"passed\":0,\"failed\":1,\"skipped\":0,\"seconds\":19.422,\"finalCode\":-1,\"finalResult\":\"FAILURES!!!\",\"windowSteps\":[\"ORIGINAL_VISIBLE\",\"RECENTS_REDACTED\",\"SAME_WINDOW_STOPPED\",\"BODY_FAILURE_AssertionError\"],\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"2ae9895f36c37c6a4b91857963770b76d4999a4ad8ec92d216e191b9a009ad19\",\"api\":25,\"serial\":\"emulator-5592\",\"executedToCompletion\":1,\"aborted\":0,\"notStarted\":0,\"shellExitCode\":0,\"scope\":\"After fixture dismissal correction, task return left Activity CREATED.\"}"
+    },
+    {
+      "name": "Focused window continuation shell-701.log",
+      "result": "FAIL",
+      "details": "{\"log\":\"shell-701.log\",\"expected\":1,\"started\":1,\"passed\":0,\"failed\":1,\"skipped\":0,\"seconds\":19.751,\"finalCode\":-1,\"finalResult\":\"FAILURES!!!\",\"windowSteps\":[\"ORIGINAL_VISIBLE\",\"RECENTS_REDACTED\",\"SAME_WINDOW_STOPPED\",\"BODY_FAILURE_AssertionError\"],\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433\",\"api\":25,\"serial\":\"emulator-5592\",\"executedToCompletion\":1,\"aborted\":0,\"notStarted\":0,\"shellExitCode\":0,\"scope\":\"Final test package: task return still left Activity CREATED. No production compatibility defect proven solely by this fixture failure.\"}"
+    },
+    {
+      "name": "Corrected-production actual draft live Recents and normal return",
+      "result": "PASS with sampled-provider limits",
+      "details": "Ordinary navigation Recents from revealed unsaved synthetic draft: transition app redacted/IME gone; settled own card wallpaper-only at15:31:22.014UTC. Back retained normal draft at15:31:51.354UTC. Discrete observations,not every-frame/physical claim. app1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc."
+    },
+    {
+      "name": "Final API31 window fixture rerun",
+      "result": "NOT RUN — REVIEW BLOCKED before instrumentation",
+      "details": "The combined wake/menu input may bypass the emulator keyguard; that specific unlock approach is not explicitly authorized, and prior instructions caution against blind unlock input. Combined command not executed; no indirect route. Old full31pass retained at earlier test hash; final25failure remains."
     }
   ],
   "addedPaths": [
@@ -239,7 +834,20 @@
     "docs/phase-2-biometric-diagnosis.md",
     "app/src/androidTest/java/com/gem/keeppeer/VaultVerificationTest.kt",
     "app/src/androidTest/java/com/gem/keeppeer/SecureCaptureTest.kt",
-    "docs/phase-2-vault-context-check.md"
+    "docs/phase-2-vault-context-check.md",
+    "tools/test-source-export-privacy.ps1",
+    "app/src/main/java/com/gem/keeppeer/security/VaultInitialization.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/VaultInitializationTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/VaultAvailabilityUiTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/VaultScreenshotPolicyTest.kt",
+    "docs/phase-2-initialization-guard.md",
+    "docs/phase-2-guard-verification.md",
+    "docs/phase-2-privacy-closeout.md",
+    "app/src/main/java/com/gem/keeppeer/ui/privacy/PrivacyWindows.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/LiveRecentsPrivacyTest.kt",
+    "docs/phase-2-live-recents-correction.md",
+    "app/src/androidTest/java/com/gem/keeppeer/WindowRegistrationTest.kt",
+    "docs/phase-2-window-lifecycle-clipboard.md"
   ],
   "modifiedPaths": [
     ".gitignore",
@@ -268,15 +876,25 @@
     "docs/phase-2-device-checks.md",
     "docs/reports/phase-2-report.json",
     "app/src/androidTest/java/com/gem/keeppeer/VaultSecurityTest.kt",
-    "app/src/main/res/values/themes.xml"
+    "app/src/main/res/values/themes.xml",
+    "tools/export-source-code.ps1",
+    "app/src/main/java/com/gem/keeppeer/security/EnvelopeStore.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/SyntheticTestRunner.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/VaultVerificationTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/BiometricEnrollmentTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/VaultLifecycleUiTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/SecureCaptureTest.kt",
+    "docs/phase-2-vault-context-check.md",
+    "docs/phase-2-initialization-guard.md",
+    "docs/phase-2-guard-verification.md",
+    "docs/phase-2-privacy-closeout.md",
+    "app/src/main/java/com/gem/keeppeer/ui/privacy/PrivacyWindows.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/LiveRecentsPrivacyTest.kt",
+    "docs/phase-2-live-recents-correction.md"
   ],
   "deletedPaths": [],
   "unresolvedIssues": [
-    "Identity/storage-context discrepancy remains: user reports existing vault accessible with no uninstall/clear/profile/device switch, while current conventional owner-user paths are missing and no live main PID exists to bind the accessible session to storage. Earlier declared ApplicationInfo was overinterpreted as runtime class. Need time-correlated passive metadata while vault already visible, with no launch/restart/deploy or data writes.",
-    "Enrollment-change invalidated-key failure unverified: API25 old key remained usable after fingerprint count1→2; modern emulator attempt stopped when user selected phone. Do not alter working phone enrollment; use a suitable disposable device/provider. Missing-key tests are separate.",
-    "Physical keyboard, actual screenshot-button/OS policy, Samsung recents and wider OEM/unsupported/no-enrollment manual matrix remain unresolved. Current PNG attempts empty/inconclusive; native decoded recording samples have explicit scope and short/static timelines.",
-    "Current final test APK includes new capture journey (23 total tests). Full22-test API24(21pass/0fail/1no-enrollment skip) and API25(22pass/0fail/0skip) used their earlier exact artifacts. Final phone6/6 and capture1/1 are targeted results, not a new complete23-test suite or fresh normal-vault fingerprint authentication.",
-    "Earlier failed/interrupted/diagnostic attempts retain separate identities/counts. Release remains disabled; no Phase3, automatic upload or distribution."
+    "Final affected window verification remains incomplete: API25 WindowRegistrationTest shell-701.log failed0pass/1fail/0skip,19.751s because exact own-task return left the Scenario Activity CREATED; earlier shell-693 restored0.8 then failed Fragment saved-state dismissal. Final test-package API31 Window rerun was notstarted after automatic review rejected combined wake/menu input. Production opacity correction has full API31 shell-653 pass and ordinary live-card evidence on the same production APK; controlled clipboard pair is resolved2/2with original sharing restored. Next bounded work is API25 task-return diagnosis and the single API31 Window rerun after explicitly approved ordinary disposable unlock; no full matrix or new physical/OEM gate."
   ],
   "remainingChecksContinuation": {
     "baselineRevision": "382fdcaa7f818869820389ed78a195db05320d2e",
@@ -1248,14 +1866,15 @@
         "metadata": "no_backup and databases directory timestamps2026-10-29 23:56:36+08:00, normal cold launch; firstInstallTime2026-10-29 08:14:00,lastUpdateTime23:36:20. Three isolated cache fixture envelopes dated23:38,23:46,23:55 remain; no biometric wrapper found in that bounded synthetic-cache glob. The later exact-path metadata check also found no vault-envelope.bin.new, biometric-envelope.bin.bak/.new or encrypted-database WAL/SHM/journal sidecars. No payloads read.",
         "limits": "No normal-file existence/hash baseline before in-place update; cannot determine when/why files became absent or independently confirm earlier vault preservation. Source paths/initial-state logic unchanged; fixture contexts route files/aliases to unique test namespaces. These facts do not establish the cause or restore any prior data.",
         "actions": "No setup, reset, uninstall, clear-data, key/enrollment changes or automatic recovery. Normal app and inspector force-stopped after metadata inspection. Existing fixture/runtime data left in place. User asked whether app data had been cleared/reinstalled/reset; answer pending. Fresh real fingerprint/password checks on normal phone paused. Subsequent user confirmation supplied on2026-10-30 states existing vault currently unlocks/entries visible without uninstall, clear-data or device/profile switch (exact time unknown; user-reported). This supersedes the earlier pending history question. New investigation made no app/process/data changes.",
-        "nextAction": "Obtain only time-correlated foreground package/user/PID metadata when user already has accessible vault visible, without launching/restarting. If a live PID exists, app-UID vault-filename-filtered read-only FD targets may identify open DB paths. Report denied/unavailable access as limitation; no instrumentation/deploy/heap inspection.",
+        "nextAction": "Latest setup-screen report supersedes waiting for an accessible session. Review vaultPreservationInvestigation and safe source export. Seek only existing provenance linking a candidate to the original vault/namespace, required existing-key availability and pre-absence resolved-path/history evidence. No passwords, accessible entry list, repeated setup attempts, broad test matrix, recovery writes or deployment.",
         "originalObservationBeforeContextReconciliation": "After force-stop/relaunch normal com.gem.keeppeer, filtered UI labels report Master password/Create your vault instead of locked/biometric choices. Activity process metadata confirms KeeppeerApplication and /data/user/0/com.gem.keeppeer (UID10358). Expected no_backup/vault-envelope.bin, .bak, biometric-envelope.bin and databases/keeppeer_vault.db are absent. Directory metadata read only; no envelope, DB or key material read/collected."
       }
     }
   },
-  "deviceChecks": "Latest read-only reconciliation is in vaultContextReconciliation and docs/phase-2-vault-context-check.md. User access confirmation is recorded as user-reported only. Earlier runtime-class overclaim corrected; current active session/storage binding unknown. All artifact-scoped prior API/phone results and other manual gaps unchanged; Phase2 incomplete/release disabled.",
+  "deviceChecks": "windowLifecycleClipboardContinuation is current. Final affected window verification remains incomplete: API25 WindowRegistrationTest shell-701.log failed0pass/1fail/0skip,19.751s because exact own-task return left the Scenario Activity CREATED; earlier shell-693 restored0.8 then failed Fragment saved-state dismissal. Final test-package API31 Window rerun was notstarted after automatic review rejected combined wake/menu input. Production opacity correction has full API31 shell-653 pass and ordinary live-card evidence on the same production APK; controlled clipboard pair is resolved2/2with original sharing restored. Next bounded work is API25 task-return diagnosis and the single API31 Window rerun after explicitly approved ordinary disposable unlock; no full matrix or new physical/OEM gate.",
   "vaultContextReconciliation": {
-    "result": "READ-ONLY CHECKS COMPLETED TO METADATA BOUNDARY; live session context unresolved",
+    "result": "HISTORICAL metadata-only reconciliation; latest setup report and authorized preservation are in vaultPreservationInvestigation",
+    "historicalScopeNote": "Earlier access confirmation, metadata and no-copy scope retained as history; they do not describe latest status or current preservation authorization.",
     "reviewedSnapshot": {
       "timestamp": "2026-10-30 12:11:46 AM PHT (UTC+08:00)",
       "bytes": 555553
@@ -1479,8 +2098,8 @@
         "Passing preservation of a particular normal file set"
       ]
     },
-    "nextAction": "Obtain only time-correlated foreground package/user/PID metadata when user already has accessible vault visible, without launching/restarting. If a live PID exists, app-UID vault-filename-filtered read-only FD targets may identify open DB paths. Report denied/unavailable access as limitation; no instrumentation/deploy/heap inspection.",
-    "conditionalProposal": "Only if active cache-backed use is confirmed: preserve exact files/namespace/aliases in place, then present an explicit authenticated migration design with validated destination and retained original before writes. No migration/reset/copy/rekey performed or authorized here.",
+    "nextAction": "Latest setup-screen report supersedes waiting for an accessible session. Review vaultPreservationInvestigation and safe source export. Seek only existing provenance linking a candidate to the original vault/namespace, required existing-key availability and pre-absence resolved-path/history evidence. No passwords, accessible entry list, repeated setup attempts, broad test matrix, recovery writes or deployment.",
+    "conditionalProposal": "Historical migration discussion superseded. New private opaque preservation is completed under vaultPreservationInvestigation; no recovery, migration, rekey or candidate promotion is authorized/performed.",
     "detailsDocument": "docs/phase-2-vault-context-check.md",
     "carriedForward": "All artifact-scoped API24/API25/API31 and targeted Samsung runs unchanged. No tests/builds rerun. Other manual gaps unchanged; release disabled; Phase2 incomplete; no Phase3.",
     "repositoryRevision": "7be0e6df4371dd48d624c45acc8f750e7266fd0c",
@@ -1772,5 +2391,1719 @@
       "WRAPPER_WRITE",
       "COMPLETE"
     ]
+  },
+  "guardVerificationContinuation": {
+    "status": "incomplete; current authoritative verification scope; earlier report sections retained as historical artifact-specific evidence",
+    "reviewedSnapshot": {
+      "path": "source-code.txt",
+      "generatedAtPht": "2026-10-30 12:21:51 PM PHT (UTC+08:00)",
+      "bytes": 696006,
+      "revision": "401d359ec16b8430b20c0a4c161017fa3e74617b",
+      "dirty": true
+    },
+    "source": {
+      "productionOrTestChanges": false,
+      "comparedSourceAndToolchainFiles": 78,
+      "differences": [],
+      "rebuild": false,
+      "reason": "All 78 current app/toolchain source/config files matched the reviewed export; host app and test APK SHA-256 matched current built artifacts. Reused artifacts, with no unsupported broad rerun or new host-pass claim."
+    },
+    "appApkSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+    "testApkSha256": "cfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a",
+    "scope": {
+      "personalSamsung": "Completely excluded, including RR8R402RR7T and its wireless alias. No deployment, instrumentation, app/process actions, enrollment, clearing, candidate or preservation access in this continuation.",
+      "syntheticOnly": true,
+      "newRegisteredAvds": [
+        {
+          "api": 24,
+          "name": "Keeppeer_Guard_API24_20261030_123138",
+          "serial": "emulator-5554",
+          "port": 5554
+        },
+        {
+          "api": 25,
+          "name": "Keeppeer_Guard_API25_20261030_123138",
+          "serial": "emulator-5556",
+          "port": 5556
+        },
+        {
+          "api": 31,
+          "name": "Keeppeer_Guard_API31_20261030_123138",
+          "serial": "emulator-5558",
+          "port": 5558
+        }
+      ],
+      "oneAvdAtATime": true,
+      "staleAvdDirectories": "Not reused, wiped or deleted.",
+      "deviceChecks": "Exact emulator serial, registered AVD name, qemu=1, API, x86_64 ABI and boot completion checked before installs; identity/API rechecked before native suites. No connected-device Gradle tasks.",
+      "avdShutdown": "All three AVDs stopped cleanly with exact emulator emu kill after checks. Registrations/data retained; no wipe/delete."
+    },
+    "environment": {
+      "images": [
+        {
+          "api": 24,
+          "package": "system-images;android-24;google_apis;x86_64",
+          "revision": 27
+        },
+        {
+          "api": 25,
+          "package": "system-images;android-25;google_apis;x86_64",
+          "revision": 18
+        },
+        {
+          "api": 31,
+          "package": "system-images;android-31;google_apis;x86_64",
+          "revision": 12
+        }
+      ],
+      "profile": "pixel_2",
+      "emulator": "37.2.12 build16428233, WHPX, SwiftShader, 1536 MB, 2 cores; headless, no snapshot save",
+      "avdmanagerJdk": "Command-local JAVA_HOME selects installed Eclipse Adoptium25.0.3+9. No JDK-version-check bypass.",
+      "firstAvdmanagerAttempt": "PATH Java8 was unsupported; tool printed Java17+ required despite exit0. Not counted as successful discovery.",
+      "failures": [
+        "One Studio MCP HTTP transport failure to local127.0.0.1:59306 during API31 metadata query; later explicit SDK call succeeded. No device/app defect or security verdict inferred.",
+        "API24 sha256sum unavailable (exit127). pm path returned /data/app/package-1/base.apk but two pulls could not locate remote object; subsequent certutil could not read absent host file. Stopped; installed-byte hash unverified, no root/protection workaround."
+      ]
+    },
+    "nativeSelection": [
+      "com.gem.keeppeer.VaultInitializationTest",
+      "com.gem.keeppeer.VaultAvailabilityUiTest",
+      "com.gem.keeppeer.VaultSecurityTest#passwordChangeRestartWrongPasswordAndStaleRepositoryRevocation",
+      "com.gem.keeppeer.VaultSecurityTest#pendingCreationResumesButMissingActiveDatabaseNeverRecreates",
+      "com.gem.keeppeer.VaultSecurityTest#legacyPrototypeRequiresExplicitReset",
+      "com.gem.keeppeer.VaultSecurityTest#monotonicReturnEnforcesAllTimeoutOptionsAndDeviceLock",
+      "com.gem.keeppeer.VaultSecurityTest#keystoreEnvelopeIsDeviceBoundAndFailedReplacementPreservesOldPassword",
+      "com.gem.keeppeer.EncryptedVaultTest",
+      "com.gem.keeppeer.VaultVerificationTest#malformedEnvelopesAndMissingBiometricKeyPreservePasswordVault",
+      "com.gem.keeppeer.VaultVerificationTest#cancelLegacyResetPreservesDataAndSetupRequiresMatchingStrongPassword",
+      "com.gem.keeppeer.VaultLifecycleUiTest",
+      "com.gem.keeppeer.EntryDraftRotationTest"
+    ],
+    "nativeScope": "22 selected tests per API:10 VaultInitializationTest,1 VaultAvailabilityUiTest,5 selected VaultSecurityTest,2 EncryptedVaultTest,2 selected VaultVerificationTest, VaultLifecycleUiTest and EntryDraftRotationTest (class/method list is authoritative). No full-suite claim.",
+    "nativeRuns": [
+      {
+        "api": 24,
+        "serial": "emulator-5554",
+        "expected": 22,
+        "starts": 22,
+        "passed": 22,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 57.395,
+        "result": "PASS",
+        "completed": true,
+        "log": "shell-52.log",
+        "installedByteHash": "Unavailable; host artifact hashes verified and fresh direct installs returned Success.",
+        "executed": 22
+      },
+      {
+        "api": 25,
+        "serial": "emulator-5556",
+        "expected": 22,
+        "starts": 22,
+        "passed": 22,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 57.945,
+        "result": "PASS",
+        "completed": true,
+        "log": "shell-65.log",
+        "installedByteHash": "Not independently checked; host artifact hashes verified and fresh direct installs returned Success.",
+        "executed": 22
+      },
+      {
+        "api": 31,
+        "serial": "emulator-5558",
+        "expected": 22,
+        "starts": 22,
+        "passed": 22,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 166.763,
+        "result": "PASS",
+        "completed": true,
+        "log": "shell-219.log",
+        "installedByteHash": "App and test installed base.apk SHA-256 independently matched host.",
+        "executed": 22
+      }
+    ],
+    "installedApi31HashVerification": "Installed app and test base.apk SHA-256 independently matched host hashes via sha256sum.",
+    "blockedClass": {
+      "class": "com.gem.keeppeer.BiometricEnrollmentTest",
+      "result": "AUTOMATIC REVIEW REJECTED; NOT RUN",
+      "target": "new disposable API24 AVD, requested25-test group",
+      "reason": "The command still includes BiometricEnrollmentTest, which retained instructions identify as blocked and unrun pending explicit approval; limiting it to a disposable API 24 emulator does not authorize that class.",
+      "response": "Stopped rejected command; excluded class from permitted22-test groups. No rename, indirect invocation or reroute. Explicit scoped approval question remains unanswered. Normal-app synthetic biometric flow was independently authorized by the supplied continuation prompt and accepted; it does not count as running this class."
+    },
+    "biometricIntegration": {
+      "api": 31,
+      "serial": "emulator-5558",
+      "provider": "Fingerprint21 sensor0, emulated HAL events through normal Android enrollment wizard",
+      "enrollmentBefore": 1,
+      "enrollmentAfter": 2,
+      "normalAppSyntheticVault": true,
+      "mockedCallbacks": false,
+      "enrollment": {
+        "result": "PASS",
+        "pid": 7506,
+        "deviceUtc": "2026-10-30 05:10:33",
+        "stages": [
+          "PROMPT_SUCCEEDED",
+          "CIPHER_BINDING",
+          "ENCRYPT_AAD",
+          "ENCRYPT_FINAL",
+          "WRAPPER_WRITE",
+          "COMPLETE"
+        ],
+        "ui": "Enabled; master-password fallback available"
+      },
+      "markerlessBiometricOpen": {
+        "result": "PASS (bounded native/manual evidence)",
+        "pid": 7934,
+        "deviceUtc": "2026-10-30 05:11:49–05:11:50",
+        "preparation": "Stopped only synthetic emulator app; removed only no_backup/vault-initialization-v1.bin. stat confirmed marker ENOENT, password/biometric envelopes and DB present. No DB/envelope/key removal.",
+        "coldUi": "Locked with password and biometric choices; no setup",
+        "stages": [
+          "PROMPT_SUCCEEDED",
+          "CIPHER_BINDING",
+          "DECRYPT_AAD",
+          "DECRYPT_FINAL",
+          "DATABASE_OPEN",
+          "COMPLETE"
+        ],
+        "entryRetained": true,
+        "markerAfter": {
+          "bytes": 45,
+          "mtimeEpochSeconds": 1793337110,
+          "interpretation": "Recreated after actual authenticated open, matching expected COMPLETE-record size; exact marker payload was not exported."
+        },
+        "envelopes": {
+          "passwordBytes": 121,
+          "passwordMtime": 1793336848,
+          "biometricBytes": 61,
+          "biometricMtime": 1793337033,
+          "unchangedAcrossMarkerlessOpen": true
+        },
+        "databaseBytes": 4096
+      },
+      "actualEnrollmentInvalidation": {
+        "result": "PASS on API31 emulated provider",
+        "operation": "Added fingerprint2 through normal OS Settings wizard after successful fingerprint1 per-use operation.",
+        "providerCount": "1 -> 2",
+        "observation": "Subsequent native DECRYPT_INIT raised KeyPermanentlyInvalidatedException at05:14:35 UTC; locked UI directed user to password and re-enable biometrics. No prompt success manufactured or key deletion surrogate.",
+        "passwordFallback": "PASS: normal password unlock restored original synthetic entry list after invalidation.",
+        "entryRetained": true,
+        "scopeLimit": "Emulated provider only; no physical-phone enrollment or hardware biometric verdict."
+      }
+    },
+    "captures": {
+      "priorSamsungNative": "Historical0pass/0fail/1skip/null generic control retained; not retried on personal phone.",
+      "api31Native": {
+        "test": "com.gem.keeppeer.VaultScreenshotPolicyTest",
+        "expected": 1,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 1,
+        "seconds": 17.853,
+        "log": "shell-82.log",
+        "result": "UNAVAILABLE/SKIP",
+        "control": "Valid readable generic Display Settings bitmap; blackFraction0.0.",
+        "protectedDraft": "UiAutomation returned null; assumption skip. No protected bitmap or dialog bitmap; not a protection pass."
+      },
+      "cliControl": {
+        "result": "PASS for control only",
+        "bytes": 99181,
+        "width": 1080,
+        "height": 1920,
+        "visuallyReviewed": true,
+        "scope": "Generic Display Settings on new AVD, excluded from recents."
+      },
+      "cliProtectedDialog": {
+        "result": "UNAVAILABLE",
+        "exitCode": 0,
+        "bytes": 0,
+        "observation": "CLI reported screenshot written; Studio image reader found empty file. No pixels to review. Did not repeat."
+      },
+      "cliOwnRecents": {
+        "result": "UNAVAILABLE",
+        "exitCode": 0,
+        "bytes": 0,
+        "observation": "Fresh AVD overview contained only own Keeppeer and own instrumentation EmptyActivity cards; no other-app cards inspected. CLI reported screenshot written but image reader found empty file. No recents pixel pass; did not repeat."
+      },
+      "flagSecure": "Unchanged; no security control disabled for capture.",
+      "artifacts": "Only synthetic runtime captures outside repository/export. Historical native recording evidence retained with original artifact/timeline limits; not relabeled current.",
+      "physicalScreenshotAndKeyboard": "NOT RUN: no suitable disposable physical device/hardware keyboard. Injected adb/CLI input is not physical evidence."
+    },
+    "incidentAndDefender": "Original-vault identity/cause/recovery, required user decision and Defender correlation/verdict remain unresolved. No candidate/preservation or personal-phone access. No security protection, detection, exclusion, allow/restore setting changed; no encoded command or rejected action replayed.",
+    "previousSummary": "Prior-initialization guard implemented with IO checking/unavailable states, durable namespace-bound STARTED-before-provisioning and COMPLETE-after-authenticated-open evidence, exact alias/residual checks, stale eligibility recheck and preserved pending/older-vault authentication. Phase2 remains incomplete; release disabled; Phase3 unstarted. User explicitly selected Samsung wireless serial rather than emulator. Current app2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d:15 JVM tests and lint0errors/14warnings passed;11 new native guard/UI checks passed. Affected group10pass/1timing-fixture failure retained; corrected timing passed separately. Screenshot control API returned null:0pass/1skip, not protection evidence. BiometricEnrollmentTest auto-review rejected and remains unrun pending explicit approval. API24/25 new-guard execution, actual invalidation, physical/recents checks, original-vault incident and Defender determination remain unresolved. No personal enrollment, normal-vault password/setup/recovery or candidate/preservation operation. Prior artifact histories retained; safeContinuation records exact scopes/identities and blocked/failed attempts separately.",
+    "previousUnresolvedIssues": [
+      "Native guard/directory durability and affected behavior on authorized API24/API25 targets",
+      "Explicit approval for rejected BiometricEnrollmentTest; current actual per-use biometric success/marker path remains manual/unverified",
+      "Actual enrollment-change invalidation/password fallback on suitable disposable provider; no personal enrollment change",
+      "Screenshot API/control unavailable; physical screenshot policy, Samsung recents and dialog image checks remain open",
+      "Physical keyboard hardware interaction; do not label injected input as physical evidence",
+      "Original-vault incident/user decision and Defender correlation/verdict remain unresolved"
+    ],
+    "reportChanges": [
+      "docs/phase-2-guard-verification.md",
+      "docs/reports/phase-2-report.json",
+      "docs/phase-2-device-checks.md",
+      "docs/phase-status.md",
+      "docs/security.md",
+      "docs/phase-2-initialization-guard.md",
+      "README.md"
+    ],
+    "remaining": [
+      "Explicit approval and execution of rejected BiometricEnrollmentTest if still required; it remains unrun.",
+      "Valid protected screenshot/dialog/own-recents pixel evidence and physical screenshot-policy evidence on a suitable disposable environment; stop unavailable capture paths.",
+      "Physical hardware-keyboard observations on suitable disposable hardware.",
+      "Original-vault incident/user decision and Defender attribution/verdict; guard is prevention, not recovery."
+    ],
+    "phase2": "incomplete",
+    "release": "disabled",
+    "phase3": "unstarted",
+    "completedAtPht": "2026-10-30 01:19:31 PM PHT (UTC+08:00)",
+    "previousDeviceChecks": "Current safeContinuation is authoritative for new guard source/app/test verification on user-selected Samsung. New guard11/11 pass;affected10/11 with timing failure corrected separately; screenshot control unavailable, no protection pass; biometric class blocked pending approval. Earlier currentVerification/native/preservation records remain artifact-scoped history. Phase2 incomplete/release disabled/Phase3 unstarted.",
+    "host": "Previously recorded current-production assembly,15 JVM tests and lint0errors/14warnings carried forward; not rerun/relabelled as newly executed."
+  },
+  "approvedDisposableBiometricVerification": {
+    "recordedFrom": "Current user instruction explicitly authorizes the three named existing tests in com.gem.keeppeer.BiometricEnrollmentTest only on disposable emulators using synthetic data. User reports selecting Approve disposable-emulator tests in originating review chat on2026-10-30; no external-chat access is claimed.",
+    "scope": "Named three-test class only; personal Samsung RR8R402RR7T and every wireless alias excluded from all operations. No new enrollment, reset, clearing, personal vault/candidate/preservation access or broad rerun.",
+    "tests": [
+      "emptyWrongAndUnapprovedEnrollmentPreservePasswordAccess",
+      "postAuthenticationAadPreservesSingleApplicationAndV1Compatibility",
+      "enrollmentDialogRejectsBlankAndDoesNotUsePasswordChangeFields"
+    ],
+    "previousRejections": "Retained unchanged as historical missing-approval events. This explicit approval is recorded separately; no rename/indirect invocation or wrapper change.",
+    "source": {
+      "reviewedSnapshot": "2026-10-30 01:23:09 PM PHT (UTC+08:00),749200bytes,revision401d359 plus dirty work",
+      "comparedMaterialSourceFiles": 78,
+      "differences": [],
+      "productionOrTestChanges": false,
+      "rebuilt": false,
+      "reinstalled": false,
+      "hostAppSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+      "hostTestSha256": "cfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a",
+      "installedHashesMatchHost": true,
+      "wrapperReadLimit": "Studio could not serialize gradlew.bat MIME application/x-batch; no wrapper was executed; all78 app/toolchain source/config files match the reviewed export.",
+      "gitRevision": "401d359ec16b8430b20c0a4c161017fa3e74617b",
+      "gitDirty": true
+    },
+    "fixture": {
+      "avd": "Keeppeer_Guard_API31_20261030_123138",
+      "registration": "Verified via installed supported avdmanager catalog; existing dedicated disposable API31 registration/data reused, no wipe/reuse of unrelated AVD.",
+      "serial": "emulator-5580",
+      "qemu": 1,
+      "api": 31,
+      "abi": "x86_64",
+      "enrollment": {
+        "provider": "Fingerprint21",
+        "sensor": 0,
+        "count": 2,
+        "changed": false
+      },
+      "identity": "Discovered actual emulator serial after explicit named-AVD launch on free port5580; name/qemu/API/ABI/boot verified; same installed package paths/hashes and synthetic enrollments retained from prior dedicated fixture.",
+      "pin": "Retained AVD booted securely locked; normal observed PIN screen was unlocked using existing synthetic PIN. No credential/enrollment configuration changed and PIN omitted from report.",
+      "isolation": "Installed com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner targets com.gem.keeppeer. Runner substitutes SyntheticTestApplication; each context creates keeppeer.test.UUID cache/no-backup/DB and preferences namespaces plus namespace-specific Keystore aliases.",
+      "inspectorLimit": "android layout produced no output and was stopped after99.752s. Stopped only that AVD's automation helper; exact-serial uiautomator read confirmed focused PIN field and normal unlock. This was a tool availability issue, no security-block or app-test verdict; no capture retried.",
+      "shutdown": "Stopped cleanly after completion using exact emulator-5580 emu kill; retained registration/data unchanged, no wipe/delete.",
+      "runnerQueryLimit": "Initial pm list instrumentation filtered by test-package name returned empty; corrected documented target-package filter confirmed com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner targets com.gem.keeppeer."
+    },
+    "command": "adb -s emulator-5580 shell am instrument -w -r -e class com.gem.keeppeer.BiometricEnrollmentTest com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+    "expected": 3,
+    "startedUtc": "2026-10-30 05:37:40 UTC",
+    "guardHistory": "Earlier selected22/22 passes on API24/API25/API31 and real API31 per-use marker/invalidation/password-entry results retain original artifacts/identities; not rerun or relabelled as a new full suite.",
+    "security": "No personal Samsung commands, installs, instrumentation, process actions, enrollment, resets/clearing or private file access. No candidate/preservation files read/written/deleted. Defender settings unchanged; no allow/restore/exclusion/protection changes or encoded/blocked command replay.",
+    "remaining": [
+      "Valid protected screenshot/dialog/own-recents pixel evidence and physical screenshot-policy evidence on suitable disposable hardware; no unavailable capture path repeats.",
+      "Physical hardware-keyboard observations; injected input is not physical hardware evidence.",
+      "Defender attribution/verdict remains unresolved; later supported-command success is not a false-positive verdict."
+    ],
+    "phase2": "incomplete",
+    "release": "disabled",
+    "phase3": "unstarted",
+    "startedAtPht": "2026-10-30 01:37:40 PM PHT (UTC+08:00)",
+    "completedObservedAtPht": "2026-10-30 01:41:27 PM PHT (UTC+08:00)",
+    "run": {
+      "expected": 3,
+      "starts": 3,
+      "executed": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 143.002,
+      "finalNativeRunnerResult": "OK (3 tests)",
+      "finalNativeCode": -1,
+      "exitCode": 0,
+      "completed": true,
+      "result": "PASS",
+      "log": "shell-254.log",
+      "testNames": [
+        "enrollmentDialogRejectsBlankAndDoesNotUsePasswordChangeFields",
+        "emptyWrongAndUnapprovedEnrollmentPreservePasswordAccess",
+        "postAuthenticationAadPreservesSingleApplicationAndV1Compatibility"
+      ]
+    },
+    "executionApproval": "Accepted for exact named-class command under current explicit disposable-only user approval. No new automatic-review rejection or antivirus block occurred.",
+    "originalVaultUserDecision": {
+      "recordedAtDate": "2026-10-30",
+      "source": "Explicit current user instruction",
+      "originalEntries": "disposable test entries",
+      "recoveryRequested": false,
+      "recoveryPriorityQuestion": "resolved by user decision",
+      "cause": "unknown",
+      "recovered": false,
+      "deletionResetRekeyAuthorized": false,
+      "preservedFiles": "Retain unchanged; not accessed in this continuation.",
+      "meaning": "Closes requested recovery work only; not evidence of cause, restored entries or permission to delete/reset/rekey any personal vault or preservation material."
+    },
+    "previousSummary": "Unchanged prior-initialization guard verified on newly registered disposable API24/API25/API31 x86_64 AVDs: selected22/22 passed on each, zero failures/skips (57.395s/57.945s/166.763s). Current app2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d, testcfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a match reviewed source. API31 actual per-use enrollment/marker-less biometric open, enrollment-change KeyPermanentlyInvalidatedException, password fallback and synthetic entry retention passed. Personal Samsung fully excluded. Native capture0pass/0fail/1skip after valid control/null protected draft; CLI protected-dialog/own-recents PNGs empty, unavailable. BiometricEnrollmentTest again auto-review rejected and unrun. Existing host15/lint0errors14warnings and prior artifact-specific failures/skips retained as history. No production/test changes, guard redesign or recovery claim. Phase2 incomplete/release disabled/Phase3 unstarted; physical/capture, blocked-class and incident/Defender/user-decision gaps remain.",
+    "previousDeviceChecks": "guardVerificationContinuation is authoritative for current disposable-only verification;22/22 selected native tests per API24/API25/API31, actual API31 per-use biometric marker completion/invalidation/password-entry retention. Personal Samsung excluded. BiometricEnrollmentTest unrun after automatic-review rejection. Protected screenshot/dialog/own-recents pixels and physical input unavailable; incident/user decision/Defender unresolved. All earlier device/currentVerification/safeContinuation sections are preserved artifact-scoped history, not current authorization.",
+    "previousUnresolvedIssues": [
+      "Explicit approval and execution of rejected BiometricEnrollmentTest if still required; it remains unrun.",
+      "Valid protected screenshot/dialog/own-recents pixel evidence and physical screenshot-policy evidence on a suitable disposable environment; stop unavailable capture paths.",
+      "Physical hardware-keyboard observations on suitable disposable hardware.",
+      "Original-vault incident/user decision and Defender attribution/verdict; guard is prevention, not recovery."
+    ],
+    "changedPaths": [
+      "docs/phase-status.md",
+      "docs/security.md",
+      "docs/phase-2-device-checks.md",
+      "docs/phase-2-guard-verification.md",
+      "docs/phase-2-initialization-guard.md",
+      "docs/phase-2-vault-context-check.md",
+      "README.md",
+      "docs/reports/phase-2-report.json"
+    ],
+    "deletedPaths": [],
+    "captureReruns": false,
+    "broaderNativeReruns": false,
+    "hostChecksRerun": false
+  },
+  "originalVaultUserDecision": {
+    "recordedAtDate": "2026-10-30",
+    "source": "Explicit current user instruction",
+    "originalEntries": "disposable test entries",
+    "recoveryRequested": false,
+    "recoveryPriorityQuestion": "resolved by user decision",
+    "cause": "unknown",
+    "recovered": false,
+    "deletionResetRekeyAuthorized": false,
+    "preservedFiles": "Retain unchanged; not accessed in this continuation.",
+    "meaning": "Closes requested recovery work only; not evidence of cause, restored entries or permission to delete/reset/rekey any personal vault or preservation material."
+  },
+  "privacyCloseout": {
+    "outcome": "incomplete",
+    "reason": "Original privacy criterion still open: own settled live current-task Recents on the dedicated API31 provider exposed a revealed synthetic draft. No verified correction is retained.",
+    "baselineReviewedSnapshot": {
+      "generatedAtPht": "2026-10-30 01:44:39 PM PHT (UTC+08:00)",
+      "bytes": 783095,
+      "revision": "401d359",
+      "dirty": true
+    },
+    "scope": {
+      "avd": "Keeppeer_Guard_API31_20261030_123138",
+      "serial": "emulator-5582",
+      "qemu": 1,
+      "api": 31,
+      "abi": "x86_64",
+      "syntheticOnly": true,
+      "identityVerified": true,
+      "personalSamsung": "RR8R402RR7T and wireless aliases excluded from installation, instrumentation, process actions, enrollment, setup, clearing and private/candidate/preservation access.",
+      "shutdown": "Stopped using exact emulator-5582 emu kill; no wipe/uninstall/reset or preservation operation."
+    },
+    "source": {
+      "finalComparedFiles": 78,
+      "differences": [],
+      "netAppTestBuildExporterChanges": false,
+      "guardRedesigned": false,
+      "attempt": "Only one manifest excludeFromRecents attribute was tried for the demonstrated live-preview issue, then reverted. No MainActivity/auth/lifecycle/privacy-curtain changes.",
+      "reviewedAppSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+      "trialAppSha256": "d9c8494a3fe1a7c727d3f19b8ec40f410e5c5ed9c63bb1d1682894d421ff99d5",
+      "finalRebuiltAppSha256": "a6c3dfe4f52a13dd3240fe56a33f5839c38c1486132742d13193edf96d9aa061",
+      "testSha256": "cfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a",
+      "binaryIdentityLimit": "Rebuilding the restored identical source produced a different APK hash. Do not relabel old results for the new binary or claim original APK bytes restored; exact cause of binary difference was not investigated.",
+      "finalInstalledHashMatchesHost": true,
+      "packagedManifest": "APK Analyzer confirms original MainActivity declaration without excludeFromRecents, minSdk24/target37, backup disabled, no INTERNET/broad storage permission."
+    },
+    "screenshotControl": {
+      "action": "adb -s emulator-5582 shell input keyevent KEYCODE_SYSRQ",
+      "result": "PASS (control only)",
+      "savedBy": "Android system screenshot service",
+      "mediastoreId": 19,
+      "file": "Screenshot_20261030-084513.png",
+      "bytes": 91793,
+      "width": 1080,
+      "height": 1920,
+      "visuallyReviewed": true,
+      "localArtifact": "Outside project; harmless generic Display Settings only; excluded from export"
+    },
+    "protectedDraft": {
+      "result": "PASS on API31 disposable provider",
+      "action": "ordinary Android KEYCODE_SYSRQ system screenshot",
+      "visibleBefore": "Unsaved synthetic draft with revealed synthetic password, directly observed on live emulator display",
+      "visibleAfter": "Same revealed draft still foreground; no security setting/FLAG_SECURE changed",
+      "image": {
+        "mediastoreId": 46,
+        "name": "Screenshot_20261030-085313.png",
+        "bytes": 8818,
+        "width": 1080,
+        "height": 1920,
+        "validPng": true,
+        "visuallyReviewed": true,
+        "observed": "Black protected content; only system navigation controls remain. No draft, password, app text or keyboard content exposed."
+      },
+      "control": {
+        "action": "adb -s emulator-5582 shell input keyevent KEYCODE_SYSRQ",
+        "result": "PASS (control only)",
+        "savedBy": "Android system screenshot service",
+        "mediastoreId": 19,
+        "file": "Screenshot_20261030-084513.png",
+        "bytes": 91793,
+        "width": 1080,
+        "height": 1920,
+        "visuallyReviewed": true,
+        "localArtifact": "Outside project; harmless generic Display Settings only; excluded from export"
+      },
+      "notAnOsRefusal": true,
+      "limits": "Emulated Android12/API31 screenshot mechanism only; not a physical-button/OEM universality claim.",
+      "appSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+      "observedUtc": "2026-10-30 08:53:16 UTC"
+    },
+    "appOwnedDialog": {
+      "result": "PASS on API31 disposable provider",
+      "appSha256": "d9c8494a3fe1a7c727d3f19b8ec40f410e5c5ed9c63bb1d1682894d421ff99d5",
+      "dialog": "Actual app-owned Compose Delete entry confirmation; observed normally; final deletion never selected",
+      "action": "ordinary Android KEYCODE_SYSRQ system screenshot",
+      "file": "Screenshot_20261030-091616.png",
+      "bytes": 13894,
+      "width": 1080,
+      "height": 1920,
+      "validPng": true,
+      "visuallyReviewed": true,
+      "observed": "Protected app and dialog content black; system status/navigation remain. No underlying synthetic entry/dialog text visible.",
+      "sourceScope": "Manifest-only attempt; MainActivity and Compose window/dialog code identical to baseline and eventual restored source. Not an assumption from FLAG_SECURE alone.",
+      "cancelled": true,
+      "noDeletion": true,
+      "observedUtc": "2026-10-30 09:16:22 UTC"
+    },
+    "liveRecents": {
+      "result": "FAIL before correction",
+      "appSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+      "observed": "Own app's settled recents card visibly retains unsaved synthetic draft with revealed sample and keyboard. Re-observation after transition confirmed exposure.",
+      "timeUtc": "2026-10-30 08:54:59 UTC",
+      "activityMetadata": "MainActivity remained RESUMED, stopped=false, visible/focused; SECURE flag present; restricted current-PID lifecycle trace had no ACTIVITY_STOP after direct App switch.",
+      "scopeLimit": "Direct live current-task preview, not a proven persisted thumbnail. Exact platform/app root cause remains open; do not infer all OEM behavior.",
+      "afterTrial": "Task intent EXCLUDE_FROM_RECENTS flag0x10800000 present, but live own locked-app card still visible. No verified redaction solution established."
+    },
+    "attemptedManifestPolicy": {
+      "result": "NOT A FIX for live current-task exposure; will revert",
+      "appSha256": "d9c8494a3fe1a7c727d3f19b8ec40f410e5c5ed9c63bb1d1682894d421ff99d5",
+      "sourceChange": "MainActivity android:excludeFromRecents=\"true\"",
+      "build": {
+        "tasks": ":app:assembleDebug :app:lintDebug",
+        "result": "PASS"
+      },
+      "affectedRun": {
+        "expected": 2,
+        "starts": 2,
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 54.63,
+        "finalResult": "OK (2 tests)",
+        "finalCode": -1,
+        "exitCode": 0,
+        "completed": true,
+        "appSha256": "d9c8494a3fe1a7c727d3f19b8ec40f410e5c5ed9c63bb1d1682894d421ff99d5",
+        "testSha256": "cfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a",
+        "log": "shell-321.log",
+        "executed": 2,
+        "serial": "emulator-5582",
+        "api": 31
+      },
+      "observed": "Intent flag0x10800000 confirms exclusion policy active; own live current-task card still visible on API31. Activity remains RESUMED/focused in this provider's live recents. No claim of recents protection from this attempt.",
+      "reasonRevert": "Does not resolve demonstrated live preview and changes app-switcher availability without establishing required privacy behavior.",
+      "finalRetained": false,
+      "sourceReverted": true,
+      "backgroundedOutcome": {
+        "appSha256": "d9c8494a3fe1a7c727d3f19b8ec40f410e5c5ed9c63bb1d1682894d421ff99d5",
+        "result": "Own Keeppeer task absent after Home then Recents; only own instrumentation EmptyActivity card visible",
+        "interpretation": "Manifest exclusion affects backgrounded task; does not fix direct live-current-task exposure. Not relabelled for restored original manifest.",
+        "deletedAnything": false
+      },
+      "interpretation": "Affected native tests passed, but current-task exclusion expectation failed. Trial not called a fix; no speculative broader lifecycle change retained."
+    },
+    "host": {
+      "trial": {
+        "tasks": ":app:assembleDebug :app:lintDebug --console=plain",
+        "result": "PASS",
+        "appSha256": "d9c8494a3fe1a7c727d3f19b8ec40f410e5c5ed9c63bb1d1682894d421ff99d5"
+      },
+      "restoredSource": {
+        "tasks": ":app:assembleDebug :app:lintDebug --console=plain",
+        "result": "PASS",
+        "appSha256": "a6c3dfe4f52a13dd3240fe56a33f5839c38c1486132742d13193edf96d9aa061"
+      },
+      "jvm": "Earlier15 JVM tests carried forward for unchanged source; not rerun. Earlier lint0errors14warnings retained as history; fresh lint task passed, warning count not re-read."
+    },
+    "affectedNativeTrial": {
+      "expected": 2,
+      "starts": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 54.63,
+      "finalResult": "OK (2 tests)",
+      "finalCode": -1,
+      "exitCode": 0,
+      "completed": true,
+      "appSha256": "d9c8494a3fe1a7c727d3f19b8ec40f410e5c5ed9c63bb1d1682894d421ff99d5",
+      "testSha256": "cfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a",
+      "log": "shell-321.log",
+      "executed": 2,
+      "serial": "emulator-5582",
+      "api": 31
+    },
+    "affectedNativeFinal": {
+      "expected": 2,
+      "starts": 2,
+      "executed": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 52.089,
+      "finalResult": "OK (2 tests)",
+      "finalCode": -1,
+      "exitCode": 0,
+      "completed": true,
+      "appSha256": "a6c3dfe4f52a13dd3240fe56a33f5839c38c1486132742d13193edf96d9aa061",
+      "testSha256": "cfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a",
+      "log": "shell-351.log",
+      "serial": "emulator-5582",
+      "api": 31
+    },
+    "closedTests": {
+      "biometric": {
+        "result": "PASS",
+        "appSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+        "testSha256": "cfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a",
+        "expected": 3,
+        "starts": 3,
+        "executed": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 143.002,
+        "finalNativeRunnerResult": "OK (3 tests)",
+        "finalNativeCode": -1,
+        "exitCode": 0,
+        "completed": true,
+        "log": "shell-254.log",
+        "testNames": [
+          "enrollmentDialogRejectsBlankAndDoesNotUsePasswordChangeFields",
+          "emptyWrongAndUnapprovedEnrollmentPreservePasswordAccess",
+          "postAuthenticationAadPreservesSingleApplicationAndV1Compatibility"
+        ]
+      },
+      "guardGroups": {
+        "rerun": false,
+        "appSha256": "2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d",
+        "testSha256": "cfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a",
+        "runs": [
+          {
+            "api": 24,
+            "serial": "emulator-5554",
+            "expected": 22,
+            "starts": 22,
+            "passed": 22,
+            "failed": 0,
+            "skipped": 0,
+            "seconds": 57.395,
+            "result": "PASS",
+            "completed": true,
+            "log": "shell-52.log",
+            "installedByteHash": "Unavailable; host artifact hashes verified and fresh direct installs returned Success.",
+            "executed": 22
+          },
+          {
+            "api": 25,
+            "serial": "emulator-5556",
+            "expected": 22,
+            "starts": 22,
+            "passed": 22,
+            "failed": 0,
+            "skipped": 0,
+            "seconds": 57.945,
+            "result": "PASS",
+            "completed": true,
+            "log": "shell-65.log",
+            "installedByteHash": "Not independently checked; host artifact hashes verified and fresh direct installs returned Success.",
+            "executed": 22
+          },
+          {
+            "api": 31,
+            "serial": "emulator-5558",
+            "expected": 22,
+            "starts": 22,
+            "passed": 22,
+            "failed": 0,
+            "skipped": 0,
+            "seconds": 166.763,
+            "result": "PASS",
+            "completed": true,
+            "log": "shell-219.log",
+            "installedByteHash": "App and test installed base.apk SHA-256 independently matched host.",
+            "executed": 22
+          }
+        ]
+      },
+      "realPerUse": "Actual API31 marker-less biometric open, enrollment-change invalidation and password/entry retention carried forward with original scope."
+    },
+    "recordingCarryForward": {
+      "sourceMatch": true,
+      "source": "Earlier preservation-review MainActivity text exactly matches final MainActivity, including secure Activity and DialogFragment window code.",
+      "artifact": "Historical c103aac417587198697f90f37b2195e0732adb1f5a7380d7c3bb514ef841c169, recordingEvidence under remainingChecksContinuation.phoneContinuation unchanged.",
+      "limit": "Readable control;26 black draft frames/one black dialog frame in final retained recording. Static/short changed-frame timelines, not5seconds of independently encoded frames; not a new recording or physical/OEM pass."
+    },
+    "scanReport": {
+      "source": "Current user instruction reporting originating review chat",
+      "date": "2026-10-30",
+      "exactTime": null,
+      "text": "Full scan finished; no threats or new alerts.",
+      "independentlyInspected": false,
+      "falsePositiveVerdict": false,
+      "classificationOfOldDetection": "unknown; retained as historical security note, separate from Android functional acceptance",
+      "settingsChanged": false
+    },
+    "recoveryDecision": {
+      "recordedAtDate": "2026-10-30",
+      "source": "Explicit current user instruction",
+      "originalEntries": "disposable test entries",
+      "recoveryRequested": false,
+      "recoveryPriorityQuestion": "resolved by user decision",
+      "cause": "unknown",
+      "recovered": false,
+      "deletionResetRekeyAuthorized": false,
+      "preservedFiles": "Retain unchanged; not accessed in this continuation.",
+      "meaning": "Closes requested recovery work only; not evidence of cause, restored entries or permission to delete/reset/rekey any personal vault or preservation material.",
+      "stillClosed": true,
+      "incidentCause": "unknown; no restoration or deletion/reset/rekey authority"
+    },
+    "acceptanceMatrix": [
+      {
+        "id": "C1–C4 / A1–A2",
+        "requirement": "Centralized authenticated vault; vetted API24/25 KDF; AEAD metadata/device binding; actual SQLCipher; failure preservation",
+        "result": "COVERED",
+        "evidence": "15 recorded JVM tests including published PBKDF2/Unicode vectors, roundtrip/wrong-password/tamper, fresh salts/nonces/same DB key; current-core22/22 on each API24/25/31 include actual Keystore, SQLCipher wrong-key/plain-SQLite/schema/reopen checks and guard/writes/failures. Exact hashes and times retained in original report objects."
+      },
+      {
+        "id": "C5–C6",
+        "requirement": "Explicit synthetic legacy reset; confirmed setup/warnings; atomic same-key master-password change",
+        "result": "COVERED",
+        "evidence": "Current-core selected native groups include legacy cancel/confirmed isolated reset, validation, password change/restart/wrong password, failed replacement/device key and repository revocation. No real-vault migration/reset. Phase3 export nudge only."
+      },
+      {
+        "id": "C7 / A3",
+        "requirement": "Secure windows; screenshot/recording/dialog/recents privacy; cold launch, rotation, timeouts, screen/manual lock and secret/repository revocation",
+        "result": "PARTIAL — live current-task Recents exposure",
+        "evidence": "Ordinary system screenshot valid readable control and valid black protected image; window source/FLAG_SECURE unchanged; prior native recording frames retained with original artifacts/short timelines. Actual API25 real1/5minute/Home/suspended process/death/Back/screen-lock evidence plus current-core native timeout/guard/UI checks; rotation/lifecycle tests additionally passed on attempted manifest-only artifact. Own settled live Recents currently exposed synthetic revealed draft; no blanket privacy pass."
+      },
+      {
+        "id": "C8 / A3",
+        "requirement": "Central sensitive clipboard,30s expiry, background/lock clearing/retry, newer unrelated replacement preservation",
+        "result": "COVERED with platform-access limits",
+        "evidence": "Retained actual touch Cut, injected selection/Ctrl+C/expiry, ownership/sensitive-flag tests; API25 controlled AppOps denial and foreground retry preserved newer unrelated Settings clip. No physical hardware-keyboard result or naturally observed every-OEM denial policy claimed."
+      },
+      {
+        "id": "C9 / A3",
+        "requirement": "Per-use real CryptoObject biometric wrapping/unlock and password fallback under errors/invalidation/disable/re-enable",
+        "result": "COVERED with provider/artifact limits",
+        "evidence": "Explicit approved3/3 at143.002s remains closed; actual API31 per-use encrypt/decrypt/marker completion, genuine enrollment1→2 KeyPermanentlyInvalidatedException and retained entry/password fallback. Older API25 native failed-scan/retry/lockout/cancel/rotation/Home/screen-lock/disable-reenable evidence retained; API25 non-invalidation remains a provider limit, not relabeled pass."
+      },
+      {
+        "id": "C10 / A3",
+        "requirement": "In-memory-only sensitive drafts; no saved-state restoration; authenticated saved-entry IDs and Phase3 picker plan",
+        "result": "COVERED",
+        "evidence": "Current-core rotation/reveal/cancel and lifecycle revocation plus actual historical API25 process-death/unsaved-draft/screen-lock checks; source saved-state boundary unchanged. Picker behavior is documented future Phase3 plan, not a Phase2 feature or new test gate."
+      },
+      {
+        "id": "A4 / constraints",
+        "requirement": "Relevant tests, debug assembly/lint; minSdk24/offline/backup/permission constraints; honest limits and disabled release",
+        "result": "COVERED, phase remains incomplete for named privacy gap",
+        "evidence": "Original current-core host assembly/15JVM/lint0errors14warnings retained; manifest-attempt debug assembly/lint and affected2/2 passed separately. No dependency/KDF/auth/source algorithm changes; no full rerun. Release disabled per current user instruction; Phase3 unstarted."
+      }
+    ],
+    "currentRequiredGap": "Resolve/verify redaction of the direct-from-revealed-draft live current-task Recents card on a supported disposable provider. Ordinary system screenshots and observed app-owned dialog protection no longer lack evidence.",
+    "exactManualComparison": "On a separate explicitly disposable device/provider with synthetic data only, reveal a synthetic draft, open Recents directly and note whether its own card exposes content; compare Home then Recents. Report device/API and live versus backgrounded outcome. This scopes the observed provider behavior; a different-provider pass does not erase the recorded API31 failure.",
+    "nonBlockingLimits": [
+      "Physical screenshot buttons and a physical hardware keyboard were not observed; injected input is not physical evidence. Do not create an every-OEM or universal-hardware Phase2 gate.",
+      "Historical Defender classification remains unknown; user-reported full scan with no new alerts is not independently inspected and is not a false-positive verdict. It is separate from Android functional acceptance.",
+      "Original incident cause remains unknown; recovery no longer requested and all preserved material remains untouched."
+    ],
+    "collectionLimits": [
+      "No UiAutomation.takeScreenshot, CLI screen capture, native screencap/screenrecord, empty-PNG retry or FLAG_SECURE bypass occurred in this closeout.",
+      "One MediaStore query with a spaced sort argument was rejected (Unsupported argument: DESC despite exit0). Corrected metadata-only query without sort succeeded, without another screenshot action.",
+      "Initial black desktop guest area was an asleep/locked emulator. Normal wake/unlock restored ordinary live observation; no display/security setting was changed.",
+      "A backgrounded blank test-harness card was not opened or inspected; only the own-app area was evaluated. No other app-card browsing."
+    ],
+    "artifacts": "Only generic/synthetic system-produced images under Android public screenshot storage and host TEMP; images, runtime vaults, envelopes, keys, preservation payload/manifests excluded from source export.",
+    "previousAggregate": {
+      "summary": "Explicit current human approval authorized the3 existing BiometricEnrollmentTest tests only on disposable emulators/synthetic data; previous automatic-review rejections retained as history. Retained registered API31 AVD Keeppeer_Guard_API31_20261030_123138 rediscovered as emulator-5580,qemu1/API31/x86_64,2 existing synthetic fingerprints; host and installed app2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d/testcfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a match reviewed source. Approved direct class run:3 expected/executed/passed,0failed/0skipped,143.002s,OK(3tests),instrumentation code-1,shell exit0. No app/test change, rebuild, reinstall, enrollment change or broad rerun. Earlier22/22 API24/API25/API31 and actual API31 per-use marker/invalidation/password-entry results retain exact identities. User confirmed original unavailable entries were disposable test entries: recovery no longer requested; cause unknown, no restoration claim, no deletion/reset/rekey authorized. Personal Samsung/candidates/preservation untouched. Capture/physical-hardware and Defender limits remain; Phase2 incomplete/release disabled/Phase3 unstarted.",
+      "outcome": "incomplete",
+      "deviceChecks": "approvedDisposableBiometricVerification is authoritative for the new explicitly approved3-test class execution on verified retained disposable API31/emulator-5580:3pass,0fail/skip,143.002s,OK(3tests). guardVerificationContinuation and every prior device/currentVerification/safeContinuation object remain artifact-scoped history. Original entries disposable; recovery no longer requested, with cause unknown and no deletion/reset authority. Personal Samsung excluded. Existing capture/physical-hardware/Defender limits remain; no unavailable capture retry or wider suite.",
+      "unresolvedIssues": [
+        "Valid protected screenshot/dialog/own-recents pixel evidence and physical screenshot-policy evidence on suitable disposable hardware; no unavailable capture path repeats.",
+        "Physical hardware-keyboard observations; injected input is not physical hardware evidence.",
+        "Defender attribution/verdict remains unresolved; later supported-command success is not a false-positive verdict."
+      ]
+    },
+    "release": "disabled",
+    "phase3": "unstarted",
+    "completedObservedUtc": "2026-10-30 09:26:45 UTC",
+    "currentChanges": {
+      "added": [
+        "docs/phase-2-privacy-closeout.md"
+      ],
+      "modified": [
+        "docs/phase-status.md",
+        "docs/security.md",
+        "docs/phase-2-device-checks.md",
+        "docs/phase-2-initialization-guard.md",
+        "docs/phase-2-guard-verification.md",
+        "README.md",
+        "docs/phase-2-vault-context-check.md",
+        "docs/reports/phase-2-report.json"
+      ],
+      "deleted": [],
+      "retainedAppTestBuildExporterChanges": []
+    }
+  },
+  "liveRecentsCorrection": {
+    "outcome": "incomplete",
+    "liveRecentsOutcome": "verified correction on failing disposable API31 provider",
+    "currentRequiredGap": "Controlled verification of keyboardSelectionCopyExpiresAndBackgroundReturnClearsOwnedClip and touchMenuCutUsesSensitiveClipboardBoundary remains outstanding. Current runs failed with emulator host sharing enabled; an owned label was replaced by host clipboard. Automatic review rejected disabling that toggle for lack of explicit setting authorization. Await explicit approval for only that synthetic-emulator setting and rerun only these2unchanged checks, or retain their failures/limitation. No live-Recents observation remains open on tested API31.",
+    "baselineReviewedSnapshot": {
+      "generatedAtPht": "2026-10-30 05:47:45 PM PHT (UTC+08:00)",
+      "bytes": 850030,
+      "revision": "401d359",
+      "dirty": true
+    },
+    "source": {
+      "revision": "401d359 plus dirty work",
+      "appSha256": "f74c15d03e76d04da4a3e6d30b58fe77a54114fd95caf8404010cc18b674dd37",
+      "testSha256": "691f1b4c0144a70e5badfa1d3a016dccb3e7ce2d62aea1193271c66897302992",
+      "temporaryTraceAppSha256": "d49cf164f5c4b1729b7c504337c55a68bea7446f84830bfe3853350c6bc10eb2",
+      "temporaryTracingRetained": false,
+      "added": [
+        "app/src/main/java/com/gem/keeppeer/ui/privacy/PrivacyWindows.kt",
+        "app/src/androidTest/java/com/gem/keeppeer/LiveRecentsPrivacyTest.kt",
+        "docs/phase-2-live-recents-correction.md"
+      ],
+      "modified": [
+        "app/src/main/java/com/gem/keeppeer/MainActivity.kt",
+        "app/src/main/java/com/gem/keeppeer/ui/lock/VaultRoot.kt",
+        "app/src/main/java/com/gem/keeppeer/ui/detail/EntryDetailScreen.kt",
+        "README.md",
+        "docs/phase-status.md",
+        "docs/security.md",
+        "docs/phase-2-device-checks.md",
+        "docs/phase-2-initialization-guard.md",
+        "docs/phase-2-guard-verification.md",
+        "docs/phase-2-vault-context-check.md",
+        "docs/phase-2-privacy-closeout.md",
+        "docs/reports/phase-2-report.json"
+      ],
+      "deleted": [],
+      "dependencyManifestBuildExporterChanges": false,
+      "finalSourceAudit": {
+        "material": 80,
+        "compared": 79,
+        "changed": [
+          "app/src/main/java/com/gem/keeppeer/MainActivity.kt",
+          "app/src/main/java/com/gem/keeppeer/ui/detail/EntryDetailScreen.kt",
+          "app/src/main/java/com/gem/keeppeer/ui/lock/VaultRoot.kt"
+        ],
+        "unreadable": [
+          "gradlew.bat"
+        ],
+        "expectedOnly": true,
+        "note": "Sequential inventory-boundary parser avoids illustrative manifest markers inside included skill.",
+        "mainActivityMatchesCompiledSource": true,
+        "currentAppAndTestHashesRechecked": true,
+        "gitDiffCheck": "PASS",
+        "priorJsonHistoricalFieldsUnchanged": 15,
+        "priorCheckEntriesUnchanged": 68,
+        "newKotlinPaths": [
+          "app/src/main/java/com/gem/keeppeer/ui/privacy/PrivacyWindows.kt",
+          "app/src/androidTest/java/com/gem/keeppeer/LiveRecentsPrivacyTest.kt"
+        ],
+        "exporter": "Existing atomic exporter reused unchanged; gradlew.bat IDE MIME serialization unavailable, not rewritten; exporter validates full eligible text."
+      },
+      "sessionCryptoClipboardLogicChanges": false,
+      "installedApi31HashesMatchedHost": true
+    },
+    "scope": {
+      "api31Avd": "Keeppeer_Guard_API31_20261030_123138",
+      "api31Serials": [
+        "emulator-5584",
+        "emulator-5588"
+      ],
+      "api25Avd": "Keeppeer_Guard_API25_20261030_123138",
+      "api25Serial": "emulator-5586",
+      "qemu": 1,
+      "abi": "x86_64",
+      "identityVerified": true,
+      "syntheticOnly": true,
+      "personalSamsung": "RR8R402RR7T/wireless aliases received no targeted operation; briefly listed in host inventory only.",
+      "preservation": "Not accessed/changed; no deletion/reset/rekey/restoration claim.",
+      "shutdown": "Exact verified emulator serials stopped without wiping registration/userdata/templates."
+    },
+    "transitionEvidence": {
+      "boundedTrace": "200-event maximum DEBUG metadata; removed before retained build; no field/secret/object/exception dumps.",
+      "directCallback": {
+        "event": "FOCUS_LOSS",
+        "sequence": 5,
+        "elapsedMs": 906786,
+        "lifecycle": "RESUMED",
+        "topResumed": true,
+        "shown": true,
+        "secure": true,
+        "absent": [
+          "PAUSE",
+          "STOP",
+          "USER_LEAVE_HINT",
+          "TOP_RESUMED=false"
+        ]
+      },
+      "uncorrectedExposureUtc": "10:15:27.568–10:15:28.268 UTC",
+      "keycodeControl": "Own-card return FOCUS_GAIN seq6; APP_SWITCH focus-only loss seq7. Prior focused=true metadata did not establish callback absence.",
+      "selectedCorrection": "Register Activity/Compose/DialogFragment windows; public focus listener applies window alpha0 and IME hide when no owned window focused, restores original alpha on owned focus. Preserve composition/drafts, FLAG_SECURE, original session expiry/screen-off/auth ownership. No timer/task exclusion/hidden API/security bypass.",
+      "trialLimit": "Preliminary alpha trial settled card hidden; constant privacy=UNCHANGED log label was not resulting-alpha evidence."
+    },
+    "host": {
+      "tasks": ":app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --console=plain",
+      "result": "PASS",
+      "lintErrors": 0,
+      "lintWarnings": 14,
+      "jvm": "Earlier15tests retained for unchanged core; not rerun."
+    },
+    "native": {
+      "actualRecents": {
+        "log": "shell-439.log",
+        "expected": 1,
+        "started": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 45.339,
+        "finalCode": -1,
+        "finalResult": "OK (1 test)",
+        "hasHostClipboard": false,
+        "executed": 1,
+        "exitCode": 0,
+        "completed": true,
+        "serial": "emulator-5584",
+        "api": 31,
+        "appSha256": "f74c15d03e76d04da4a3e6d30b58fe77a54114fd95caf8404010cc18b674dd37",
+        "testSha256": "691f1b4c0144a70e5badfa1d3a016dccb3e7ce2d62aea1193271c66897302992"
+      },
+      "affectedApi31": {
+        "log": "shell-440.log",
+        "expected": 8,
+        "started": 8,
+        "passed": 6,
+        "failed": 2,
+        "skipped": 0,
+        "seconds": 226.91,
+        "finalCode": -1,
+        "finalResult": "FAILURES!!!",
+        "hasHostClipboard": false,
+        "executed": 8,
+        "exitCode": 0,
+        "completed": true,
+        "serial": "emulator-5584",
+        "api": 31,
+        "appSha256": "f74c15d03e76d04da4a3e6d30b58fe77a54114fd95caf8404010cc18b674dd37",
+        "testSha256": "691f1b4c0144a70e5badfa1d3a016dccb3e7ce2d62aea1193271c66897302992"
+      },
+      "clipboardRetries": [
+        {
+          "log": "shell-442.log",
+          "expected": 2,
+          "started": 2,
+          "passed": 0,
+          "failed": 2,
+          "skipped": 0,
+          "seconds": 35.997,
+          "finalCode": -1,
+          "finalResult": "FAILURES!!!",
+          "hasHostClipboard": true,
+          "executed": 2,
+          "exitCode": 0,
+          "completed": true,
+          "serial": "emulator-5584",
+          "api": 31,
+          "appSha256": "f74c15d03e76d04da4a3e6d30b58fe77a54114fd95caf8404010cc18b674dd37",
+          "testSha256": "691f1b4c0144a70e5badfa1d3a016dccb3e7ce2d62aea1193271c66897302992"
+        },
+        {
+          "log": "shell-445.log",
+          "expected": 2,
+          "started": 2,
+          "passed": 0,
+          "failed": 2,
+          "skipped": 0,
+          "seconds": 29.975,
+          "finalCode": -1,
+          "finalResult": "FAILURES!!!",
+          "hasHostClipboard": false,
+          "executed": 2,
+          "exitCode": 0,
+          "completed": true,
+          "serial": "emulator-5584",
+          "api": 31,
+          "appSha256": "f74c15d03e76d04da4a3e6d30b58fe77a54114fd95caf8404010cc18b674dd37",
+          "testSha256": "691f1b4c0144a70e5badfa1d3a016dccb3e7ce2d62aea1193271c66897302992"
+        }
+      ],
+      "olderApi25": {
+        "log": "shell-564.log",
+        "expected": 3,
+        "started": 3,
+        "executed": 3,
+        "passed": 2,
+        "failed": 0,
+        "skipped": 1,
+        "seconds": 22.008,
+        "finalResult": "OK (3 tests)",
+        "finalCode": -1,
+        "exitCode": 0,
+        "completed": true,
+        "serial": "emulator-5586",
+        "api": 25,
+        "appSha256": "f74c15d03e76d04da4a3e6d30b58fe77a54114fd95caf8404010cc18b674dd37",
+        "testSha256": "691f1b4c0144a70e5badfa1d3a016dccb3e7ce2d62aea1193271c66897302992",
+        "skipReason": "Strong biometric enrollment required for the settings button",
+        "selected": [
+          "EntryDraftRotationTest",
+          "VaultLifecycleUiTest",
+          "BiometricEnrollmentTest#enrollmentDialogRejectsBlankAndDoesNotUsePasswordChangeFields"
+        ],
+        "interpretation": "Runner OK includes status-4 assumption skip; not3passes. No OS enrollment setup or older live-card/legacy-prompt pixel claim."
+      },
+      "approvedClass": "All3existing methods passed on API31 within shell-440. Original explicit disposable-only approval persists. Original143.002s class run unchanged as history; no intent/assertion changes."
+    },
+    "liveObservations": {
+      "appSha256": "f74c15d03e76d04da4a3e6d30b58fe77a54114fd95caf8404010cc18b674dd37",
+      "api": 31,
+      "serial": "emulator-5584",
+      "directDraft": {
+        "visibleRecentsClickUtc": "2026-10-30 10:53:22.854 UTC",
+        "immediateSamples": 6,
+        "immediateUtc": "10:53:22.990–10:53:24.812 UTC",
+        "observed": "Initially normal full-screen; surface redacted to wallpaper with IME beginning to hide before reduced card appeared.",
+        "settledSamples": 6,
+        "settledUtc": "10:53:50.257–10:53:51.049 UTC",
+        "settled": "Wallpaper-only own live card; no draft/revealed content/IME.",
+        "return": "Back restored permitted draft; no permanent blank loop.",
+        "limit": "Ordinary sampled UI, not every compositor frame/every OEM/persisted thumbnail proof."
+      },
+      "dialog": "Real Delete entry confirmation normally visible; direct Recents own card darkened wallpaper only; Back restored dialog; cancel/Back retained entry, no deletion.",
+      "homeControl": "Home then Recents own backgrounded card blank; own return within44.378s retained session under1minute grace.",
+      "minuteExpiry": "SESSION_BACKGROUND10:57:14.322→SESSION_GENERATION10:58:14.390UTC (60.068s); return locked.",
+      "protectedDialog": {
+        "action": "Ordinary Android KEYCODE_SYSRQ",
+        "mediaStoreId": 48,
+        "name": "Screenshot_20261030-110141.png",
+        "bytes": 13169,
+        "width": 1080,
+        "height": 1920,
+        "validPng": true,
+        "visuallyDecoded": true,
+        "observed": "App/dialog black; system status/navigation only.",
+        "control": "Prior91793-byte readable generic Display Settings control retained at original identity/provider/mechanism; not new capture.",
+        "location": "Public synthetic screenshot and host TEMP, excluded from export."
+      },
+      "screenLock": {
+        "result": "PASS fresh final observation",
+        "serial": "emulator-5588",
+        "minuteGraceConfirmed": true,
+        "preActionUtc": "2026-10-30T13:39:43.366Z",
+        "confirmedUtc": "2026-10-30T13:40:37.204Z",
+        "observed": "Normal screen off/wake/PIN return locked before60s grace; Back/reopen locked, no old entry.",
+        "priorAttempt": "Earlier immediate inspection inconclusive, not relabelled pass.",
+        "limit": "Emulator injected input, not physical/OEM evidence."
+      }
+    },
+    "realPerUse": {
+      "result": "PASS final app",
+      "api": 31,
+      "serials": [
+        "emulator-5584",
+        "emulator-5588"
+      ],
+      "osEnrollmentChanged": false,
+      "existingSyntheticTemplates": 2,
+      "oldWrapper": "DECRYPT_INIT KeyPermanentlyInvalidatedException; normal password fallback retained entry.",
+      "enrollment": "Normal synthetic confirmation plus existing template sensor event; CIPHER_BINDING/APPROVAL_CHECK/FOREGROUND_CHECK/ENCRYPT_AAD/ENCRYPT_FINAL/WRAPPER_WRITE/COMPLETE11:05:59UTC.",
+      "unlock": "Cancel code10 restored password UI; unmatched retry PROMPT_FAILED then enrolled template CIPHER_BINDING/DECRYPT_AAD/DECRYPT_FINAL/DATABASE_OPEN/COMPLETE11:08:33.824UTC; entry retained. Reopen again COMPLETE13:38:45.782UTC.",
+      "focus": "No cancellation/permanent blank loop; actual Keystore operations, no manufactured callbacks."
+    },
+    "clipboardLimit": {
+      "result": "unresolved current verification",
+      "evidence": "Initially owned label replaced by host clipboard before1s; no host clipboard value inspected/exported.",
+      "sharingObserved": "enabled",
+      "settingChanged": false,
+      "rejection": "Disabling emulator host clipboard sharing changes a security/privacy-related environment setting that the user did not explicitly authorize and may fall under the task’s prohibition on OS security changes; the failed tests should instead be reported or isolated without mutating that setting.",
+      "explicitSettingApproval": "requested, not received; continuation is not treated as toggle approval",
+      "rerouteOrWeaken": false
+    },
+    "approvalServiceHistory": "First API25 identity action not executed due usage-limit review failure. After stated retry time and user continuation, fresh identity checks/direct actions succeeded; not unsafe verdict/bypass. Clipboard-toggle rejection remains separate and respected.",
+    "acceptanceMatrix": [
+      {
+        "id": "C1–C4 / A1–A2",
+        "requirement": "Centralized authenticated vault; vetted API24/25 KDF; AEAD metadata/device binding; actual SQLCipher; failure preservation",
+        "result": "COVERED",
+        "evidence": "15 recorded JVM tests including published PBKDF2/Unicode vectors, roundtrip/wrong-password/tamper, fresh salts/nonces/same DB key; current-core22/22 on each API24/25/31 include actual Keystore, SQLCipher wrong-key/plain-SQLite/schema/reopen checks and guard/writes/failures. Exact hashes and times retained in original report objects."
+      },
+      {
+        "id": "C5–C6",
+        "requirement": "Explicit synthetic legacy reset; confirmed setup/warnings; atomic same-key master-password change",
+        "result": "COVERED",
+        "evidence": "Current-core selected native groups include legacy cancel/confirmed isolated reset, validation, password change/restart/wrong password, failed replacement/device key and repository revocation. No real-vault migration/reset. Phase3 export nudge only."
+      },
+      {
+        "id": "C7 / A3",
+        "requirement": "Secure windows; screenshot/recording/dialog/recents privacy; cold launch, rotation, timeouts, screen/manual lock and secret/repository revocation",
+        "result": "COVERED on observed provider, bounded capture/hardware limits",
+        "evidence": "Current actual OS Recents regression1/1 plus sampled final transition/settled draft and actual-dialog live-card redaction; new valid13169-byte protected dialog PNG. Home/grace/60.068s expiry/Back and fresh screen-lock under minute grace verified. Rotation/lifecycle pass on API31/API25. Earlier control/recording/process-death/real5minute evidence retains original scope. No every-frame/every-OEM/physical claim."
+      },
+      {
+        "id": "C8 / A3",
+        "requirement": "Central sensitive clipboard,30s expiry, background/lock clearing/retry, newer unrelated replacement preservation",
+        "result": "PARTIAL — controlled current regression verification outstanding",
+        "evidence": "Controlled verification of keyboardSelectionCopyExpiresAndBackgroundReturnClearsOwnedClip and touchMenuCutUsesSensitiveClipboardBoundary remains outstanding. Current runs failed with emulator host sharing enabled; an owned label was replaced by host clipboard. Automatic review rejected disabling that toggle for lack of explicit setting authorization. Await explicit approval for only that synthetic-emulator setting and rerun only these2unchanged checks, or retain their failures/limitation. No live-Recents observation remains open on tested API31. Earlier clipboard/expiry/newer-clip evidence retains original identities; no assertion weakened."
+      },
+      {
+        "id": "C9 / A3",
+        "requirement": "Per-use real CryptoObject biometric wrapping/unlock and password fallback under errors/invalidation/disable/re-enable",
+        "result": "COVERED with provider/artifact limits",
+        "evidence": "Explicit approved3/3 at143.002s remains closed; actual API31 per-use encrypt/decrypt/marker completion, genuine enrollment1→2 KeyPermanentlyInvalidatedException and retained entry/password fallback. Older API25 native failed-scan/retry/lockout/cancel/rotation/Home/screen-lock/disable-reenable evidence retained; API25 non-invalidation remains a provider limit, not relabeled pass. Current final API31 approved3methods passed within8-test group; real per-use encrypt/decrypt/cancel/unmatched/retry/password-entry fallback verified. API25 enrollment-dependent method skipped for strong enrollment unavailable; not a pass."
+      },
+      {
+        "id": "C10 / A3",
+        "requirement": "In-memory-only sensitive drafts; no saved-state restoration; authenticated saved-entry IDs and Phase3 picker plan",
+        "result": "COVERED",
+        "evidence": "Current-core rotation/reveal/cancel and lifecycle revocation plus actual historical API25 process-death/unsaved-draft/screen-lock checks; source saved-state boundary unchanged. Picker behavior is documented future Phase3 plan, not a Phase2 feature or new test gate."
+      },
+      {
+        "id": "A4 / constraints",
+        "requirement": "Relevant tests, debug assembly/lint; minSdk24/offline/backup/permission constraints; honest limits and disabled release",
+        "result": "Host constraints COVERED; native verification incomplete for clipboard limit",
+        "evidence": "Current app/test assembly and lint PASS,0errors14warnings. All current failures/skips retained. No broad matrix/KDF/SQLCipher rerun. Release disabled,Phase3 unstarted."
+      }
+    ],
+    "scanReport": {
+      "source": "Current user instruction reporting originating review chat",
+      "date": "2026-10-30",
+      "exactTime": null,
+      "text": "Full scan finished; no threats or new alerts.",
+      "independentlyInspected": false,
+      "falsePositiveVerdict": false,
+      "classificationOfOldDetection": "unknown; retained as historical security note, separate from Android functional acceptance",
+      "settingsChanged": false
+    },
+    "originalVaultUserDecision": {
+      "recordedAtDate": "2026-10-30",
+      "source": "Explicit current user instruction",
+      "originalEntries": "disposable test entries",
+      "recoveryRequested": false,
+      "recoveryPriorityQuestion": "resolved by user decision",
+      "cause": "unknown",
+      "recovered": false,
+      "deletionResetRekeyAuthorized": false,
+      "preservedFiles": "Retain unchanged; not accessed in this continuation.",
+      "meaning": "Closes requested recovery work only; not evidence of cause, restored entries or permission to delete/reset/rekey any personal vault or preservation material."
+    },
+    "limits": [
+      "Physical buttons/keyboards/every-OEM behavior unobserved, not universal acceptance gates.",
+      "API25 current enrollment-dependent check skipped for missing strong enrollment; prior legacy evidence artifact-scoped.",
+      "Unavailable capture paths not retried; no FLAG_SECURE/security bypass.",
+      "Defender classification unknown; user clean-scan report uninspected, not false-positive verdict/Android gate."
+    ],
+    "previousAggregate": {
+      "summary": "Phase2 incomplete for one original privacy criterion: direct live current-task Recents on disposable API31 exposed a revealed synthetic draft while Activity remained RESUMED/focused with SECURE flags. Ordinary Android system screenshot control91793bytes and protected draft8818bytes were valid/visually reviewed on reviewed app2692954259667faa77710eea0b82ef5d6a69362eb31bcb7d979c4b4cdfb54e3d. Actual app-owned dialog13894-byte PNG was protected on manifest-only triald9c8494a3fe1a7c727d3f19b8ec40f410e5c5ed9c63bb1d1682894d421ff99d5. Exclude-from-recents trial did not remove live current card and was reverted; no retained app/test/build/exporter change. All78 final material source/config files match reviewed guard. Rebuilt final appa6c3dfe4f52a13dd3240fe56a33f5839c38c1486132742d13193edf96d9aa061 differs from reviewed binary; installed hash matched host. Assembly/lint passed; affected rotation/lifecycle2/2,0fail/skip,52.089s on final app/testcfbc62596ee1e56f5ee3c962a30701443ae3da37e4ee7b7f0abad84976156e1a. Trial2/2,54.630s retained separately. Closed biometric3/3,143.002s and22/22 API24/API25/API31 groups not repeated or relabeled. User-reported full scan finished/no threats or new alerts,2026-10-30,time unknown; not independently inspected or a false-positive verdict. Recovery closed by disposable-entry decision; cause unknown; personal Samsung and preserved material untouched. Historical Defender classification and universal hardware/OEM coverage are not new Android gates. Only live-recents redaction remains required; release disabled,Phase3 unstarted.",
+      "outcome": "incomplete",
+      "deviceChecks": "privacyCloseout is authoritative for current original-acceptance mapping and exact remaining live-current-task Recents gap. System screenshot and observed dialog protection now have valid protected images; old capture failures/skips remain history and were not retried. Source correction attempt reverted; final appa6c3dfe4/native affected2/2 pass has its own identity. Approved biometric3/3 and guard22/22 groups remain closed at original artifacts. Recovery no longer requested; scan report user-reported/time unknown. Only direct live own-card redaction remains open; physical/OEM limits and historical antivirus attribution are not universal/new app gates.",
+      "unresolvedIssues": [
+        "Resolve/verify redaction of the direct-from-revealed-draft live current-task Recents card on a supported disposable provider. Ordinary system screenshots and observed app-owned dialog protection no longer lack evidence. On a separate explicitly disposable device/provider with synthetic data only, reveal a synthetic draft, open Recents directly and note whether its own card exposes content; compare Home then Recents. Report device/API and live versus backgrounded outcome. This scopes the observed provider behavior; a different-provider pass does not erase the recorded API31 failure."
+      ]
+    },
+    "release": "disabled",
+    "phase3": "unstarted",
+    "completedObservedUtc": "2026-10-30T13:46:54.600Z",
+    "documentation": "docs/phase-2-live-recents-correction.md"
+  },
+  "windowLifecycleClipboardContinuation": {
+    "outcome": "incomplete",
+    "currentRequiredGap": "Final affected window verification remains incomplete: API25 WindowRegistrationTest shell-701.log failed0pass/1fail/0skip,19.751s because exact own-task return left the Scenario Activity CREATED; earlier shell-693 restored0.8 then failed Fragment saved-state dismissal. Final test-package API31 Window rerun was notstarted after automatic review rejected combined wake/menu input. Production opacity correction has full API31 shell-653 pass and ordinary live-card evidence on the same production APK; controlled clipboard pair is resolved2/2with original sharing restored. Next bounded work is API25 task-return diagnosis and the single API31 Window rerun after explicitly approved ordinary disposable unlock; no full matrix or new physical/OEM gate.",
+    "baselineReviewedSnapshot": {
+      "generatedAtPhilippine": "2026-10-30 09:53:49 PM PHT (UTC+08:00)",
+      "bytes": 918708,
+      "revision": "401d359 plus dirty work",
+      "appSha256": "f74c15d03e76d04da4a3e6d30b58fe77a54114fd95caf8404010cc18b674dd37",
+      "testSha256": "691f1b4c0144a70e5badfa1d3a016dccb3e7ce2d62aea1193271c66897302992"
+    },
+    "source": {
+      "revision": "401d359 plus dirty work",
+      "productionChangedOnly": "app/src/main/java/com/gem/keeppeer/ui/privacy/PrivacyWindows.kt",
+      "testChanged": [
+        "app/src/androidTest/java/com/gem/keeppeer/LiveRecentsPrivacyTest.kt"
+      ],
+      "testAdded": [
+        "app/src/androidTest/java/com/gem/keeppeer/WindowRegistrationTest.kt"
+      ],
+      "fileSha256": {
+        "PrivacyWindows.kt": "e84f930002f9249590bc6af648e45d4bdbd5ab0aab19aa68a8dd4fb63121789d",
+        "WindowRegistrationTest.kt": "84d679ec2ab8060e3eb8dc6477ccf12749ca24e3c0f9d2d37bbe6f3e150f1151",
+        "LiveRecentsPrivacyTest.kt": "da8ce82b4ec684939591686ba58b9c0e271779df34d923da018e02ec5f4abbed"
+      },
+      "unchanged": "MainActivity/session/cryptography/clipboard/manifest/build/dependencies/exporter; unrelated prior dirty work preserved.",
+      "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+      "finalTestSha256": "6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433"
+    },
+    "correction": {
+      "issue": "Unregister lost original alpha; hidden same Window re-register captured0.",
+      "implementation": "Separate WeakHashMap<Window,Float> retains original opacity independently of active listener ownership. No visible alpha reset on disposal. Weak keys/scalar values avoid strong retention of destroyed Window. Both maps cleared at controller close.",
+      "preserved": "FLAG_SECURE/focus policy/IME hiding/composition/drafts/session expiry/per-use CryptoObject/prompt cancellation/password fallback unchanged."
+    },
+    "fixtures": {
+      "LiveRecents": "Restore original timeout and lock in finally after demonstrated cross-test contamination; foreground focus precondition and actual OS global actions retain privacy/session/dialog assertions.",
+      "Window": "Actual DialogFragment0.8, Recents/Home, same Window stop/start, hidden dismissal and Activity recreation. API25 requires disposable dismissalAllowingStateLoss with pending transactions executed before unchanged alpha assertions. Redundant second Home removed; this did not resolve API25 task-return failure.",
+      "sourceState": "Final package built; API25 full test failed; final API31 package rerun not started. Full earlier API31 Window pass remains scoped to test1c2fa358 with same production app."
+    },
+    "devices": [
+      {
+        "avd": "Keeppeer_Guard_API31_20261030_123138",
+        "serial": "emulator-5590",
+        "qemu": 1,
+        "api": 31,
+        "abi": "x86_64",
+        "bootComplete": true,
+        "stoppedWithoutWipe": true
+      },
+      {
+        "avd": "Keeppeer_Guard_API25_20261030_123138",
+        "serial": "emulator-5592",
+        "qemu": 1,
+        "api": 25,
+        "abi": "x86_64",
+        "bootComplete": true,
+        "stoppedWithoutWipe": true
+      }
+    ],
+    "scope": "Dedicated disposable synthetic environments only; exact serial/AVD/qemu/API/ABI checks. SyntheticTestRunner target com.gem.keeppeer and UUID file/database/preference/alias isolation verified. No personal Samsung RR8R402RR7T/wireless alias action or preservation/candidate access. No wipe/reset/enrollment change.",
+    "host": {
+      "tasks": ":app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --console=plain",
+      "result": "PASS after final fixture edit",
+      "lint": {
+        "errors": 0,
+        "warnings": 14
+      },
+      "broadMatrixRerun": false
+    },
+    "nativeRuns": [
+      {
+        "log": "shell-616.log",
+        "expected": 7,
+        "started": 2,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "seconds": null,
+        "finalCode": 0,
+        "finalResult": "Process crashed.",
+        "windowSteps": [],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "9a066b5c82bfd14cf7693f6403fdc919d2440f11dc98d004208ed9c8be8b864b",
+        "api": 31,
+        "serial": "emulator-5590",
+        "executedToCompletion": 1,
+        "aborted": 1,
+        "notStarted": 5,
+        "shellExitCode": 0,
+        "scope": "Window plus LiveRecents began; first failed teardown, second aborted by exact synthetic force-stop;5notstarted."
+      },
+      {
+        "log": "shell-625.log",
+        "expected": 1,
+        "started": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "seconds": 73.017,
+        "finalCode": -1,
+        "finalResult": "FAILURES!!!",
+        "windowSteps": [
+          "ORIGINAL_VISIBLE",
+          "RECENTS_REDACTED",
+          "SAME_WINDOW_STOPPED",
+          "ORIGINAL_ALPHA_RESTORED",
+          "CLOSING_STAYS_REDACTED"
+        ],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "fde7e6ce34566c3f121f4b576cf7af0fffaf6184b2ce5dbeacb582df433684df",
+        "api": 31,
+        "serial": "emulator-5590",
+        "executedToCompletion": 1,
+        "aborted": 0,
+        "notStarted": 0,
+        "shellExitCode": 0,
+        "scope": "Window fulltest failed return/teardown after partial correct alpha/redaction."
+      },
+      {
+        "log": "shell-626.log",
+        "expected": 6,
+        "started": 6,
+        "passed": 4,
+        "failed": 2,
+        "skipped": 0,
+        "seconds": 116.964,
+        "finalCode": -1,
+        "finalResult": "FAILURES!!!",
+        "windowSteps": [],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "fde7e6ce34566c3f121f4b576cf7af0fffaf6184b2ce5dbeacb582df433684df",
+        "api": 31,
+        "serial": "emulator-5590",
+        "executedToCompletion": 6,
+        "aborted": 0,
+        "notStarted": 0,
+        "shellExitCode": 0,
+        "scope": "BiometricEnrollmentTest3 and EntryDraftRotationTest passed; LiveRecents and lifecycle failed; leaked MINUTE fixture timeout identified."
+      },
+      {
+        "log": "shell-631.log",
+        "expected": 2,
+        "started": 2,
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 58.101,
+        "finalCode": -1,
+        "finalResult": "OK (2 tests)",
+        "windowSteps": [],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "fde7e6ce34566c3f121f4b576cf7af0fffaf6184b2ce5dbeacb582df433684df",
+        "api": 31,
+        "serial": "emulator-5590",
+        "executedToCompletion": 2,
+        "aborted": 0,
+        "notStarted": 0,
+        "shellExitCode": 0,
+        "scope": "Only the2approved unchanged clipboard methods, sharing disabled."
+      },
+      {
+        "log": "shell-635.log",
+        "expected": 3,
+        "started": 3,
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0,
+        "seconds": 76.762,
+        "finalCode": -1,
+        "finalResult": "FAILURES!!!",
+        "windowSteps": [
+          "ORIGINAL_VISIBLE",
+          "BODY_FAILURE_AssertionError"
+        ],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "b46aee9c3a8b7c59db98f2f7a2444d93e1c3a398cf4c108daf800dc3129f3b4b",
+        "api": 31,
+        "serial": "emulator-5590",
+        "executedToCompletion": 3,
+        "aborted": 0,
+        "notStarted": 0,
+        "shellExitCode": 0,
+        "scope": "Lifecycle passed; Window and LiveRecents failed; no blanket pass."
+      },
+      {
+        "log": "shell-643.log",
+        "expected": 3,
+        "started": 3,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "seconds": 224.503,
+        "finalCode": -1,
+        "finalResult": "FAILURES!!!",
+        "windowSteps": [
+          "ORIGINAL_VISIBLE",
+          "RECENTS_REDACTED",
+          "SAME_WINDOW_STOPPED",
+          "BODY_FAILURE_AssertionError"
+        ],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "b614e566cbb691875b311d8db217723762737d2d637ab43be2b9c0be3f030b71",
+        "api": 31,
+        "serial": "emulator-5590",
+        "executedToCompletion": 3,
+        "aborted": 0,
+        "notStarted": 0,
+        "shellExitCode": 0,
+        "scope": "Actual OS LiveRecentsPrivacyTest and VaultLifecycleUiTest passed; Window task-return failed."
+      },
+      {
+        "log": "shell-648.log",
+        "expected": 1,
+        "started": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "seconds": 28.869,
+        "finalCode": -1,
+        "finalResult": "FAILURES!!!",
+        "windowSteps": [
+          "ORIGINAL_VISIBLE",
+          "RECENTS_REDACTED",
+          "SAME_WINDOW_STOPPED",
+          "ORIGINAL_ALPHA_RESTORED",
+          "CLOSING_STAYS_REDACTED",
+          "BODY_FAILURE_AssertionError"
+        ],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "09628af7f2ace329ed46f6b9e6a1161619badd31fc19478b334c741ff24ac5f5",
+        "api": 31,
+        "serial": "emulator-5590",
+        "executedToCompletion": 1,
+        "aborted": 0,
+        "notStarted": 0,
+        "shellExitCode": 0,
+        "scope": "Window failed parent-return after hidden dismissal; partial milestones not a full pass."
+      },
+      {
+        "log": "shell-653.log",
+        "expected": 1,
+        "started": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 23.728,
+        "finalCode": -1,
+        "finalResult": "OK (1 test)",
+        "windowSteps": [
+          "ORIGINAL_VISIBLE",
+          "RECENTS_REDACTED",
+          "SAME_WINDOW_STOPPED",
+          "ORIGINAL_ALPHA_RESTORED",
+          "CLOSING_STAYS_REDACTED",
+          "PARENT_RETURNED",
+          "BEFORE_RECREATE",
+          "AFTER_RECREATE",
+          "RECREATED_VISIBLE",
+          "DISMISSED_PARENT_VISIBLE"
+        ],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "1c2fa35877a3238653858d39d36384003fb14a06bcf142c237ee04d792181f40",
+        "api": 31,
+        "serial": "emulator-5590",
+        "executedToCompletion": 1,
+        "aborted": 0,
+        "notStarted": 0,
+        "shellExitCode": 0,
+        "scope": "Complete real Window lifecycle/stop-start/0.8restoration/unfocused closing/recreation regression passed."
+      },
+      {
+        "log": "shell-692.log",
+        "expected": 1,
+        "started": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": null,
+        "finalCode": null,
+        "finalResult": "Not invoked: host cmd quoting error; exit2",
+        "windowSteps": [],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "1c2fa35877a3238653858d39d36384003fb14a06bcf142c237ee04d792181f40",
+        "api": 25,
+        "serial": "emulator-5592",
+        "executedToCompletion": 0,
+        "aborted": 0,
+        "notStarted": 1,
+        "shellExitCode": 2,
+        "scope": "Host invocation quoting failure; no native test started; not a skip or security block."
+      },
+      {
+        "log": "shell-693.log",
+        "expected": 1,
+        "started": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "seconds": 12.465,
+        "finalCode": -1,
+        "finalResult": "FAILURES!!!",
+        "windowSteps": [
+          "ORIGINAL_VISIBLE",
+          "RECENTS_REDACTED",
+          "SAME_WINDOW_STOPPED",
+          "ORIGINAL_ALPHA_RESTORED",
+          "BODY_FAILURE_IllegalStateException"
+        ],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "1c2fa35877a3238653858d39d36384003fb14a06bcf142c237ee04d792181f40",
+        "api": 25,
+        "serial": "emulator-5592",
+        "executedToCompletion": 1,
+        "aborted": 0,
+        "notStarted": 0,
+        "shellExitCode": 0,
+        "scope": "Original0.8 restored, then dismissNow after Fragment state save failed."
+      },
+      {
+        "log": "shell-697.log",
+        "expected": 1,
+        "started": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "seconds": 19.422,
+        "finalCode": -1,
+        "finalResult": "FAILURES!!!",
+        "windowSteps": [
+          "ORIGINAL_VISIBLE",
+          "RECENTS_REDACTED",
+          "SAME_WINDOW_STOPPED",
+          "BODY_FAILURE_AssertionError"
+        ],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "2ae9895f36c37c6a4b91857963770b76d4999a4ad8ec92d216e191b9a009ad19",
+        "api": 25,
+        "serial": "emulator-5592",
+        "executedToCompletion": 1,
+        "aborted": 0,
+        "notStarted": 0,
+        "shellExitCode": 0,
+        "scope": "After fixture dismissal correction, task return left Activity CREATED."
+      },
+      {
+        "log": "shell-701.log",
+        "expected": 1,
+        "started": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "seconds": 19.751,
+        "finalCode": -1,
+        "finalResult": "FAILURES!!!",
+        "windowSteps": [
+          "ORIGINAL_VISIBLE",
+          "RECENTS_REDACTED",
+          "SAME_WINDOW_STOPPED",
+          "BODY_FAILURE_AssertionError"
+        ],
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433",
+        "api": 25,
+        "serial": "emulator-5592",
+        "executedToCompletion": 1,
+        "aborted": 0,
+        "notStarted": 0,
+        "shellExitCode": 0,
+        "scope": "Final test package: task return still left Activity CREATED. No production compatibility defect proven solely by this fixture failure."
+      }
+    ],
+    "clipboardApproval": {
+      "source": "Current explicit user instruction; originating review chat reported2026-10-30",
+      "quote": "Approve temporary isolation and restore",
+      "scope": "Temporarily disable Windows-to-emulator clipboard sharing only for dedicated synthetic API31 client; only the2named unchanged clipboard tests; restore and verify original state even if tests fail. If client-wide, ensure only dedicated emulator running. No host clipboard value read/export; no Android clipboard permissions/AppOps/Defender/Windows security/personal setting changes.",
+      "approved": true,
+      "settingChangeExecuted": false,
+      "testPassedByApproval": false,
+      "historicalRejectionSupersededOnlyWithinThisScope": true
+    },
+    "clipboardExecution": {
+      "original": {
+        "enabled": true,
+        "verifiedBy": "Ordinary Extended Controls > Settings > General visible green Enable clipboard sharing toggle",
+        "observedUtc": "2026-10-30T14:38:00.221Z",
+        "scope": "Conservatively treated as emulator-client-wide; adb inventory and host process inventory confirm only dedicated API31 emulator running."
+      },
+      "isolated": {
+        "enabled": false,
+        "verifiedBy": "Ordinary General settings toggle grey/off after approved click",
+        "observedUtc": "2026-10-30T14:39:03.146Z",
+        "restorationRequired": true
+      },
+      "restored": {
+        "enabled": true,
+        "verifiedBy": "Ordinary General settings toggle visibly green/on after approved restoration click",
+        "observedUtc": "2026-10-30T14:41:56.931Z",
+        "matchesOriginal": true,
+        "hostClipboardRead": false,
+        "androidClipboardPermissionsChanged": false,
+        "defenderChanged": false
+      },
+      "onlyEmulatorDuringIsolation": {
+        "serial": "emulator-5590",
+        "qemuProcessCount": 1,
+        "pid": 13056
+      },
+      "scope": "Conservatively emulator-client-wide; API25 booted only after restoration.",
+      "methods": [
+        "com.gem.keeppeer.VaultVerificationTest#keyboardSelectionCopyExpiresAndBackgroundReturnClearsOwnedClip",
+        "com.gem.keeppeer.VaultVerificationTest#touchMenuCutUsesSensitiveClipboardBoundary"
+      ],
+      "result": {
+        "expected": 2,
+        "started": 2,
+        "executed": 2,
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 58.101,
+        "expiryMs": 30056,
+        "finalResult": "OK (2 tests)",
+        "finalCode": -1,
+        "exitCode": 0,
+        "log": "shell-631.log",
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "fde7e6ce34566c3f121f4b576cf7af0fffaf6184b2ce5dbeacb582df433684df",
+        "serial": "emulator-5590",
+        "api": 31,
+        "assertionsUnchanged": true,
+        "sharingDisabled": true
+      },
+      "assertionsAndProductionClipboardUnchanged": true,
+      "freshSharingReviewRejection": false,
+      "hostClipboardValueReadOrExported": false,
+      "windowsClipboardExplicitlyChanged": false,
+      "permissionsAppOpsDefenderSecurityChanged": false
+    },
+    "liveObservation": {
+      "device": "emulator-5590",
+      "app": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+      "transitionUtc": "2026-10-30T15:31:08.191Z–15:31:10.172Z",
+      "settledUtc": "2026-10-30T15:31:22.014Z",
+      "observation": "Normal revealed draft/IME before overview; redacted app surface then wallpaper during transition; settled own card wallpaper-only, no title/sample/entry or IME content. Four discrete observations, not continuous frame proof.",
+      "backReturnUtc": "2026-10-30T15:31:51.354Z",
+      "backReturn": "Same unsaved title/revealed sample visible normally; keyboard hidden; draft cancelled without save.",
+      "notProof": "Earlier occluded editor/blank own-test harness observations are not Recents protection proof.",
+      "limits": "Discrete desktop live UI samples on dedicated provider, not continuous every-frame/physical/every-OEM evidence. Own app/test tasks only."
+    },
+    "realPerUse": {
+      "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+      "result": "Existing native biometric prompt unlocked normal synthetic vault with existing enrolled fingerprint; existing synthetic entry retained. Separate from3native Bio methods passing in626.",
+      "newEnrollmentOrWrapperSetup": false
+    },
+    "collectionError": "An earlier blind synthetic fixture unlock sequence reached system search because the fixture was already unlocked. Stopped; credential value omitted. Not a personal credential or host clipboard collection. No unrelated card browsing; not counted as protection evidence.",
+    "approvalServiceHistory": {
+      "historicalRejections": "Prior biometric and sharing-toggle rejections remain unchanged in their historical objects. New explicit sharing approval was successfully executed without a fresh rejection.",
+      "newFinalRerunRejection": {
+        "action": "Combined KEYCODE_WAKEUP + KEYCODE_MENU on verified disposable API31",
+        "reviewResult": "Rejected due to unacceptable risk",
+        "exactReason": "The combined wake/menu input may bypass the emulator keyguard; that specific unlock approach is not explicitly authorized, and prior instructions caution against blind unlock input.",
+        "executed": false,
+        "workaround": false,
+        "finalTestApk": "6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433",
+        "nativeRerun": "not started",
+        "expected": 1,
+        "started": 0,
+        "executedTests": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": null,
+        "finalNativeResult": null,
+        "finalNativeCode": null,
+        "shellExitCode": null
+      }
+    },
+    "acceptanceMatrix": [
+      {
+        "id": "C1–C4 / A1–A2",
+        "requirement": "Centralized authenticated vault; vetted API24/25 KDF; AEAD metadata/device binding; actual SQLCipher; failure preservation",
+        "result": "COVERED",
+        "evidence": "15 recorded JVM tests including published PBKDF2/Unicode vectors, roundtrip/wrong-password/tamper, fresh salts/nonces/same DB key; current-core22/22 on each API24/25/31 include actual Keystore, SQLCipher wrong-key/plain-SQLite/schema/reopen checks and guard/writes/failures. Exact hashes and times retained in original report objects."
+      },
+      {
+        "id": "C5–C6",
+        "requirement": "Explicit synthetic legacy reset; confirmed setup/warnings; atomic same-key master-password change",
+        "result": "COVERED",
+        "evidence": "Current-core selected native groups include legacy cancel/confirmed isolated reset, validation, password change/restart/wrong password, failed replacement/device key and repository revocation. No real-vault migration/reset. Phase3 export nudge only."
+      },
+      {
+        "id": "C7 / A3",
+        "requirement": "Secure windows; screenshot/recording/dialog/recents privacy; cold launch, rotation, timeouts, screen/manual lock and secret/repository revocation",
+        "result": "PARTIAL — corrected API31 window/privacy evidence; final affected compatibility fixture not fully verified",
+        "evidence": "Current actual OS Recents regression1/1 plus sampled final transition/settled draft and actual-dialog live-card redaction; new valid13169-byte protected dialog PNG. Home/grace/60.068s expiry/Back and fresh screen-lock under minute grace verified. Rotation/lifecycle pass on API31/API25. Earlier control/recording/process-death/real5minute evidence retains original scope. No every-frame/every-OEM/physical claim. Corrected production app1c3adda7 has full native WindowRegistrationTest1/1,23.728s at test1c2fa358; ordinary revealed-draft direct Recents samples/settled own card concealed and Back retained draft. API25 final Window regression0pass/1fail,19.751s at task return; final API31 fixture rerun notstarted after wake/menu review rejection. Earlier screenshot/recording/hardware scopes are unchanged."
+      },
+      {
+        "id": "C8 / A3",
+        "requirement": "Central sensitive clipboard,30s expiry, background/lock clearing/retry, newer unrelated replacement preservation",
+        "result": "COVERED under explicitly approved controlled sharing condition",
+        "evidence": "New user approval: Approve temporary isolation and restore. Only the2unchanged named methods executed with sharing off on the sole dedicated API31 emulator:2/2pass,0fail/skip,58.101s,expiry30056ms,shell-631.log,app1c3adda7/testfde7e6ce. Original enabled preference restored and independently verified. No host clipboard value read/exported, no permission/AppOps/security changes. Earlier uncontrolled failures and review rejection remain history."
+      },
+      {
+        "id": "C9 / A3",
+        "requirement": "Per-use real CryptoObject biometric wrapping/unlock and password fallback under errors/invalidation/disable/re-enable",
+        "result": "COVERED with provider/artifact limits",
+        "evidence": "Explicit approved3/3 at143.002s remains closed; actual API31 per-use encrypt/decrypt/marker completion, genuine enrollment1→2 KeyPermanentlyInvalidatedException and retained entry/password fallback. Older API25 native failed-scan/retry/lockout/cancel/rotation/Home/screen-lock/disable-reenable evidence retained; API25 non-invalidation remains a provider limit, not relabeled pass. Current final API31 approved3methods passed within8-test group; real per-use encrypt/decrypt/cancel/unmatched/retry/password-entry fallback verified. API25 enrollment-dependent method skipped for strong enrollment unavailable; not a pass. On app1c3adda7, approved3methods passed within shell-626's4pass/2fail group116.964s; real normal-app per-use unlock with existing synthetic enrollment/entry was separately observed. No new enrollment or personal operation."
+      },
+      {
+        "id": "C10 / A3",
+        "requirement": "In-memory-only sensitive drafts; no saved-state restoration; authenticated saved-entry IDs and Phase3 picker plan",
+        "result": "COVERED",
+        "evidence": "Current-core rotation/reveal/cancel and lifecycle revocation plus actual historical API25 process-death/unsaved-draft/screen-lock checks; source saved-state boundary unchanged. Picker behavior is documented future Phase3 plan, not a Phase2 feature or new test gate. Corrected LiveRecents fixture restores original timeout and locks in finally; lifecycle then passed in635/643. Rotation passed in626. No production state/draft/authentication policy change."
+      },
+      {
+        "id": "A4 / constraints",
+        "requirement": "Relevant tests, debug assembly/lint; minSdk24/offline/backup/permission constraints; honest limits and disabled release",
+        "result": "Host constraints COVERED; affected native verification INCOMPLETE",
+        "evidence": "Final app/test assembly and lint passed,0errors14warnings; current app1c3adda7/test6369b611. Final API25 full Window check failed task return, and final API31 Window rerun was notstarted following preparatory wake/menu review rejection. Earlier individual passes retain exact test hashes and failed groups. No broad22matrix/KDF/SQLCipher rerun. Release disabled,Phase3 unstarted."
+      }
+    ],
+    "scanReport": {
+      "source": "Current user instruction reporting originating review chat",
+      "date": "2026-10-30",
+      "exactTime": null,
+      "text": "Full scan finished; no threats or new alerts.",
+      "independentlyInspected": false,
+      "falsePositiveVerdict": false,
+      "classificationOfOldDetection": "unknown; retained as historical security note, separate from Android functional acceptance",
+      "settingsChanged": false
+    },
+    "originalVaultUserDecision": {
+      "recordedAtDate": "2026-10-30",
+      "source": "Explicit current user instruction",
+      "originalEntries": "disposable test entries",
+      "recoveryRequested": false,
+      "recoveryPriorityQuestion": "resolved by user decision",
+      "cause": "unknown",
+      "recovered": false,
+      "deletionResetRekeyAuthorized": false,
+      "preservedFiles": "Retain unchanged; not accessed in this continuation.",
+      "meaning": "Closes requested recovery work only; not evidence of cause, restored entries or permission to delete/reset/rekey any personal vault or preservation material."
+    },
+    "limits": [
+      "Final API25 task-return fixture failure not a pass and not by itself a demonstrated production compatibility defect.",
+      "Final API31 test-package Window rerun not started after explicit new preparatory input rejection; no workaround.",
+      "Earlier screenshot/recording/physical/hardware-keyboard/provider limits retain original binary/timeline scopes; no capture bypass/retry or invented universal gate.",
+      "No clean-scan independent inspection or historical Defender false-positive attribution."
+    ],
+    "previousAggregate": {
+      "outcome": "incomplete",
+      "summary": "Direct live-current-task Recents correction verified on failing disposable API31: observed focus loss while RESUMED/top-resumed drives public whole-window redaction for Activity/app-owned dialogs and IME hiding, separately from unchanged session/auth cancellation. Final appf74c15d03e76d04da4a3e6d30b58fe77a54114fd95caf8404010cc18b674dd37,test691f1b4c0144a70e5badfa1d3a016dccb3e7ce2d62aea1193271c66897302992. Actual Recents regression1/1,45.339s. Affected API31 group6passed/2clipboard failures/0skipped,226.910s; approved biometric3/3, rotation/lifecycle/timeouts passed. Two isolated clipboard retries each0pass/2fail; an initially owned label changed to host clipboard. Sharing-toggle change rejected and remains unapproved/unchanged. API25 focused compatibility2pass/0fail/1enrollment skip,22.008s. Final live draft/dialog card concealed; return/Home/Back/grace/60.068s expiry and fresh actual screen-lock under minute grace verified. Real per-use encryption/decryption/cancel/unmatched/retry retained the synthetic entry. App/test assembly/lint PASS,0errors14warnings. All original22/22 and143.002s class-run identities and historical failures/reverted exclusion trial retained. Recovery closed by disposable-entry decision; cause unknown; personal/preserved material untouched. Defender user clean-scan report remains uninspected, historical classification unknown. Phase2 incomplete for controlled clipboard verification only; release disabled,Phase3 unstarted.",
+      "unresolvedIssues": [
+        "Controlled verification of keyboardSelectionCopyExpiresAndBackgroundReturnClearsOwnedClip and touchMenuCutUsesSensitiveClipboardBoundary remains outstanding. Current runs failed with emulator host sharing enabled; an owned label was replaced by host clipboard. Automatic review rejected disabling that toggle for lack of explicit setting authorization. Await explicit approval for only that synthetic-emulator setting and rerun only these2unchanged checks, or retain their failures/limitation. No live-Recents observation remains open on tested API31."
+      ],
+      "deviceChecks": "liveRecentsCorrection is current for appf74c15d03e76d04da4a3e6d30b58fe77a54114fd95caf8404010cc18b674dd37/test691f1b4c0144a70e5badfa1d3a016dccb3e7ce2d62aea1193271c66897302992. Historical objects retain original scopes. Live own-card redaction verified; current clipboard regression verification unresolved; API25 has2passes/1enrollment skip. Personal/preserved material untouched,release disabled,Phase3 unstarted.",
+      "checkCount": 74
+    },
+    "release": "disabled",
+    "phase3": "unstarted",
+    "documentation": "docs/phase-2-window-lifecycle-clipboard.md"
   }
 }

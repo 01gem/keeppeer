@@ -13,7 +13,7 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
 class BiometricVault(private val context: Context, private val alias: String = "keeppeer.biometric.v1") {
-    private val file = AtomicEnvelopeFile(File(context.noBackupFilesDir, "biometric-envelope.bin"))
+    private val file by lazy { AtomicEnvelopeFile(File(context.noBackupFilesDir, "biometric-envelope.bin")) }
     private fun store() = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
     fun availabilityCode() = BiometricManager.from(context).canAuthenticate(
         BiometricManager.Authenticators.BIOMETRIC_STRONG)

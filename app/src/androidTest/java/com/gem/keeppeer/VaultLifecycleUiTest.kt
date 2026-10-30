@@ -14,6 +14,7 @@ class VaultLifecycleUiTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @Test fun backgroundAndManualLockRemoveDraftsAndRevokeRepository() {
         val session = (compose.activity.application as KeeppeerApplication).container.session
+        compose.waitUntil(30_000) { session.state.value.stage != VaultStage.CHECKING }
         compose.runOnUiThread {
             if (session.state.value.stage == VaultStage.FIRST_RUN)
                 session.setup("synthetic test master".toCharArray(), "synthetic test master".toCharArray())
@@ -33,6 +34,7 @@ class VaultLifecycleUiTest {
         compose.onNodeWithText("Synthetic discarded on lock").assertDoesNotExist()
         try { runBlocking { repository.getById(1) }; fail("Revoked repository must fail") }
         catch (_: IllegalStateException) {}
+        compose.waitUntil(30_000) { session.state.value.stage == VaultStage.LOCKED }
         compose.onNodeWithText("Master password").performTextInput("synthetic test master")
         compose.onNodeWithText("Unlock", useUnmergedTree = true).performClick()
         compose.waitUntil(120_000) { session.state.value.access != null }

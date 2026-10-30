@@ -178,11 +178,16 @@ try {
 
 # --- Reviewable Source Discovery ---
 # Prunes excluded directories before traversal
-$excludedDirNames = @('.git', '.gradle', '.idea', 'build', 'captures', '.cxx', '.externalNativeBuild')
+$excludedDirNames = @('.git', '.gradle', '.idea', 'build', 'captures', '.cxx', '.externalNativeBuild',
+    'keeppeer-preservation', 'incident-payloads', 'private-captures', 'no_backup', 'no-backup')
 
 function Test-IsReviewableFile($fileItem, $relPath) {
     $name = $fileItem.Name
     $ext = [System.IO.Path]::GetExtension($name).ToLowerInvariant()
+
+    # Incident payloads/manifests remain private even if given a reviewable extension.
+    if ($name -like 'incident-payload*' -or $name -like 'private-capture*' -or $name -like 'preservation-manifest*') { return $false }
+    if ($name -like '*.db*' -or $name -like '*.sqlite*' -or $name -like 'vault-envelope.bin*' -or $name -like 'biometric-envelope.bin*') { return $false }
 
     # Explicit exclusions
     if ($name -like 'source-code.txt*' -or $name -like '*.tmp' -or $name -like '*.bak') { return $false }
@@ -221,6 +226,8 @@ $script:discoveredFiles = [System.Collections.Generic.List[PSCustomObject]]::new
 function Discover-Files($currentDir) {
     $entries = Get-ChildItem -LiteralPath $currentDir -Force -ErrorAction Stop
     foreach ($entry in $entries) {
+        # Never follow a link/junction into private captures or storage outside this tree.
+        if (($entry.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0) { continue }
         if ($entry.PSIsContainer) {
             if ($entry.Name -in $excludedDirNames) {
                 continue
@@ -418,6 +425,9 @@ foreach ($f in $includedFiles) {
 [void]$sb.AppendLine('  .git (VCS internals), .gradle (Gradle daemon/cache), .idea (IDE workspace/settings),')
 [void]$sb.AppendLine('  build (compiled outputs, intermediate artifacts), captures (profiler outputs),')
 [void]$sb.AppendLine('  .cxx/.externalNativeBuild (native build intermediates)')
+[void]$sb.AppendLine('  keeppeer-preservation, incident-payloads, private-captures, no_backup/no-backup (private incident/runtime material)')
+[void]$sb.AppendLine('  Reparse points (links/junctions are never followed)')
+[void]$sb.AppendLine('  incident-payload*, private-capture*, preservation-manifest*, *.db*, *.sqlite*, *-envelope.bin* (private payload/manifest families)')
 [void]$sb.AppendLine('Excluded files & patterns:')
 [void]$sb.AppendLine('  source-code.txt, source-code.txt.tmp, source-code.txt.bak, *.tmp, *.bak (snapshot artifacts)')
 [void]$sb.AppendLine('  local.properties, secrets.properties, signing.properties, keystore.properties (secrets)')

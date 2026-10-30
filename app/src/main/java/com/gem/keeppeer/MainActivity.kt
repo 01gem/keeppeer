@@ -17,19 +17,28 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.gem.keeppeer.security.*
 import com.gem.keeppeer.ui.lock.VaultRoot
+import com.gem.keeppeer.ui.privacy.PrivacyWindows
 import com.gem.keeppeer.ui.theme.KeeppeerTheme
 import javax.crypto.Cipher
 
 class MainActivity : FragmentActivity() {
     private val session: VaultSession get() = (application as KeeppeerApplication).container.session
+    internal val privacyWindows = PrivacyWindows()
+    private val dialogPrivacy = mutableMapOf<Fragment, () -> Unit>()
     private var prompt: BiometricPrompt? = null
     private var cancelPrompt: (() -> Unit)? = null
     // Legacy biometric prompts are app-owned DialogFragments with separate windows.
     // Set the flag in the start dispatch, before the first dialog frame is drawn.
     private val secureDialogs = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentStarted(manager: FragmentManager, fragment: Fragment) {
-            (fragment as? DialogFragment)?.dialog?.window
-                ?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+            (fragment as? DialogFragment)?.dialog?.window?.let { window ->
+                window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+                dialogPrivacy.remove(fragment)?.invoke()
+                dialogPrivacy[fragment] = privacyWindows.register(window)
+            }
+        }
+        override fun onFragmentStopped(manager: FragmentManager, fragment: Fragment) {
+            dialogPrivacy.remove(fragment)?.invoke()
         }
     }
     private val screenOff = object : BroadcastReceiver() {
@@ -40,6 +49,7 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        privacyWindows.register(window)
         supportFragmentManager.registerFragmentLifecycleCallbacks(secureDialogs, true)
         enableEdgeToEdge()
         ContextCompat.registerReceiver(this, screenOff, IntentFilter(Intent.ACTION_SCREEN_OFF),
@@ -62,6 +72,8 @@ class MainActivity : FragmentActivity() {
         cancelPrompt?.invoke()
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(secureDialogs)
         unregisterReceiver(screenOff)
+        privacyWindows.close()
+        dialogPrivacy.clear()
         super.onDestroy()
     }
     private fun authenticateBiometric(enroll: Boolean, cipher: Cipher, done: (BiometricResult) -> Unit) {

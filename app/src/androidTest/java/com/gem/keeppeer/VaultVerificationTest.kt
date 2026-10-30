@@ -38,11 +38,12 @@ class VaultVerificationTest {
         putString("stream", "\nKeeppeerVerification API=${Build.VERSION.SDK_INT} $value\n")
     })
     private suspend fun opened(session: VaultSession): VaultAccess = withTimeout(120_000) {
-        session.state.first { it.stage == VaultStage.UNLOCKED || it.stage == VaultStage.RECOVERABLE_ERROR }
+        session.state.first { it.stage in listOf(VaultStage.UNLOCKED, VaultStage.RECOVERABLE_ERROR, VaultStage.UNAVAILABLE) }
             .also { assertEquals(it.message, VaultStage.UNLOCKED, it.stage) }.access!!
     }
     private fun appSession(): VaultSession {
         val session = (compose.activity.application as KeeppeerApplication).container.session
+        compose.waitUntil(30_000) { session.state.value.stage != VaultStage.CHECKING }
         compose.runOnUiThread {
             session.foreground()
             if (session.state.value.stage == VaultStage.FIRST_RUN) session.setup(password, password)
@@ -65,11 +66,13 @@ class VaultVerificationTest {
                     KeeppeerTheme { VaultRoot(session) { _, _, _ -> error("No biometric prompt expected") } }
                 }
             }
+            compose.waitUntil(30_000) { session.state.value.stage != VaultStage.CHECKING }
             compose.onNodeWithText("Reset synthetic development data…").performClick()
             compose.onNodeWithText("Cancel").performClick()
             assertEquals(contents, legacy.readText())
             assertEquals(VaultStage.LEGACY_RESET, session.state.value.stage)
             assertFalse(context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists())
+            compose.waitUntil(30_000) { session.state.value.stage != VaultStage.CHECKING }
             compose.onNodeWithText("Reset synthetic development data…").performClick()
             compose.onNodeWithText("Delete synthetic data").performClick()
             compose.waitUntil(10_000) { session.state.value.stage == VaultStage.FIRST_RUN }
@@ -161,6 +164,7 @@ class VaultVerificationTest {
     @Test fun malformedEnvelopesAndMissingBiometricKeyPreservePasswordVault() = runBlocking {
         val context = SyntheticVaultContext(instrumentation.targetContext)
         val session = syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
+        awaitVaultInspection(session)
         main { session.foreground(); session.setup(password, password) }
         val access = opened(session)
         val id = access.repository.create(PasswordEntry(title = "Synthetic preservation", password = "synthetic entry"))
@@ -181,6 +185,7 @@ class VaultVerificationTest {
             assertArrayEquals(original, outer.read())
             assertEquals("synthetic entry", access.repository.getById(id)?.password)
             main { session.lock() }
+            awaitVaultInspection(session)
             // Malformed outer metadata/tag must preserve the exact stored bytes and deny access.
             for (damaged in listOf(original.copyOf(10),
                 original.copyOf().also { it[3] = 2 },

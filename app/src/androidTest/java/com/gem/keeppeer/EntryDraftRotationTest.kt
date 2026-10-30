@@ -31,6 +31,7 @@ class EntryDraftRotationTest {
 
     @Test fun draftSurvivesActivityRecreationAndCancelDoesNotWrite() {
         val session = (compose.activity.application as KeeppeerApplication).container.session
+        compose.waitUntil(30_000) { session.state.value.stage != VaultStage.CHECKING }
         compose.runOnIdle {
             assertEquals("Authentication fixture requires a resumed Activity",
                 Lifecycle.State.RESUMED, compose.activity.lifecycle.currentState)

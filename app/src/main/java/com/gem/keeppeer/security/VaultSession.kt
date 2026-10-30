@@ -11,9 +11,9 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import javax.crypto.Cipher
 
-enum class VaultStage { FIRST_RUN, LEGACY_RESET, LOCKED, UNLOCKING, UNLOCKED, RECOVERABLE_ERROR }
+enum class VaultStage { CHECKING, FIRST_RUN, LEGACY_RESET, LOCKED, UNLOCKING, UNLOCKED, RECOVERABLE_ERROR, UNAVAILABLE }
 data class VaultState(
-    val stage: VaultStage = VaultStage.LOCKED,
+    val stage: VaultStage = VaultStage.CHECKING,
     val access: VaultAccess? = null,
     val message: String? = null,
     val generation: Long = 0,
@@ -28,6 +28,7 @@ class VaultSession(
     namespace: String = "keeppeer",
     private val elapsedTime: () -> Long = SystemClock::elapsedRealtime,
     private val deviceLocked: () -> Boolean = { context.getSystemService(KeyguardManager::class.java).isKeyguardLocked },
+    private val initialization: VaultInitialization = FileVaultInitialization(context, namespace),
 ) {
     private val crypto = CryptoManager()
     private val envelopes = EnvelopeStore(context, "$namespace.storage.v1")
@@ -35,7 +36,7 @@ class VaultSession(
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private val gate = Mutex()
     private val preferences = context.getSharedPreferences("lock-settings", Context.MODE_PRIVATE)
-    private val mutableState = MutableStateFlow(initialState())
+    private val mutableState = MutableStateFlow(VaultState())
     val state = mutableState.asStateFlow()
     private var serial = 0L
     private var attempt: Job? = null
@@ -66,13 +67,43 @@ class VaultSession(
         // truncated active file as a new empty vault.
         return file.isFile && file.length() >= 4096
     }
-    private fun initialState(): VaultState = when {
-        envelopes.exists() -> VaultState(VaultStage.LOCKED)
-        context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists() ->
-            VaultState(VaultStage.RECOVERABLE_ERROR, message = "Vault metadata is missing. Existing files were preserved. Restore is unavailable; do not clear app data.")
-        legacyExists() ->
-            VaultState(VaultStage.LEGACY_RESET)
-        else -> VaultState(VaultStage.FIRST_RUN)
+    init { refreshState() }
+
+    /** Only called under the gate on IO; absence and an inspection failure are different results. */
+    private fun inspectedState(): VaultState {
+        val evidence = initialization.inspect()
+        return when {
+            evidence.passwordEnvelope -> VaultState(VaultStage.LOCKED)
+            evidence.encryptedEvidence -> unavailable()
+            evidence.legacy -> VaultState(VaultStage.LEGACY_RESET)
+            else -> VaultState(VaultStage.FIRST_RUN)
+        }
+    }
+    private fun unavailable() = VaultState(VaultStage.UNAVAILABLE, message =
+        "Vault unavailable. Prior initialization or uncertain storage was detected, but required vault material is missing or could not be inspected. Existing material was preserved. Do not clear app data or create another vault.")
+    private fun refreshState() {
+        val ticket = serial
+        mutableState.value = VaultState(VaultStage.CHECKING, generation = ticket)
+        attempt = scope.launch {
+            val checked = withContext(Dispatchers.IO) {
+                gate.withLock {
+                    try { inspectedState() }
+                    catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { unavailable() }
+                }
+            }
+            if (serial == ticket) mutableState.value = checked.copy(generation = ticket)
+        }
+    }
+    private suspend fun authenticationError(message: String): VaultState = withContext(Dispatchers.IO) {
+        gate.withLock {
+            try {
+                if (initialization.inspect().passwordEnvelope)
+                    VaultState(VaultStage.RECOVERABLE_ERROR, message = message)
+                else unavailable()
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { unavailable() }
+        }
     }
     fun setTimeout(value: LockTimeout) {
         mutableTimeout.value = value
@@ -112,8 +143,8 @@ class VaultSession(
         timer?.cancel()
         val access = state.value.access
         access?.revoke()
-        mutableState.value = initialState().copy(generation = serial)
         if (access != null) scope.launch(Dispatchers.IO) { gate.withLock { access.close() } }
+        refreshState()
     }
 
     /** User must explicitly confirm the development reset in the UI. Never touches encrypted files. */
@@ -123,21 +154,24 @@ class VaultSession(
             try {
                 withContext(Dispatchers.IO) {
                     gate.withLock {
-                        check(!envelopes.exists() && !context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists())
+                        val evidence = initialization.inspect()
+                        check(evidence.legacy && !evidence.encryptedEvidence && !evidence.passwordEnvelope)
                         context.deleteDatabase(EncryptedDatabaseProvider.LEGACY_NAME)
                         check(!legacyExists())
                     }
                 }
-                mutableState.value = initialState()
+                refreshState()
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) {
-                mutableState.value = VaultState(VaultStage.LEGACY_RESET, message = "Reset failed. No encrypted vault was changed.")
+                mutableState.value = unavailable().copy(generation = serial)
             }
         }
     }
 
     fun setup(password: CharArray, confirmation: CharArray) {
-        if (state.value.stage != VaultStage.FIRST_RUN) { password.fill('\u0000'); confirmation.fill('\u0000'); return }
+        if (state.value.stage != VaultStage.FIRST_RUN || attempt?.isActive == true) {
+            password.fill('\u0000'); confirmation.fill('\u0000'); return
+        }
         if (password.size < 12 || !password.contentEquals(confirmation)) {
             password.fill('\u0000'); confirmation.fill('\u0000')
             mutableState.value = VaultState(VaultStage.FIRST_RUN, message = "Use at least 12 characters and matching passwords.")
@@ -147,7 +181,7 @@ class VaultSession(
         authenticate(password, setup = true)
     }
     fun unlock(password: CharArray) {
-        if (state.value.stage !in listOf(VaultStage.LOCKED, VaultStage.RECOVERABLE_ERROR) || !envelopes.exists()) {
+        if (state.value.stage !in listOf(VaultStage.LOCKED, VaultStage.RECOVERABLE_ERROR)) {
             password.fill('\u0000'); return
         }
         authenticate(password, setup = false)
@@ -166,9 +200,11 @@ class VaultSession(
                         var db: com.gem.keeppeer.data.local.AppDatabase? = null
                         try {
                             if (setup) {
-                                check(!envelopes.exists())
-                                check(!context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists())
-                                check(!legacyExists())
+                                currentCoroutineContext().ensureActive()
+                                check(initialization.inspect().fresh) { "Setup eligibility changed" }
+                                // Durable intent precedes every key/envelope/database provisioning step.
+                                initialization.start()
+                                currentCoroutineContext().ensureActive()
                                 key = crypto.randomKey()
                                 // Commit recoverable metadata BEFORE creating the database.
                                 // An interrupted first creation never silently regenerates the key.
@@ -176,6 +212,7 @@ class VaultSession(
                                 val wrapped = crypto.wrap(password, key)
                                 try { envelopes.write(wrapped, creationPending = true) } finally { wrapped.fill(0) }
                             } else {
+                                check(initialization.inspect().passwordEnvelope)
                                 val record = envelopes.readRecord()
                                 createAllowed = record.creationPending
                                 try {
@@ -188,6 +225,8 @@ class VaultSession(
                             val record = envelopes.readRecord()
                             try { if (record.creationPending) envelopes.write(record.envelope) }
                             finally { record.envelope.fill(0) }
+                            initialization.complete()
+                            currentCoroutineContext().ensureActive()
                             result = VaultAccess(ticket, db, key, passwordAuthenticated = true)
                             key = null
                             db = null
@@ -200,9 +239,9 @@ class VaultSession(
                 } else if (serial == ticket) lock()
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) {
-                if (serial == ticket) mutableState.value = VaultState(
-                    if (setup && !envelopes.exists()) VaultStage.FIRST_RUN else VaultStage.RECOVERABLE_ERROR,
-                    message = "Could not unlock. Check your password. Damaged or missing device keys or vault files also prevent access. Existing data was preserved.")
+                val failed = authenticationError(
+                    "Could not unlock. Check your password. Damaged or missing device keys or vault files also prevent access. Existing data was preserved.")
+                if (serial == ticket) mutableState.value = failed.copy(generation = ticket)
             } finally {
                 password.fill('\u0000')
                 result?.let { abandoned -> abandoned.revoke(); withContext(NonCancellable + Dispatchers.IO) { abandoned.close() } }
@@ -356,13 +395,17 @@ class VaultSession(
             try {
                 withContext(Dispatchers.IO) {
                     gate.withLock {
-                        check(envelopes.exists() && activeDatabaseExists())
+                        check(initialization.inspect().passwordEnvelope && activeDatabaseExists())
                         val key = biometrics.decrypt(cipher)
                         try {
                             val db = BiometricDiagnostics.at(BiometricStage.DATABASE_OPEN) {
                                 EncryptedDatabaseProvider.open(context, key)
                             }
-                            result = VaultAccess(ticket, db, key, passwordAuthenticated = false)
+                            try {
+                                initialization.complete()
+                                currentCoroutineContext().ensureActive()
+                                result = VaultAccess(ticket, db, key, passwordAuthenticated = false)
+                            } catch (failure: Exception) { db.close(); throw failure }
                         } catch (failure: Exception) { key.fill(0); throw failure }
                     }
                 }
@@ -377,8 +420,10 @@ class VaultSession(
                 }
             } catch (error: Exception) {
                 val failure = BiometricDiagnostics.failure(BiometricStage.DECRYPT_FINAL, error)
-                if (serial == ticket) mutableState.value = VaultState(VaultStage.RECOVERABLE_ERROR,
-                    message = failure.message())
+                if (error !is CancellationException) {
+                    val failed = authenticationError(failure.message())
+                    if (serial == ticket) mutableState.value = failed.copy(generation = ticket)
+                }
                 done(failure)
                 if (error is CancellationException) throw error
             } finally {

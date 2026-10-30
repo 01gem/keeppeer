@@ -35,3 +35,13 @@ source-code.txt.bak
 *.db-wal
 vault-envelope.bin*
 biometric-envelope.bin*
+
+# Private incident payloads/captures never belong in this repository
+keeppeer-preservation/
+incident-payloads/
+private-captures/
+no_backup/
+no-backup/
+incident-payload*
+private-capture*
+preservation-manifest*

@@ -20,7 +20,7 @@ class VaultSecurityTest {
     private fun main(block: () -> Unit) = instrumentation.runOnMainSync(block)
     private val password get() = "synthetic master password".toCharArray()
     private suspend fun unlocked(session: VaultSession) = withTimeout(120_000) {
-        session.state.first { it.stage != VaultStage.UNLOCKING && it.stage != VaultStage.FIRST_RUN }
+        session.state.first { it.stage !in listOf(VaultStage.CHECKING, VaultStage.UNLOCKING, VaultStage.FIRST_RUN) }
             .also { assertEquals(it.message, VaultStage.UNLOCKED, it.stage) }.access!!
     }
     private fun fixture(): Pair<SyntheticVaultContext, VaultSession> {
@@ -28,6 +28,7 @@ class VaultSecurityTest {
         return context to syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
     }
     private suspend fun setup(session: VaultSession): VaultAccess {
+        awaitVaultInspection(session)
         main { session.foreground(); session.setup(password, password) }
         return unlocked(session)
     }
@@ -92,7 +93,7 @@ class VaultSecurityTest {
         try { access.repository.create(PasswordEntry(title = "Synthetic stale write", password = "synthetic")); fail("Stale writes must be revoked") }
         catch (_: IllegalStateException) {}
         val restarted = syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
-        assertEquals(VaultStage.LOCKED, restarted.state.value.stage)
+        assertEquals(VaultStage.LOCKED, awaitVaultInspection(restarted).stage)
         main { restarted.foreground(); restarted.unlock(password) }
         withTimeout(120_000) { restarted.state.first { it.stage == VaultStage.RECOVERABLE_ERROR } }
         assertNull(restarted.state.value.access)
@@ -110,6 +111,7 @@ class VaultSecurityTest {
         store.initializeStorageKey()
         store.write(crypto.wrap(password, key), creationPending = true)
         val resumed = syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
+        awaitVaultInspection(resumed)
         main { resumed.foreground(); resumed.unlock(password) }
         unlocked(resumed)
         val resumedKey = crypto.unwrap(password, store.read())
@@ -121,6 +123,7 @@ class VaultSecurityTest {
         delay(500)
         assertTrue(context.deleteDatabase(EncryptedDatabaseProvider.VAULT_NAME))
         val missing = syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
+        awaitVaultInspection(missing)
         main { missing.foreground(); missing.unlock(password) }
         withTimeout(120_000) { missing.state.first { it.stage == VaultStage.RECOVERABLE_ERROR } }
         assertFalse(context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists())
@@ -147,7 +150,9 @@ class VaultSecurityTest {
         main { session.background() }
         assertNull(session.state.value.access)
         for (timeout in listOf(LockTimeout.MINUTE, LockTimeout.FIVE_MINUTES)) {
-            main { session.foreground(); session.unlock(password) }
+            main { session.foreground() }
+            awaitVaultInspection(session)
+            main { session.unlock(password) }
             val access = unlocked(session)
             main { session.setTimeout(timeout); session.background() }
             elapsed += timeout.milliseconds - 1
@@ -158,6 +163,7 @@ class VaultSecurityTest {
             main { session.foreground() }
             assertNull(session.state.value.access)
         }
+        awaitVaultInspection(session)
         main { session.unlock(password) }
         unlocked(session)
         locked = true
@@ -171,7 +177,7 @@ class VaultSecurityTest {
         val legacy = context.getDatabasePath(EncryptedDatabaseProvider.LEGACY_NAME)
         legacy.writeText("synthetic plaintext prototype")
         val session = syntheticOnMain { VaultSession(context, SensitiveClipboard(context), context.namespace, deviceLocked = { false }) }
-        assertEquals(VaultStage.LEGACY_RESET, session.state.value.stage)
+        assertEquals(VaultStage.LEGACY_RESET, awaitVaultInspection(session).stage)
         assertTrue(legacy.exists())
         main { session.foreground(); session.setup(password, password) }
         assertTrue(legacy.exists())

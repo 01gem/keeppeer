@@ -53,7 +53,7 @@ private fun java.io.InputStream.readBytesBounded(limit: Int): ByteArray {
 /** Private no-backup storage + an independent, non-auth-bound Keystore key. */
 class EnvelopeStore(context: Context, private val alias: String = "keeppeer.storage.v1",
                     name: String = "vault-envelope.bin") {
-    private val file = AtomicEnvelopeFile(File(context.noBackupFilesDir, name))
+    private val file by lazy { AtomicEnvelopeFile(File(context.noBackupFilesDir, name)) }
     private fun keyStore() = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
     fun exists() = file.exists()
     fun initializeStorageKey() {

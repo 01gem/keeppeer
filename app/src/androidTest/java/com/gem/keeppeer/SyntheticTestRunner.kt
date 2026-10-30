@@ -12,6 +12,7 @@ import com.gem.keeppeer.security.SensitiveClipboard
 import com.gem.keeppeer.security.VaultSession
 import java.io.File
 import java.util.UUID
+import kotlinx.coroutines.flow.first
 
 /** API 24/25 ClipboardManager constructs a Handler on the requesting thread. */
 internal fun <T : Any> syntheticOnMain(block: () -> T): T {
@@ -19,6 +20,13 @@ internal fun <T : Any> syntheticOnMain(block: () -> T): T {
     var value: T? = null
     InstrumentationRegistry.getInstrumentation().runOnMainSync { value = block() }
     return checkNotNull(value)
+}
+
+/** Wait on the instrumentation thread; availability inspection must never block Android main. */
+internal fun awaitVaultInspection(session: VaultSession) = kotlinx.coroutines.runBlocking {
+    kotlinx.coroutines.withTimeout(30_000) {
+        session.state.first { it.stage != com.gem.keeppeer.security.VaultStage.CHECKING }
+    }
 }
 
 /** Instrumentation never uses a developer's production vault files or key aliases. */

@@ -52,6 +52,7 @@ class SecureCaptureTest {
                 compose.activity.lifecycle.currentState == androidx.lifecycle.Lifecycle.State.RESUMED &&
                     compose.activity.hasWindowFocus()
             }
+            compose.waitUntil(30_000) { session.state.value.stage != VaultStage.CHECKING }
             compose.runOnIdle {
                 session.foreground()
                 val password = "synthetic test master".toCharArray()

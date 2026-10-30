@@ -19,6 +19,7 @@ class BiometricEnrollmentTest {
     private val password get() = "synthetic test master".toCharArray()
     private fun setup(): VaultSession {
         val session = (compose.activity.application as KeeppeerApplication).container.session
+        compose.waitUntil(30_000) { session.state.value.stage != VaultStage.CHECKING }
         compose.runOnUiThread {
             session.foreground()
             if (session.state.value.stage == VaultStage.FIRST_RUN) session.setup(password, password)
@@ -50,7 +51,9 @@ class BiometricEnrollmentTest {
         }
         assertEquals(BiometricOutcome.SESSION_EXPIRED, withTimeout(120_000) { rejected.await() }.outcome)
         assertFalse(session.biometrics.enabled())
-        compose.runOnUiThread { session.lock(); session.unlock(password) }
+        compose.runOnUiThread { session.lock() }
+        compose.waitUntil(30_000) { session.state.value.stage != VaultStage.CHECKING }
+        compose.runOnUiThread { session.unlock(password) }
         compose.waitUntil(120_000) { session.state.value.access != null }
         try { assertArrayEquals(originalKey, requireNotNull(session.state.value.access).key) }
         finally { originalKey.fill(0) }

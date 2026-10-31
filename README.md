@@ -2,11 +2,11 @@
 
 An Android password keeper built with Kotlin, Jetpack Compose, and Material 3. The encrypted vault stays on-device and the app has no network permission. A user-selected SAF provider controls where plaintext CSV backups are stored, including possible remote destinations.
 
-**Phase 4 is implemented; verification remains incomplete for generator Copy ownership under the host clipboard bridge.** The failed assertion and safe diagnostic are retained in the report. Release remains disabled; Phase5 is unstarted.
+**Phase 4 is complete for the requested scope.** The original remaining generator Copy journey passed1/1 in36.658s with ownership, exact candidate and sensitive marking confirmed. Explicitly approved temporary clipboard isolation was restored and visibly verified at its originalON state. Earlier failures and artifact limits remain in the report. Release remains disabled; Phase5 is unstarted.
 
 Phase 4 adds the secure generator with explicit draft replacement, stored favorites, typed category/search filters, persisted System/Light/Dark appearance, working settings/About and resource-based accessibility polish. Current outcome and exact verification are in the [Phase 4 report](docs/reports/phase-4-report.json) and [phase status](docs/phase-status.md). See the [behavior contract](docs/phase-4-behavior.md) for generator pools and lifecycle/filter rules. Release stays disabled and [Phase 5](docs/phase-5-checklist.md) is unstarted.
 
-The current Phase 4 review command is `powershell -NoProfile -File ./tools/export-source-code.ps1 -Phase 4 -Outcome incomplete`, matching the structured report. Upload the generated source-code.txt manually to the originating review chat; never include vault CSVs.
+The current Phase 4 review command is `powershell -NoProfile -File ./tools/export-source-code.ps1 -Phase 4 -Outcome complete`, matching the structured report. Upload the generated source-code.txt manually to the originating review chat; never include vault CSVs.
 
 ## Accepted Phase 3 baseline (historical)
 

@@ -1,9 +1,9 @@
 {
   "phase": 4,
-  "outcome": "incomplete",
+  "outcome": "complete",
   "implementationComplete": true,
-  "currentRequiredGap": "Controlled native generator Copy ownership/exact-value verification remains incomplete. After successful service feedback the final diagnostic observed label classification host_clipboard and sensitive marker false; the ownership assertion failed. Replacement payload was not read. Host-sharing/security changes are outside this task and were not made.",
-  "summary": "Phase4 generator, atomic favorites, reactive typed category/search filters, DataStore appearance, working settings/About and resource/accessibility/input polish implemented. 69 JVM tests pass; final debug/AndroidTest packaging and lint pass0errors14warnings. 16 distinct native methods have passing evidence across exact scoped runs, including11/11 affected security/CRUD/window/real-SAF regressions, favorites/large-font layout, generator state excluding Copy and two theme processes. Full generator Copy still fails with a host-labelled replacement, and remains failed. Release disabled; Phase5 unstarted. No distribution.",
+  "currentRequiredGap": null,
+  "summary": "Phase4 complete for the requested scope. Generator, atomic favorites, reactive typed category/search filters, DataStore appearance, settings/About and accessibility/input polish are implemented. Original scoped evidence remains: 69 JVM passes; debug/AndroidTest packaging and lint pass; 16 distinct earlier native passes. The one remaining original generator Copy journey now passes 1/1 in36.658s with ownership/exact-candidate assertions intact and sensitive=true under explicitly approved temporary clipboard isolation; original sharing ON was visibly restored to ON. Earlier failed attempts remain unchanged in history. Release disabled; Phase5 unstarted; no distribution.",
   "checksScope": "Native completion is required and recorded; shell0/compilation/partial milestones do not count as pass. Distinct test APKs and unsuccessful attempts retain original identities. JVM subject sources remain unchanged after their final69-pass run; subsequent changes are presentation/input-provider/resources and native test drivers, separately packaged/linted/device-tested. This is not one clean16-test native execution or a whole-app/release-readiness claim.",
   "baseline": {
     "reviewedSnapshot": "2026-10-31 10:00:06 AM PHT (UTC+08:00)",
@@ -202,6 +202,17 @@
       "result": "PASS",
       "log": "shell-88.log",
       "details": "Exact serial/name/qemu/API/ABI guard then emulator kill acknowledged; emulator process shell-60 ended0. Registration remains listed by emulator -list-avds in shell-90; userdata not wiped/deleted. Only this new fixture stopped."
+    },
+    {
+      "name": "Approved bounded generator Copy verification and sharing restoration",
+      "result": "PASS",
+      "log": "shell-100.log",
+      "details": "One expected/started/completed/passed,0failed/skipped,36.658s,OK(1 test),native code-1,guard/outer exit0. Owned label, exact synthetic candidate and sensitive=true. Original sharingON -> verifiedOFF -> visibly restoredON in finally. Both host/installed APKs match supplied baseline; unchanged source at0edb8f3. Only named original method ran."
+    },
+    {
+      "name": "Bounded continuation fixture cleanup",
+      "result": "PASS",
+      "details": "After visibly verified sharing restoration and final installed hashes, exact unchanged guard verified serial/name/qemu/API/ABI/boot/unrestricted then acknowledged emu kill. Launcher completion and final empty device/process inventory/retained AVD registration verified separately. No wipe/deletion."
     }
   ],
   "nativeRuns": [
@@ -318,13 +329,52 @@
       "appSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
       "testSha256": "c71f00ee3ad813f2f2808cdea2142f819aeebbe2db37f876b0ea54127fddc0a5",
       "details": "FAIL retained: successful Copy service feedback followed by phase4_clip_label_classification=host_clipboard; phase4_clip_sensitive=false; phase4_clip_payload_checked=false. Original ownership assertion fails; exact copied payload assertion remains and is not reached. Host bridge interference is inferred from observed allowlisted label, not an independently inspected sharing toggle or replacement payload. No host sharing/security change, skip, mocked success or weakened assertion."
+    },
+    {
+      "name": "Approved isolated original generator Copy journey",
+      "log": "shell-100.log",
+      "selection": "com.gem.keeppeer.Phase4UiTest#generatorDraftThemeRotationCopyAndLockJourney",
+      "runner": "com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+      "command": "powershell -NoProfile -File ./tools/check-phase4.ps1 -Action Generator",
+      "result": "PASS",
+      "expected": 1,
+      "started": 1,
+      "completed": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 36.658,
+      "instrumentationCode": -1,
+      "nativeCompletion": "OK (1 test)",
+      "runnerShellExit": 0,
+      "guardScriptExit": 0,
+      "outerShellExit": 0,
+      "startUtc": "2026-10-31T06:55:07.8792957Z",
+      "endUtc": "2026-10-31T06:55:52.1622461Z",
+      "startPht": "2026-10-31 02:55:07 PM PHT (UTC+08:00)",
+      "endPht": "2026-10-31 02:55:52 PM PHT (UTC+08:00)",
+      "appSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+      "testSha256": "c71f00ee3ad813f2f2808cdea2142f819aeebbe2db37f876b0ea54127fddc0a5",
+      "sourceRevision": "0edb8f315252f90778f4b588f920e1a35a992b6a (clean at test time)",
+      "testSourceSha256": "3084054efe037d0068d8ecef23d70611fb89afa259fcd29b2fb7d3df35b88f66",
+      "runnerSourceSha256": "7fa5db3eb58aea2e26af1c65c90284884c9ede428176287ac271813ebcb4bf34",
+      "guardSourceSha256": "30f8dd2064c998dd102bb6ef5ef4fd278a9b8ba89ed4caf71fb09c3c0809abaf",
+      "installedAppSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+      "installedTestSha256": "c71f00ee3ad813f2f2808cdea2142f819aeebbe2db37f876b0ea54127fddc0a5",
+      "diagnostics": {
+        "labelClassification": "owned",
+        "payloadChecked": true,
+        "matchesCandidate": true,
+        "sensitive": true
+      },
+      "details": "Only this existing method ran. Original masked/revealed, rotation/regenerate, cancel/use, theme/draft/save/reopen, secure-dialog/IME, revoke/lock/unlock and background assertions all completed, including original ownership and exact-candidate Copy assertions. Synthetic payload read only after Keeppeer-owned label confirmation; no generated values, raw clips or sensitive UI dumps recorded. Sharing visibly OFF throughout test, restored visibly ON afterward. No production/test/guard change, build, install, retry, listener, permission/AppOps or payload workaround. This is not direct expiry or a repeat of earlier closed groups. The shell-87 18.106s failure remains unchanged; host bridging remains an inference rather than a confirmed provider diagnosis."
     }
   ],
   "nativeSummary": {
-    "distinctPassingMethods": 16,
-    "distinctRequiredMethodStillFailing": 1,
+    "distinctPassingMethods": 17,
+    "distinctRequiredMethodStillFailing": 0,
     "oneCleanCombinedRun": false,
-    "currentClipboardOwnershipPass": false,
+    "currentClipboardOwnershipPass": true,
     "currentDirectClipboardExpiryReverified": false
   },
   "jvmSuites": [
@@ -589,14 +639,12 @@
     "bootCompleted": 1,
     "guard": "tools/check-phase4.ps1 validates exact serial/name/qemu/API/ABI/boot/unrestricted policy before each install/run and stop; no unqualified connected-device Gradle task.",
     "data": "synthetic contexts/credentials only; no PIN, keyguard bypass, fingerprint enrollment, personal/retained AVD or original vault/candidate/preservation action.",
-    "sharing": "No host/emulator clipboard-sharing control changed or old rejected command replayed.",
+    "sharing": "Approved bounded continuation: original ON; isolated visibly OFF only for shell-100's original generator Copy method; restored and visibly verified ON at2026-10-31 02:56:10 PM PHT. Original no-change statement applies to earlier runs.",
     "stopped": true,
     "registrationAndDataRetained": true
   },
-  "deviceChecks": "16 distinct native methods passed across recorded scoped runs; one full generator Copy ownership method remains failed with safely classified host-labelled replacement. Only new API31 fixture used/stopped; no direct clip-expiry, hardware/real-biometric, manual TalkBack/palette/physical-provider/spreadsheet claim.",
-  "unresolvedIssues": [
-    "Required native generator clipboard ownership/exact-value verification remains open under observed host-labelled replacement. Existing failure/assertions retained, forbidden sharing changes not performed."
-  ],
+  "deviceChecks": "17 distinct native methods now have passing evidence across separate scoped runs. Final original generator Copy method1/1 in36.658s on exact guarded Phase4 AVD, with owned/exact/sensitive confirmation and verified original sharing restoration. Dedicated fixture alone stopped; registration/data retained. Earlier artifact limits remain; no direct expiry/hardware/real-biometric/manual TalkBack/palette/other-provider/spreadsheet claim.",
+  "unresolvedIssues": [],
   "verificationLimits": [
     "Manual TalkBack and manual visual palette/screenshot inspection were not performed; automated bounds/semantics and2.0 local font configuration are distinct.",
     "No current direct clip expiry/background hardware/OEM clipboard or physical keyboard re-verification. Host-labelled replacement is observed; its payload was not inspected.",
@@ -612,10 +660,45 @@
   },
   "sourceReview": {
     "path": "C:/Users/gemdu/AndroidStudioProjects/Keeppeer/source-code.txt",
-    "command": "powershell -NoProfile -File ./tools/export-source-code.ps1 -Phase 4 -Outcome incomplete",
+    "command": "powershell -NoProfile -File ./tools/export-source-code.ps1 -Phase 4 -Outcome complete",
     "timing": "Generate after this final report/docs/checks; actual timestamp/bytes are in the delivered artifact header and handoff.",
     "exporterChanged": false,
     "newEligibleTypes": false,
     "safeguards": "Existing sorted full inventory, matched BEGIN/END file boundaries, UTF8/temp validation, atomic replacement, exclusions and review-copy redactions reused. Snapshot, temp/previous copies, caches/Git/IDE/build/binaries/local credentials/runtime vaults/selected CSV/private captures/preservation/logs excluded. No automatic upload."
+  },
+  "boundedCopyContinuation": {
+    "approval": {
+      "date": "2026-10-31",
+      "answer": "Approve temporary isolation and restore",
+      "scope": "New Phase4 approval only: temporarily disable Windows-to-emulator clipboard sharing for the exact dedicated disposable Phase4 AVD, run only the failed generator Copy method, restore and verify original sharing. Does not derive from Phase2 approval or bypass an automatic rejection."
+    },
+    "reviewedSnapshot": {
+      "timestamp": "2026-10-31 02:41:02 PM PHT (UTC+08:00)",
+      "bytes": 1298957,
+      "sha256": "467fb98e6ce546b05b72e293d73663d46181df61e4a51d8dd6f69407ee7525f9",
+      "revision": "1515808 plus task work"
+    },
+    "actualStartingRevision": "0edb8f315252f90778f4b588f920e1a35a992b6a",
+    "workingTreeAtTest": "clean",
+    "reconciliation": "0edb8f3 commits the prior Phase4 task on1515808. Reviewed snapshot and both host APK hashes match the supplied baseline exactly; installed hashes match before/after test. Actual source and guard inspected. No rebuild/reinstall needed.",
+    "initialBootObservation": "Normal retained AVD boot initially had empty sys.boot_completed, so Verify rejected that early state. No install/test/settings operation occurred until subsequent guard passed qemu1/API31/x86_64/boot1/unrestricted. No credential prompt/input, wipe, reset, fingerprint/keyguard or lock-policy change.",
+    "sharing": {
+      "control": "Extended Controls > Settings > General > Enable clipboard sharing",
+      "scope": "Ordinary emulator client setting, treated as client-wide. Before isolation adb inventory contained only emulator-5556 and process inventory showed one emulator launcher/one qemu. No unrelated emulator was stopped or reconfigured.",
+      "original": "ON, visibly inspected",
+      "isolated": "OFF, visibly verified before test and again in finally afterward",
+      "restored": "ON, visibly verified",
+      "isolationActionUtc": "2026-10-31T06:54:55.071Z",
+      "restorationVerifiedUtc": "2026-10-31T06:56:10.192Z",
+      "isolationActionPht": "2026-10-31 02:54:55 PM PHT (UTC+08:00)",
+      "restorationVerifiedPht": "2026-10-31 02:56:10 PM PHT (UTC+08:00)",
+      "boundedIntervalSeconds": 75.121,
+      "restorationVerified": true,
+      "finally": "Finally cleanup reobserved OFF after native completion, restored original ON through the same ordinary toggle, and visibly verified ON before artifact collection/AVD stop.",
+      "hostClipboardContents": "Not read/copied/exported or explicitly changed; no host/unowned replacement payload inspected.",
+      "security": "No Android clipboard permissions/AppOps, Windows security/Defender, lock/fingerprint policy or unrelated setting changed. No automatic approval/security rejection occurred in this bounded action; old rejections remain history."
+    },
+    "sourceChanges": "Documentation/report only. Production, tests, guard and exporter unchanged. Earlier 69 JVM,11/11 affected and feature/theme results keep their original artifact scope.",
+    "remainingRequiredGap": null
   }
 }

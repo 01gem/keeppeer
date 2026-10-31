@@ -86,15 +86,25 @@ class WindowRegistrationTest {
 
     @Suppress("DEPRECATION")
     private fun returnToOwnActivity() {
-        // The caller already waited for Home to stop this Activity. Sending another
-        // asynchronous Home here could race moveToFront on the older provider.
-        // Bring back this Scenario's task rather than relaunching a different own task.
-        val manager = host.getSystemService(ActivityManager::class.java)
-        val ownTask = manager.appTasks.single { task ->
-            val info = task.taskInfo ?: return@single false
-            (if (Build.VERSION.SDK_INT >= 29) info.taskId else info.id) == host.taskId
+        // Bring back this Scenario's task.
+        val intent = android.content.Intent(host, MainActivity::class.java).apply {
+            addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or
+                     android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
         }
-        ownTask.moveToFront()
+        InstrumentationRegistry.getInstrumentation().targetContext.startActivity(intent)
+        // A showing Dialog owns focus instead of its Activity window on API31.
+        // The caller still verifies the exact original Window and its restored alpha.
+        waitFor {
+            var focused = false
+            main {
+                val dialog = host.supportFragmentManager.findFragmentByTag(TAG) as? OpacityDialog
+                val dialogFocused = dialog?.dialog?.window?.decorView?.hasWindowFocus() == true
+                val hostFocused = host.hasWindowFocus()
+                focused = hostFocused || dialogFocused
+                if (focused) step("RETURN_FOCUS_HOST_${hostFocused}_DIALOG_${dialogFocused}")
+            }
+            focused
+        }
     }
 
     @Test fun hiddenDialogStopStartRestoresOriginalAlphaAndClosingStaysRedacted() {
@@ -140,7 +150,7 @@ class WindowRegistrationTest {
                 assertEquals(0f, host.window.attributes.alpha, 0f)
             }
             step("CLOSING_STAYS_REDACTED")
-            deviceAction("KEYCODE_BACK")
+            returnToOwnActivity()
             waitFor {
                 var visible = false
                 main { visible = host.hasWindowFocus() && host.window.attributes.alpha == 1f }

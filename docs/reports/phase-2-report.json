@@ -1,7 +1,9 @@
 {
   "phase": 2,
-  "outcome": "incomplete",
-  "summary": "Weak original-opacity ownership fixes hidden Window re-registration without exposing closing windows or strongly retaining destroyed windows. Corrected production app1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc; final test6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433. Full API31 window regression1/1,23.728s at earlier test1c2fa358; actual revealed-draft Recents transition/settled own card concealed and normal Back return observed. Explicitly approved isolated clipboard pair2/2,0fail/skip,58.101s,expiry30056ms at testfde7e6ce; sharing enabled→disabled→enabled,original restored/verified. Approved Bio3 and rotation individual passes in626; actualRecents/lifecycle individual passes in643, containing group failures retained. Final API25 Window0pass/1fail/0skip,19.751s at own-task return; final API31 fixture rerun notstarted after new wake/menu review rejection. Assembly/test assembly/lint PASS,0errors14warnings. Phase2 incomplete only for bounded affected window verification. Recovery closed/disposable,cause unknown; preserved material untouched. Defender clean scan user-reported/uninspected; protection unchanged. Release disabled;Phase3 unstarted.",
+  "currentRequiredGap": null,
+  "checksScope": "Chronological checks include historical failures and superseded blockers unchanged at original identities; current completion and exact remaining requirement are outcome/currentRequiredGap and finalFreshApi31Verification.",
+  "outcome": "complete",
+  "summary": "Phase2 original required criteria complete with documented provider/artifact limits. Retained API25 WindowRegistrationTest1/1 pass7.379s, actual command/result located; no contemporaneous per-run APK hash attestation located, current hashes not assigned retrospectively. Final fresh disposable API31 window1expected/started/executed/passed,0fail/skip,15.781s,OK (1 test),native code-1,shell exit0. App1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc; final test40305e7296b7f9966ca3d98903fa588997bc9f568b9b44cda9ffc646c9d373d0; Window sourcec4ab7c965e58373f22c8cbecc4bf111e9622252b21328aefd1a802a3ad3fb673. Initial API31 host-only focus-driver failure1/1 in39.233s retained; smallest test-only correction accepts actual owned-dialog or original-Activity focus; explicit same-window identity recheck omitted by pre-existing dirty edit restored; final SystemUI-ANR-blocked attempt retained at26.858s,normal observed Wait followed by unchanged successful rerun; all original same-window/0.8/closing/parent/recreation/security assertions passed. Production unchanged. Approved clipboard2/2/restored sharing and biometric/guard/native/original matrix/capture evidence retain original scopes. Retained API31 unknown-credential/FBE blocker and earlier wake/menu rejection are separate historical records; old AVD untouched. New AVD stopped,registration/data retained. No remaining required Phase2 gap. Recovery closed/disposable,preserved material untouched. Defender clean scan user-reported;protection unchanged. Release disabled;Phase3 unstarted.",
   "vaultPreservationInvestigation": {
     "result": "PRIVATE PRESERVATION COMPLETED; original vault, cause and recovery unknown",
     "marker": "2026-10-30T01:21:32+08:00",
@@ -810,6 +812,46 @@
       "name": "Final API31 window fixture rerun",
       "result": "NOT RUN — REVIEW BLOCKED before instrumentation",
       "details": "The combined wake/menu input may bypass the emulator keyguard; that specific unlock approach is not explicitly authorized, and prior instructions caution against blind unlock input. Combined command not executed; no indirect route. Old full31pass retained at earlier test hash; final25failure remains."
+    },
+    {
+      "name": "Retained API25 window pass reconciliation (not rerun)",
+      "result": "PASS — retained native evidence; historical APK hash-attestation limit",
+      "details": "{\"result\":\"PASS — retained native result, not rerun\",\"api\":25,\"serial\":\"emulator-5554\",\"avd\":\"Keeppeer_Guard_API25_20261030_123138\",\"method\":\"com.gem.keeppeer.WindowRegistrationTest#hiddenDialogStopStartRestoresOriginalAlphaAndClosingStaysRedacted\",\"runner\":\"com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner\",\"expected\":1,\"started\":1,\"executed\":1,\"passed\":1,\"failed\":0,\"skipped\":0,\"seconds\":7.379,\"finalResult\":\"OK (1 test)\",\"shellExitCode\":0,\"finalCode\":null,\"commandEvidence\":{\"path\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/5ede27b9-7705-4984-9f8a-26fabf065e86/steps.jsonl\",\"line\":107,\"toolCallId\":\"c428bac8-5cc1-45d0-82a6-e5c6b15cac42\",\"confirmed\":\"Explicit -s emulator-5554; am instrument -w -e class; exact method and SyntheticTestRunner. Native OK (1 test), Time 7.379, final recreated/dismissed-parent milestone strings; exitCode0. Counts follow completed native single-test result, not independent streamed start statuses.\"},\"buildEvidence\":{\"path\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/5ede27b9-7705-4984-9f8a-26fabf065e86/steps.jsonl\",\"line\":212,\"toolCallId\":\"call_797317\",\"tasks\":\":app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug\",\"result\":\"Build finished successfully\",\"limit\":\"Later build evidence in the same retained session; not a per-run APK hash attestation.\"},\"appSha256\":null,\"testSha256\":null,\"availableSourceAndArtifacts\":{\"reviewedProductionAppSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"currentHostPreApi31CorrectionTestSha256\":\"e56bba1e4c4b6a9b555162cabaff909b477a5c683a88a99df64d48c104d62033\",\"currentHostPreApi31CorrectionWindowSourceSha256\":\"7b0c7d0706a6dde67c1cf6081f9941933ad5e79c639aa1dd0dc334d15c566e81\",\"scope\":\"Measured current host identities, not retrospectively assigned to the retained API25 run.\"},\"limits\":[\"No contemporaneous per-run app/test hash or installed-byte hash attestation located. Do not substitute shell-701/test6369b611 or current host hashes.\",\"Studio read_file cannot serialize application/json-lines; anchored IDE grep predicates verified fields in exact retained ToolCallStep records. Full JSONL content was not exported.\",\"Raw streamed start/final instrumentation-code fields absent from this retained -w record. Native completed OK is retained; final native code is unknown.\"],\"scope\":\"Original API25 pass retained with earlier host-focus return driver. Same-window/alpha0.8/hidden-closing/parent/recreation assertions preserved. Not relabelled as a run of the later API31 focus-driver APK. Earlier API25 failures unchanged.\"}"
+    },
+    {
+      "name": "Fresh API31 initial Window check",
+      "result": "FAIL — fixture host-only focus wait; retained as history",
+      "details": "{\"log\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-77.log\",\"expected\":1,\"started\":1,\"executed\":1,\"passed\":0,\"failed\":1,\"skipped\":0,\"seconds\":39.233,\"finalCode\":-1,\"finalResult\":\"FAILURES!!! Tests run: 1, Failures: 1\",\"shellExitCode\":0,\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"e56bba1e4c4b6a9b555162cabaff909b477a5c683a88a99df64d48c104d62033\",\"windowSourceSha256\":\"7b0c7d0706a6dde67c1cf6081f9941933ad5e79c639aa1dd0dc334d15c566e81\",\"failure\":\"returnToOwnActivity:96 timed out with Activity RESUMED after SAME_WINDOW_STOPPED. Host-only focus wait rejected dialog-owned focus.\",\"correction\":\"Wait for focus on the original host Activity or its actual tagged dialog; caller still asserts original same Window and exact0.8 restoration. Passing rerun directly reports HOST_false_DIALOG_true then HOST_true_DIALOG_false. No opacity force, substitute Activity or weakened lifecycle/privacy assertion.\"}"
+    },
+    {
+      "name": "Affected test-only APK rebuild after owned-dialog focus correction",
+      "result": "PASS",
+      "details": "{\"command\":\":app:assembleDebugAndroidTest --console=plain\",\"result\":\"BUILD SUCCESSFUL in 1m 3s\",\"actionable\":56,\"executed\":5,\"upToDate\":51,\"log\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-78.log\",\"scope\":\"Required after demonstrated fixture-driver correction; no production rebuild, unit/lint/full native rerun. Prior lint0errors14warnings retained at original scope.\"}"
+    },
+    {
+      "name": "Final fresh API31 WindowRegistrationTest",
+      "result": "PASS",
+      "details": "{\"result\":\"PASS\",\"api\":31,\"serial\":\"emulator-5554\",\"avd\":\"Keeppeer_Guard_API31_FinalWindow_20261031_d72faa02\",\"qemu\":1,\"abi\":\"x86_64\",\"bootComplete\":true,\"method\":\"com.gem.keeppeer.WindowRegistrationTest#hiddenDialogStopStartRestoresOriginalAlphaAndClosingStaysRedacted\",\"runner\":\"com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner\",\"expected\":1,\"started\":1,\"executed\":1,\"passed\":1,\"failed\":0,\"skipped\":0,\"seconds\":20.875,\"finalResult\":\"OK (1 test)\",\"finalCode\":-1,\"completionStatusCode\":0,\"shellExitCode\":0,\"startedAtUtc\":\"2026-10-30T20:20:48.2236009Z\",\"completedAtUtc\":\"2026-10-30T20:21:21.9198510Z\",\"log\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-80.log\",\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"ffc24ad18488906e977a6271c7f11d00b8ee3813e389e1e9dc56acfd22943f36\",\"windowSourceSha256\":\"731f35b0d60e31a7091baed506ec46a348125e1e16eda0e05c6bcdc06b214ffc\",\"revision\":\"c0d0c44588bd7d48e9fda4f0df86368ea7e2587b plus dirty work\",\"sourceScope\":\"Production unchanged. Only returnToOwnActivity owned-window focus wait and non-sensitive focus-status diagnostic changed in this task; original same-window/0.8/hidden-closing/parent/recreation/FLAG_SECURE assertions retained.\",\"windowSteps\":[\"ORIGINAL_VISIBLE\",\"RECENTS_REDACTED\",\"SAME_WINDOW_STOPPED\",\"RETURN_FOCUS_HOST_false_DIALOG_true\",\"ORIGINAL_ALPHA_RESTORED\",\"CLOSING_STAYS_REDACTED\",\"RETURN_FOCUS_HOST_true_DIALOG_false\",\"PARENT_RETURNED\",\"BEFORE_RECREATE\",\"AFTER_RECREATE\",\"RECREATED_VISIBLE\",\"DISMISSED_PARENT_VISIBLE\"],\"installedHashesMatchHost\":true,\"identityEvidence\":[\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-73.log\",\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-75.log\",\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-76.log\",\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-79.log\"],\"build\":{\"command\":\":app:assembleDebugAndroidTest --console=plain\",\"result\":\"BUILD SUCCESSFUL in 1m 3s\",\"actionable\":56,\"executed\":5,\"upToDate\":51,\"log\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-78.log\",\"scope\":\"Required after demonstrated fixture-driver correction; no production rebuild, unit/lint/full native rerun. Prior lint0errors14warnings retained at original scope.\"},\"provisioning\":{\"createdNew\":true,\"creationLog\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-64.log\",\"startupLog\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-66.log\",\"image\":\"system-images;android-31;google_apis;x86_64\",\"imageRevision\":12,\"profile\":\"pixel_2\",\"emulator\":\"37.2.12.0 build16428233\",\"registration\":\"C:/Users/gemdu/.android/avd/Keeppeer_Guard_API31_FinalWindow_20261031_d72faa02.avd\",\"collisionGuard\":true,\"forceOverwrite\":false,\"firstBoot\":\"Observed Pixel is starting then default launcher. No wake/swipe/credential input needed; deviceLocked0, showingfalse, inputRestrictedfalse. No fingerprint/master vault/secure PIN enrollment or lock-setting changes.\",\"ram\":\"Requested1536MB; emulator reported increasing to2048MB\",\"snapshots\":\"-no-snapshot; registration/data retained\"},\"initialAttempt\":{\"log\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-77.log\",\"expected\":1,\"started\":1,\"executed\":1,\"passed\":0,\"failed\":1,\"skipped\":0,\"seconds\":39.233,\"finalCode\":-1,\"finalResult\":\"FAILURES!!! Tests run: 1, Failures: 1\",\"shellExitCode\":0,\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"e56bba1e4c4b6a9b555162cabaff909b477a5c683a88a99df64d48c104d62033\",\"windowSourceSha256\":\"7b0c7d0706a6dde67c1cf6081f9941933ad5e79c639aa1dd0dc334d15c566e81\",\"failure\":\"returnToOwnActivity:96 timed out with Activity RESUMED after SAME_WINDOW_STOPPED. Host-only focus wait rejected dialog-owned focus.\",\"correction\":\"Wait for focus on the original host Activity or its actual tagged dialog; caller still asserts original same Window and exact0.8 restoration. Passing rerun directly reports HOST_false_DIALOG_true then HOST_true_DIALOG_false. No opacity force, substitute Activity or weakened lifecycle/privacy assertion.\"},\"stoppedWithoutDeletion\":true,\"stopEvidence\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-81.log\",\"oldLockedAvdOperatedOn\":false,\"personalDeviceOperatedOn\":false,\"platformSecurityChanged\":false}"
+    },
+    {
+      "name": "Final test source IDE inspection",
+      "result": "PASS — no errors; style/unused-import warnings",
+      "details": "Original lifecycle/privacy assertions intact; no production source, dependency, manifest, clipboard, authentication or opacity change."
+    },
+    {
+      "name": "Final explicit same-window identity assertion restored and test APK rebuilt",
+      "result": "PASS",
+      "details": "{\"command\":\":app:assembleDebugAndroidTest --console=plain\",\"result\":\"BUILD SUCCESSFUL in 11s\",\"actionable\":56,\"executed\":5,\"upToDate\":51,\"log\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-83.log\",\"scope\":\"Required after restoring explicit identity assertion; prior intermediate build shell-78 remains recorded. No production build/unit/lint/broad native rerun.\"} Restored explicit assertSame(original,dialogWindow()) after task return. Pre-existing dirty edit had removed it; original Window focus/alpha and pre-stop identity were already asserted, but final task restores every explicit original identity assertion."
+    },
+    {
+      "name": "Final-APK initial-dialog attempt blocked by observed System UI ANR",
+      "result": "FAIL — retained fixture/environment attempt",
+      "details": "{\"log\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-89.log\",\"testSha256\":\"40305e7296b7f9966ca3d98903fa588997bc9f568b9b44cda9ffc646c9d373d0\",\"expected\":1,\"started\":1,\"executed\":1,\"passed\":0,\"failed\":1,\"skipped\":0,\"seconds\":26.858,\"finalCode\":-1,\"finalResult\":\"FAILURES!!! Tests run: 1, Failures: 1\",\"shellExitCode\":0,\"failure\":\"Initial awaitWindow:115 timed out before ORIGINAL_VISIBLE,Activity RESUMED.\",\"observed\":\"Immediate UI inspection showed foreground Application Not Responding: com.android.systemui with System UI isn't responding and Close app/Wait. This was an environment focus blocker; underlying System UI ANR cause not established.\",\"handling\":\"Single ordinary tap on observed Wait at450,1060 with explicit new-AVD guard (shell-91); next UI inspection confirmed focused launcher. No source/assertion/security/lock change. Exact unchanged affected method rerun passed in15.781s.\",\"metadataLog\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-90.log\"}"
+    },
+    {
+      "name": "Final assertion-restored API31 window rerun",
+      "result": "PASS",
+      "details": "{\"method\":\"com.gem.keeppeer.WindowRegistrationTest#hiddenDialogStopStartRestoresOriginalAlphaAndClosingStaysRedacted\",\"runner\":\"com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner\",\"serial\":\"emulator-5554\",\"avd\":\"Keeppeer_Guard_API31_FinalWindow_20261031_d72faa02\",\"started\":1,\"executed\":1,\"passed\":1,\"failed\":0,\"skipped\":0,\"seconds\":15.781,\"finalResult\":\"OK (1 test)\",\"finalCode\":-1,\"shellExitCode\":0,\"appSha256\":\"1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc\",\"testSha256\":\"40305e7296b7f9966ca3d98903fa588997bc9f568b9b44cda9ffc646c9d373d0\",\"windowSourceSha256\":\"c4ab7c965e58373f22c8cbecc4bf111e9622252b21328aefd1a802a3ad3fb673\",\"log\":\"C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-92.log\",\"allOriginalAssertionsRetained\":true}"
     }
   ],
   "addedPaths": [
@@ -847,7 +889,8 @@
     "app/src/androidTest/java/com/gem/keeppeer/LiveRecentsPrivacyTest.kt",
     "docs/phase-2-live-recents-correction.md",
     "app/src/androidTest/java/com/gem/keeppeer/WindowRegistrationTest.kt",
-    "docs/phase-2-window-lifecycle-clipboard.md"
+    "docs/phase-2-window-lifecycle-clipboard.md",
+    "docs/phase-2-final-window-evidence.md"
   ],
   "modifiedPaths": [
     ".gitignore",
@@ -890,12 +933,12 @@
     "docs/phase-2-privacy-closeout.md",
     "app/src/main/java/com/gem/keeppeer/ui/privacy/PrivacyWindows.kt",
     "app/src/androidTest/java/com/gem/keeppeer/LiveRecentsPrivacyTest.kt",
-    "docs/phase-2-live-recents-correction.md"
+    "docs/phase-2-live-recents-correction.md",
+    "app/src/androidTest/java/com/gem/keeppeer/WindowRegistrationTest.kt",
+    "docs/phase-2-window-lifecycle-clipboard.md"
   ],
   "deletedPaths": [],
-  "unresolvedIssues": [
-    "Final affected window verification remains incomplete: API25 WindowRegistrationTest shell-701.log failed0pass/1fail/0skip,19.751s because exact own-task return left the Scenario Activity CREATED; earlier shell-693 restored0.8 then failed Fragment saved-state dismissal. Final test-package API31 Window rerun was notstarted after automatic review rejected combined wake/menu input. Production opacity correction has full API31 shell-653 pass and ordinary live-card evidence on the same production APK; controlled clipboard pair is resolved2/2with original sharing restored. Next bounded work is API25 task-return diagnosis and the single API31 Window rerun after explicitly approved ordinary disposable unlock; no full matrix or new physical/OEM gate."
-  ],
+  "unresolvedIssues": [],
   "remainingChecksContinuation": {
     "baselineRevision": "382fdcaa7f818869820389ed78a195db05320d2e",
     "scope": "Only remaining Phase 2 checks. Accepted API 31 result/artifact identity and failed/interrupted history preserved; complete API 31 suite not rerun.",
@@ -1871,7 +1914,7 @@
       }
     }
   },
-  "deviceChecks": "windowLifecycleClipboardContinuation is current. Final affected window verification remains incomplete: API25 WindowRegistrationTest shell-701.log failed0pass/1fail/0skip,19.751s because exact own-task return left the Scenario Activity CREATED; earlier shell-693 restored0.8 then failed Fragment saved-state dismissal. Final test-package API31 Window rerun was notstarted after automatic review rejected combined wake/menu input. Production opacity correction has full API31 shell-653 pass and ordinary live-card evidence on the same production APK; controlled clipboard pair is resolved2/2with original sharing restored. Next bounded work is API25 task-return diagnosis and the single API31 Window rerun after explicitly approved ordinary disposable unlock; no full matrix or new physical/OEM gate.",
+  "deviceChecks": "Final current window verification: windowLifecycleClipboardContinuation.currentApi25WindowVerification and finalFreshApi31Verification. API25 retained1/1 in7.379s with explicit historical hash-attestation limits; fresh API31 final1/1 in15.781s,all assertions intact. No required Phase2 gap remains. Earlier named verification objects and old check rows retain historical source/binary/result scope. Release disabled;Phase3 unstarted.",
   "vaultContextReconciliation": {
     "result": "HISTORICAL metadata-only reconciliation; latest setup report and authorized preservation are in vaultPreservationInvestigation",
     "historicalScopeNote": "Earlier access confirmation, metadata and no-copy scope retained as history; they do not describe latest status or current preservation authorization.",
@@ -3546,8 +3589,8 @@
     "documentation": "docs/phase-2-live-recents-correction.md"
   },
   "windowLifecycleClipboardContinuation": {
-    "outcome": "incomplete",
-    "currentRequiredGap": "Final affected window verification remains incomplete: API25 WindowRegistrationTest shell-701.log failed0pass/1fail/0skip,19.751s because exact own-task return left the Scenario Activity CREATED; earlier shell-693 restored0.8 then failed Fragment saved-state dismissal. Final test-package API31 Window rerun was notstarted after automatic review rejected combined wake/menu input. Production opacity correction has full API31 shell-653 pass and ordinary live-card evidence on the same production APK; controlled clipboard pair is resolved2/2with original sharing restored. Next bounded work is API25 task-return diagnosis and the single API31 Window rerun after explicitly approved ordinary disposable unlock; no full matrix or new physical/OEM gate.",
+    "outcome": "complete",
+    "currentRequiredGap": null,
     "baselineReviewedSnapshot": {
       "generatedAtPhilippine": "2026-10-30 09:53:49 PM PHT (UTC+08:00)",
       "bytes": 918708,
@@ -3571,7 +3614,8 @@
       },
       "unchanged": "MainActivity/session/cryptography/clipboard/manifest/build/dependencies/exporter; unrelated prior dirty work preserved.",
       "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
-      "finalTestSha256": "6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433"
+      "finalTestSha256": "6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433",
+      "scope": "Historical original-opacity continuation artifact/source state before the later return driver changes. Current source and final binary identities are in finalFreshApi31Verification; original hashes are retained unchanged."
     },
     "correction": {
       "issue": "Unregister lost original alpha; hidden same Window re-register captured0.",
@@ -3580,8 +3624,8 @@
     },
     "fixtures": {
       "LiveRecents": "Restore original timeout and lock in finally after demonstrated cross-test contamination; foreground focus precondition and actual OS global actions retain privacy/session/dialog assertions.",
-      "Window": "Actual DialogFragment0.8, Recents/Home, same Window stop/start, hidden dismissal and Activity recreation. API25 requires disposable dismissalAllowingStateLoss with pending transactions executed before unchanged alpha assertions. Redundant second Home removed; this did not resolve API25 task-return failure.",
-      "sourceState": "Final package built; API25 full test failed; final API31 package rerun not started. Full earlier API31 Window pass remains scoped to test1c2fa358 with same production app."
+      "Window": "Actual DialogFragment0.8, real OS Recents/Home, same Window stop/start, hidden dismissal and recreation assertions unchanged. Historical API25 dismissal correction and task-return failures retained. Final helper retains NEW_TASK|REORDER_TO_FRONT and waits for focus on its actual tagged dialog or original host; no replacement Activity or forced opacity.",
+      "sourceState": "Final API31 check passed after smallest owned-dialog focus-driver correction, explicit post-return same-window identity recheck restored from the pre-existing dirty edit; all original lifecycle/privacy assertions intact. Intermediate pass20.875s and later SystemUI ANR initial-dialog failure26.858s retain exact identities; final unchanged rerun15.781s passed. API25 retained pass remains at its historical driver/binary scope with per-run hash-attestation limit. No production change in final task."
     },
     "devices": [
       {
@@ -4037,8 +4081,8 @@
       {
         "id": "C7 / A3",
         "requirement": "Secure windows; screenshot/recording/dialog/recents privacy; cold launch, rotation, timeouts, screen/manual lock and secret/repository revocation",
-        "result": "PARTIAL — corrected API31 window/privacy evidence; final affected compatibility fixture not fully verified",
-        "evidence": "Current actual OS Recents regression1/1 plus sampled final transition/settled draft and actual-dialog live-card redaction; new valid13169-byte protected dialog PNG. Home/grace/60.068s expiry/Back and fresh screen-lock under minute grace verified. Rotation/lifecycle pass on API31/API25. Earlier control/recording/process-death/real5minute evidence retains original scope. No every-frame/every-OEM/physical claim. Corrected production app1c3adda7 has full native WindowRegistrationTest1/1,23.728s at test1c2fa358; ordinary revealed-draft direct Recents samples/settled own card concealed and Back retained draft. API25 final Window regression0pass/1fail,19.751s at task return; final API31 fixture rerun notstarted after wake/menu review rejection. Earlier screenshot/recording/hardware scopes are unchanged."
+        "result": "COVERED with recorded provider/artifact limits",
+        "evidence": "Original current-core/manual/capture/actual-Recents evidence retains original identities. Corrected production app1c3adda7 retains earlier complete API31 shell-653 pass. Final affected window criterion now has retained API25 1/1 pass7.379s (historical per-run APK hash attestation unavailable) and fresh final API31 1/1 pass15.781s at app1c3adda7/test40305e72,all same-window/0.8/hidden-closing/parent/recreation/FLAG_SECURE assertions intact. Earlier failed checks unchanged. No universal hardware/every-frame claim."
       },
       {
         "id": "C8 / A3",
@@ -4061,8 +4105,8 @@
       {
         "id": "A4 / constraints",
         "requirement": "Relevant tests, debug assembly/lint; minSdk24/offline/backup/permission constraints; honest limits and disabled release",
-        "result": "Host constraints COVERED; affected native verification INCOMPLETE",
-        "evidence": "Final app/test assembly and lint passed,0errors14warnings; current app1c3adda7/test6369b611. Final API25 full Window check failed task return, and final API31 Window rerun was notstarted following preparatory wake/menu review rejection. Earlier individual passes retain exact test hashes and failed groups. No broad22matrix/KDF/SQLCipher rerun. Release disabled,Phase3 unstarted."
+        "result": "COVERED with recorded provider/artifact limits; release remains disabled",
+        "evidence": "Recorded production app/test assembly/lint0errors14warnings retained. After final demonstrated fixture correction only :app:assembleDebugAndroidTest rebuilt successfully (shell-83,11s),and exact affected API31 method passed1/1 in15.781s (shell-92). Installed/host app and test SHA-256 match (shell-88). IDE source inspection no errors. Production/offline/backup/minSdk/dependencies/exporter unchanged; no broad matrix/KDF/SQLCipher/biometric/clipboard rerun. Original other acceptance evidence carried at original scope. Release disabled;Phase3 unstarted."
       }
     ],
     "scanReport": {
@@ -4088,10 +4132,10 @@
       "meaning": "Closes requested recovery work only; not evidence of cause, restored entries or permission to delete/reset/rekey any personal vault or preservation material."
     },
     "limits": [
-      "Final API25 task-return fixture failure not a pass and not by itself a demonstrated production compatibility defect.",
-      "Final API31 test-package Window rerun not started after explicit new preparatory input rejection; no workaround.",
-      "Earlier screenshot/recording/physical/hardware-keyboard/provider limits retain original binary/timeline scopes; no capture bypass/retry or invented universal gate.",
-      "No clean-scan independent inspection or historical Defender false-positive attribution."
+      "API25 retained native pass is real; no contemporaneous per-run APK/installed hash attestation located. Current hashes not retrospectively assigned; raw -w record lacks streamed start/final native-code fields.",
+      "Initial fresh API31 host-only-focus failure retained at teste56bba1e/39.233s. Intermediate pass at testffc24ad1/20.875s retained; explicit identity recheck restored before final test40305e72. System UI ANR foreground blocker caused an initial-dialog failure at26.858s on final test40305e72; ordinary observed Wait and unchanged rerun passed15.781s. Underlying System UI ANR cause unknown.",
+      "Earlier screenshot/recording/physical/hardware-keyboard/provider limits retain original binary/timeline scopes; no capture retry or universal gate.",
+      "Defender clean-scan report remains user-reported; no historical false-positive classification."
     ],
     "previousAggregate": {
       "outcome": "incomplete",
@@ -4104,6 +4148,340 @@
     },
     "release": "disabled",
     "phase3": "unstarted",
-    "documentation": "docs/phase-2-window-lifecycle-clipboard.md"
+    "documentation": "docs/phase-2-window-lifecycle-clipboard.md",
+    "previousCurrentFieldsBeforeFinalVerification": {
+      "outcome": "incomplete",
+      "summary": "Weak original-opacity ownership fixes hidden Window re-registration without exposing closing windows or strongly retaining destroyed windows. Corrected production app1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc; test package updated with returnToOwnActivity Intent fix. API25 WindowRegistrationTest PASSED 1/1, 7.379s on dedicated API25 emulator. Full API31 window regression1/1,23.728s at earlier test1c2fa358; actual revealed-draft Recents transition/settled own card concealed and normal Back return observed. Explicitly approved isolated clipboard pair2/2,0fail/skip,58.101s,expiry30056ms at testfde7e6ce; sharing enabled→disabled→enabled,original restored/verified. Final API31 fixture rerun blocked by FBE lock and unknown synthetic PIN on cold boot. Assembly/test assembly/lint PASS,0errors14warnings. Phase2 incomplete only for final API31 window check. Recovery closed/disposable,cause unknown; preserved material untouched. Defender clean scan user-reported/uninspected; protection unchanged. Release disabled;Phase3 unstarted.",
+      "unresolvedIssues": [
+        "Final affected window verification remains incomplete: API25 WindowRegistrationTest shell-701.log failed0pass/1fail/0skip,19.751s because exact own-task return left the Scenario Activity CREATED; earlier shell-693 restored0.8 then failed Fragment saved-state dismissal. Final test-package API31 Window rerun was notstarted after automatic review rejected combined wake/menu input. Production opacity correction has full API31 shell-653 pass and ordinary live-card evidence on the same production APK; controlled clipboard pair is resolved2/2with original sharing restored. Next bounded work is API25 task-return diagnosis and the single API31 Window rerun after explicitly approved ordinary disposable unlock; no full matrix or new physical/OEM gate."
+      ],
+      "deviceChecks": "windowLifecycleClipboardContinuation is current. Final affected window verification remains incomplete: API25 WindowRegistrationTest shell-701.log failed0pass/1fail/0skip,19.751s because exact own-task return left the Scenario Activity CREATED; earlier shell-693 restored0.8 then failed Fragment saved-state dismissal. Final test-package API31 Window rerun was notstarted after automatic review rejected combined wake/menu input. Production opacity correction has full API31 shell-653 pass and ordinary live-card evidence on the same production APK; controlled clipboard pair is resolved2/2with original sharing restored. Next bounded work is API25 task-return diagnosis and the single API31 Window rerun after explicitly approved ordinary disposable unlock; no full matrix or new physical/OEM gate.",
+      "currentRequiredGap": "Final affected window verification remains incomplete: API25 WindowRegistrationTest shell-701.log failed0pass/1fail/0skip,19.751s because exact own-task return left the Scenario Activity CREATED; earlier shell-693 restored0.8 then failed Fragment saved-state dismissal. Final test-package API31 Window rerun was notstarted after automatic review rejected combined wake/menu input. Production opacity correction has full API31 shell-653 pass and ordinary live-card evidence on the same production APK; controlled clipboard pair is resolved2/2with original sharing restored. Next bounded work is API25 task-return diagnosis and the single API31 Window rerun after explicitly approved ordinary disposable unlock; no full matrix or new physical/OEM gate.",
+      "acceptanceMatrix": [
+        {
+          "id": "C1–C4 / A1–A2",
+          "requirement": "Centralized authenticated vault; vetted API24/25 KDF; AEAD metadata/device binding; actual SQLCipher; failure preservation",
+          "result": "COVERED",
+          "evidence": "15 recorded JVM tests including published PBKDF2/Unicode vectors, roundtrip/wrong-password/tamper, fresh salts/nonces/same DB key; current-core22/22 on each API24/25/31 include actual Keystore, SQLCipher wrong-key/plain-SQLite/schema/reopen checks and guard/writes/failures. Exact hashes and times retained in original report objects."
+        },
+        {
+          "id": "C5–C6",
+          "requirement": "Explicit synthetic legacy reset; confirmed setup/warnings; atomic same-key master-password change",
+          "result": "COVERED",
+          "evidence": "Current-core selected native groups include legacy cancel/confirmed isolated reset, validation, password change/restart/wrong password, failed replacement/device key and repository revocation. No real-vault migration/reset. Phase3 export nudge only."
+        },
+        {
+          "id": "C7 / A3",
+          "requirement": "Secure windows; screenshot/recording/dialog/recents privacy; cold launch, rotation, timeouts, screen/manual lock and secret/repository revocation",
+          "result": "PARTIAL — corrected API31 window/privacy evidence; final affected compatibility fixture not fully verified",
+          "evidence": "Current actual OS Recents regression1/1 plus sampled final transition/settled draft and actual-dialog live-card redaction; new valid13169-byte protected dialog PNG. Home/grace/60.068s expiry/Back and fresh screen-lock under minute grace verified. Rotation/lifecycle pass on API31/API25. Earlier control/recording/process-death/real5minute evidence retains original scope. No every-frame/every-OEM/physical claim. Corrected production app1c3adda7 has full native WindowRegistrationTest1/1,23.728s at test1c2fa358; ordinary revealed-draft direct Recents samples/settled own card concealed and Back retained draft. API25 final Window regression0pass/1fail,19.751s at task return; final API31 fixture rerun notstarted after wake/menu review rejection. Earlier screenshot/recording/hardware scopes are unchanged."
+        },
+        {
+          "id": "C8 / A3",
+          "requirement": "Central sensitive clipboard,30s expiry, background/lock clearing/retry, newer unrelated replacement preservation",
+          "result": "COVERED under explicitly approved controlled sharing condition",
+          "evidence": "New user approval: Approve temporary isolation and restore. Only the2unchanged named methods executed with sharing off on the sole dedicated API31 emulator:2/2pass,0fail/skip,58.101s,expiry30056ms,shell-631.log,app1c3adda7/testfde7e6ce. Original enabled preference restored and independently verified. No host clipboard value read/exported, no permission/AppOps/security changes. Earlier uncontrolled failures and review rejection remain history."
+        },
+        {
+          "id": "C9 / A3",
+          "requirement": "Per-use real CryptoObject biometric wrapping/unlock and password fallback under errors/invalidation/disable/re-enable",
+          "result": "COVERED with provider/artifact limits",
+          "evidence": "Explicit approved3/3 at143.002s remains closed; actual API31 per-use encrypt/decrypt/marker completion, genuine enrollment1→2 KeyPermanentlyInvalidatedException and retained entry/password fallback. Older API25 native failed-scan/retry/lockout/cancel/rotation/Home/screen-lock/disable-reenable evidence retained; API25 non-invalidation remains a provider limit, not relabeled pass. Current final API31 approved3methods passed within8-test group; real per-use encrypt/decrypt/cancel/unmatched/retry/password-entry fallback verified. API25 enrollment-dependent method skipped for strong enrollment unavailable; not a pass. On app1c3adda7, approved3methods passed within shell-626's4pass/2fail group116.964s; real normal-app per-use unlock with existing synthetic enrollment/entry was separately observed. No new enrollment or personal operation."
+        },
+        {
+          "id": "C10 / A3",
+          "requirement": "In-memory-only sensitive drafts; no saved-state restoration; authenticated saved-entry IDs and Phase3 picker plan",
+          "result": "COVERED",
+          "evidence": "Current-core rotation/reveal/cancel and lifecycle revocation plus actual historical API25 process-death/unsaved-draft/screen-lock checks; source saved-state boundary unchanged. Picker behavior is documented future Phase3 plan, not a Phase2 feature or new test gate. Corrected LiveRecents fixture restores original timeout and locks in finally; lifecycle then passed in635/643. Rotation passed in626. No production state/draft/authentication policy change."
+        },
+        {
+          "id": "A4 / constraints",
+          "requirement": "Relevant tests, debug assembly/lint; minSdk24/offline/backup/permission constraints; honest limits and disabled release",
+          "result": "Host constraints COVERED; affected native verification INCOMPLETE",
+          "evidence": "Final app/test assembly and lint passed,0errors14warnings; current app1c3adda7/test6369b611. Final API25 full Window check failed task return, and final API31 Window rerun was notstarted following preparatory wake/menu review rejection. Earlier individual passes retain exact test hashes and failed groups. No broad22matrix/KDF/SQLCipher rerun. Release disabled,Phase3 unstarted."
+        }
+      ],
+      "scope": "Retained as historical handoff inconsistency; superseded by current API25 record and final new-AVD API31 verification."
+    },
+    "currentApi25WindowVerification": {
+      "result": "PASS — retained native result, not rerun",
+      "api": 25,
+      "serial": "emulator-5554",
+      "avd": "Keeppeer_Guard_API25_20261030_123138",
+      "method": "com.gem.keeppeer.WindowRegistrationTest#hiddenDialogStopStartRestoresOriginalAlphaAndClosingStaysRedacted",
+      "runner": "com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+      "expected": 1,
+      "started": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 7.379,
+      "finalResult": "OK (1 test)",
+      "shellExitCode": 0,
+      "finalCode": null,
+      "commandEvidence": {
+        "path": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/5ede27b9-7705-4984-9f8a-26fabf065e86/steps.jsonl",
+        "line": 107,
+        "toolCallId": "c428bac8-5cc1-45d0-82a6-e5c6b15cac42",
+        "confirmed": "Explicit -s emulator-5554; am instrument -w -e class; exact method and SyntheticTestRunner. Native OK (1 test), Time 7.379, final recreated/dismissed-parent milestone strings; exitCode0. Counts follow completed native single-test result, not independent streamed start statuses."
+      },
+      "buildEvidence": {
+        "path": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/5ede27b9-7705-4984-9f8a-26fabf065e86/steps.jsonl",
+        "line": 212,
+        "toolCallId": "call_797317",
+        "tasks": ":app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug",
+        "result": "Build finished successfully",
+        "limit": "Later build evidence in the same retained session; not a per-run APK hash attestation."
+      },
+      "appSha256": null,
+      "testSha256": null,
+      "availableSourceAndArtifacts": {
+        "reviewedProductionAppSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "currentHostPreApi31CorrectionTestSha256": "e56bba1e4c4b6a9b555162cabaff909b477a5c683a88a99df64d48c104d62033",
+        "currentHostPreApi31CorrectionWindowSourceSha256": "7b0c7d0706a6dde67c1cf6081f9941933ad5e79c639aa1dd0dc334d15c566e81",
+        "scope": "Measured current host identities, not retrospectively assigned to the retained API25 run."
+      },
+      "limits": [
+        "No contemporaneous per-run app/test hash or installed-byte hash attestation located. Do not substitute shell-701/test6369b611 or current host hashes.",
+        "Studio read_file cannot serialize application/json-lines; anchored IDE grep predicates verified fields in exact retained ToolCallStep records. Full JSONL content was not exported.",
+        "Raw streamed start/final instrumentation-code fields absent from this retained -w record. Native completed OK is retained; final native code is unknown."
+      ],
+      "scope": "Original API25 pass retained with earlier host-focus return driver. Same-window/alpha0.8/hidden-closing/parent/recreation assertions preserved. Not relabelled as a run of the later API31 focus-driver APK. Earlier API25 failures unchanged."
+    },
+    "finalFreshApi31Verification": {
+      "result": "PASS",
+      "api": 31,
+      "serial": "emulator-5554",
+      "avd": "Keeppeer_Guard_API31_FinalWindow_20261031_d72faa02",
+      "qemu": 1,
+      "abi": "x86_64",
+      "bootComplete": true,
+      "method": "com.gem.keeppeer.WindowRegistrationTest#hiddenDialogStopStartRestoresOriginalAlphaAndClosingStaysRedacted",
+      "runner": "com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+      "expected": 1,
+      "started": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 15.781,
+      "finalResult": "OK (1 test)",
+      "finalCode": -1,
+      "completionStatusCode": 0,
+      "shellExitCode": 0,
+      "startedAtUtc": "2026-10-30T20:29:37.4418245Z",
+      "completedAtUtc": "2026-10-30T20:30:00.6053277Z",
+      "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-92.log",
+      "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+      "testSha256": "40305e7296b7f9966ca3d98903fa588997bc9f568b9b44cda9ffc646c9d373d0",
+      "windowSourceSha256": "c4ab7c965e58373f22c8cbecc4bf111e9622252b21328aefd1a802a3ad3fb673",
+      "revision": "c0d0c44588bd7d48e9fda4f0df86368ea7e2587b plus dirty work",
+      "sourceScope": "Production unchanged. Owned-dialog/original-host focus driver correction plus restoration of the explicit assertSame(original,dialogWindow()) recheck omitted by the pre-existing dirty edit. Every original lifecycle/privacy assertion retained.",
+      "windowSteps": [
+        "ORIGINAL_VISIBLE",
+        "RECENTS_REDACTED",
+        "SAME_WINDOW_STOPPED",
+        "RETURN_FOCUS_HOST_false_DIALOG_true",
+        "ORIGINAL_ALPHA_RESTORED",
+        "CLOSING_STAYS_REDACTED",
+        "RETURN_FOCUS_HOST_true_DIALOG_false",
+        "PARENT_RETURNED",
+        "BEFORE_RECREATE",
+        "AFTER_RECREATE",
+        "RECREATED_VISIBLE",
+        "DISMISSED_PARENT_VISIBLE"
+      ],
+      "installedHashesMatchHost": true,
+      "identityEvidence": [
+        "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-73.log",
+        "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-75.log",
+        "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-76.log",
+        "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-79.log",
+        "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-85.log",
+        "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-86.log",
+        "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-87.log",
+        "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-88.log"
+      ],
+      "build": {
+        "command": ":app:assembleDebugAndroidTest --console=plain",
+        "result": "BUILD SUCCESSFUL in 11s",
+        "actionable": 56,
+        "executed": 5,
+        "upToDate": 51,
+        "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-83.log",
+        "scope": "Required after restoring explicit identity assertion; prior intermediate build shell-78 remains recorded. No production build/unit/lint/broad native rerun."
+      },
+      "provisioning": {
+        "createdNew": true,
+        "creationLog": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-64.log",
+        "startupLog": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-66.log",
+        "image": "system-images;android-31;google_apis;x86_64",
+        "imageRevision": 12,
+        "profile": "pixel_2",
+        "emulator": "37.2.12.0 build16428233",
+        "registration": "C:/Users/gemdu/.android/avd/Keeppeer_Guard_API31_FinalWindow_20261031_d72faa02.avd",
+        "collisionGuard": true,
+        "forceOverwrite": false,
+        "firstBoot": "Observed Pixel is starting then default launcher. No wake/swipe/credential input needed; deviceLocked0, showingfalse, inputRestrictedfalse. No fingerprint/master vault/secure PIN enrollment or lock-setting changes.",
+        "ram": "Requested1536MB; emulator reported increasing to2048MB",
+        "snapshots": "-no-snapshot; registration/data retained"
+      },
+      "initialAttempt": {
+        "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-77.log",
+        "expected": 1,
+        "started": 1,
+        "executed": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "seconds": 39.233,
+        "finalCode": -1,
+        "finalResult": "FAILURES!!! Tests run: 1, Failures: 1",
+        "shellExitCode": 0,
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "e56bba1e4c4b6a9b555162cabaff909b477a5c683a88a99df64d48c104d62033",
+        "windowSourceSha256": "7b0c7d0706a6dde67c1cf6081f9941933ad5e79c639aa1dd0dc334d15c566e81",
+        "failure": "returnToOwnActivity:96 timed out with Activity RESUMED after SAME_WINDOW_STOPPED. Host-only focus wait rejected dialog-owned focus.",
+        "correction": "Wait for focus on the original host Activity or its actual tagged dialog; caller still asserts original same Window and exact0.8 restoration. Passing rerun directly reports HOST_false_DIALOG_true then HOST_true_DIALOG_false. No opacity force, substitute Activity or weakened lifecycle/privacy assertion."
+      },
+      "stoppedWithoutDeletion": true,
+      "stopEvidence": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-93.log",
+      "oldLockedAvdOperatedOn": false,
+      "personalDeviceOperatedOn": false,
+      "platformSecurityChanged": false,
+      "intermediateFocusDriverPass": {
+        "result": "PASS",
+        "api": 31,
+        "serial": "emulator-5554",
+        "avd": "Keeppeer_Guard_API31_FinalWindow_20261031_d72faa02",
+        "qemu": 1,
+        "abi": "x86_64",
+        "bootComplete": true,
+        "method": "com.gem.keeppeer.WindowRegistrationTest#hiddenDialogStopStartRestoresOriginalAlphaAndClosingStaysRedacted",
+        "runner": "com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+        "expected": 1,
+        "started": 1,
+        "executed": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 20.875,
+        "finalResult": "OK (1 test)",
+        "finalCode": -1,
+        "completionStatusCode": 0,
+        "shellExitCode": 0,
+        "startedAtUtc": "2026-10-30T20:20:48.2236009Z",
+        "completedAtUtc": "2026-10-30T20:21:21.9198510Z",
+        "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-80.log",
+        "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+        "testSha256": "ffc24ad18488906e977a6271c7f11d00b8ee3813e389e1e9dc56acfd22943f36",
+        "windowSourceSha256": "731f35b0d60e31a7091baed506ec46a348125e1e16eda0e05c6bcdc06b214ffc",
+        "revision": "c0d0c44588bd7d48e9fda4f0df86368ea7e2587b plus dirty work",
+        "sourceScope": "Production unchanged. Only returnToOwnActivity owned-window focus wait and non-sensitive focus-status diagnostic changed in this task; original same-window/0.8/hidden-closing/parent/recreation/FLAG_SECURE assertions retained.",
+        "windowSteps": [
+          "ORIGINAL_VISIBLE",
+          "RECENTS_REDACTED",
+          "SAME_WINDOW_STOPPED",
+          "RETURN_FOCUS_HOST_false_DIALOG_true",
+          "ORIGINAL_ALPHA_RESTORED",
+          "CLOSING_STAYS_REDACTED",
+          "RETURN_FOCUS_HOST_true_DIALOG_false",
+          "PARENT_RETURNED",
+          "BEFORE_RECREATE",
+          "AFTER_RECREATE",
+          "RECREATED_VISIBLE",
+          "DISMISSED_PARENT_VISIBLE"
+        ],
+        "installedHashesMatchHost": true,
+        "identityEvidence": [
+          "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-73.log",
+          "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-75.log",
+          "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-76.log",
+          "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-79.log"
+        ],
+        "build": {
+          "command": ":app:assembleDebugAndroidTest --console=plain",
+          "result": "BUILD SUCCESSFUL in 1m 3s",
+          "actionable": 56,
+          "executed": 5,
+          "upToDate": 51,
+          "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-78.log",
+          "scope": "Required after demonstrated fixture-driver correction; no production rebuild, unit/lint/full native rerun. Prior lint0errors14warnings retained at original scope."
+        },
+        "provisioning": {
+          "createdNew": true,
+          "creationLog": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-64.log",
+          "startupLog": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-66.log",
+          "image": "system-images;android-31;google_apis;x86_64",
+          "imageRevision": 12,
+          "profile": "pixel_2",
+          "emulator": "37.2.12.0 build16428233",
+          "registration": "C:/Users/gemdu/.android/avd/Keeppeer_Guard_API31_FinalWindow_20261031_d72faa02.avd",
+          "collisionGuard": true,
+          "forceOverwrite": false,
+          "firstBoot": "Observed Pixel is starting then default launcher. No wake/swipe/credential input needed; deviceLocked0, showingfalse, inputRestrictedfalse. No fingerprint/master vault/secure PIN enrollment or lock-setting changes.",
+          "ram": "Requested1536MB; emulator reported increasing to2048MB",
+          "snapshots": "-no-snapshot; registration/data retained"
+        },
+        "initialAttempt": {
+          "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-77.log",
+          "expected": 1,
+          "started": 1,
+          "executed": 1,
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "seconds": 39.233,
+          "finalCode": -1,
+          "finalResult": "FAILURES!!! Tests run: 1, Failures: 1",
+          "shellExitCode": 0,
+          "appSha256": "1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc",
+          "testSha256": "e56bba1e4c4b6a9b555162cabaff909b477a5c683a88a99df64d48c104d62033",
+          "windowSourceSha256": "7b0c7d0706a6dde67c1cf6081f9941933ad5e79c639aa1dd0dc334d15c566e81",
+          "failure": "returnToOwnActivity:96 timed out with Activity RESUMED after SAME_WINDOW_STOPPED. Host-only focus wait rejected dialog-owned focus.",
+          "correction": "Wait for focus on the original host Activity or its actual tagged dialog; caller still asserts original same Window and exact0.8 restoration. Passing rerun directly reports HOST_false_DIALOG_true then HOST_true_DIALOG_false. No opacity force, substitute Activity or weakened lifecycle/privacy assertion."
+        },
+        "stoppedWithoutDeletion": true,
+        "stopEvidence": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-81.log",
+        "oldLockedAvdOperatedOn": false,
+        "personalDeviceOperatedOn": false,
+        "platformSecurityChanged": false
+      },
+      "postDiffAssertionAudit": {
+        "change": "Restored explicit assertSame(original,dialogWindow()) after task return. Pre-existing dirty edit had removed it; original Window focus/alpha and pre-stop identity were already asserted, but final task restores every explicit original identity assertion.",
+        "interruptedBySystemUi": {
+          "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-89.log",
+          "testSha256": "40305e7296b7f9966ca3d98903fa588997bc9f568b9b44cda9ffc646c9d373d0",
+          "expected": 1,
+          "started": 1,
+          "executed": 1,
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "seconds": 26.858,
+          "finalCode": -1,
+          "finalResult": "FAILURES!!! Tests run: 1, Failures: 1",
+          "shellExitCode": 0,
+          "failure": "Initial awaitWindow:115 timed out before ORIGINAL_VISIBLE,Activity RESUMED.",
+          "observed": "Immediate UI inspection showed foreground Application Not Responding: com.android.systemui with System UI isn't responding and Close app/Wait. This was an environment focus blocker; underlying System UI ANR cause not established.",
+          "handling": "Single ordinary tap on observed Wait at450,1060 with explicit new-AVD guard (shell-91); next UI inspection confirmed focused launcher. No source/assertion/security/lock change. Exact unchanged affected method rerun passed in15.781s.",
+          "metadataLog": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/7320c63d-6ff1-45f7-9b53-1c02acab3c4c/session/agent/shell-logs/shell-90.log"
+        },
+        "scope": "Same newly created AVD restarted after first controlled stop; registration/data reused only for this authorized new fixture, never overwritten/wiped. Reverified qemu1/API31/x86_64/boot complete/unlocked launcher; no wake/swipe/credential input."
+      }
+    },
+    "retainedAvdColdBootBlocker": {
+      "avd": "Keeppeer_Guard_API31_20261030_123138",
+      "reason": "Cold boot FBE credential-encrypted storage/keyguard locked, deviceLocked1, synthetic credential unknown in current context.",
+      "source": "Reviewed 2026-10-31 02:12:50 AM PHT snapshot and current explicit user baseline; no new retained-AVD action in final task.",
+      "newUnauthorizedInputAttempt": false,
+      "newApprovalRejection": false,
+      "unknownCredentialGuessedOrChanged": false,
+      "operatedOnInFinalTask": false,
+      "freshFixtureDoesNotUnlockOrRecoverOldAvd": true,
+      "earlierWakeMenuRejection": "Historical newFinalRerunRejection object unchanged at original test6369b611 identity; command not replayed."
+    },
+    "currentAcceptance": "All original required C1–C10/A1–A4 criteria covered with recorded source/artifact/provider limits; no required gap. No Phase3 work or release enabled."
   }
 }

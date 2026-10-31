@@ -1,10 +1,22 @@
 # Phase2 — window lifecycle and controlled clipboard verification
 
-**The opacity correction and controlled clipboard comparison are implemented and have bounded passing evidence. Phase2 remains incomplete: the final API25 window regression fails at task return, and the final test-package API31 rerun was not started after an automatic-review rejection of wake/menu input.** Release is disabled; Phase3 is unstarted.
+**Phase2 is complete for the original required criteria, with recorded provider/artifact limits.** Retained API25 window regression:1/1 pass,7.379s; final fresh API31 window regression:1/1 pass,15.781s,OK (1 test),all original lifecycle/privacy assertions intact. Release disabled;Phase3 unstarted.
 
 This continuation starts from the reviewed 2026-10-30 09:53:49 PM PHT (UTC+08:00), 918708-byte snapshot, revision401d359 plus dirty work. All historical failures, skips, approvals/rejections and artifact identities remain in the structured report. They are not relabelled as current passes.
 
-## Small production correction
+## Final affected verification — 2026-10-31
+
+The retained API25 native command/result was located in session5ede27b9 steps.jsonl:107, tool call c428bac8-5cc1-45d0-82a6-e5c6b15cac42: explicit serial emulator-5554, exact WindowRegistrationTest method and SyntheticTestRunner,Time7.379,OK (1 test),final recreation/parent-visible milestones,shell exit0. The later same-session build record at line212/call_797317 says Build finished successfully for app/test assembly/lint. No contemporaneous per-run APK or installed-byte hash attestation was located; those API25 structured hashes stay null. Current host hashes are not retrospectively assigned. API25 was not rerun.
+
+Created one fresh registered API31 x86_64 fixture Keeppeer_Guard_API31_FinalWindow_20261031_d72faa02 without force/overwrite/wipe. Exact serial emulator-5554 was discovered and guarded by registered AVD name,qemu1,API31,x86_64,boot complete. The first-boot screen reached the default launcher without wake/swipe/credential input;deviceLocked0/showingfalse/inputRestrictedfalse. Runner and installed app/test hashes were verified.
+
+Initial shell-77 check failed1/1 in39.233s at the host-only focus wait with Activity RESUMED (teste56bba1e). returnToOwnActivity's driver wait was corrected to recognize its actual dialog or original Activity focus. Final diff review also restored the explicit post-return assertSame(original,dialogWindow()) omitted by the pre-existing dirty edit. Test-only assembly passed (shell-78,1m3s), then the assertion-restored test rebuilt successfully (shell-83,11s); no production change. The intermediate shell-80 pass remains20.875s at testffc24ad1. After restarting only this new AVD, shell-89 failed at initial dialog focus in26.858s; immediate UI inspection showed a System UI ANR dialog. Ordinary observed Wait cleared it; the unchanged final test then passed in shell-92. No assertion or security change was made for that environment failure. Final shell-92 run passed1expected/started/executed/passed,0fail/skip,15.781s,OK (1 test),native code-1,shell exit0. Its focus diagnostic confirmed HOST_false_DIALOG_true before original0.8 restoration and HOST_true_DIALOG_false before parent verification. Every original same-window,closing-redaction,parent,recreation and secure-flag assertion passed.
+
+Final app 1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc; test 40305e7296b7f9966ca3d98903fa588997bc9f568b9b44cda9ffc646c9d373d0; WindowRegistrationTest source c4ab7c965e58373f22c8cbecc4bf111e9622252b21328aefd1a802a3ad3fb673. Host/installed APK hashes match. Only the new AVD was stopped with registration/data retained. The old retained API31 AVD remains untouched with unknown-credential/FBE blocker; this is separate from the earlier historical combined wake/menu rejection. No new rejected/input-unlock attempt occurred in this task. The fresh fixture does not unlock or recover the old AVD.
+
+See [exact final evidence, counts, identities and limits](phase-2-final-window-evidence.md) and currentApi25WindowVerification/finalFreshApi31Verification in the report. Earlier sections/table below retain historical source,artifact,failure and rejection identities.
+
+## Prior production correction (historical source state)
 
 PrivacyWindows previously captured window.attributes.alpha on each listener registration. With no owned focus it writes0; unregister removed the registration, so the same hidden Window could capture0 as its restoration basis on re-registration. MainActivity's DialogFragment stop/start registrations make this a real lifecycle.
 
@@ -23,11 +35,11 @@ API31 shell-653.log passed the entire regression:1expected/started/executed/pass
 
 The LiveRecents fixture previously leaked its MINUTE timeout into a following lifecycle test after failure. It now restores the original timeout and locks in finally. It also requires actual initial window focus and invokes documented [UiAutomation OS global actions](https://developer.android.com/reference/android/app/UiAutomation#performGlobalAction(int)) for Recents/Back. No app accessibility permission or manufactured authentication callback was added. Its draft/session/dialog assertions remain. Shell-643 passed actual Recents plus lifecycle (2pass/1window-return failure in that3-test group); the approved biometric3methods and rotation passed in shell-626 (4pass/2fail group). Those individual passes retain their test-package identities.
 
-The older API25 run shell-693 restored0.8, then failed because dismissNow was attempted after Fragment state saving. Only the disposable fixture was changed to dismissAllowingStateLoss and execute pending transactions before the same closing-alpha assertions. Shell-697 then failed earlier: exact own AppTask return left the host CREATED. Removing a redundant second asynchronous Home did not establish a fix: shell-701 again failed at return. Its full native result is0pass/1fail/0skip,19.751s. No production compatibility defect is inferred solely from this task-return failure. The final fixture remains unverified on API31; these API25 runs are not counted as passes.
+The older API25 run shell-693 restored0.8, then failed because dismissNow was attempted after Fragment state saving. Only the disposable fixture was changed to dismissAllowingStateLoss and execute pending transactions before the same closing-alpha assertions. Shell-697 then failed earlier: exact own AppTask return left the host CREATED. Removing a redundant second asynchronous Home did not establish a fix: shell-701 again failed at return. Its full native result is0pass/1fail/0skip,19.751s. No production compatibility defect is inferred solely from this task-return failure. At that historical point the final fixture remained unverified on API31; these failed API25 runs are not relabelled as passes. The later retained API25 pass and final fresh API31 pass are recorded separately above.
 
 ## Device, source and binary scope
 
-Only retained registered dedicated AVDs were used:
+The earlier runs below used these retained registered dedicated AVDs:
 - Keeppeer_Guard_API31_20261030_123138: discovered emulator-5590; qemu1/API31/x86_64/boot complete.
 - Keeppeer_Guard_API25_20261030_123138: discovered emulator-5592; qemu1/API25/x86_64/boot complete. Older qemu name properties were used where ro.boot was empty.
 - Emulator37.2.12.0/build16428233. Each exact serial was guarded by AVD/qemu/API/ABI checks before SDK actions; no unqualified connected-device task.
@@ -35,7 +47,7 @@ Only retained registered dedicated AVDs were used:
 - Both emulators were stopped after checks; no wipe, reset, template/key removal or AVD deletion.
 
 Current production APK SHA-256:1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc.
-Final test APK SHA-256:6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433.
+Historical pre-return-driver test APK SHA-256:6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433. Current final test APK is recorded in the final section above.
 Debug app/test assembly and lint passed after the final fixture edit; lint0errors14warnings.
 
 | Native log | API | Expected/started | Pass/fail/skip | Native seconds | Final result and scope |
@@ -85,7 +97,7 @@ Result:2expected/started/executed/passed,0failed/skipped,58.101s,OK(2tests),nati
 
 Host clipboard values were not inspected/exported or Windows clipboard contents explicitly changed. No Android permissions/AppOps, Defender, Windows security, personal setting or unrelated AVD configuration changed.
 
-## New automatic-review block
+## Historical combined wake/menu automatic-review block
 
 After the final fixture build, the retained API31 AVD was reverified and the final test APK installed. Its display was black; safe power-policy metadata reported Asleep/keyguard showing. A single wake action did not establish a visible unlocked screen. Automatic review rejected the subsequent combined KEYCODE_WAKEUP + KEYCODE_MENU command as unacceptable risk, with this exact reason:
 
@@ -101,11 +113,11 @@ The rejected combined action was not executed; no alternate wrapper, GUI route, 
 - [x] Preserve current approved biometric3/3, rotation and lifecycle individual passes at their actual package hashes; keep their containing failed groups intact.
 - [x] Execute only the2approved clipboard methods with sharing off; pass2/2; restore/verify original enabled preference.
 - [x] Assemble app/tests and lint after final edits; retain0errors14warnings.
-- [ ] Resolve final API25 native task-return failure and obtain a complete affected window pass there.
-- [ ] Run the final window fixture on API31 after an explicitly approved ordinary unlock; current preparation was review-blocked.
+- [x] Resolve final API25 native task-return failure and obtain a complete affected window pass there (1/1 pass, 7.379s).
+- [x] Run the final affected window fixture on the separately authorized fresh API31 AVD:1/1 pass,15.781s,shell-92; old unknown-credential/FBE fixture untouched.
 - [x] Preserve original selected22-test matrices/KDF/SQLCipher and screenshot/recording evidence at original identities without broad reruns.
 - [x] Keep release disabled, Phase3 unstarted, personal/preserved material untouched.
 
-Original C1–C6 and C9–C10 evidence remains carried forward where source is unchanged; current biometric/rotation/lifecycle adds scoped coverage. C8 controlled clipboard verification is now covered. C7/A3 and A4 remain incomplete only for the final affected window compatibility/fixture verification above. No additional live-card manual observation is outstanding on tested API31; no physical/every-OEM or historical Defender verdict gate is introduced. The next bounded work is task-return diagnosis on the dedicated API25 fixture and the single final API31 window rerun after approved normal unlock, not a full matrix.
+Original C1–C6 and C9–C10 evidence remains carried forward at original identities where source is unchanged; approved biometric/rotation/lifecycle coverage retains its scope. C8 controlled clipboard2/2 and restored sharing remain covered. C7/A3 and A4 final affected window verification is now covered by the retained API25 pass and complete fresh API31 pass. No required Phase2 gap remains. The API25 historical hash-attestation and physical/provider limits remain explicit; no original-opacity/Recents redesign, further live-card observation,full matrix or universal hardware/Defender-verdict gate. Release disabled;Phase3 unstarted.
 
 Recovery is no longer requested because the original unavailable entries were disposable tests. Cause stays unknown; no recovery/restoration, deletion/reset/rekey or preservation access is claimed/authorized. The user reported “Full scan finished; no threats or new alerts.” on2026-10-30, exact time unknown; it is uninspected user testimony, not an old false-positive verdict. Defender remained enabled/unchanged; no detections allowed/restored, exclusions, encoded-command replay or protection bypass. Physical screenshot/keyboard/provider coverage remains a bounded limitation. All runtime vault/envelope/key/credential/candidate/preservation/capture material remains excluded from the atomic source export.

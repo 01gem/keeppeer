@@ -1,5 +1,6 @@
 package com.gem.keeppeer.security
 
+import com.gem.keeppeer.BuildConfig
 import com.gem.keeppeer.R
 import android.app.KeyguardManager
 import android.content.Context
@@ -76,7 +77,7 @@ class VaultSession(
         return when {
             evidence.passwordEnvelope -> VaultState(VaultStage.LOCKED)
             evidence.encryptedEvidence -> unavailable()
-            evidence.legacy -> VaultState(VaultStage.LEGACY_RESET)
+            evidence.legacy -> if (BuildConfig.DEBUG) VaultState(VaultStage.LEGACY_RESET) else unavailable()
             else -> VaultState(VaultStage.FIRST_RUN)
         }
     }
@@ -150,7 +151,7 @@ class VaultSession(
 
     /** User must explicitly confirm the development reset in the UI. Never touches encrypted files. */
     fun resetLegacy() {
-        if (state.value.stage != VaultStage.LEGACY_RESET || attempt?.isActive == true) return
+        if (!BuildConfig.DEBUG || state.value.stage != VaultStage.LEGACY_RESET || attempt?.isActive == true) return
         attempt = scope.launch {
             try {
                 withContext(Dispatchers.IO) {

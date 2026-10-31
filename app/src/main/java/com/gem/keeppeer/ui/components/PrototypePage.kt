@@ -1,12 +1,28 @@
 package com.gem.keeppeer.ui.components
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.gem.keeppeer.BuildConfig
 import com.gem.keeppeer.R
+import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,12 +44,19 @@ fun PrototypePage(
         floatingActionButton = floatingActionButton,
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()) {
-            Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
-                Text(
-                    stringResource(R.string.development_notice),
-                    Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
-                    style = MaterialTheme.typography.labelLarge,
-                )
+            val banner = when {
+                BuildConfig.SHOW_DEVELOPMENT_BANNER -> stringResource(R.string.development_notice)
+                BuildConfig.VALIDATION_BUILD -> stringResource(R.string.validation_notice)
+                else -> null
+            }
+            if (banner != null) {
+                Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
+                    Text(
+                        banner,
+                        Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                }
             }
             content()
         }

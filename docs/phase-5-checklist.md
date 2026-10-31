@@ -1,14 +1,19 @@
-# Phase 5 checklist — unstarted
+# Phase 5 checklist — in progress
 
-This is a planning handoff, not release authorization or a readiness claim. Phase4 must finish its recorded implementation/verification gaps first. Release remains disabled. No signing, publishing, uploads or distribution have been performed.
+This task authorizes local release preparation and bounded synthetic verification. Phases0–4 are accepted within their recorded scopes; the old Phase4 prerequisite/unstarted wording is superseded. No production signing, publishing, upload or distribution is authorized or performed.
 
-- Reconcile the final Phase4 source review and resolve actionable findings; regenerate source-code.txt after every fix.
-- Plan whole-app synthetic journeys across onboarding/unlock/password change/optional biometrics, CRUD, generator, filters, appearance, background/rotation/process loss and SAF backup. Preserve original artifact scopes and failures; do not substitute shell success or skips for native completion.
-- Choose explicitly authorized disposable API24/25 and modern-device checks for the final whole-app artifact. Avoid a blanket rerun of historical matrices without a changed risk. Personal/retained unknown-credential devices and preserved material remain outside scope.
-- Complete remaining manual narrow/landscape/large-font visual and TalkBack checks on an authorized suitable device; distinguish them from automated semantics checks. Review keyboard, focus, contrast and error/retry usability.
-- Reassess provider/OEM/hardware limits: real biometric enrollment/invalidation/fallback if specifically authorized; actual clipboard timing/ownership/background behavior without changing host sharing; protected owned windows/Recents; other-provider/physical-device CSV and local spreadsheet interpretation as available.
-- Reconfirm no network/broad-storage permissions, disabled backup/device transfer, no secret logging/saved state/plaintext caches, current dependency compatibility and the biometric preview exception. No general upgrade exercise.
-- Separately design and review minification/R8 rules and release build configuration before enabling a variant. Test a minified artifact only in Phase5 after its release restriction is deliberately reviewed.
-- Design safe local signing configuration with credentials outside Git/review snapshots; no production signing or publishing without the later explicit task authorization.
-- Run the final affected JVM/native/lint/build/manifest checks and record exact source/app/test identities. Document pass/fail/not-run and realistic protection/recovery limits.
-- Produce an honest Phase5 readiness report and full atomic source snapshot. Publishing/distribution remains a separate decision.
+- [x] Reconcile starting commit92e4f06 and seven pre-existing dirty Phase5 paths; preserve accepted reports/failures/artifact identities and unrelated/preserved data.
+- [x] Audit v1 source/config against [the requirement map](phase-5-verification.md), schema1, fail-closed storage, logging/saved-state/permission/backup boundaries and the pinned biometric preview exception.
+- [x] Prepare opt-in whole-app R8/resource shrinking, unsigned production candidate, non-debuggable visibly development-signed validation, and safe separately opted-in production signing configuration. No production credential sources read or key created/used.
+- [x] Remove ordinary minified legacy-reset eligibility, repair invalid partial Compose import, and replace default launcher metadata with the project lock vector.
+- [x] Run69 JVM tests, debug/test packaging and lint; build and inspect actual initial minified artifacts, mapping/usage/DEX, merged manifest, signing and12 native libraries across4 ABIs. Earlier failed commands/harness starts remain history.
+- [x] Register new distinct API24/25 fixtures from installed images without overwrite. Only one emulator runs at a time; exact identity guard precedes actions.
+- [x] Initial normal minified API24 synthetic setup/save and cold unlock expose an actual Settings IME layout defect. Apply the documented full-screen Dialog edge-to-edge correction without changing secure-window registration or cryptography.
+- [x] Complete refreshed final-source builds/JVM/lint/packaging and affected normal minified Settings regression (Phase5Harness ordinaryCompatibilityReopen PASS on API24 post-DialogProperties fix; EncryptedVaultTest 2/2 PASS, VaultSecurityTest 7/7 PASS; WindowRegistrationTest NOT APPLICABLE on API24 as test source restricts API to 25/31).
+- [/] Complete actual normal minified whole-app SAF/generator/favorite/theme/password-change/cold journeys and targeted API24/25 native security/window evidence (API25 ordinaryCompatibilitySetupAndReopen failure recorded at await Edit — visible ScrollView present, harness await("Edit") does not scroll; consistent with harness scroll deficiency rather than proven product failure).
+- [ ] Reopen modern API31 verification (API31 fixture Keeppeer_Guard_Phase5_31_20261031_e31b2 was successfully created with JDK 25 JAVA_HOME and booted, but Phase5StandaloneRunner ordinaryCompatibilitySetupAndReopen FAILED at await("Add") on that fixture; required pass not yet achieved).
+- [x] Establish actual distribution history (confirmed no prior distribution; versionCode 1 / versionName 1.0 confirmed as initial v1 release version).
+- [x] Record actual ABI/API/page-size and optional hardware/OEM/manual/TalkBack/spreadsheet limits. No compatible16KiB image is installed; packaging alignment alone is not runtime evidence. Client-wide settings restored.
+- [ ] Finish release notes/checklist/security/status/report and atomically regenerate source-code.txt after the final included change. Engineering completion must remain distinct from pending production signing/distribution.
+
+Exact counts, selections, durations, identities, failures and remaining gates: [phase-5-report.json](reports/phase-5-report.json). Reproducible commands and signing handoff: [release-checklist.md](release-checklist.md).

@@ -1,4 +1,14 @@
-# Keeppeer security — Phase 4
+# Keeppeer security — Phase 5 local candidates
+
+Phase5 keeps the accepted encrypted-vault, KDF/envelope, CryptoObject/post-auth AAD, revocation/cancellation, clipboard, secure-window and exact-value CSV boundaries. No dependency/schema/toolchain upgrade was made. [The Phase5 report](reports/phase-5-report.json) is authoritative for current checks and gates; earlier sections below are historical, not current release-readiness claims.
+
+Release and validation are disabled without explicit local build opt-in. Whole-app R8 and optimized resource shrinking use AGP9.5’s documented DSL without a package limiter or blanket keeps. Production signing sources are read only with a separate explicit signing opt-in and fail closed when incomplete. This task does not use/create a production identity. Validation is non-debuggable, visibly labelled, and signed solely with the ordinary local Android development certificate. Test runners/fixtures stay outside production packaging. See [safe signing/build steps](release-checklist.md).
+
+Minified builds refuse legacy Phase1 plaintext evidence without reset/deletion/conversion. Debug alone retains the confirmed synthetic development reset. No plaintext fallback or destructive migration is introduced. Same-schema encrypted updates retain device-bound keys and formats; missing/corrupt active storage remains fail-closed. Version/distribution continuity must be established with the owner.
+
+An actual API24 minified journey exposed a full-screen floating Settings dialog shifting its header/Lock now606px above the viewport while the IME was present. The narrow correction uses `decorFitsSystemWindows=false` with the existing Scaffold system/IME insets, as documented by the pinned Compose API. Secure registration/original-opacity logic is unchanged. Final regression/artifact identities are recorded separately from the failed pre-fix journey. Packaging alignment is distinct from a16KiB runtime result; available ABI/API/page-size scope is explicit in the report.
+
+## Accepted Phase 4 baseline (historical)
 
 ## Generator, filters, appearance and input privacy
 

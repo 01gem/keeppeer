@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import com.gem.keeppeer.BuildConfig
 import com.gem.keeppeer.R
 import com.gem.keeppeer.security.*
 import com.gem.keeppeer.ui.components.*
@@ -142,7 +143,16 @@ private fun AboutDialog(dismiss: () -> Unit) {
             Text(stringResource(R.string.about_offline))
             Text(stringResource(R.string.about_export))
             Text(stringResource(R.string.about_limits))
-            Text(stringResource(R.string.about_development), style = MaterialTheme.typography.bodySmall)
+            Text(
+                stringResource(
+                    when {
+                        BuildConfig.SHOW_DEVELOPMENT_BANNER -> R.string.about_development
+                        BuildConfig.VALIDATION_BUILD -> R.string.about_validation
+                        else -> R.string.about_release
+                    },
+                ),
+                style = MaterialTheme.typography.bodySmall,
+            )
         } },
         confirmButton = { TextButton(onClick = dismiss) { Text(stringResource(R.string.csv_continue)) } })
 }

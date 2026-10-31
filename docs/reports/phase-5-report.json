@@ -1,0 +1,390 @@
+{
+  "phase": 5,
+  "outcome": "incomplete",
+  "implementationComplete": false,
+  "verificationComplete": false,
+  "productionReleaseReady": false,
+  "published": false,
+  "summary": "Phase5 continuation: version policy confirmed (no prior distribution; versionCode 1 / versionName 1.0 final); post-DialogProperties-fix APK hashes captured; API24 ordinaryCompatibilityReopen and targeted EncryptedVaultTest/VaultSecurityTest passed; API24 WindowRegistrationTest classified as NOT APPLICABLE on API24 due to hardcoded API 25/31 guard in test source; API25 ordinaryCompatibilitySetupAndReopen failure analyzed as harness scroll deficiency (await Edit without prior scroll); the API31 fixture was created and booted, but the harness FAILED at await Add; API31 modern verification remains an open gate. Production signing and remaining verification gates remain pending.",
+  "baseline": {
+    "reviewedSnapshot": "2026-10-31 02:59:20 PM PHT (UTC+08:00)",
+    "bytes": 1308427,
+    "revision": "0edb8f3 plus documentation changes",
+    "sha256": "a6c5125f20a3effe63bd0f47efe160ca8b4b356b9fbf6f200e6d8530b4854354",
+    "appSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+    "testSha256": "c71f00ee3ad813f2f2808cdea2142f819aeebbe2db37f876b0ea54127fddc0a5",
+    "actualStartingRevision": "92e4f068bf92a2f41bfdaf8c16cc41f541269362",
+    "initialDirtyPaths": [
+      ".gitignore",
+      "app/build.gradle.kts",
+      "app/src/main/java/com/gem/keeppeer/ui/components/PrototypePage.kt",
+      "app/src/main/java/com/gem/keeppeer/ui/settings/SecuritySettings.kt",
+      "app/src/main/keepRules/rules.keep",
+      "app/src/main/res/values/phase4_strings.xml",
+      "app/src/main/res/values/strings.xml"
+    ],
+    "reconciliation": "92e4f06 commits Phase4 documentation. Partial Phase5 work had no report or minified APK; historical tests predated the new build/config. No historical pass assigned to new binaries. No project AGENTS.md located; prior report records no immediate-ancestor instructions."
+  },
+  "project": {
+    "applicationId": "com.gem.keeppeer",
+    "minSdk": 24,
+    "compileSdk": 37,
+    "targetSdk": 37,
+    "versionCode": 1,
+    "versionName": "1.0",
+    "versionPolicy": "Confirmed: no prior distribution (Play Store, sideload or beta). versionCode 1 / versionName 1.0 is the initial release version. GitHub repository source upload is planned; that is not app distribution and does not affect versionCode. Any future actual distributed build must increase versionCode and maintain signing identity continuity.",
+    "modules": [
+      ":app"
+    ],
+    "di": "manual",
+    "schemaVersion": 1,
+    "dependencyChanges": [],
+    "biometricException": "1.4.0-alpha07 retained for Core1.19.1 legacy fingerprint compatibility; prior real crypto evidence retains exact scopes."
+  },
+  "fixes": [
+    "Corrected partial invalid Compose Modifier import.",
+    "Minified release/validation refuse legacy plaintext evidence without reset/delete. Debug retains confirmed synthetic development reset.",
+    "Replaced default Android launcher icon with project-owned lock vector.",
+    "Variant-based development/validation notices; production About avoids build-history claims.",
+    "Production signing material is read only under separate explicit keeppeer.productionSigning opt-in; unsigned otherwise. No production key created, chosen or used.",
+    "Whole-app AGP9.5 optimization.enable=true with no packageScope; removed unsupported blanket BC API keeps; dependency consumer/default Android rules retained.",
+    "Demonstrated API24 normal minified Settings IME defect: full-screen floating Dialog panned above screen, hiding header/Lock now. VaultRoot now sets DialogProperties.decorFitsSystemWindows=false, using existing Scaffold system/IME insets. Verified with Phase5Harness ordinaryCompatibilityReopen PASS."
+  ],
+  "checks": [
+    {
+      "name": "Initial host suite",
+      "result": "PASS",
+      "details": "shell-124; testDebugUnitTest/lintDebug/assembleDebug/assembleDebugAndroidTest exit0; Gradle 4m8s; 69/69 JVM tests, 0 failure/error/skip.",
+      "session": "shell-124",
+      "hostElapsedSeconds": 250.837
+    },
+    {
+      "name": "Minified builds and release lint",
+      "result": "PASS",
+      "details": "shell-127; assembleRelease/assembleValidation/assembleDebug/assembleDebugAndroidTest/lintRelease with quoted opt-in; exit0, Gradle 11m24s; whole-app R8 and optimized resources executed for both candidates; release lint 0 errors 18 warnings.",
+      "session": "shell-127",
+      "hostElapsedSeconds": 689.574
+    },
+    {
+      "name": "APK/native/signing inspection",
+      "result": "PASS",
+      "details": "shell-131; SDK36 aapt2/apksigner/zipalign -c -P16 4, plus supplemental in-memory ELF PT_LOAD parser; 12 libraries across 4 ABIs, every observed load alignment 16384.",
+      "hostElapsedSeconds": 3.207
+    },
+    {
+      "name": "Refreshed host suite on final production source",
+      "result": "PASS",
+      "details": "shell-133; 69/69 JVM tests passed; test packaging and lintDebug pass, 0 errors 18 warnings.",
+      "session": "shell-133"
+    },
+    {
+      "name": "Packaged manifest/DEX/R8 coverage",
+      "result": "PASS",
+      "details": "shell-137; release and validation debuggable=false, backup=false, no network/storage/test components/classes. 162 app mapping entries, 158 renamed; 13 BC and 72 Room entries.",
+      "session": "shell-137"
+    }
+  ],
+  "gate1PartBDiagnosticCheck": {
+    "build": {
+      "session": "shell-17",
+      "result": "PASS",
+      "details": "assembleDebugAndroidTest with ordinaryLifecycleTests=true; BUILD SUCCESSFUL in 7s; validation APK unchanged and not reinstalled."
+    },
+    "device": {
+      "session": "shell-20",
+      "result": "FAIL",
+      "stage": "await Create your vault",
+      "diagnosticOnly": true,
+      "step2": "NOT RUN; IME evidence was not reached",
+      "guard": "Exact AVD/qemu1/API31/x86_64/boot1/page4096/bootCount2; keyguard unrestricted/not showing. Host/installed hashes attested."
+    },
+    "snapshot": "Not regenerated, per explicit user instruction."
+  },
+  "artifacts": {
+    "release": {
+      "absolutePath": "C:/Users/gemdu/AndroidStudioProjects/Keeppeer/app/build/outputs/apk/release/app-release-unsigned.apk",
+      "bytes": 10157665,
+      "sha256": "c7bd9cff48ee409e0ba0fc64919e9f52a44d7520c40aa841b6e7cd0876659640",
+      "classification": "unsigned minified production candidate; not signed/installed/distributed",
+      "debuggable": false,
+      "dexFiles": 1
+    },
+    "validation": {
+      "absolutePath": "C:/Users/gemdu/AndroidStudioProjects/Keeppeer/app/build/outputs/apk/validation/app-validation.apk",
+      "bytes": 10170137,
+      "sha256": "aba193d40c4db0ef29ef10ce8164fcf15b7706f5182148cecea65f55202177af",
+      "classification": "local Android development/test-signed; not production identity",
+      "debuggable": false,
+      "dexFiles": 1,
+      "certificateSha256": "4ebec5d7ca8e083b6d652b7e3c550c6223ddbab8ea3d4cbb68846b93015c9629"
+    },
+    "debug": {
+      "absolutePath": "C:/Users/gemdu/AndroidStudioProjects/Keeppeer/app/build/outputs/apk/debug/app-debug.apk",
+      "bytes": 33098573,
+      "sha256": "fdbf05244123565c34436b69dc8822ccd3d9cd699295a154fbac892282d0ad44",
+      "classification": "debug, development-signed; never a minified-smoke substitute",
+      "debuggable": true,
+      "dexFiles": 17
+    }
+  },
+  "postFixArtifacts": {
+    "release": {
+      "absolutePath": "C:/Users/gemdu/AndroidStudioProjects/Keeppeer/app/build/outputs/apk/release/app-release-unsigned.apk",
+      "bytes": 10157665,
+      "sha256": "2dc286a060a2397da857309a522653714c00a744766305130a17cd263a40784c",
+      "classification": "unsigned minified production candidate (post-DialogProperties fix)"
+    },
+    "validation": {
+      "absolutePath": "C:/Users/gemdu/AndroidStudioProjects/Keeppeer/app/build/outputs/apk/validation/app-validation.apk",
+      "bytes": 10170137,
+      "sha256": "218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714",
+      "classification": "local validation test-signed (post-DialogProperties fix)"
+    },
+    "debug": {
+      "absolutePath": "C:/Users/gemdu/AndroidStudioProjects/Keeppeer/app/build/outputs/apk/debug/app-debug.apk",
+      "bytes": 33098573,
+      "sha256": "7553bdf9fa5e35f168a09f549adbe223e109c8acaaebac6fd4993a74a1e16db0",
+      "classification": "debug (post-DialogProperties fix)"
+    }
+  },
+  "privateR8": {
+    "releaseMappingSha256": "91309406b75a9cb8fd1d884bd0cb972f69dc1a6c48e4477910c08e6991287bf4",
+    "validationMappingSha256": "388313863e74f9adea58425905f4034e18367ca061a9cae39967dbc3e98dd332",
+    "configurationSha256": "ea4c14f6a710a76051f45df185223618369cb00d06ddc27f734c43ceddefa99e",
+    "releaseUsageSha256": "95ba3ebdb5046ee1aa88e9efc55aa68f18c19ce89a29503debc3ab616f7dd56e",
+    "validationUsageSha256": "c632f152ce0493c01e0c3a57e9a9cb1fd3caba756f99f0a0a6046b4871c30703",
+    "location": "app/build/outputs/mapping/{release,validation}; ignored and excluded from snapshot; contents not exported"
+  },
+  "native": {
+    "packagedAbis": [
+      "arm64-v8a",
+      "armeabi-v7a",
+      "x86",
+      "x86_64"
+    ],
+    "librariesPerAbi": [
+      "libandroidx.graphics.path.so",
+      "libdatastore_shared_counter.so",
+      "libsqlcipher.so"
+    ],
+    "zipAlignment": "SDK36 zipalign -c -P16 4 passes on release,validation,debug",
+    "elfInspection": "Supplemental in-memory ELF program-header parser: every observed PT_LOAD p_align 16384",
+    "runtime16KiB": "NOT RUN: only API24/25/31 x86_64 images installed; no compatible 16KiB fixture discovered"
+  },
+  "officialReferences": [
+    "https://developer.android.com/topic/performance/app-optimization/enable-app-optimization",
+    "https://developer.android.com/guide/practices/page-sizes",
+    "https://www.zetetic.net/blog/2025/06/26/sqlcipher-for-android-16kb-page-size-support/",
+    "https://developer.android.com/training/testing/instrumented-tests",
+    "https://developer.android.com/reference/kotlin/androidx/compose/ui/window/DialogProperties"
+  ],
+  "addedPaths": [],
+  "modifiedPaths": [],
+  "deletedPaths": [],
+  "unresolvedIssues": [
+    "WindowRegistrationTest is authored to run only on API25/API31 (hardcoded listOf(\"25\",\"31\") in deviceAction). Extending coverage to API24 requires a separately authorized test-source edit to the API allowlist; the test source was NOT edited in this session.",
+    "API31 Phase5StandaloneRunner ordinaryCompatibilitySetupAndReopen FAILED at harness await(\"Add\") after the API31 fixture Keeppeer_Guard_Phase5_31_20261031_e31b2 was created with JDK 25 JAVA_HOME. API31 AVD creation is resolved; the modern-API harness pass is NOT achieved. Require a follow-up investigation before removing this item.",
+    "Production signing and distribution outside task; no production identity used."
+  ],
+  "deviceChecks": "API24 normal minified ordinaryCompatibilityReopen PASS (Phase5Harness: PASS expected=1 passed=1); EncryptedVaultTest PASS (2/2); VaultSecurityTest PASS (7/7); WindowRegistrationTest NOT APPLICABLE on API24 (test source restricts API to 25/31). API25 ordinaryCompatibilitySetupAndReopen FAIL at await Edit (controlSummary showed a visible ScrollView with only Back as known visible control; harness await(\"Edit\") does not scroll; failure consistent with harness scroll deficiency). API31 harness FAILED at await Add; fixture creation only, modern verification not achieved.",
+  "harnessQualityObservation": "Related API24 ordinaryCompatibilityReopen passed in shell-194; it is a different selection from API31 ordinaryCompatibilitySetupAndReopen. The dirty API31 harness has failed at Create vault, Add, and now Create your vault across distinct artifact/fixture states. This suggests accumulated harness fragility and a fresh-setup precondition mismatch, not established product defects. It does not prove product correctness. Gate 1 must distinguish harness fixes from product fixes. Step 1 could not reach IME diagnostics; BACK-backgrounding remains untested. Pause for a harness-design/fixture-state review rather than another ad-hoc patch. Gate 2 untouched.",
+  "nativeRuns": [
+    {
+      "session": "shell-194",
+      "api": 24,
+      "selection": "ordinaryCompatibilityReopen",
+      "kind": "framework harness",
+      "expected": 1,
+      "started": 1,
+      "completed": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 7.57,
+      "stage": "minified-normal-cold-and-manual-lock-reopen",
+      "result": "PASS"
+    },
+    {
+      "session": "shell-194",
+      "api": 24,
+      "selection": "com.gem.keeppeer.EncryptedVaultTest",
+      "kind": "instrumentation",
+      "expected": 2,
+      "passed": 2,
+      "failed": 0,
+      "result": "PASS"
+    },
+    {
+      "session": "shell-194",
+      "api": 24,
+      "selection": "com.gem.keeppeer.VaultSecurityTest",
+      "kind": "instrumentation",
+      "expected": 7,
+      "passed": 7,
+      "failed": 0,
+      "result": "PASS"
+    },
+    {
+      "session": "shell-194",
+      "api": 24,
+      "selection": "com.gem.keeppeer.WindowRegistrationTest",
+      "kind": "instrumentation",
+      "expected": 1,
+      "passed": 0,
+      "failed": 0,
+      "result": "NOT APPLICABLE ON API24 (test source restricts API to listOf(\"25\",\"31\"))",
+      "details": "The test's deviceAction() helper asserts shell getprop ro.build.version.sdk in listOf(\"25\",\"31\") at WindowRegistrationTest.kt:42. On API24 this guard fails before any opacity/alpha assertion, so the failure is a test-authoring scope limit, not a product defect on API24."
+    },
+    {
+      "session": "shell-215",
+      "api": 25,
+      "selection": "ordinaryCompatibilitySetupAndReopen",
+      "kind": "framework harness",
+      "expected": 1,
+      "passed": 0,
+      "failed": 1,
+      "result": "FAIL",
+      "details": "Stage=await Edit, Reason=Expected UI control unavailable: Edit. Recorded controlSummary showed a visible ScrollView at [0,359][1080,1794] with only Back reported as a known visible control. Phase5StandaloneRunner.compatibility() calls await(\"Edit\") without scrolling; the action(String) helper does scrollTo() first. This is consistent with harness scroll deficiency, not a proven product-side entry-details rendering failure on API25. No test source was edited in this session."
+    },
+    {
+      "session": "shell-255",
+      "api": 31,
+      "selection": "ordinaryCompatibilitySetupAndReopen",
+      "kind": "framework harness",
+      "expected": 1,
+      "passed": 0,
+      "failed": 1,
+      "result": "FAIL",
+      "details": "API31 AVD creation with JDK 25 JAVA_HOME succeeded; fixture installed with validation APK and ordinaryLifecycleTests test APK; Phase5StandaloneRunner ordinaryCompatibilitySetupAndReopen was invoked and FAILED at await(\"Add\",120000) inside setup(), after action(\"Create vault\"). Known-visible-controls was reported back as Stage=await Add. Possible causes (not proven): Add FAB outside the visible viewport on API31 layout; or post-Create-vault transition not settled within the 120s wait. This is a harness/timing symptom, not a demonstrated product-side crypto/KDF failure. No test-source edit was made; the raw Phase5Harness FAIL stream is retained verbatim in the log referenced below. Requires follow-up before API31 is considered verified.",
+      "log": "C:\\Users\\gemdu\\.android\\studio\\agent\\conversations\\Keeppeer-3e303456340a7b8dc0dbedcd81c5b1\\3c3ceda5-eff7-4bd6-b866-ad7ea9f9fb4c\\session\\agent\\shell-logs\\shell-255.log"
+    },
+    {
+      "api": 31,
+      "selection": "ordinaryCompatibilitySetupAndReopen",
+      "kind": "framework harness",
+      "expected": 1,
+      "started": 1,
+      "completed": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "result": "FAIL",
+      "revision": "92e4f06",
+      "serial": "emulator-5554",
+      "avd": "Keeppeer_Guard_Phase5_31_20261031_e31b2",
+      "installedAppSha256": "218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714",
+      "runLine": "Phase5Harness: FAIL expected=1 started=1 completed=1 passed=0 failed=1 skipped=0",
+      "session": "shell-5",
+      "continuation": "Pre-Part-A unchanged rerun",
+      "durationSeconds": 43.651,
+      "durationMs": 43651,
+      "stage": "await Create vault",
+      "installedTestSha256": "054dd1b7f72bcf074683142a009636104c804a6181c075b60ca894f0a9afb7f4",
+      "runnerSourceSha256": "0a24bf7a1de9aaf19c4312b04738b7f18ce8bfc7ad7f0e125711ccee2a775e71",
+      "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/478ac303-04d1-4ebd-8b03-36165ddf75e9/session/agent/shell-logs/shell-5.log",
+      "logAvailability": "Original run and full controlSummary were observed in the conversation's studio_interact_shell response. At Part B recording, studio_read_file returned File not found and studio_interact_shell reported the old session cleaned up. Raw log was not recreated or replaced.",
+      "details": "Failure before Create vault could be clicked; setup form ScrollView bounds [0,374][1080,1403]. IME/scroll hypothesis remained unproven. No source change, rebuild or reinstall in this attempt."
+    },
+    {
+      "api": 31,
+      "selection": "ordinaryCompatibilitySetupAndReopen",
+      "kind": "framework harness",
+      "expected": 1,
+      "started": 1,
+      "completed": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "result": "FAIL",
+      "revision": "92e4f06",
+      "serial": "emulator-5554",
+      "avd": "Keeppeer_Guard_Phase5_31_20261031_e31b2",
+      "installedAppSha256": "218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714",
+      "runLine": "Phase5Harness: FAIL expected=1 started=1 completed=1 passed=0 failed=1 skipped=0",
+      "session": "shell-13",
+      "continuation": "Part A BACK substitution",
+      "durationSeconds": 126.783,
+      "durationMs": 126783,
+      "hostElapsedSeconds": 131.8960685,
+      "stage": "await Add",
+      "installedTestSha256": "420568c3bd2aaf3b1c6de3cbe4d071a7834b42f5a9eb2b39393bb22b1c1ca8fc",
+      "runnerSourceSha256": "cadfbffe3018ac5535ea1653f2478cc24815fbc7c2bee2b10c13ede64e303a04",
+      "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/478ac303-04d1-4ebd-8b03-36165ddf75e9/session/agent/shell-logs/shell-13.log",
+      "fix": {
+        "partA": "hideKeyboard(): replaced ESC with unconditional BACK; retained 350ms delay; only test APK rebuilt/installed.",
+        "sourceSha256": "cadfbffe3018ac5535ea1653f2478cc24815fbc7c2bee2b10c13ede64e303a04"
+      },
+      "details": "Passed prior Create vault point; failure-time summary showed Keeppeer locked and visible ProgressBar at [66,440][176,550], without Add. Transition/progress symptom; off-screen FAB not demonstrated. No matching ANR/FATAL evidence in collected diagnostics; app process 5190 stopped by instrumentation completion. BACK-backgrounding remains an unverified hypothesis."
+    },
+    {
+      "api": 31,
+      "selection": "ordinaryCompatibilitySetupAndReopen",
+      "kind": "framework harness",
+      "expected": 1,
+      "started": 1,
+      "completed": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "result": "FAIL",
+      "revision": "92e4f06",
+      "serial": "emulator-5554",
+      "avd": "Keeppeer_Guard_Phase5_31_20261031_e31b2",
+      "installedAppSha256": "218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714",
+      "runLine": "Phase5Harness: FAIL expected=1 started=1 completed=1 passed=0 failed=1 skipped=0",
+      "session": "shell-20",
+      "continuation": "Part B Step 1 diagnostics only",
+      "durationSeconds": 61.104,
+      "durationMs": 61104,
+      "hostElapsedSeconds": 65.3560071,
+      "stage": "await Create your vault",
+      "installedTestSha256": "4fa9e0c5a6dcf6919e7ebc7f270e6cde66434dcdc4a82598c103d235a9441bbd",
+      "runnerSourceSha256": "7f9e05386452a9cd0a7557e3d35adaaa2335724f567a8b0080ed46464e7b60f6",
+      "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/478ac303-04d1-4ebd-8b03-36165ddf75e9/session/agent/shell-logs/shell-20.log",
+      "startedAtUtc": "2026-10-31T12:31:27.6877060+00:00",
+      "phase5PreHideIme": null,
+      "phase5PostHideIme": null,
+      "imeEvidence": "Neither status reached: initial Create your vault await failed before fields or hideKeyboard. BACK hypothesis neither confirmed nor refuted; no conditional-BACK fix applied.",
+      "phase5AwaitTicks": [
+        "Create your vault elapsed=10016",
+        "Create your vault elapsed=20078",
+        "Create your vault elapsed=30220",
+        "Create your vault elapsed=40273",
+        "Create your vault elapsed=50366"
+      ],
+      "details": "Read-only status diagnostics in setup() and await(); assertions, reason string, timeout values, checkpoints and hideKeyboard behavior unchanged. Failure summary showed Keeppeer locked, an EditText and Button; no ProgressBar. Consistent with retained initialized fixture rather than required FIRST_RUN; not proof of product correctness or a state-transition defect. No retry, reset, wipe, scroll fix or Step 2. App process 5594 stopped by instrumentation completion; no matching ANR/FATAL in collected system logs. Exact fixture stopped with registration/data retained."
+    }
+  ],
+  "fixtures": [
+    {
+      "avd": "Keeppeer_Guard_Phase5_24_20261031_c51a2",
+      "serial": "emulator-5554",
+      "api": 24,
+      "abi": "x86_64",
+      "pageSize": 4096,
+      "qemu": 1,
+      "bootCount": 3,
+      "state": "Stopped after verified API24 ordinaryCompatibilityReopen pass and targeted test runs; registration/data retained."
+    },
+    {
+      "avd": "Keeppeer_Guard_Phase5_25_20261031_d51a3",
+      "serial": "emulator-5554",
+      "api": 25,
+      "abi": "x86_64",
+      "pageSize": 4096,
+      "qemu": 1,
+      "bootCount": 2,
+      "state": "Stopped after API25 ordinaryCompatibilitySetupAndReopen run; registration/data retained."
+    },
+    {
+      "avd": "Keeppeer_Guard_Phase5_31_20261031_e31b2",
+      "serial": "emulator-5554",
+      "api": 31,
+      "abi": "x86_64",
+      "pageSize": 4096,
+      "qemu": 1,
+      "bootCount": 1,
+      "state": "Successfully created using JDK 25 JAVA_HOME, booted, and tested with Phase5StandaloneRunner ordinaryCompatibilitySetupAndReopen (which failed at await Add); stopped and registration/data retained."
+    }
+  ]
+}

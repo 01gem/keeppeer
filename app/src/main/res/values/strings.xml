@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Keeppeer</string>
     <string name="placeholder_empty_list">No passwords yet.\nThey will appear here once added.</string>
-    <string name="development_notice">Development build • Synthetic entries only • Release disabled</string>
+    <string name="development_notice">Development build • Synthetic entries only • Not a release candidate</string>
+    <string name="validation_notice">Validation build • Local test-signed only • Not a production signing identity</string>
     <string name="csv_heading">CSV backup</string>
     <string name="csv_import">Import CSV</string>
     <string name="csv_export">Export CSV</string>

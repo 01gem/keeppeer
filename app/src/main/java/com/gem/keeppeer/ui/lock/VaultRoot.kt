@@ -52,7 +52,12 @@ fun VaultRoot(session: VaultSession, biometric: BiometricAction) {
                 }
                 if (settings) androidx.compose.ui.window.Dialog(
                     onDismissRequest = { settings = false },
-                    properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false),
+                    // Full-screen dialog uses the existing Scaffold system/IME insets.
+                    // A floating decor can pan its header above the screen on API24/25.
+                    properties = androidx.compose.ui.window.DialogProperties(
+                        usePlatformDefaultWidth = false,
+                        decorFitsSystemWindows = false,
+                    ),
                 ) {
                     ProtectDialogWindow()
                     com.gem.keeppeer.ui.settings.SecuritySettings(session, biometric, csv, picker,

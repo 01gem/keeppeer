@@ -15,10 +15,16 @@
 .cxx
 local.properties
 
-# Signing
+# Signing (production and local validation test keys; never commit)
 keystore.properties
+signing/
 *.jks
 *.keystore
+
+# Private R8 mapping/logs retained locally only
+mapping.txt
+**/mapping/
+app/build/outputs/mapping/
 
 # Generated review snapshot
 source-code.txt

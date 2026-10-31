@@ -1,6 +1,6 @@
 # Phase 4 behavior contract
 
-Implementation and verification outcome are recorded in [the Phase 4 report](reports/phase-4-report.json). Earlier phase evidence keeps its original source, app and test scope. Release remains disabled; Phase 5 is unstarted.
+Accepted Phase4 implementation and verification are recorded in [the Phase4 report](reports/phase-4-report.json). Its evidence keeps the original source/app/test scope. Phase5 local build configuration and final verification now supersede the old release-disabled/unstarted handoff wording; see [the current report](reports/phase-5-report.json). The product behavior below remains the accepted baseline.
 
 ## Generator
 

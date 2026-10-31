@@ -89,7 +89,9 @@
     <string name="about_offline">Offline vault • No account or sync. Your selected CSV provider may store exports remotely.</string>
     <string name="about_export">CSV exports contain plaintext passwords. Protect exported files separately.</string>
     <string name="about_limits">A forgotten master password or lost device-bound keys can permanently prevent access. There is no server reset. Optional biometrics keep master-password fallback. Encryption and secure windows cannot protect an already compromised device or every keyboard.</string>
-    <string name="about_development">Development build for synthetic entries only. Release packaging is disabled.</string>
+    <string name="about_development">Development build for synthetic entries and local verification. Not a published release.</string>
+    <string name="about_validation">Validation build signed with a local development/test key only. This is not a production signing identity and must not be distributed as a release.</string>
+    <string name="about_release">Your encrypted vault stays on this device. Keep a protected CSV backup if you need a separate recovery copy.</string>
     <string name="create_vault_title">Create your vault</string>
     <string name="locked_title">Keeppeer locked</string>
     <string name="checking_vault">Checking vault availability…</string>

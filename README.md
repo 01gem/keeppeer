@@ -1,8 +1,16 @@
 # Keeppeer — Offline Password Keeper
 
-An offline-only Android password keeper built with Kotlin, Jetpack Compose, and Material 3. All data stays on-device with no network access.
+An Android password keeper built with Kotlin, Jetpack Compose, and Material 3. The encrypted vault stays on-device and the app has no network permission. A user-selected SAF provider controls where plaintext CSV backups are stored, including possible remote destinations.
 
-> **Phase2 complete for the original required criteria, with documented provider/artifact limits.** Retained API25 window regression: 1/1 pass, 7.379s. Final new disposable API31 window regression: 1/1 pass, 15.781s, OK (1 test), all original lifecycle/privacy assertions intact. **Release disabled; Phase3 unstarted; do not distribute.**
+> **Phase 3 complete for the requested CSV scope, with recorded provider/JVM/spreadsheet limits.** 46 JVM tests pass; debug assembly, AndroidTest packaging and lint pass (0 errors/15 warnings). All 11 selected device methods have passing evidence across scoped runs: 9 in the retained mixed group and the final focused 2/2 in 58.650s. Failed attempts retain their original identities. See [CSV contract](docs/csv-contract.md) and [Phase 3 report](docs/reports/phase-3-report.json). Release stays disabled; Phase 4 is unstarted; do not distribute.
+
+Settings → Export CSV requires the plaintext warning, a chosen document destination, and a fresh unlocked-session confirmation. Settings → Import CSV validates the whole file before a count-only confirmation with Skip (default), Update existing or Keep both. File pickers follow the ordinary immediate/timed background lock policy. Password-change backup remains optional.
+
+Phase 3 review snapshot: `powershell -NoProfile -File ./tools/export-source-code.ps1 -Phase 3 -Outcome complete`. The exporter validates the structured outcome and generates the full eligible inventory atomically. Upload source-code.txt manually to the originating review chat. Never upload an actual vault CSV with review sources.
+
+### Phase 2 final verification (historical baseline)
+
+> **Historical Phase2 baseline: complete for the original required criteria, with documented provider/artifact limits.** Retained API25 window regression: 1/1 pass, 7.379s. Final new disposable API31 window regression: 1/1 pass, 15.781s, OK (1 test), all original lifecycle/privacy assertions intact. **Release disabled; Phase3 unstarted; do not distribute.**
 
 Production app SHA-256 1c3adda7dd80d515b8ec64e387a77d64d26b6da3bc261961dd007dc98a4965dc; final test 40305e7296b7f9966ca3d98903fa588997bc9f568b9b44cda9ffc646c9d373d0. The test return driver recognizes focus on its actual dialog or original Activity; final diff review also restored the explicit post-return same-window identity assertion omitted by the pre-existing dirty edit. Host and installed hashes match. The retained API25 native pass has no located contemporaneous APK hash attestation; current hashes are not assigned to that old run. See [final evidence](docs/phase-2-final-window-evidence.md), [current acceptance checklist](docs/phase-2-window-lifecycle-clipboard.md), and [structured report](docs/reports/phase-2-report.json).
 

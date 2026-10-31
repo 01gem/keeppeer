@@ -11,6 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.gem.keeppeer.R
+import com.gem.keeppeer.csv.CsvTransfer
+import com.gem.keeppeer.csv.SafCsvDocuments
+import com.gem.keeppeer.ui.export.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import com.gem.keeppeer.security.*
@@ -23,14 +32,22 @@ typealias BiometricAction = (Boolean, Cipher, (BiometricResult) -> Unit) -> Unit
 
 @Composable
 fun VaultRoot(session: VaultSession, biometric: BiometricAction) {
+    val picker: CsvPickerModel = viewModel()
+    CsvPickers(picker)
     SensitiveClipboardProvider(session.clipboard) {
     val state by session.state.collectAsStateWithLifecycle()
     val access = state.access
     if (state.stage == VaultStage.UNLOCKED && access != null) {
         key(access.id) {
             CompositionLocalProvider(LocalViewModelStoreOwner provides access) {
+                val resolver = LocalContext.current.applicationContext.contentResolver
+                val transfer = remember { CsvTransfer(SafCsvDocuments(resolver)) }
+                val csv: CsvViewModel = viewModel(factory = viewModelFactory {
+                    initializer { CsvViewModel(access, transfer) }
+                })
                 var settings by remember { mutableStateOf(false) }
-                if (settings) SecuritySettings(session, biometric) { settings = false }
+                CsvDialogs(csv, picker, transfer)
+                if (settings) SecuritySettings(session, biometric, csv, picker) { settings = false }
                 else KeeppeerApp(access.repository, { settings = true }, session.clipboard::copy)
             }
         }
@@ -112,7 +129,8 @@ fun PasswordInput(label: String, value: String, change: (String) -> Unit) {
 }
 
 @Composable
-private fun SecuritySettings(session: VaultSession, biometric: BiometricAction, back: () -> Unit) {
+private fun SecuritySettings(session: VaultSession, biometric: BiometricAction, csv: CsvViewModel,
+    picker: CsvPickerModel, back: () -> Unit) {
     val timeout by session.timeout.collectAsStateWithLifecycle()
     var current by remember { mutableStateOf("") }
     var replacement by remember { mutableStateOf("") }
@@ -135,8 +153,10 @@ private fun SecuritySettings(session: VaultSession, biometric: BiometricAction, 
             }
             Text("Screen lock always locks the vault. File pickers will follow the same background timeout.")
             HorizontalDivider()
+            CsvActions(csv, picker, !busy)
+            HorizontalDivider()
             Text("Change master password", style = MaterialTheme.typography.titleMedium)
-            Text("Consider exporting a backup before changing your password. CSV export becomes available in Phase 3. Plaintext exports must be protected separately.")
+            Text(stringResource(R.string.csv_password_nudge))
             PasswordInput("Current master password", current, { current = it })
             PasswordInput("New master password", replacement, { replacement = it })
             PasswordInput("Confirm new password", confirmation, { confirmation = it })

@@ -130,5 +130,11 @@ class EntryEditViewModelTest {
             return true
         }
         override suspend fun delete(id: Long): Boolean = false
+        override suspend fun exportCsv(): List<PasswordEntry> = error("Unused fake operation")
+        override suspend fun previewCsv(rows: List<PasswordEntry>): com.gem.keeppeer.csv.ImportPreview =
+            error("Unused fake operation")
+        override suspend fun importCsv(rows: List<PasswordEntry>, expected: com.gem.keeppeer.csv.ImportPreview,
+            policy: com.gem.keeppeer.csv.DuplicatePolicy): com.gem.keeppeer.csv.ImportResult =
+            error("Unused fake operation")
     }
 }

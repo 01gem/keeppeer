@@ -1,6 +1,16 @@
-# Keeppeer security — Phase 2
+# Keeppeer security — Phase 3
 
-## Final window verification — current 2026-10-31
+## Current CSV boundary
+
+**Phase 3 complete for the requested scope, with documented verification limits.** 46 JVM tests pass; selected device coverage closes with the final 2/2 window/real-SAF pass in 58.650s and the nine retained current-app method passes. Failed attempts and distinct test APK identities remain in the report. No required CSV gap remains; manual spreadsheet and remote/physical-provider behavior are not claimed.
+
+Phase 3 adds user-selected plaintext CSV backup through SAF, without INTERNET or storage permissions, dependency changes, schema changes or an authentication bypass. The selected provider may be remote. A warning and a current unlocked-session confirmation precede output; complete bounded UTF-8 parsing and a refreshed transactional duplicate plan precede import mutation. No keys or IDs are exported. Formula-like values remain exact and may be interpreted by spreadsheets.
+
+CSV streams and repository operations belong to VaultAccess's cancellable work tree. Lock clears parsed rows and approvals; cancellation requests stream close, and work is joined before leaving the boundary. Blocked external providers may delay open/close. Export success requires write/flush/close and a current operation. Failure/cancellation warns about remaining partial plaintext; deletion is attempted only for this export's newly created document when supported. JVM Strings and external-provider storage cannot be guaranteed erased.
+
+All new dialogs register with PrivacyWindows. Existing encryption/envelopes, initialization guard, password change, biometric CryptoObject/AAD and dependency exception, secure windows/focus redaction/original opacity, clipboard protection and background timeouts are retained. Release remains disabled; Phase 4 unstarted. See [CSV contract](csv-contract.md) and [Phase 3 report](reports/phase-3-report.json) for exact policies, checks and gaps.
+
+## Phase 2 final window verification — historical baseline 2026-10-31
 
 **Phase2 is complete for the original required criteria, with the recorded provider/artifact limits.** The retained API25 WindowRegistrationTest passed 1/1 in 7.379s. Its actual command/result is retained in session 5ede27b9 steps.jsonl:107 (tool call c428bac8-5cc1-45d0-82a6-e5c6b15cac42); no contemporaneous per-run APK hash attestation was located, so current hashes are not assigned retrospectively.
 

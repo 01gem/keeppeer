@@ -1,0 +1,496 @@
+{
+  "phase": 3,
+  "outcome": "complete",
+  "currentRequiredGap": null,
+  "summary": "Phase3 complete for the requested CSV scope, with explicit provider/JVM/spreadsheet verification limits. Bounded exact-value RFC4180 export and transactional import via SAF, default Skip/Update/Keep both, consistent revocable full-entry reads, current-session renewed confirmation, secure dialogs and partial-export cleanup implemented. Final production-source46 JVM tests pass; debug/AndroidTest assembly and lint pass0errors15warnings. Nine selected native methods passed in the retained mixed group; final unchanged window and corrected real SAF methods passed2/2 in58.650s, resolving its two failing methods. All11 distinct selected device methods have passing evidence at recorded exact artifacts; prior failures retained, not relabeled. Release remains disabled and Phase4 unstarted.",
+  "baseline": {
+    "reviewedSnapshot": "2026-10-31 04:32:28 AM PHT (UTC+08:00)",
+    "reviewedBytes": 1090849,
+    "reviewedRevision": "c0d0c44 plus uncommitted work",
+    "actualStartingRevision": "76c9b216d8d64e745bea67f6ee453595764d0a27",
+    "initialWorkingTree": "clean",
+    "difference": "One newer committed Phase 2 completion change: WindowRegistrationTest and final evidence/docs/report; no production authentication/security change. Existing Phase 2 completion and historical evidence preserved.",
+    "appId": "com.gem.keeppeer",
+    "minSdk": 24,
+    "dependencyChanges": [],
+    "schemaChanges": [],
+    "releaseEnabled": false,
+    "phase4Started": false
+  },
+  "addedPaths": [
+    "app/src/androidTest/java/com/gem/keeppeer/CsvSafUiTest.kt",
+    "app/src/main/java/com/gem/keeppeer/csv/CsvDocuments.kt",
+    "app/src/main/java/com/gem/keeppeer/csv/CsvImport.kt",
+    "app/src/main/java/com/gem/keeppeer/csv/VaultCsv.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/export/CsvUi.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/export/CsvViewModel.kt",
+    "app/src/test/java/com/gem/keeppeer/CsvImportRoomTest.kt",
+    "app/src/test/java/com/gem/keeppeer/CsvTransferTest.kt",
+    "app/src/test/java/com/gem/keeppeer/VaultCsvTest.kt",
+    "docs/csv-contract.md",
+    "docs/reports/phase-3-report.json"
+  ],
+  "modifiedPaths": [
+    "README.md",
+    "app/src/main/java/com/gem/keeppeer/data/local/EntryDao.kt",
+    "app/src/main/java/com/gem/keeppeer/data/repo/EntryRepository.kt",
+    "app/src/main/java/com/gem/keeppeer/data/repo/EntryRepositoryImpl.kt",
+    "app/src/main/java/com/gem/keeppeer/security/VaultAccess.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/components/PrototypePage.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/lock/VaultRoot.kt",
+    "app/src/main/res/values/strings.xml",
+    "app/src/test/java/com/gem/keeppeer/EntryEditViewModelTest.kt",
+    "docs/phase-status.md",
+    "docs/security.md"
+  ],
+  "deletedPaths": [],
+  "contract": {
+    "document": "docs/csv-contract.md",
+    "header": "title,username,password,url,notes,category,favorite,created_at,updated_at",
+    "format": "UTF-8; exact literal header; quoted data with doubled quotes; CRLF records and unchanged embedded newlines; deterministic ascending local ID order; all duplicate entries exported. Import additionally accepts leading BOM and LF. Strict header/column count, quotes, boolean, nonblank title and nonnegative ordered integer timestamps; malformed UTF-8 rejected.",
+    "normalization": "Empty optional username/url/notes/category cells normalize to null. This format cannot distinguish optional null/empty. Required password cell may be empty and is never trimmed; all nonempty field values remain exact.",
+    "limits": {
+      "inputBytes": 8388608,
+      "dataRows": 10000,
+      "fieldUtf16CodeUnits": 262144,
+      "aggregateUtf16CodeUnitsIncludingHeader": 4194304,
+      "currentAndCommittedVaultRows": 10000,
+      "currentAndCommittedVaultFieldUtf8Bytes": 8388608,
+      "memory": "Aggregate character and record budgets bound parsed text/object allocation, separate SQL payload preflight bounds full-entry reads; not a total JVM heap or erasure guarantee."
+    },
+    "duplicates": "Exact case-sensitive title + username, null/empty username equivalent, against existing and earlier rows. Skip default is repeat-idempotent. Update selects lowest local ID and leaves other existing matches, preserving ID/createdAt; same-file rows apply in order to that target. Keep both always creates new local IDs.",
+    "timestamps": "New rows retain imported created/updated. Update uses max(stored+1, imported updated, repository clock). Stored Long.MAX_VALUE rejects the transaction; ordinary edit raises safe save failure rather than SQLite REAL coercion or false missing-entry status.",
+    "transaction": "Complete bounded parse before mutation; ephemeral whole-existing-state digest and counts rechecked within Room transaction. Concurrent changes refresh confirmation/reset policy. All accepted rows commit together. Injected SQL failure and pre-commit cancellation roll back; already committed imports are not undone by later UI cancellation.",
+    "formulas": "Values are preserved, never prefixed. Warning explicitly says spreadsheets may interpret formulas and formatting; quoting is not formula protection.",
+    "provider": "CREATE_DOCUMENT text/csv with harmless filename and OPEN_DOCUMENT with CSV/text/octet-stream handling. Content URIs only; no filesystem inference or persisted grant. Selected provider may be remote. Close/flush errors cannot report success; cancelled/failed export warns about partial plaintext and requests supported deletion only for that created document. No import-source deletion, plaintext temporary file, atomic-provider-write or secure-erasure promise.",
+    "lifecycle": "Activity Result registration outside unlocked subtree; Activity VM holds nonsecret pending action/URI only, without process persistence. Every returned selection requires current unlock and renewed explicit confirmation. Access-owned VM holds rows/preview only in memory, survives rotation, clears on revoke. Work is cancelled/joined, stream-close cancellation watcher runs on IO; uncooperative provider open/close may still delay return. Stale callbacks never auto-start I/O. All new dialogs call ProtectDialogWindow."
+  },
+  "checks": [
+    {
+      "name": "Final host tests/debug assembly/AndroidTest packaging/lint",
+      "result": "PASS",
+      "details": "shell-32.log: .\\\\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest :app:lintDebug --console=plain --max-workers=2; BUILD SUCCESSFUL in1m12s; 46 expected/started/completed/passed,0 failed/errors/skipped. 31 new CSV tests plus15 affected/existing host regressions; summed JVM XML suite seconds26.937. Lint0 errors15 warnings (one new PluralsCandidate on count wording;14 existing). Gradle/native-access warnings remain. Subsequent test-only driver packaging is tracked separately.",
+      "appSha256": "ae894de4b74a5dd1c8ee958ecf692031db6a09a4f1d49ae979400c0707391262",
+      "testSha256": "dd4ec9555bbc44c5dd267f9c6d98e6888180ff53117a017ad52a60a39dee4e6b"
+    },
+    {
+      "name": "Merged manifest and release restriction",
+      "result": "PASS",
+      "details": "Merged debug minSdk24/target37/com.gem.keeppeer; backup false with both exclusions; no INTERNET/broad storage permission or CSV component/provider. Production manifest/build config unchanged. Dry-run task selection separately proved assembleRelease and bundleRelease absent (shell-30/31, expected exit1,3s each); no release packaging executed. Earlier all-task enumeration failure retained in history."
+    },
+    {
+      "name": "Final test-only CSV focus-driver packaging and lint",
+      "result": "PASS",
+      "details": "shell-43.log: .\\\\gradlew.bat :app:assembleDebugAndroidTest :app:lintDebug --console=plain --max-workers=2 --no-daemon; BUILD SUCCESSFUL in1m11s; source/application code unchanged; only native CSV driver focus handling changed. Lint0errors15warnings retained. No repeat of unaffected JVM tests needed; prior46-pass final production-source run retained."
+    },
+    {
+      "name": "API31 final focused CSV/SAF and original window rerun",
+      "result": "PASS",
+      "details": "shell-46.log: serial emulator-5554 guarded to exact named AVD/qemu/API/ABI before install/run; boot1/deviceLocked0. Instrumentation selection WindowRegistrationTest,CsvSafUiTest#realSafExportReimportSkipAndImmediateLockReturnPreserveExactValues. 2expected/started/completed/passed,0fail/skip;58.650s;OK (2 tests), instrumentation-1,shell0. Window source unchanged c4ab7c96; all original0.8/same-window/closing-redaction/parent/recreation/security assertions pass after controlled restart of the same new AVD, without source/security changes. Root cause of previous focus/teardown failures remains unproven. Real local SAF synthetic export/reimport/defaultSkip, renewed approval after immediate lock, exact fields/counts, secure dialogs, preview rotation and picker cancellation pass. Test-only CSV focus driver fix: verify current focus; do not require a redundant focus request to return true.",
+      "selection": "com.gem.keeppeer.WindowRegistrationTest,com.gem.keeppeer.CsvSafUiTest#realSafExportReimportSkipAndImmediateLockReturnPreserveExactValues",
+      "command": "adb -s emulator-5554 shell am instrument -w -r -e class 'com.gem.keeppeer.WindowRegistrationTest,com.gem.keeppeer.CsvSafUiTest#realSafExportReimportSkipAndImmediateLockReturnPreserveExactValues' com.gem.keeppeer.test/com.gem.keeppeer.SyntheticTestRunner",
+      "expected": 2,
+      "started": 2,
+      "completed": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 58.65,
+      "appSha256": "ae894de4b74a5dd1c8ee958ecf692031db6a09a4f1d49ae979400c0707391262",
+      "testSha256": "c197bea8765de4fffe34e671487ad972363789f013b3650862df797d16b6663b",
+      "installedTestHashMatchesHost": true
+    },
+    {
+      "name": "Affected native regression coverage at final production app",
+      "result": "PASS WITH RETAINED FAILED ATTEMPTS",
+      "details": "shell-38 has9passing methods: CsvSafUiTest#lockDuringCsvWorkRevokesInFlightStreamAndStaleCallbackNeedsNewApproval;2EncryptedVaultTest;2EntryPersistenceTest;EntryDraftRotationTest;VaultLifecycleUiTest;VaultSecurityTest#passwordChangeRestartWrongPasswordAndStaleRepositoryRevocation;VaultSecurityTest#monotonicReturnEnforcesAllTimeoutOptionsAndDeviceLock. This group had11expected/started/completed,9passed methods,2failed methods/3failure events,0skip,223.221s. Its CSV and window failures are resolved by final2/2 focused run, not rewritten as a single11/11 run. Same production app hash; distinct test APKs and CSV source hashes retained. No assertion weakening, OS credential/enrollment/clipboard-sharing/security setting change or personal/old-AVD action.",
+      "selection": "com.gem.keeppeer.CsvSafUiTest,com.gem.keeppeer.EncryptedVaultTest,com.gem.keeppeer.EntryPersistenceTest,com.gem.keeppeer.EntryDraftRotationTest,com.gem.keeppeer.VaultLifecycleUiTest,com.gem.keeppeer.WindowRegistrationTest,com.gem.keeppeer.VaultSecurityTest#passwordChangeRestartWrongPasswordAndStaleRepositoryRevocation,com.gem.keeppeer.VaultSecurityTest#monotonicReturnEnforcesAllTimeoutOptionsAndDeviceLock",
+      "appSha256": "ae894de4b74a5dd1c8ee958ecf692031db6a09a4f1d49ae979400c0707391262",
+      "testSha256": "dd4ec9555bbc44c5dd267f9c6d98e6888180ff53117a017ad52a60a39dee4e6b"
+    },
+    {
+      "name": "Manual spreadsheet check",
+      "result": "NOT RUN",
+      "details": "No local spreadsheet program was used or installed for this check; no cloud upload. Actual app-authored CSV writer/parser and real local SAF round trips passed. Spreadsheet formula/null/numeric/encoding/newline interpretation limits remain explicit."
+    },
+    {
+      "name": "Whitespace/diff review",
+      "result": "PASS",
+      "details": "git diff --check passed; only an informational LF-to-CRLF Git warning on strings.xml. Eligible new/untracked definitions are included by unchanged exporter; no deletion or unrelated work modification."
+    },
+    {
+      "name": "Disposable AVD cleanup",
+      "result": "PASS",
+      "details": "shell-47.log: exact serial/name/qemu/API/ABI guard then adb -s emulator-5554 emu kill; OK,exit0. Only new AVD stopped; registration/data retained. No personal or retained unknown-credential AVD activity."
+    }
+  ],
+  "history": [
+    {
+      "name": "Initial debug/AndroidTest assembly",
+      "log": "shell-2.log",
+      "result": "FAIL",
+      "duration": "1m21s",
+      "reason": "Trailing-lambda existing VaultRoot test calls broke when picker parameter was added last.",
+      "resolution": "Restored the original public VaultRoot signature; picker is obtained internally. Later packaging passed."
+    },
+    {
+      "name": "Initial all-host checks",
+      "log": "shell-6.log",
+      "result": "PASS",
+      "duration": "2m36s",
+      "tests": {
+        "expected": 44,
+        "started": 44,
+        "completed": 44,
+        "passed": 44,
+        "failed": 0,
+        "skipped": 0
+      },
+      "scope": "Earlier implementation, before final cancellation/overflow/buffer/URI audit corrections."
+    },
+    {
+      "name": "Intermediate selected-host attempt",
+      "log": "shell-12.log",
+      "result": "FAIL",
+      "duration": "2m41s",
+      "reason": "Lint ExperimentalDetector crashed in CsvImport.kt with Unexpected owner function: null. Source was still being edited during this attempt; exact analyzer root cause not proven.",
+      "resolution": "No detector disabled or dependencies changed. Stable-source reruns passed; no test-pass count assigned to the interrupted attempt."
+    },
+    {
+      "name": "Stable host before native attempt",
+      "log": "shell-15.log",
+      "result": "PASS",
+      "duration": "4m25s",
+      "tests": {
+        "expected": 44,
+        "started": 44,
+        "completed": 44,
+        "passed": 44,
+        "failed": 0,
+        "skipped": 0
+      },
+      "appSha256": "c23e821cf78e622a10a1c07980922309ec00daa799fed745ff665affb4d465f6",
+      "testSha256": "ee41309d3fb35d2ad2963796cfc239b1e8871190815c42d3d3b76ebe0fbc0bac"
+    },
+    {
+      "name": "AVD creation toolchain attempt",
+      "log": "shell-7.log",
+      "result": "NOT CREATED",
+      "shellExit": 0,
+      "reason": "avdmanager reported Java17+ required; host PATH selected Java8. Exit0 was not creation success.",
+      "resolution": "Used existing Gradle-managed JDK25 as JAVA_HOME; shell-10 created the uniquely named new AVD. Did not override version checks, download another image or overwrite an existing AVD."
+    },
+    {
+      "name": "New AVD first boot",
+      "log": "shell-11.log",
+      "result": "STARTED",
+      "wallSeconds": 277.917,
+      "details": "Existing API31 google_apis x86_64 image revision14; emulator-5554. Early metadata observed boot incomplete/trust unavailable; later shell-16 verified boot1/deviceLocked0. No wake/credential input."
+    },
+    {
+      "name": "First native CSV group",
+      "log": "shell-19.log",
+      "result": "FAIL",
+      "seconds": 105.825,
+      "expected": 2,
+      "started": 2,
+      "completed": 2,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "instrumentationCode": -1,
+      "shellExit": 0,
+      "appSha256": "c23e821cf78e622a10a1c07980922309ec00daa799fed745ff665affb4d465f6",
+      "testSha256": "ee41309d3fb35d2ad2963796cfc239b1e8871190815c42d3d3b76ebe0fbc0bac",
+      "passedMethod": "lockDuringCsvWorkRevokesInFlightStreamAndStaleCallbackNeedsNewApproval",
+      "failure": "realSafExportReimportSkipAndImmediateLockReturnPreserveExactValues: pickerReady timed out at line89. App did not pause until test teardown.",
+      "resolution": "Added compose.waitForIdle after semantic clicks before waiting on system accessibility, so the test drives the queued Compose launcher effect. Added retained-preview rotation assertion. Rerun result tracked separately; no assertions weakened."
+    },
+    {
+      "name": "Post-failure UI observation",
+      "log": "shell-21.log",
+      "result": "OBSERVED LAUNCHER",
+      "wallSeconds": 136.73,
+      "details": "Explicit new-AVD android layout installed its layout instrumentation helper and returned Pixel Launcher after test teardown. No screenshot or security/credential setting action."
+    },
+    {
+      "name": "Post-driver host checks",
+      "log": "shell-22.log",
+      "result": "PASS",
+      "duration": "5m39s",
+      "tests": {
+        "expected": 44,
+        "started": 44,
+        "completed": 44,
+        "passed": 44,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "Host memory handling",
+      "log": "shell-25.log",
+      "result": "NEW AVD STOPPED",
+      "details": "8GB host had ~140MB free. Exact newly created AVD guard preceded stop; retained registration/data. No old AVD operated on. Subsequent host checks limited Gradle workers to2 for memory pressure, not to bypass approval."
+    },
+    {
+      "name": "Overflow/revocation/input-close audit checks",
+      "log": "shell-26.log",
+      "result": "PASS",
+      "duration": "1m20s",
+      "tests": {
+        "expected": 46,
+        "started": 46,
+        "completed": 46,
+        "passed": 46,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "Writer buffer/byte-limit audit checks",
+      "log": "shell-28.log",
+      "result": "PASS",
+      "duration": "1m1s",
+      "tests": {
+        "expected": 46,
+        "started": 46,
+        "completed": 46,
+        "passed": 46,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "All-task enumeration",
+      "log": "shell-27.log",
+      "result": "FAIL",
+      "duration": "4s",
+      "reason": "AGP Compose Preview runfiles task creation requires resources included in unit tests. No build configuration changed for this unrelated enumeration failure.",
+      "resolution": "Verified release restriction with direct dry-run task selection instead."
+    },
+    {
+      "name": "assembleRelease dry-run",
+      "log": "shell-30.log",
+      "result": "EXPECTED TASK ABSENCE",
+      "duration": "3s",
+      "shellExit": 1,
+      "details": "Cannot locate assembleRelease; no release packaging executed."
+    },
+    {
+      "name": "bundleRelease dry-run",
+      "log": "shell-31.log",
+      "result": "EXPECTED TASK ABSENCE",
+      "duration": "3s",
+      "shellExit": 1,
+      "details": "Cannot locate bundleRelease; no release packaging executed."
+    },
+    {
+      "name": "Final installation and first installed-hash capture",
+      "log": "shell-37.log",
+      "result": "INSTALLS PASSED; HASH CAPTURE FAILED",
+      "shellExit": 1,
+      "details": "Exact guards before both installs; each returned Success; boot1/deviceLocked0. The PowerShell single-line pm path result was accidentally indexed as its first character p; sha256sum p failed. Fixed by explicit array wrapping; no reinstall, protection change or approval bypass needed. Corrected hash attestation and native results tracked separately."
+    },
+    {
+      "name": "Final-app CSV and affected regression group",
+      "log": "shell-38.log",
+      "result": "FAIL",
+      "selection": "com.gem.keeppeer.CsvSafUiTest,com.gem.keeppeer.EncryptedVaultTest,com.gem.keeppeer.EntryPersistenceTest,com.gem.keeppeer.EntryDraftRotationTest,com.gem.keeppeer.VaultLifecycleUiTest,com.gem.keeppeer.WindowRegistrationTest,com.gem.keeppeer.VaultSecurityTest#passwordChangeRestartWrongPasswordAndStaleRepositoryRevocation,com.gem.keeppeer.VaultSecurityTest#monotonicReturnEnforcesAllTimeoutOptionsAndDeviceLock",
+      "seconds": 223.221,
+      "expected": 11,
+      "started": 11,
+      "completed": 11,
+      "passedMethods": 9,
+      "failedMethods": 2,
+      "failureEvents": 3,
+      "skipped": 0,
+      "instrumentationCode": -1,
+      "shellExit": 0,
+      "appSha256": "ae894de4b74a5dd1c8ee958ecf692031db6a09a4f1d49ae979400c0707391262",
+      "testSha256": "dd4ec9555bbc44c5dd267f9c6d98e6888180ff53117a017ad52a60a39dee4e6b",
+      "installedHashesMatchHost": true,
+      "failures": [
+        "CSV driver line99 requested ACTION_FOCUS on an already-focused filename field and treated false as failure. Actual picker opened and default immediate lock was observed; no CSV file was written.",
+        "WindowRegistrationTest body timed out in second returnToOwnActivity after CLOSING_STAYS_REDACTED (Activity RESUMED); teardown separately timed out at PAUSED -> DESTROYED, producing third JUnit failure event. No opacity/security assertion was weakened."
+      ],
+      "resolution": "CSV driver now only requests focus if absent and waits for a currently focused document field. Original WindowRegistrationTest unchanged, isolated rerun pending. Nine passes retain this exact app/test identity, not relabeled to the subsequent test-only rebuild.",
+      "csvSafSourceSha256": "e0ca6011eccc745c33bef11b3794fe6ed0ae0b03908a31207cdb2fa8f298a079"
+    },
+    {
+      "name": "Unchanged isolated window regression",
+      "log": "shell-40.log",
+      "result": "FAIL",
+      "seconds": 73.161,
+      "expected": 1,
+      "started": 1,
+      "completed": 1,
+      "passedMethods": 0,
+      "failedMethods": 1,
+      "failureEvents": 2,
+      "skipped": 0,
+      "instrumentationCode": -1,
+      "shellExit": 0,
+      "details": "Initial awaitWindow line115 timed out with host reported RESUMED; teardown PAUSED -> DESTROYED also timed out. Serial-specific focus inspection showed Pixel Launcher, not an ANR dialog. Cause not established. Window/security implementation and assertions unchanged. Controlled restart of only the new AVD planned; data/registration retained."
+    }
+  ],
+  "verificationEnvironment": {
+    "avd": "Keeppeer_Guard_API31_Csv_20261031_a8e41c",
+    "serial": "emulator-5554",
+    "qemu": 1,
+    "api": 31,
+    "abi": "x86_64",
+    "image": "system-images;android-31;google_apis;x86_64 revision14",
+    "guard": "Exact AVD name/serial/qemu/API/ABI checked before every targeted app/test install and instrumentation run.",
+    "testRunner": "com.gem.keeppeer.SyntheticTestRunner",
+    "fixture": "SyntheticTestApplication with UUID-isolated vault files/preferences/key alias namespaces. No fingerprint enrollment or OS credential changes.",
+    "logDirectory": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/8d5801bf-a602-454f-a8c3-e922e36c1837/session/agent/shell-logs",
+    "finalStop": {
+      "log": "shell-47.log",
+      "result": "Only the exact newly created AVD stopped",
+      "serial": "emulator-5554",
+      "avd": "Keeppeer_Guard_API31_Csv_20261031_a8e41c",
+      "guardPassed": true,
+      "exit": 0,
+      "registrationAndDataRetained": true
+    }
+  },
+  "deviceChecks": "Only new Keeppeer_Guard_API31_Csv_20261031_a8e41c / emulator-5554 / qemu1 / API31 / x86_64, synthetic UUID contexts. Nine methods passed at appae894de4/testdd4ec955; final2/2 pass58.650s at same appae894de4/testc197bea8. Real DocumentsUI CREATE/OPEN flow, plaintext warning, immediate lock, renewed unlocked approval, exact commas/quotes/multiline Unicode/formula-like password/notes, Skip count/value invariance, retained preview rotation and cancellation verified. In-flight lock, stream close/cleanup and stale callback verified separately; affected SQLCipher/CRUD/password-change/timeouts/drafts/windows covered. Newly created AVD stopped with registration/data retained after the final run.",
+  "unresolvedIssues": [],
+  "limitsAndNotRun": [
+    "Manual spreadsheet round trip not run; no cloud spreadsheet upload or software installed for that claim. App writer/parser and real SAF synthetic round trips are recorded separately.",
+    "Only the explicitly authorized new API31 emulator and its local provider are Phase3 device scope; remote/OEM provider and physical-device behavior are not claimed.",
+    "Uncooperative external-provider open/close and secure deletion cannot be guaranteed; no reliable JVM String erasure claim."
+  ],
+  "preservation": {
+    "personalDeviceTouched": false,
+    "retainedAvdsTouched": false,
+    "originalCandidatePreservationMaterialTouched": false,
+    "defenderOrPlatformSecurityChanged": false,
+    "rejectedCommandsReplayed": false,
+    "currentAutomaticApprovalRejections": 0,
+    "uploaded": false,
+    "published": false
+  },
+  "snapshot": {
+    "exporter": "tools/export-source-code.ps1",
+    "exporterChanged": false,
+    "details": "Existing privacy/atomic safeguards and eligible discovery reused; no new extension needed. Direct IDE serialization of .ps1 failed, so implementation was inspected from the reviewed text snapshot, with git diff c0d0c44 confirming exporter unchanged. New Kotlin fixtures remain reviewable; selected CSVs/runtime data/private captures excluded. Final export occurs after all included documentation changes.",
+    "outcome": "complete",
+    "command": "powershell -NoProfile -File ./tools/export-source-code.ps1 -Phase 3 -Outcome complete"
+  },
+  "artifacts": {
+    "appSha256": "ae894de4b74a5dd1c8ee958ecf692031db6a09a4f1d49ae979400c0707391262",
+    "testSha256": "c197bea8765de4fffe34e671487ad972363789f013b3650862df797d16b6663b",
+    "csvSafTestSourceSha256": "5fe7a59c978bb39d8875904a0b756a49573e364ce4eb390b43777eaf9a21d070",
+    "git": "76c9b21 plus Phase3 work, full eligible source in final snapshot",
+    "regressionTestSha256": "dd4ec9555bbc44c5dd267f9c6d98e6888180ff53117a017ad52a60a39dee4e6b",
+    "windowTestSourceSha256": "c4ab7c965e58373f22c8cbecc4bf111e9622252b21328aefd1a802a3ad3fb673"
+  },
+  "hostSuites": [
+    {
+      "class": "com.gem.keeppeer.BiometricDiagnosticsTest",
+      "expected": 2,
+      "started": 2,
+      "completed": 2,
+      "passed": 2,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 6.495,
+      "timestampUtc": "2026-10-31T01:41:33.899Z",
+      "report": "app/build/test-results/testDebugUnitTest/TEST-com.gem.keeppeer.BiometricDiagnosticsTest.xml"
+    },
+    {
+      "class": "com.gem.keeppeer.CryptoManagerTest",
+      "expected": 3,
+      "started": 3,
+      "completed": 3,
+      "passed": 3,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 8.641,
+      "timestampUtc": "2026-10-31T01:41:40.409Z",
+      "report": "app/build/test-results/testDebugUnitTest/TEST-com.gem.keeppeer.CryptoManagerTest.xml"
+    },
+    {
+      "class": "com.gem.keeppeer.CsvImportRoomTest",
+      "expected": 10,
+      "started": 10,
+      "completed": 10,
+      "passed": 10,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 10.5,
+      "timestampUtc": "2026-10-31T01:41:49.067Z",
+      "report": "app/build/test-results/testDebugUnitTest/TEST-com.gem.keeppeer.CsvImportRoomTest.xml"
+    },
+    {
+      "class": "com.gem.keeppeer.CsvTransferTest",
+      "expected": 10,
+      "started": 10,
+      "completed": 10,
+      "passed": 10,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.612,
+      "timestampUtc": "2026-10-31T01:41:59.584Z",
+      "report": "app/build/test-results/testDebugUnitTest/TEST-com.gem.keeppeer.CsvTransferTest.xml"
+    },
+    {
+      "class": "com.gem.keeppeer.EntryEditViewModelTest",
+      "expected": 4,
+      "started": 4,
+      "completed": 4,
+      "passed": 4,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.202,
+      "timestampUtc": "2026-10-31T01:42:00.204Z",
+      "report": "app/build/test-results/testDebugUnitTest/TEST-com.gem.keeppeer.EntryEditViewModelTest.xml"
+    },
+    {
+      "class": "com.gem.keeppeer.EntryRepositoryRoomTest",
+      "expected": 5,
+      "started": 5,
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.439,
+      "timestampUtc": "2026-10-31T01:42:00.411Z",
+      "report": "app/build/test-results/testDebugUnitTest/TEST-com.gem.keeppeer.EntryRepositoryRoomTest.xml"
+    },
+    {
+      "class": "com.gem.keeppeer.ExampleUnitTest",
+      "expected": 1,
+      "started": 1,
+      "completed": 1,
+      "passed": 1,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0,
+      "timestampUtc": "2026-10-31T01:42:00.853Z",
+      "report": "app/build/test-results/testDebugUnitTest/TEST-com.gem.keeppeer.ExampleUnitTest.xml"
+    },
+    {
+      "class": "com.gem.keeppeer.VaultCsvTest",
+      "expected": 11,
+      "started": 11,
+      "completed": 11,
+      "passed": 11,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.048,
+      "timestampUtc": "2026-10-31T01:42:00.858Z",
+      "report": "app/build/test-results/testDebugUnitTest/TEST-com.gem.keeppeer.VaultCsvTest.xml"
+    }
+  ]
+}

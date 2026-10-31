@@ -1,4 +1,29 @@
 <resources>
     <string name="app_name">Keeppeer</string>
     <string name="placeholder_empty_list">No passwords yet.\nThey will appear here once added.</string>
+    <string name="development_notice">Phase 3 development build • CSV verification • Synthetic entries only</string>
+    <string name="csv_heading">CSV backup</string>
+    <string name="csv_import">Import CSV</string>
+    <string name="csv_export">Export CSV</string>
+    <string name="csv_plaintext">This file contains your passwords in plain text. Store it somewhere safe.</string>
+    <string name="csv_provider">The selected document provider controls where the plaintext file is stored and may offer remote locations.</string>
+    <string name="csv_formulas">Spreadsheet apps may interpret values as formulas or change formatting. Keeppeer preserves backup values exactly; quoting does not prevent formula interpretation.</string>
+    <string name="csv_read_confirm">Read and validate the selected CSV in this unlocked session? No entries change until you confirm the duplicate policy.</string>
+    <string name="csv_counts">Total: %1$d · New: %2$d · Conflicting: %3$d</string>
+    <string name="csv_duplicates">Matches use exact title and username (empty username equals absent). Update targets the lowest existing local ID. Rows apply in file order; later matching rows update that same target. Other existing matches remain.</string>
+    <string name="csv_skip">Skip (default)</string>
+    <string name="csv_update">Update existing</string>
+    <string name="csv_keep_both">Keep both (new local IDs)</string>
+    <string name="csv_changed">The vault changed. Review these refreshed counts and choose a policy again.</string>
+    <string name="csv_continue">Continue</string>
+    <string name="csv_cancel">Cancel</string>
+    <string name="csv_working">Working with CSV…</string>
+    <string name="csv_exported">CSV export finished. Protect the plaintext file separately.</string>
+    <string name="csv_partial">Export interrupted or unavailable. A partial plaintext document may remain. Keeppeer attempts deletion only for its newly created document; check the selected provider. Deletion and secure erasure cannot be guaranteed.</string>
+    <string name="csv_interrupted">CSV work cancelled. An import already committed may still have completed. An interrupted export may leave plaintext at the selected provider; check and remove it if needed.</string>
+    <string name="csv_expired">Selection or approval expired. Unlock if needed and select the document again. No old operation will restart automatically.</string>
+    <string name="csv_failed">CSV operation failed (input, provider, vault or limit error). No partial import was committed. Select the file again to retry.</string>
+    <string name="csv_parse_error">Import rejected: %1$s. No entries changed.</string>
+    <string name="csv_applied">Import finished: %1$d inserted, %2$d updated, %3$d skipped.</string>
+    <string name="csv_password_nudge">You can export a CSV backup above before changing your password. Export is optional; plaintext exports need separate protection.</string>
 </resources>

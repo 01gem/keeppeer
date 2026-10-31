@@ -5,6 +5,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.gem.keeppeer.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,7 +30,7 @@ fun PrototypePage(
         Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()) {
             Surface(color = MaterialTheme.colorScheme.errorContainer) {
                 Text(
-                    "Phase 2 development build • Security verification in progress • Synthetic entries only",
+                    stringResource(R.string.development_notice),
                     Modifier.fillMaxWidth().padding(12.dp),
                     style = MaterialTheme.typography.labelLarge,
                 )

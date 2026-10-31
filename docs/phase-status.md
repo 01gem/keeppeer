@@ -1,6 +1,10 @@
 # Keeppeer — Phase Status
 
-## Final window verification — current 2026-10-31
+## Phase 3 — current
+
+**Complete for the requested CSV scope, with recorded provider/JVM/spreadsheet limits.** 46 JVM tests pass; debug assembly, AndroidTest packaging and lint pass (0 errors/15 warnings). All 11 distinct selected API31 device methods have passing evidence across scoped runs: 9 passed in the retained mixed group, and final window/real-SAF methods passed 2/2 in 58.650s. Earlier failures and their actual resolutions/artifact identities remain history, not a fabricated single 11/11 run. No required Phase 3 gap remains. Manual spreadsheet/remote-provider/physical-device checks are not claimed. See [the Phase 3 report](reports/phase-3-report.json) and [CSV contract](csv-contract.md). Phase 2 remains complete with its original evidence and limits. Release remains disabled; Phase 4 unstarted.
+
+## Phase 2 final window verification — historical baseline 2026-10-31
 
 **Phase2 is complete for the original required criteria, with the recorded provider/artifact limits.** The retained API25 WindowRegistrationTest passed 1/1 in 7.379s. Its actual command/result is retained in session 5ede27b9 steps.jsonl:107 (tool call c428bac8-5cc1-45d0-82a6-e5c6b15cac42); no contemporaneous per-run APK hash attestation was located, so current hashes are not assigned retrospectively.
 
@@ -211,7 +215,7 @@ Verification:
 Pending: actual API 24 and API 25 native Keystore/SQLCipher execution (no emulator system images installed), biometric success/cancellation/lockout/enrollment-change matrix, real screen-lock/process-kill and screenshot/recents checks, and timed clipboard behavior under OEM restrictions. Automated monotonic return tests do not substitute for every real sleep/timer scenario. Follow [phase-2-device-checks.md](phase-2-device-checks.md). Full key lifecycle, storage format, reset policy and limits: [security.md](security.md). Structured report: [reports/phase-2-report.json](reports/phase-2-report.json).
 
 
-## Current Phase: 2 — Encrypted vault and authenticated sessions
+## Phase 2 earlier status — historical, superseded by final verification
 
 Implementation and core acceptance evidence are in place. Overall outcome remains **incomplete only for the observed direct live-recents privacy gap** described in the current closeout. API24/API25/API31 core groups, the approved three-test biometric run and recovery-priority decision are resolved. Release packaging stays disabled; Phase3 is unstarted. See [the original acceptance map](phase-2-privacy-closeout.md).
 
@@ -358,9 +362,9 @@ The first host test run used the inherited partial implementation's Robolectric 
 
 **Status:** Complete for the original Phase2 criteria, with recorded provider/artifact limits. Retained API25 window1/1 in7.379s; final fresh-AVD API31 window1/1 in15.781s. All original lifecycle/privacy assertions retained; API25 historical hash-attestation limit documented. Release disabled; Phase3 unstarted. See the current final-window evidence and report.
 
-## Phase 3 — CSV Import/Export ⏳
+## Phase 3 — CSV Import/Export ✅
 
-**Status:** Not started
+**Status:** Complete for the requested CSV scope, with documented limits. See the current section at the top and the Phase 3 report.
 
 ## Phase 4 — Generator, Filters, Settings & UI ⏳
 

@@ -47,10 +47,22 @@ class EntryRepositoryImpl(
 
     override suspend fun update(entry: PasswordEntry): Boolean = withContext(ioDispatcher) {
         require(entry.id > 0 && entry.title.isNotBlank()) { "Invalid entry" }
-        entryDao.update(
+        val changed = entryDao.update(
             entry.id, entry.title, entry.username, entry.password, entry.url,
             entry.notes, entry.category, entry.isFavorite, clock(),
         ) == 1
+        if (!changed && entryDao.getById(entry.id)?.updatedAt == Long.MAX_VALUE)
+            throw ArithmeticException("Timestamp exhausted")
+        changed
+    }
+
+    override suspend fun exportCsv() = withContext(ioDispatcher) { entryDao.exportCsv() }
+    override suspend fun previewCsv(rows: List<PasswordEntry>) = withContext(ioDispatcher) {
+        entryDao.previewCsv(rows)
+    }
+    override suspend fun importCsv(rows: List<PasswordEntry>, expected: com.gem.keeppeer.csv.ImportPreview,
+        policy: com.gem.keeppeer.csv.DuplicatePolicy) = withContext(ioDispatcher) {
+        entryDao.importCsv(rows, expected, policy, clock())
     }
 
     override suspend fun delete(id: Long): Boolean = withContext(ioDispatcher) {

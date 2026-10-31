@@ -38,6 +38,7 @@ class SyntheticTestApplication : KeeppeerApplication() {
     override fun createContainer(): AppContainer {
         val synthetic = SyntheticVaultContext(this)
         return object : AppContainer {
+            override val appearance = com.gem.keeppeer.ui.settings.ThemeSettings(synthetic)
             override val session = VaultSession(synthetic, SensitiveClipboard(synthetic), synthetic.namespace)
         }
     }

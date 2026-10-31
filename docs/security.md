@@ -1,4 +1,16 @@
-# Keeppeer security — Phase 3
+# Keeppeer security — Phase 4
+
+## Generator, filters, appearance and input privacy
+
+Phase4 keeps encryption/envelopes, initialization safeguards, biometric per-use CryptoObject/AAD authorization, session revocation/work joining, background timeouts, PrivacyWindows and exact-value CSV semantics. Its current verification outcome is in [the Phase4 report](reports/phase-4-report.json). Release is disabled; Phase5 is unstarted.
+
+The generator uses SecureRandom bounded draws and secure Fisher–Yates with class coverage, explicit draft replacement and no automatic copy/save. Candidate/draft/filter/category state lives only in the current access-owned memory; rotation may retain candidate/draft while reveal resets. Lock clears it, and process death has no secret restoration path. Only the nonsensitive theme enum enters the single application DataStore. Dedicated favorite SQL updates avoid a full credential read/write and preserve timestamp/overflow policy.
+
+All generator/filter/settings/About windows register through ProtectDialogWindow. They retain FLAG_SECURE and focus/closing/original-opacity protection. Copy uses the existing sensitive clipboard path and rejects stale explicit copy access. The public Compose input interceptor requests no personalized learning on API26+ and no suggestions/autocorrection for text inputs; IMEs retain control over honoring these requests. There is no universal keyboard or memory-erasure guarantee.
+
+Full pools/defaults/guarantees, category identities and failure/lifetime behavior are in [the Phase4 behavior contract](phase-4-behavior.md). Native/host checks and unavailable manual/hardware observations are reported at their exact artifacts. Existing Phase2/3 evidence below keeps its original scope. Current Phase4 remains verification-incomplete for native generator Copy ownership: the diagnostic observed a replacement labelled host clipboard without the sensitive marker after successful service submission. The failure remains retained, the replacement payload was not read, and sharing/security settings were not changed. No new direct clip-expiry or hardware/biometric protection claim is made.
+
+## Accepted Phase 3 boundary (historical)
 
 ## Current CSV boundary
 
@@ -153,7 +165,7 @@ First setup requires matching master passwords of at least 12 characters and exp
 
 The database key is wrapped with AES-256-GCM using a fresh random 12-byte nonce and 128-bit authentication tag. The complete metadata header is authenticated as AAD. KDF work, native database opening and envelope I/O run on Dispatchers.IO.
 
-The password-wrapped envelope is itself encrypted with a distinct Android Keystore AES-256-GCM storage key. This key does not require biometric authentication and is never exported. No EncryptedSharedPreferences dependency is used. Only this outer authenticated ciphertext resides in private noBackupFilesDir. Ordinary preferences contain only the public lock-timeout choice.
+The password-wrapped envelope is itself encrypted with a distinct Android Keystore AES-256-GCM storage key. This key does not require biometric authentication and is never exported. No EncryptedSharedPreferences dependency is used. Only this outer authenticated ciphertext resides in private noBackupFilesDir. Ordinary preferences contain only nonsensitive options: the existing public lock-timeout choice and the Phase4 System/Light/Dark appearance enum in its separate DataStore. No secret UI state is persisted.
 
 The master password, derived KEK and raw DB key are never stored in preferences or files. Owned mutable password/key buffers are cleared where feasible, including abandoned unlocks and session closure. Kotlin/Java strings, Compose text, cryptographic providers and native code may retain copies until collection; complete JVM/native memory erasure is not claimed.
 

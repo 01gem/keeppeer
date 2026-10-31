@@ -7,4 +7,5 @@ data class EntrySummary(
     val username: String?,
     val url: String?,
     val category: String?,
+    val isFavorite: Boolean = false,
 )

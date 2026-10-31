@@ -35,6 +35,8 @@ fun KeeppeerApp(repository: EntryRepository, onSettings: () -> Unit, onCopy: (St
                 onAdd = { nav.navigate(ADD) },
                 onEntry = { nav.navigate("entry/$it") },
                 onSettings = onSettings,
+                onCategory = vm::category, onFavoritesOnly = vm::favoritesOnly,
+                onClear = vm::clearFilters, onFavorite = vm::favorite,
             )
         }
         composable(ADD) {
@@ -47,7 +49,9 @@ fun KeeppeerApp(repository: EntryRepository, onSettings: () -> Unit, onCopy: (St
                     nav.navigate("entry/$id") { popUpTo(LIST) }
                 }
             }
-            EntryEditScreen(state, false, vm::change, vm::save, { nav.popBackStack() }, vm::load)
+            EntryEditScreen(state, false, vm::change, vm::save, { nav.popBackStack() }, vm::load, vm::openGenerator, onSettings)
+            if (state.generatorOpen) com.gem.keeppeer.ui.edit.GeneratorDialog(state, vm::generatorOptions,
+                vm::regenerate, vm::useGenerated, vm::dismissGenerator, onCopy)
         }
         composable(DETAIL, arguments = listOf(navArgument("entryId") { type = NavType.LongType })) { backStack ->
             val id = requireNotNull(backStack.arguments).getLong("entryId")
@@ -69,7 +73,9 @@ fun KeeppeerApp(repository: EntryRepository, onSettings: () -> Unit, onCopy: (St
             LaunchedEffect(state.savedId) {
                 if (state.savedId != null) nav.popBackStack()
             }
-            EntryEditScreen(state, true, vm::change, vm::save, { nav.popBackStack() }, vm::load)
+            EntryEditScreen(state, true, vm::change, vm::save, { nav.popBackStack() }, vm::load, vm::openGenerator, onSettings)
+            if (state.generatorOpen) com.gem.keeppeer.ui.edit.GeneratorDialog(state, vm::generatorOptions,
+                vm::regenerate, vm::useGenerated, vm::dismissGenerator, onCopy)
         }
     }
 }

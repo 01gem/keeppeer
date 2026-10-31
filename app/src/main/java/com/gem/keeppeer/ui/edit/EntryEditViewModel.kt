@@ -30,16 +30,52 @@ data class EntryEditState(
     val titleError: Boolean = false,
     val error: String? = null,
     val savedId: Long? = null,
+    val generatorOpen: Boolean = false,
+    val generatorOptions: com.gem.keeppeer.domain.GeneratorOptions = com.gem.keeppeer.domain.GeneratorOptions(),
+    val candidate: String? = null,
+    val generationFailed: Boolean = false,
 )
 
 class EntryEditViewModel(
     private val repository: EntryRepository,
     private val entryId: Long?,
+    private val generator: () -> com.gem.keeppeer.domain.PasswordGenerator = { com.gem.keeppeer.domain.PasswordGenerator() },
 ) : ViewModel() {
     private val mutableState = MutableStateFlow(EntryEditState(loading = entryId != null))
     val state = mutableState.asStateFlow()
 
+    private var cleared = false
+    private fun editable() = !cleared && !state.value.loading && !state.value.loadFailed &&
+        !state.value.saving && !state.value.missing && state.value.savedId == null
     init { if (entryId != null) load() }
+
+    fun openGenerator() {
+        if (!editable()) return
+        mutableState.update { it.copy(generatorOpen = true) }
+        regenerate()
+    }
+    fun dismissGenerator() {
+        mutableState.update { it.copy(generatorOpen = false, candidate = null, generationFailed = false) }
+    }
+    fun generatorOptions(options: com.gem.keeppeer.domain.GeneratorOptions) {
+        if (!editable() || !state.value.generatorOpen) return
+        mutableState.update { it.copy(generatorOptions = options, candidate = null, generationFailed = false) }
+    }
+    fun regenerate() {
+        if (!editable() || !state.value.generatorOpen) return
+        try {
+            val candidate = generator().generate(state.value.generatorOptions)
+            mutableState.update { it.copy(candidate = candidate, generationFailed = false) }
+        } catch (_: Exception) {
+            mutableState.update { it.copy(candidate = null, generationFailed = true) }
+        }
+    }
+    fun useGenerated() {
+        if (!editable() || !state.value.generatorOpen) return
+        val candidate = state.value.candidate ?: return
+        change { it.copy(password = candidate) }
+        dismissGenerator()
+    }
 
     fun load() {
         if (state.value.saving) return
@@ -61,23 +97,26 @@ class EntryEditViewModel(
     }
 
     fun change(transform: (EntryDraft) -> EntryDraft) {
-        if (state.value.loading || state.value.saving || state.value.savedId != null || state.value.missing) return
+        if (!editable()) return
         mutableState.update { it.copy(draft = transform(it.draft), titleError = false, error = null) }
     }
 
     override fun onCleared() {
+        cleared = true
         mutableState.value = EntryEditState()
         super.onCleared()
     }
 
     fun save() {
+        if (cleared) return
         val current = state.value
         if (current.loading || current.loadFailed || current.saving || current.missing || current.savedId != null) return
         if (current.draft.title.isBlank()) {
             mutableState.update { it.copy(titleError = true) }
             return
         }
-        mutableState.update { it.copy(saving = true, error = null) }
+        if (cleared) return
+        mutableState.update { it.copy(saving = true, error = null, generatorOpen = false, candidate = null) }
         viewModelScope.launch {
             try {
                 val draft = current.draft

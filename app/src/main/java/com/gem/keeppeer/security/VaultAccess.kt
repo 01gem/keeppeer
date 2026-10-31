@@ -46,6 +46,7 @@ class VaultAccess internal constructor(
         override suspend fun create(entry: PasswordEntry) = work { delegate.create(entry) }
         override suspend fun update(entry: PasswordEntry) = work { delegate.update(entry) }
         override suspend fun delete(id: Long) = work { delegate.delete(id) }
+        override suspend fun setFavorite(id: Long, favorite: Boolean) = work { delegate.setFavorite(id, favorite) }
         override suspend fun exportCsv() = work { delegate.exportCsv() }
         override suspend fun previewCsv(rows: List<PasswordEntry>) = work { delegate.previewCsv(rows) }
         override suspend fun importCsv(rows: List<PasswordEntry>, expected: com.gem.keeppeer.csv.ImportPreview,

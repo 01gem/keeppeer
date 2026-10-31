@@ -44,10 +44,13 @@ class CsvPickerModel : ViewModel() {
     fun dismissNotice() { mutable.value = mutable.value.copy(notice = false) }
 }
 
+data class CsvProblem(val category: String, val record: Int, val line: Int)
+
 data class CsvUiState(
     val busy: Boolean = false, val warning: Boolean = false,
     val preview: ImportPreview? = null, val policy: DuplicatePolicy = DuplicatePolicy.SKIP,
     val message: String? = null, val counts: ImportCounts? = null,
+    val problem: CsvProblem? = null,
 )
 
 /** Parsed rows live only in this unlock's ViewModelStore and are dropped at revoke. */
@@ -88,7 +91,7 @@ class CsvViewModel(private val access: VaultAccess, private val transfer: CsvTra
                 ensureActive()
                 rows = null
                 mutable.value = CsvUiState(message = if (selection.action == CsvAction.EXPORT) "partial"
-                    else if (failure is CsvFailure) failure.message else "failed")
+                    else "failed", problem = (failure as? CsvFailure)?.let { CsvProblem(it.category, it.record, it.line) })
             }
         }
     }

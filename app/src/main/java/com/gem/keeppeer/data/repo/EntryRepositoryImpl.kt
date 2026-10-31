@@ -56,6 +56,14 @@ class EntryRepositoryImpl(
         changed
     }
 
+    override suspend fun setFavorite(id: Long, favorite: Boolean): Boolean = withContext(ioDispatcher) {
+        require(id > 0)
+        val changed = entryDao.setFavorite(id, favorite, clock()) == 1
+        if (!changed && entryDao.updatedAt(id) == Long.MAX_VALUE)
+            throw ArithmeticException("Timestamp exhausted")
+        changed
+    }
+
     override suspend fun exportCsv() = withContext(ioDispatcher) { entryDao.exportCsv() }
     override suspend fun previewCsv(rows: List<PasswordEntry>) = withContext(ioDispatcher) {
         entryDao.previewCsv(rows)

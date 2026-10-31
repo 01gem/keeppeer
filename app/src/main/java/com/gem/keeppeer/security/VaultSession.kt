@@ -1,5 +1,6 @@
 package com.gem.keeppeer.security
 
+import com.gem.keeppeer.R
 import android.app.KeyguardManager
 import android.content.Context
 import android.os.SystemClock
@@ -80,7 +81,7 @@ class VaultSession(
         }
     }
     private fun unavailable() = VaultState(VaultStage.UNAVAILABLE, message =
-        "Vault unavailable. Prior initialization or uncertain storage was detected, but required vault material is missing or could not be inspected. Existing material was preserved. Do not clear app data or create another vault.")
+        context.getString(R.string.session_unavailable))
     private fun refreshState() {
         val ticket = serial
         mutableState.value = VaultState(VaultStage.CHECKING, generation = ticket)
@@ -174,7 +175,7 @@ class VaultSession(
         }
         if (password.size < 12 || !password.contentEquals(confirmation)) {
             password.fill('\u0000'); confirmation.fill('\u0000')
-            mutableState.value = VaultState(VaultStage.FIRST_RUN, message = "Use at least 12 characters and matching passwords.")
+            mutableState.value = VaultState(VaultStage.FIRST_RUN, message = context.getString(R.string.setup_invalid))
             return
         }
         confirmation.fill('\u0000')
@@ -240,7 +241,7 @@ class VaultSession(
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) {
                 val failed = authenticationError(
-                    "Could not unlock. Check your password. Damaged or missing device keys or vault files also prevent access. Existing data was preserved.")
+                    context.getString(R.string.unlock_failed))
                 if (serial == ticket) mutableState.value = failed.copy(generation = ticket)
             } finally {
                 password.fill('\u0000')
@@ -253,7 +254,7 @@ class VaultSession(
         val access = state.value.access
         if (access == null || replacement.size < 12 || !replacement.contentEquals(confirmation)) {
             current.fill('\u0000'); replacement.fill('\u0000'); confirmation.fill('\u0000')
-            done("Use matching new passwords of at least 12 characters.")
+            done(context.getString(R.string.change_invalid))
             return
         }
         confirmation.fill('\u0000')
@@ -275,9 +276,9 @@ class VaultSession(
                         } finally { key.fill(0) }
                     }
                 }
-                if (state.value.access === access) done("Master password changed. Existing entries and database key are unchanged.")
+                if (state.value.access === access) done(context.getString(R.string.change_success))
             } catch (_: Exception) {
-                if (state.value.access === access) done("Password change failed. Your previous password envelope was retained.")
+                if (state.value.access === access) done(context.getString(R.string.change_failed))
             } finally { current.fill('\u0000'); replacement.fill('\u0000') }
         }
     }
@@ -421,7 +422,7 @@ class VaultSession(
             } catch (error: Exception) {
                 val failure = BiometricDiagnostics.failure(BiometricStage.DECRYPT_FINAL, error)
                 if (error !is CancellationException) {
-                    val failed = authenticationError(failure.message())
+                    val failed = authenticationError(context.getString(failure.message()))
                     if (serial == ticket) mutableState.value = failed.copy(generation = ticket)
                 }
                 done(failure)

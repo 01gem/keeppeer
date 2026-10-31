@@ -32,6 +32,7 @@ typealias BiometricAction = (Boolean, Cipher, (BiometricResult) -> Unit) -> Unit
 
 @Composable
 fun VaultRoot(session: VaultSession, biometric: BiometricAction) {
+    val context = LocalContext.current
     val picker: CsvPickerModel = viewModel()
     CsvPickers(picker)
     SensitiveClipboardProvider(session.clipboard) {
@@ -46,9 +47,19 @@ fun VaultRoot(session: VaultSession, biometric: BiometricAction) {
                     initializer { CsvViewModel(access, transfer) }
                 })
                 var settings by remember { mutableStateOf(false) }
+                KeeppeerApp(access.repository, { settings = true }) { value ->
+                    session.state.value.access === access && session.clipboard.copy(value)
+                }
+                if (settings) androidx.compose.ui.window.Dialog(
+                    onDismissRequest = { settings = false },
+                    properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false),
+                ) {
+                    ProtectDialogWindow()
+                    com.gem.keeppeer.ui.settings.SecuritySettings(session, biometric, csv, picker,
+                        (context.applicationContext as com.gem.keeppeer.KeeppeerApplication).container.appearance
+                    ) { settings = false }
+                }
                 CsvDialogs(csv, picker, transfer)
-                if (settings) SecuritySettings(session, biometric, csv, picker) { settings = false }
-                else KeeppeerApp(access.repository, { settings = true }, session.clipboard::copy)
             }
         }
     } else {
@@ -63,36 +74,36 @@ private fun LockScreen(state: VaultState, session: VaultSession, biometric: Biom
     var password by remember { mutableStateOf("") }
     var confirmation by remember { mutableStateOf("") }
     var confirmReset by remember { mutableStateOf(false) }
-    var biometricMessage by remember { mutableStateOf<String?>(null) }
-    PrototypePage(if (state.stage == VaultStage.FIRST_RUN) "Create your vault" else "Keeppeer locked") {
+    var biometricMessage by remember { mutableStateOf<Int?>(null) }
+    PrototypePage(if (state.stage == VaultStage.FIRST_RUN) stringResource(R.string.create_vault_title) else stringResource(R.string.locked_title)) {
         Column(Modifier.fillMaxWidth().weight(1f).verticalScroll(rememberScrollState()).padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)) {
             when (state.stage) {
-                VaultStage.CHECKING -> { CircularProgressIndicator(); Text("Checking vault availability…") }
+                VaultStage.CHECKING -> { CircularProgressIndicator(); Text(stringResource(R.string.checking_vault)) }
                 VaultStage.UNAVAILABLE -> {
-                    Text("Vault unavailable", style = MaterialTheme.typography.titleLarge)
-                    Text("Vault creation is disabled to preserve existing material. There is no automatic reset or recovery. Full app-data removal can also remove initialization evidence; this safeguard cannot restore missing entries.")
+                    Text(stringResource(R.string.vault_unavailable_title), style = MaterialTheme.typography.titleLarge)
+                    Text(stringResource(R.string.vault_unavailable_description))
                 }
-                VaultStage.UNLOCKING -> { CircularProgressIndicator(); Text("Opening encrypted vault…") }
+                VaultStage.UNLOCKING -> { CircularProgressIndicator(); Text(stringResource(R.string.opening_vault)) }
                 VaultStage.LEGACY_RESET -> {
-                    Text("Phase 1 plaintext development data found", style = MaterialTheme.typography.titleLarge)
-                    Text("Only synthetic prototype data can be reset here. This permanently deletes all Phase 1 entries and starts a new encrypted vault. Existing data will remain untouched unless you confirm. There is no automatic migration.")
-                    Button(onClick = { confirmReset = true }) { Text("Reset synthetic development data…") }
+                    Text(stringResource(R.string.legacy_title), style = MaterialTheme.typography.titleLarge)
+                    Text(stringResource(R.string.legacy_explanation))
+                    Button(onClick = { confirmReset = true }) { Text(stringResource(R.string.legacy_reset)) }
                 }
                 else -> {
                     if (state.stage == VaultStage.FIRST_RUN) {
-                        Text("Choose a strong master password of at least 12 characters. Forgetting it can permanently lose your entries. There is no account, server, or password reset.")
-                        Text("Protection is also tied to this device's Android Keystore. Uninstalling, clearing app data, or losing device keys can make the vault unrecoverable, even with your password.")
+                        Text(stringResource(R.string.master_guidance))
+                        Text(stringResource(R.string.device_guidance))
                     }
-                    PasswordInput("Master password", password, { password = it })
-                    if (state.stage == VaultStage.FIRST_RUN) PasswordInput("Confirm master password", confirmation, { confirmation = it })
+                    PasswordInput(stringResource(R.string.master_password), password, { password = it })
+                    if (state.stage == VaultStage.FIRST_RUN) PasswordInput(stringResource(R.string.confirm_master), confirmation, { confirmation = it })
                     Button(onClick = {
                         val p = password.toCharArray()
                         val c = confirmation.toCharArray()
                         password = ""; confirmation = ""
                         if (state.stage == VaultStage.FIRST_RUN) session.setup(p, c)
                         else { c.fill('\u0000'); session.unlock(p) }
-                    }) { Text(if (state.stage == VaultStage.FIRST_RUN) "Create vault" else "Unlock") }
+                    }) { Text(if (state.stage == VaultStage.FIRST_RUN) stringResource(R.string.create_vault) else stringResource(R.string.unlock)) }
                     if (state.stage != VaultStage.FIRST_RUN && session.biometrics.enabled()) {
                         OutlinedButton(onClick = {
                             try {
@@ -103,20 +114,20 @@ private fun LockScreen(state: VaultState, session: VaultSession, biometric: Biom
                             } catch (error: Exception) {
                                 biometricMessage = BiometricDiagnostics.failure(BiometricStage.DECRYPT_INIT, error).message()
                             }
-                        }) { Text("Unlock with biometrics") }
+                        }) { Text(stringResource(R.string.biometric_unlock)) }
                     }
                 }
             }
             state.message?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-            biometricMessage?.let { Text(it) }
+            biometricMessage?.let { Text(stringResource(it)) }
         }
     }
     if (confirmReset) AlertDialog(
         onDismissRequest = { confirmReset = false },
-        title = { ProtectDialogWindow(); Text("Permanently delete synthetic Phase 1 data?") },
-        text = { Text("All plaintext prototype entries will be removed. Removal cannot guarantee erasure from flash storage. Continue only if these entries are synthetic and disposable.") },
-        confirmButton = { TextButton(onClick = { confirmReset = false; session.resetLegacy() }) { Text("Delete synthetic data") } },
-        dismissButton = { TextButton(onClick = { confirmReset = false }) { Text("Cancel") } },
+        title = { ProtectDialogWindow(); Text(stringResource(R.string.reset_title)) },
+        text = { Text(stringResource(R.string.reset_explanation)) },
+        confirmButton = { TextButton(onClick = { confirmReset = false; session.resetLegacy() }) { Text(stringResource(R.string.reset_confirm)) } },
+        dismissButton = { TextButton(onClick = { confirmReset = false }) { Text(stringResource(R.string.cancel)) } },
     )
 }
 
@@ -124,94 +135,23 @@ private fun LockScreen(state: VaultState, session: VaultSession, biometric: Biom
 fun PasswordInput(label: String, value: String, change: (String) -> Unit) {
     OutlinedTextField(value = value, onValueChange = change, label = { Text(label) },
         visualTransformation = PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        keyboardOptions = com.gem.keeppeer.ui.edit.SensitiveKeyboard.copy(keyboardType = KeyboardType.Password),
         singleLine = true, modifier = Modifier.fillMaxWidth())
-}
-
-@Composable
-private fun SecuritySettings(session: VaultSession, biometric: BiometricAction, csv: CsvViewModel,
-    picker: CsvPickerModel, back: () -> Unit) {
-    val timeout by session.timeout.collectAsStateWithLifecycle()
-    var current by remember { mutableStateOf("") }
-    var replacement by remember { mutableStateOf("") }
-    var confirmation by remember { mutableStateOf("") }
-    var message by remember { mutableStateOf<String?>(null) }
-    var busy by remember { mutableStateOf(false) }
-    var enabled by remember { mutableStateOf(session.biometrics.enabled()) }
-    var confirmBiometric by remember { mutableStateOf(false) }
-    BackHandler(enabled = busy) {}
-    PrototypePage("Security settings", if (busy) null else back) {
-        Column(Modifier.fillMaxWidth().weight(1f).verticalScroll(rememberScrollState()).padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Button(onClick = session::lock) { Text("Lock now") }
-            Text("Lock after app goes into background", style = MaterialTheme.typography.titleMedium)
-            LockTimeout.entries.forEach { option ->
-                Row {
-                    RadioButton(selected = timeout == option, onClick = { session.setTimeout(option) })
-                    Text(option.label, Modifier.padding(top = 12.dp))
-                }
-            }
-            Text("Screen lock always locks the vault. File pickers will follow the same background timeout.")
-            HorizontalDivider()
-            CsvActions(csv, picker, !busy)
-            HorizontalDivider()
-            Text("Change master password", style = MaterialTheme.typography.titleMedium)
-            Text(stringResource(R.string.csv_password_nudge))
-            PasswordInput("Current master password", current, { current = it })
-            PasswordInput("New master password", replacement, { replacement = it })
-            PasswordInput("Confirm new password", confirmation, { confirmation = it })
-            Button(enabled = !busy, onClick = {
-                val old = current.toCharArray(); val fresh = replacement.toCharArray(); val confirm = confirmation.toCharArray()
-                current = ""; replacement = ""; confirmation = ""; busy = true
-                session.changePassword(old, fresh, confirm) { message = it; busy = false }
-            }) { Text("Change password") }
-            HorizontalDivider()
-            Text("Biometric unlock", style = MaterialTheme.typography.titleMedium)
-            Text(if (enabled) "Enabled. Master password fallback remains available."
-                else if (session.biometrics.available()) "Available. Enable biometrics to confirm your current master password."
-                else "Strong biometrics are unavailable or not enrolled. Master password unlock remains available.")
-            if (enabled) OutlinedButton(enabled = !busy, onClick = {
-                session.disableBiometric { removed ->
-                    enabled = session.biometrics.enabled()
-                    message = if (removed) "Biometric unlock disabled." else "Biometric setting could not be fully cleared. Password unlock remains available."
-                }
-            }) { Text("Disable biometrics") }
-            else Button(enabled = !busy && session.biometrics.available(), onClick = {
-                confirmBiometric = true
-            }) { Text("Enable biometrics") }
-            message?.let { Text(it) }
-        }
-    }
-    if (confirmBiometric) BiometricPasswordDialog(
-        dismiss = { confirmBiometric = false },
-        confirm = { password ->
-            confirmBiometric = false
-            busy = true
-            session.prepareBiometricEnrollment(password) { cipher, result ->
-                if (cipher == null) { message = result.message(); busy = false }
-                else biometric(true, cipher) { outcome ->
-                    enabled = session.biometrics.enabled()
-                    message = if (outcome.success) "Biometric unlock enabled." else outcome.message()
-                    busy = false
-                }
-            }
-        },
-    )
 }
 
 /** Confirmation is local memory only and independent of the password-change form. */
 @Composable
 internal fun BiometricPasswordDialog(dismiss: () -> Unit, confirm: (CharArray) -> Unit) {
     var password by remember { mutableStateOf("") }
-    var error by remember { mutableStateOf<String?>(null) }
+    var error by remember { mutableStateOf<Int?>(null) }
     AlertDialog(
         onDismissRequest = { password = ""; dismiss() },
-        title = { ProtectDialogWindow(); Text("Confirm biometric enrollment") },
+        title = { ProtectDialogWindow(); Text(stringResource(R.string.biometric_enroll_title)) },
         text = {
-            Column {
-                Text("Enter your current master password. Then authenticate with a strong biometric.")
-                PasswordInput("Current master password for biometrics", password, { password = it; error = null })
-                error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+            Column(Modifier.verticalScroll(rememberScrollState())) {
+                Text(stringResource(R.string.biometric_enroll_explanation))
+                PasswordInput(stringResource(R.string.biometric_current), password, { password = it; error = null })
+                error?.let { Text(stringResource(it), color = MaterialTheme.colorScheme.error) }
             }
         },
         confirmButton = { TextButton(onClick = {
@@ -222,7 +162,7 @@ internal fun BiometricPasswordDialog(dismiss: () -> Unit, confirm: (CharArray) -
                 password = ""
                 confirm(input)
             }
-        }) { Text("Continue to fingerprint") } },
-        dismissButton = { TextButton(onClick = { password = ""; dismiss() }) { Text("Cancel") } },
+        }) { Text(stringResource(R.string.biometric_continue)) } },
+        dismissButton = { TextButton(onClick = { password = ""; dismiss() }) { Text(stringResource(R.string.cancel)) } },
     )
 }

@@ -64,7 +64,7 @@ class SecureCaptureTest {
             compose.onNodeWithText("Add").performClick()
             compose.onNodeWithText("Title *").performTextReplacement("Synthetic capture fixture")
             compose.onNodeWithText("Password").performScrollTo().performTextReplacement("synthetic capture only")
-            compose.onNodeWithText("Show").performScrollTo().performClick()
+            compose.onNodeWithText(compose.activity.getString(R.string.show_password)).performScrollTo().performClick()
             compose.onNodeWithText("Password").assertTextContains("synthetic capture only")
             compose.runOnUiThread {
                 assertTrue(compose.activity.window.attributes.flags and WindowManager.LayoutParams.FLAG_SECURE != 0)

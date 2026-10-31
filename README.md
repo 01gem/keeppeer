@@ -2,6 +2,14 @@
 
 An Android password keeper built with Kotlin, Jetpack Compose, and Material 3. The encrypted vault stays on-device and the app has no network permission. A user-selected SAF provider controls where plaintext CSV backups are stored, including possible remote destinations.
 
+**Phase 4 is implemented; verification remains incomplete for generator Copy ownership under the host clipboard bridge.** The failed assertion and safe diagnostic are retained in the report. Release remains disabled; Phase5 is unstarted.
+
+Phase 4 adds the secure generator with explicit draft replacement, stored favorites, typed category/search filters, persisted System/Light/Dark appearance, working settings/About and resource-based accessibility polish. Current outcome and exact verification are in the [Phase 4 report](docs/reports/phase-4-report.json) and [phase status](docs/phase-status.md). See the [behavior contract](docs/phase-4-behavior.md) for generator pools and lifecycle/filter rules. Release stays disabled and [Phase 5](docs/phase-5-checklist.md) is unstarted.
+
+The current Phase 4 review command is `powershell -NoProfile -File ./tools/export-source-code.ps1 -Phase 4 -Outcome incomplete`, matching the structured report. Upload the generated source-code.txt manually to the originating review chat; never include vault CSVs.
+
+## Accepted Phase 3 baseline (historical)
+
 > **Phase 3 complete for the requested CSV scope, with recorded provider/JVM/spreadsheet limits.** 46 JVM tests pass; debug assembly, AndroidTest packaging and lint pass (0 errors/15 warnings). All 11 selected device methods have passing evidence across scoped runs: 9 in the retained mixed group and the final focused 2/2 in 58.650s. Failed attempts retain their original identities. See [CSV contract](docs/csv-contract.md) and [Phase 3 report](docs/reports/phase-3-report.json). Release stays disabled; Phase 4 is unstarted; do not distribute.
 
 Settings → Export CSV requires the plaintext warning, a chosen document destination, and a fresh unlocked-session confirmation. Settings → Import CSV validates the whole file before a count-only confirmation with Skip (default), Update existing or Keep both. File pickers follow the ordinary immediate/timed background lock policy. Password-change backup remains optional.

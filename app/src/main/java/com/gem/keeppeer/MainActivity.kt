@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.biometric.BiometricManager
@@ -54,7 +56,17 @@ class MainActivity : FragmentActivity() {
         enableEdgeToEdge()
         ContextCompat.registerReceiver(this, screenOff, IntentFilter(Intent.ACTION_SCREEN_OFF),
             ContextCompat.RECEIVER_NOT_EXPORTED)
-        setContent { KeeppeerTheme { VaultRoot(session, ::authenticateBiometric) } }
+        val appearance = (application as KeeppeerApplication).container.appearance
+        setContent {
+            val theme by appearance.state.collectAsStateWithLifecycle()
+            androidx.compose.runtime.CompositionLocalProvider(
+                com.gem.keeppeer.ui.theme.LocalThemeMode provides theme.mode
+            ) {
+                KeeppeerTheme(darkTheme = theme.mode.isDark(androidx.compose.foundation.isSystemInDarkTheme())) {
+                    VaultRoot(session, ::authenticateBiometric)
+                }
+            }
+        }
     }
     override fun onStart() {
         super.onStart()
@@ -128,9 +140,9 @@ class MainActivity : FragmentActivity() {
         try {
             BiometricDiagnostics.record(BiometricStage.PROMPT_LAUNCH)
             localPrompt.authenticate(BiometricPrompt.PromptInfo.Builder()
-                .setTitle(if (enroll) "Enable biometric unlock" else "Unlock Keeppeer")
+                .setTitle(getString(if (enroll) R.string.biometric_prompt_enable else R.string.biometric_prompt_unlock))
                 .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
-                .setNegativeButtonText("Use master password").build(), BiometricPrompt.CryptoObject(cipher))
+                .setNegativeButtonText(getString(R.string.biometric_fallback)).build(), BiometricPrompt.CryptoObject(cipher))
         } catch (error: Exception) {
             complete(BiometricDiagnostics.failure(BiometricStage.PROMPT_LAUNCH, error))
         }

@@ -67,7 +67,7 @@ class LiveRecentsPrivacyTest {
             compose.onNodeWithText("Add").performClick()
             compose.onNodeWithText("Title *").performTextInput(title)
             compose.onNodeWithText("Password").performScrollTo().performTextInput("synthetic recents value")
-            compose.onNodeWithText("Show").performClick()
+            compose.onNodeWithText(compose.activity.getString(R.string.show_password)).performClick()
             awaitVisibility(true)
             compose.runOnUiThread {
                 assertTrue("The revealed draft must own focus before actual Recents",

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Keeppeer</string>
     <string name="placeholder_empty_list">No passwords yet.\nThey will appear here once added.</string>
-    <string name="development_notice">Phase 3 development build • CSV verification • Synthetic entries only</string>
+    <string name="development_notice">Development build • Synthetic entries only • Release disabled</string>
     <string name="csv_heading">CSV backup</string>
     <string name="csv_import">Import CSV</string>
     <string name="csv_export">Export CSV</string>
@@ -23,7 +23,18 @@
     <string name="csv_interrupted">CSV work cancelled. An import already committed may still have completed. An interrupted export may leave plaintext at the selected provider; check and remove it if needed.</string>
     <string name="csv_expired">Selection or approval expired. Unlock if needed and select the document again. No old operation will restart automatically.</string>
     <string name="csv_failed">CSV operation failed (input, provider, vault or limit error). No partial import was committed. Select the file again to retry.</string>
-    <string name="csv_parse_error">Import rejected: %1$s. No entries changed.</string>
-    <string name="csv_applied">Import finished: %1$d inserted, %2$d updated, %3$d skipped.</string>
+    <string name="csv_applied">Import finished: %1$s, %2$s, %3$s.</string>
+    <plurals name="csv_inserted">
+        <item quantity="one">%d entry inserted</item>
+        <item quantity="other">%d entries inserted</item>
+    </plurals>
+    <plurals name="csv_updated">
+        <item quantity="one">%d entry updated</item>
+        <item quantity="other">%d entries updated</item>
+    </plurals>
+    <plurals name="csv_skipped">
+        <item quantity="one">%d entry skipped</item>
+        <item quantity="other">%d entries skipped</item>
+    </plurals>
     <string name="csv_password_nudge">You can export a CSV backup above before changing your password. Export is optional; plaintext exports need separate protection.</string>
 </resources>

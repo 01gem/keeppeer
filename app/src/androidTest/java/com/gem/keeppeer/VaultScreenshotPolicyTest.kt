@@ -93,7 +93,7 @@ class VaultScreenshotPolicyTest {
             compose.onNodeWithText("Add").performClick()
             compose.onNodeWithText("Title *").performTextReplacement("Synthetic screenshot fixture")
             compose.onNodeWithText("Password").performScrollTo().performTextReplacement("synthetic screenshot only")
-            compose.onNodeWithText("Show").performScrollTo().performClick()
+            compose.onNodeWithText(compose.activity.getString(R.string.show_password)).performScrollTo().performClick()
             compose.onNodeWithText("Password").assertTextContains("synthetic screenshot only")
             compose.runOnUiThread {
                 assertTrue(compose.activity.window.attributes.flags and WindowManager.LayoutParams.FLAG_SECURE != 0)

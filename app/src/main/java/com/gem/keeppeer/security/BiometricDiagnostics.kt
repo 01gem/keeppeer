@@ -24,19 +24,19 @@ data class BiometricResult(
     val platformCode: Int? = null,
 ) {
     val success get() = outcome == BiometricOutcome.SUCCESS
-    fun message(): String = when (outcome) {
-        BiometricOutcome.SUCCESS -> "Biometric operation completed."
-        BiometricOutcome.EMPTY_PASSWORD -> "Enter your current master password to enable biometrics."
-        BiometricOutcome.WRONG_PASSWORD -> "Current master password is incorrect. Try again."
-        BiometricOutcome.CANCELLED -> "Biometric prompt cancelled. Retry when ready; password unlock remains available."
-        BiometricOutcome.SESSION_EXPIRED -> "Biometric operation stopped because the vault session or Activity changed. Unlock and retry."
-        BiometricOutcome.UNAVAILABLE -> "Strong biometrics are unavailable or not enrolled. Check device settings and retry."
-        BiometricOutcome.LOCKOUT -> "Biometrics are locked out. Use your master password and retry later."
-        BiometricOutcome.KEY_INVALIDATED -> "Biometric key is unavailable or invalidated. Use your master password and re-enable biometrics."
-        BiometricOutcome.KEYSTORE_ERROR -> "Android Keystore could not complete the biometric operation. Use your master password and retry enrollment."
-        BiometricOutcome.IO_ERROR -> "Biometric wrapper could not be read or saved. Password access is preserved; retry."
-        BiometricOutcome.CRYPTO_ERROR -> "Biometric cryptographic operation failed at ${stage.name}. Use your master password and retry."
-        BiometricOutcome.CIPHER_MISMATCH -> "The biometric prompt returned an unexpected cryptographic operation. Retry."
+    fun message(): Int = when (outcome) {
+        BiometricOutcome.SUCCESS -> com.gem.keeppeer.R.string.bio_success
+        BiometricOutcome.EMPTY_PASSWORD -> com.gem.keeppeer.R.string.bio_empty
+        BiometricOutcome.WRONG_PASSWORD -> com.gem.keeppeer.R.string.bio_wrong
+        BiometricOutcome.CANCELLED -> com.gem.keeppeer.R.string.bio_cancelled
+        BiometricOutcome.SESSION_EXPIRED -> com.gem.keeppeer.R.string.bio_expired
+        BiometricOutcome.UNAVAILABLE -> com.gem.keeppeer.R.string.bio_unavailable
+        BiometricOutcome.LOCKOUT -> com.gem.keeppeer.R.string.bio_lockout
+        BiometricOutcome.KEY_INVALIDATED -> com.gem.keeppeer.R.string.bio_invalidated
+        BiometricOutcome.KEYSTORE_ERROR -> com.gem.keeppeer.R.string.bio_keystore
+        BiometricOutcome.IO_ERROR -> com.gem.keeppeer.R.string.bio_io
+        BiometricOutcome.CRYPTO_ERROR -> com.gem.keeppeer.R.string.bio_crypto
+        BiometricOutcome.CIPHER_MISMATCH -> com.gem.keeppeer.R.string.bio_mismatch
     }
     companion object {
         fun ok() = BiometricResult(BiometricOutcome.SUCCESS, BiometricStage.COMPLETE)

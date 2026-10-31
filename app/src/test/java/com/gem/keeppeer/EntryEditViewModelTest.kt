@@ -130,6 +130,7 @@ class EntryEditViewModelTest {
             return true
         }
         override suspend fun delete(id: Long): Boolean = false
+        override suspend fun setFavorite(id: Long, favorite: Boolean): Boolean = false
         override suspend fun exportCsv(): List<PasswordEntry> = error("Unused fake operation")
         override suspend fun previewCsv(rows: List<PasswordEntry>): com.gem.keeppeer.csv.ImportPreview =
             error("Unused fake operation")

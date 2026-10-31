@@ -94,6 +94,16 @@ interface EntryDao {
         url: String?, notes: String?, category: String?, isFavorite: Boolean, now: Long,
     ): Int
 
+    /** Field-only update cannot overwrite a concurrent credential edit. */
+    @Query("""
+        UPDATE entries SET is_favorite = :favorite, updated_at = MAX(:now, updated_at + 1)
+        WHERE id = :id AND updated_at < 9223372036854775807
+    """)
+    suspend fun setFavorite(id: Long, favorite: Boolean, now: Long): Int
+
+    @Query("SELECT updated_at FROM entries WHERE id = :id")
+    suspend fun updatedAt(id: Long): Long?
+
     @Query("DELETE FROM entries WHERE id = :id")
     suspend fun deleteById(id: Long): Int
 
@@ -104,7 +114,7 @@ interface EntryDao {
     fun observeById(id: Long): Flow<EntryEntity?>
 
     @Query("""
-        SELECT id, title, username, url, category FROM entries
+        SELECT id, title, username, url, category, is_favorite AS isFavorite FROM entries
         ORDER BY updated_at DESC, id DESC
     """)
     fun observeSummaries(): Flow<List<EntrySummary>>

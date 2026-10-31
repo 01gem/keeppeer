@@ -10,6 +10,8 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
+val LocalThemeMode = androidx.compose.runtime.staticCompositionLocalOf { com.gem.keeppeer.ui.settings.ThemeMode.SYSTEM }
+
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,

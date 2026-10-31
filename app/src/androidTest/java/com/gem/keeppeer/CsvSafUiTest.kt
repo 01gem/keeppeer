@@ -138,7 +138,10 @@ class CsvSafUiTest {
         compose.onNodeWithText("Skip (default)").assertIsDisplayed()
         click("Continue")
         compose.waitUntil(30_000) {
-            compose.onAllNodesWithText("Import finished: 0 inserted, 0 updated, 1 skipped.").fetchSemanticsNodes().isNotEmpty()
+            compose.onAllNodesWithText(compose.activity.getString(R.string.csv_applied,
+                compose.activity.resources.getQuantityString(R.plurals.csv_inserted, 0, 0),
+                compose.activity.resources.getQuantityString(R.plurals.csv_updated, 0, 0),
+                compose.activity.resources.getQuantityString(R.plurals.csv_skipped, 1, 1))).fetchSemanticsNodes().isNotEmpty()
         }
         assertTrue("Existing values and count unchanged", requireNotNull(session.state.value.access).repository.exportCsv() == listOf(stored))
         click("Continue")

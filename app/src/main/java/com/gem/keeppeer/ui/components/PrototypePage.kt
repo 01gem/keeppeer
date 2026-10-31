@@ -21,17 +21,17 @@ fun PrototypePage(
         topBar = {
             TopAppBar(
                 title = { Text(title) },
-                navigationIcon = { if (onBack != null) TextButton(onClick = onBack) { Text("Back") } },
+                navigationIcon = { if (onBack != null) TextButton(onClick = onBack) { Text(stringResource(R.string.back)) } },
                 actions = actions,
             )
         },
         floatingActionButton = floatingActionButton,
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()) {
-            Surface(color = MaterialTheme.colorScheme.errorContainer) {
+            Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
                 Text(
                     stringResource(R.string.development_notice),
-                    Modifier.fillMaxWidth().padding(12.dp),
+                    Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
                     style = MaterialTheme.typography.labelLarge,
                 )
             }
@@ -44,6 +44,6 @@ fun PrototypePage(
 fun StatusMessage(message: String, retry: (() -> Unit)? = null) {
     Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(message)
-        if (retry != null) Button(onClick = retry) { Text("Retry") }
+        if (retry != null) Button(onClick = retry) { Text(stringResource(R.string.retry)) }
     }
 }

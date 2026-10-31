@@ -1,6 +1,16 @@
 # Keeppeer — Phase Status
 
-## Phase 3 — current
+## Phase 4 — current
+
+**Implemented; verification incomplete for one clipboard-provider gap.** Secure generator, stored favorites/typed category filters, persisted app appearance, settings/About and accessibility/resource polish are delivered. 69 JVM tests pass (0 failures/errors/skips); final debug assembly, AndroidTest packaging and lint pass (0 errors/14 warnings).
+
+Current-app native evidence is scoped: affected regressions **11/11 in247.217s** (including real SAF and unchanged original window assertions); favorites/search and 320dp portrait/landscape 2.0-font/all-theme methods passed in the retained **2-pass/1-fail group in108.026s**; independent generator cancel/use/save/reopen/theme/rotation/revocation journey **1/1 in28.421s**; separate theme writer/reader processes **1/1 in0.094s** and **1/1 in0.083s**, with guarded force-stop/process absence between them. These are16 distinct passing methods across scoped runs, not one clean16-test execution.
+
+**Remaining required gap:** the full generator Copy journey still fails clipboard ownership. The final diagnostic run failed1/1 in18.106s after observing the allowlisted label classification `host_clipboard`, sensitive marker false, and no replacement-payload read. Copy had reported successful service submission. Host sharing stayed unchanged; no rejected earlier-phase control was replayed. This is not a pass for ownership/exact copied value or direct clip expiry. Original failed assertions remain; the separate passing generator-state journey explicitly excludes Copy.
+
+See [Phase4 report](reports/phase-4-report.json), [behavior contract](phase-4-behavior.md) and [Phase5 checklist](phase-5-checklist.md). Original failed attempts/artifact identities remain recorded. Manual TalkBack/visual palette checks, current direct clipboard timing, real biometric/hardware, other-provider/physical CSV and spreadsheets are not claimed. Only the user-authorized new AVD is used; personal/old/preserved material and security controls stay untouched. Release remains disabled; Phase5 unstarted.
+
+## Phase 3 — accepted baseline (historical)
 
 **Complete for the requested CSV scope, with recorded provider/JVM/spreadsheet limits.** 46 JVM tests pass; debug assembly, AndroidTest packaging and lint pass (0 errors/15 warnings). All 11 distinct selected API31 device methods have passing evidence across scoped runs: 9 passed in the retained mixed group, and final window/real-SAF methods passed 2/2 in 58.650s. Earlier failures and their actual resolutions/artifact identities remain history, not a fabricated single 11/11 run. No required Phase 3 gap remains. Manual spreadsheet/remote-provider/physical-device checks are not claimed. See [the Phase 3 report](reports/phase-3-report.json) and [CSV contract](csv-contract.md). Phase 2 remains complete with its original evidence and limits. Release remains disabled; Phase 4 unstarted.
 
@@ -368,7 +378,7 @@ The first host test run used the inherited partial implementation's Robolectric 
 
 ## Phase 4 — Generator, Filters, Settings & UI ⏳
 
-**Status:** Not started
+**Status:** Implemented; verification incomplete for the current generator clipboard ownership/provider gap. See the current section and structured report above.
 
 ## Phase 5 — Verification & Release Prep ⏳
 

@@ -7,6 +7,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.gem.keeppeer.R
 import androidx.compose.ui.unit.dp
 import com.gem.keeppeer.ui.components.PrototypePage
 import com.gem.keeppeer.ui.components.StatusMessage
@@ -23,15 +25,15 @@ fun EntryDetailScreen(
     onRetry: () -> Unit,
     onCopy: (String) -> Boolean,
 ) {
-    var reveal by remember { mutableStateOf(false) }
-    var confirmDelete by remember { mutableStateOf(false) }
-    var copyStatus by remember { mutableStateOf<String?>(null) }
+    var reveal by remember(com.gem.keeppeer.ui.theme.LocalThemeMode.current) { mutableStateOf(false) }
+    var confirmDelete by remember(com.gem.keeppeer.ui.theme.LocalThemeMode.current) { mutableStateOf(false) }
+    var copyStatus by remember { mutableStateOf<Int?>(null) }
     BackHandler(enabled = state.deleting) { }
-    PrototypePage(title = "Entry details", onBack = if (state.deleting) null else onBack) {
+    PrototypePage(title = stringResource(R.string.entry_details), onBack = if (state.deleting) null else onBack) {
         when {
             state.loading -> CircularProgressIndicator(Modifier.padding(24.dp))
             state.entry == null -> StatusMessage(
-                state.error ?: "This entry no longer exists. Return to the list.",
+                stringResource(if (state.error != null) R.string.load_entry_error else R.string.missing_entry),
                 if (state.error != null) onRetry else null,
             )
             else -> Column(
@@ -40,26 +42,26 @@ fun EntryDetailScreen(
             ) {
                 val entry = state.entry
                 Text(entry.title, style = MaterialTheme.typography.headlineSmall)
-                DetailValue("Username", entry.username)
-                entry.username?.let { value -> TextButton(onClick = { copyStatus = if (onCopy(value)) "Copied for about 30 seconds." else "Clipboard unavailable." }) { Text("Copy username") } }
-                Text("Password", style = MaterialTheme.typography.labelLarge)
+                DetailValue(stringResource(R.string.username), entry.username)
+                entry.username?.let { value -> TextButton(onClick = { copyStatus = if (onCopy(value)) R.string.clipboard_copied else R.string.clipboard_failed }) { Text(stringResource(R.string.copy_username)) } }
+                Text(stringResource(R.string.password), style = MaterialTheme.typography.labelLarge)
                 Text(if (reveal) entry.password else "••••••••")
-                TextButton(onClick = { reveal = !reveal }) { Text(if (reveal) "Hide password" else "Show password") }
-                TextButton(onClick = { copyStatus = if (onCopy(entry.password)) "Copied for about 30 seconds." else "Clipboard unavailable." }) { Text("Copy password") }
-                DetailValue("URL", entry.url)
-                entry.url?.let { value -> TextButton(onClick = { copyStatus = if (onCopy(value)) "Copied for about 30 seconds." else "Clipboard unavailable." }) { Text("Copy URL") } }
-                DetailValue("Category", entry.category)
-                DetailValue("Notes", entry.notes)
-                entry.notes?.let { value -> TextButton(onClick = { copyStatus = if (onCopy(value)) "Copied for about 30 seconds." else "Clipboard unavailable." }) { Text("Copy notes") } }
-                copyStatus?.let { Text(it) }
-                Text(if (entry.isFavorite) "Favorite: Yes" else "Favorite: No")
-                Text("Created: " + DateFormat.getDateTimeInstance().format(Date(entry.createdAt)))
-                Text("Updated: " + DateFormat.getDateTimeInstance().format(Date(entry.updatedAt)))
-                state.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    Button(onClick = onEdit, enabled = !state.deleting) { Text("Edit") }
+                TextButton(onClick = { reveal = !reveal }) { Text(if (reveal) stringResource(R.string.hide_password) else stringResource(R.string.show_password)) }
+                TextButton(onClick = { copyStatus = if (onCopy(entry.password)) R.string.clipboard_copied else R.string.clipboard_failed }) { Text(stringResource(R.string.copy_password)) }
+                DetailValue(stringResource(R.string.url), entry.url)
+                entry.url?.let { value -> TextButton(onClick = { copyStatus = if (onCopy(value)) R.string.clipboard_copied else R.string.clipboard_failed }) { Text(stringResource(R.string.copy_url)) } }
+                DetailValue(stringResource(R.string.category), entry.category)
+                DetailValue(stringResource(R.string.notes), entry.notes)
+                entry.notes?.let { value -> TextButton(onClick = { copyStatus = if (onCopy(value)) R.string.clipboard_copied else R.string.clipboard_failed }) { Text(stringResource(R.string.copy_notes)) } }
+                copyStatus?.let { Text(stringResource(it)) }
+                Text(if (entry.isFavorite) stringResource(R.string.favorite_yes) else stringResource(R.string.favorite_no))
+                Text(stringResource(R.string.created, DateFormat.getDateTimeInstance().format(Date(entry.createdAt))))
+                Text(stringResource(R.string.updated, DateFormat.getDateTimeInstance().format(Date(entry.updatedAt))))
+                state.error?.let { Text(stringResource(R.string.delete_entry_error), color = MaterialTheme.colorScheme.error) }
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(onClick = onEdit, enabled = !state.deleting) { Text(stringResource(R.string.edit)) }
                     OutlinedButton(onClick = { confirmDelete = true }, enabled = !state.deleting) {
-                        Text(if (state.deleting) "Deleting…" else "Delete")
+                        Text(if (state.deleting) stringResource(R.string.deleting) else stringResource(R.string.delete))
                     }
                 }
             }
@@ -68,10 +70,10 @@ fun EntryDetailScreen(
     if (confirmDelete && state.entry != null) {
         AlertDialog(
             onDismissRequest = { confirmDelete = false },
-            title = { ProtectDialogWindow(); Text("Delete entry?") },
-            text = { Text("This permanently deletes this synthetic entry.") },
-            confirmButton = { TextButton(onClick = { confirmDelete = false; onDelete() }) { Text("Delete") } },
-            dismissButton = { TextButton(onClick = { confirmDelete = false }) { Text("Cancel") } },
+            title = { ProtectDialogWindow(); Text(stringResource(R.string.delete_title)) },
+            text = { Text(stringResource(R.string.delete_explanation)) },
+            confirmButton = { TextButton(onClick = { confirmDelete = false; onDelete() }) { Text(stringResource(R.string.delete)) } },
+            dismissButton = { TextButton(onClick = { confirmDelete = false }) { Text(stringResource(R.string.cancel)) } },
         )
     }
 }
@@ -79,5 +81,5 @@ fun EntryDetailScreen(
 @Composable
 private fun DetailValue(label: String, value: String?) {
     Text(label, style = MaterialTheme.typography.labelLarge)
-    Text(value ?: "—")
+    Text(value ?: stringResource(R.string.empty_value))
 }

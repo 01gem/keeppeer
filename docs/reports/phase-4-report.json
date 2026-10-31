@@ -1,0 +1,621 @@
+{
+  "phase": 4,
+  "outcome": "incomplete",
+  "implementationComplete": true,
+  "currentRequiredGap": "Controlled native generator Copy ownership/exact-value verification remains incomplete. After successful service feedback the final diagnostic observed label classification host_clipboard and sensitive marker false; the ownership assertion failed. Replacement payload was not read. Host-sharing/security changes are outside this task and were not made.",
+  "summary": "Phase4 generator, atomic favorites, reactive typed category/search filters, DataStore appearance, working settings/About and resource/accessibility/input polish implemented. 69 JVM tests pass; final debug/AndroidTest packaging and lint pass0errors14warnings. 16 distinct native methods have passing evidence across exact scoped runs, including11/11 affected security/CRUD/window/real-SAF regressions, favorites/large-font layout, generator state excluding Copy and two theme processes. Full generator Copy still fails with a host-labelled replacement, and remains failed. Release disabled; Phase5 unstarted. No distribution.",
+  "checksScope": "Native completion is required and recorded; shell0/compilation/partial milestones do not count as pass. Distinct test APKs and unsuccessful attempts retain original identities. JVM subject sources remain unchanged after their final69-pass run; subsequent changes are presentation/input-provider/resources and native test drivers, separately packaged/linted/device-tested. This is not one clean16-test native execution or a whole-app/release-readiness claim.",
+  "baseline": {
+    "reviewedSnapshot": "2026-10-31 10:00:06 AM PHT (UTC+08:00)",
+    "reviewedBytes": 1153991,
+    "reviewedSha256": "3e57ad9f4e7301482d4f1088d81a9bac758dbf08336e75c8a897389db5fdfd93",
+    "reviewedRevision": "76c9b21 plus Phase3 work",
+    "actualStartingRevision": "151580860e9fbb4f3b18ca43dd513c8995b37e19",
+    "initialWorkingTree": "clean",
+    "reconciliation": "1515808 commits the accepted Phase3 work on76c9b21; actual source/current reports inspected and preserved without reversion. No applicable AGENTS.md found in project or immediate ancestor instruction locations.",
+    "previousEvidence": "Phase2 complete within documented original scope. Phase3's46 JVM tests, nine mixed-group native passes and final focused2/2 in58.650s remain at original artifacts; not relabelled as one clean11/11 run. No manual spreadsheet/other-provider/physical CSV claim added."
+  },
+  "project": {
+    "name": "Keeppeer",
+    "applicationId": "com.gem.keeppeer",
+    "modules": [
+      ":app"
+    ],
+    "minSdk": 24,
+    "compileSdk": 37,
+    "targetSdk": 37,
+    "versionName": "1.0",
+    "versionCode": 1,
+    "di": "manual",
+    "schemaChanges": [],
+    "dependencyChanges": [],
+    "releaseEnabled": false,
+    "phase5Started": false
+  },
+  "toolchain": {
+    "source": "app/build.gradle.kts, gradle/libs.versions.toml, wrapper/properties, merged manifest and shell-90 --version",
+    "gradle": "9.8.2",
+    "gradleEmbeddedKotlin": "2.4.10",
+    "applicationKotlinPlugin": "2.2.10",
+    "agp": "9.5.0",
+    "ksp": "2.3.12",
+    "launcherJvm": "1.8.0_511 Oracle; launcher bootstrap is distinct from daemon",
+    "daemonCriteria": "Java25 from gradle/gradle-daemon-jvm.properties",
+    "composeBom": "2026.09.00",
+    "resolvedComposeUiConsulted": "1.12.1",
+    "room": "2.8.5",
+    "sqlcipher": "4.20.0",
+    "sqlite": "2.7.1",
+    "biometric": "1.4.0-alpha07; existing documented compatibility exception retained",
+    "datastore": "1.3.0",
+    "officialReferences": [
+      "https://developer.android.com/topic/libraries/architecture/datastore",
+      "Resolved Compose1.12.1 public PlatformTextInputModifierNode/PlatformTextInputMethodRequest and SemanticsProperties source documentation via Android Studio",
+      "Resolved DataStore1.3.0 factory/FileStorage/FileMoves source via Android Studio"
+    ],
+    "compatibility": "Existing dependencies reused; no version or schema upgrade. Public input interception/semantics APIs inspected in the actual resolved sources."
+  },
+  "addedPaths": [
+    "app/src/androidTest/java/com/gem/keeppeer/Phase4LayoutTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/Phase4UiTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/ThemeProcessTest.kt",
+    "app/src/main/java/com/gem/keeppeer/domain/EntryFilters.kt",
+    "app/src/main/java/com/gem/keeppeer/domain/PasswordGenerator.kt",
+    "app/src/main/java/com/gem/keeppeer/security/SensitiveInputProvider.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/components/Options.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/edit/GeneratorDialog.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/settings/SecuritySettings.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/settings/ThemeSettings.kt",
+    "app/src/main/res/values/phase4_strings.xml",
+    "app/src/test/java/com/gem/keeppeer/EntryFiltersTest.kt",
+    "app/src/test/java/com/gem/keeppeer/FavoriteRoomTest.kt",
+    "app/src/test/java/com/gem/keeppeer/PasswordGeneratorTest.kt",
+    "app/src/test/java/com/gem/keeppeer/Phase4ViewModelTest.kt",
+    "app/src/test/java/com/gem/keeppeer/ThemeSettingsTest.kt",
+    "docs/phase-4-behavior.md",
+    "docs/phase-5-checklist.md",
+    "docs/reports/phase-4-report.json",
+    "tools/check-phase4.ps1"
+  ],
+  "modifiedPaths": [
+    "README.md",
+    "app/src/androidTest/java/com/gem/keeppeer/CsvSafUiTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/EntryDraftRotationTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/LiveRecentsPrivacyTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/SecureCaptureTest.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/SyntheticTestRunner.kt",
+    "app/src/androidTest/java/com/gem/keeppeer/VaultScreenshotPolicyTest.kt",
+    "app/src/main/java/com/gem/keeppeer/MainActivity.kt",
+    "app/src/main/java/com/gem/keeppeer/data/local/EntryDao.kt",
+    "app/src/main/java/com/gem/keeppeer/data/repo/EntryRepository.kt",
+    "app/src/main/java/com/gem/keeppeer/data/repo/EntryRepositoryImpl.kt",
+    "app/src/main/java/com/gem/keeppeer/di/AppContainer.kt",
+    "app/src/main/java/com/gem/keeppeer/domain/EntrySummary.kt",
+    "app/src/main/java/com/gem/keeppeer/security/BiometricDiagnostics.kt",
+    "app/src/main/java/com/gem/keeppeer/security/SensitiveClipboardProvider.kt",
+    "app/src/main/java/com/gem/keeppeer/security/VaultAccess.kt",
+    "app/src/main/java/com/gem/keeppeer/security/VaultSession.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/components/PrototypePage.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/detail/EntryDetailScreen.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/edit/EntryEditScreen.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/edit/EntryEditViewModel.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/export/CsvUi.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/export/CsvViewModel.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/list/EntryListViewModel.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/list/PasswordListScreen.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/lock/VaultRoot.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/navigation/KeeppeerNavigation.kt",
+    "app/src/main/java/com/gem/keeppeer/ui/theme/Theme.kt",
+    "app/src/main/res/values/strings.xml",
+    "app/src/test/java/com/gem/keeppeer/EntryEditViewModelTest.kt",
+    "docs/phase-status.md",
+    "docs/security.md"
+  ],
+  "deletedPaths": [],
+  "behavior": {
+    "document": "docs/phase-4-behavior.md",
+    "generatorPolicySource": "app/src/main/java/com/gem/keeppeer/domain/PasswordGenerator.kt",
+    "defaults": {
+      "length": 20,
+      "min": 8,
+      "max": 128,
+      "lowercase": true,
+      "uppercase": true,
+      "digits": true,
+      "symbols": true,
+      "excludeAmbiguous": true
+    },
+    "pools": {
+      "lowercase": "abcdefghijklmnopqrstuvwxyz",
+      "uppercase": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "digits": "0123456789",
+      "symbols": "!@#$%^&*()-_=+[]{};:,.?/",
+      "ambiguous": "Il1O0o|"
+    },
+    "construction": "Validate bounds/nonempty selection/effective pools/coverage length; one bounded SecureRandom.nextInt draw per selected pool, fill from distinct combined pool, then secure Fisher-Yates. Coverage guaranteed; no uniform-valid-password/entropy/strength claim, predictable seed, modulo-byte reduction or failure fallback. Internal bounded-draw test seam only.",
+    "generatorLifetime": "Candidate/options/draft in access-owned editor VM only. Options invalidate candidate; Regenerate changes candidate; explicit Use replaces draft and never saves/copies. Cancel drops candidate and preserves draft. Saving/revocation reject use; rotation retains candidate with reveal reset. No process-death secret restore or generator preferences persisted. Explicit copy has current-access guard and uses unchanged sensitive service.",
+    "favorites": "EntrySummary adds only isFavorite, no passwords/notes. One revocable dedicated UPDATE changes is_favorite and MAX(now,updated_at+1), preserving credential fields/createdAt; Long.MAX_VALUE rejects without overflow. Missing/deleted/failure feedback and per-row repeat-tap guard. Reactive Room projection authoritative.",
+    "filters": "Distinct Favorites and remaining sections, no repeated entry, stable IDs, existing updated_at DESC/id DESC order. Typed All/Uncategorized/Named identities; real names labelled Category:value. Null/empty/whitespace categories group as Uncategorized; other values exact, case-sensitive, never rewritten. Sorted choices derive from all current metadata. Selected orphan stays visible until changed/cleared. Query/favorites/category compose using existing trimmed Unicode-aware literal metadata substring search, preserving %,underscore,backslash. Clear filters and empty-vault/no-results states.",
+    "settings": "Application-owned Preferences DataStore singleton stores only theme enum. System follows configuration; Light/Dark override, API31 dynamic colors and older fallback retained. Initial/read/write failures handled, pending/failed writes do not claim a saved selection. Existing timeout SharedPreferences remains. Lock/password-change/optional export/real biometric availability and cryptographic enable/disable/fallback retained. About reads installed PackageInfo and explains offline/no-sync/plaintext/device-key/password-loss limits.",
+    "polish": "Resource-based visible/error/accessibility strings and CSV quantity resources; heading/radio/checkbox semantics and48dp option targets, scrollable forms/dialogs/stacked actions, existing system/IME insets. Quiet truthful development notice. Public input interceptor requests no learning onAPI26+, no suggestions/autocorrection, with appropriate text/URI/password keyboards; not control over every IME.",
+    "privacy": "All new generator/filter/settings/About dialogs call ProtectDialogWindow. Existing Activity/dialog FLAG_SECURE, focus redaction and original-opacity/closing rules preserved. No key/envelope/guard/biometric-AAD/session timing/CSV data-path changes or plaintext caches. Generated values omitted from action labels/settings/navigation/logs; native sensitive-node failures sanitized while preserving failure/source location."
+  },
+  "artifacts": {
+    "finalAppSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+    "finalTestSha256": "c71f00ee3ad813f2f2808cdea2142f819aeebbe2db37f876b0ea54127fddc0a5",
+    "installedHashesMatchHost": true,
+    "finalWindowTestSourceSha256": "c4ab7c965e58373f22c8cbecc4bf111e9622252b21328aefd1a802a3ad3fb673",
+    "windowAssertions": "Unmodified from accepted baseline c4ab7c96; original lifecycle/alpha0.8/same-window/closing/parent/recreation/secure-flag assertions retained and passed."
+  },
+  "checks": [
+    {
+      "name": "Relevant JVM suite",
+      "result": "PASS",
+      "log": "shell-63.log",
+      "command": ".\\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest :app:lintDebug --console=plain --max-workers=2",
+      "buildDuration": "4m37s",
+      "expected": 69,
+      "completed": 69,
+      "passed": 69,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSuiteSeconds": 58.913,
+      "details": "13 XML suites corroborate69 passes:23 new generator/filter/favorite/VM/theme tests plus46 existing. Real DataStore close/new-reader/overwrite uses RobolectricAPI28, not just repository recreation. Per-suite timestamps/counts below; later presentation/native-driver changes do not alter these unit subjects."
+    },
+    {
+      "name": "Final production debug assembly/resources/AndroidTest packaging/lint",
+      "result": "PASS",
+      "log": "shell-69.log",
+      "command": ".\\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --console=plain --max-workers=2",
+      "buildDuration": "1m8s",
+      "lintErrors": 0,
+      "lintWarnings": 14,
+      "details": "Final production app d784f58b; public input provider and localized CSV quantity handling had also built/linted in shell-68 (3m36s). Gradle/native-access/deprecation warnings remain; lint14 are3EmptySuperCall,RedundantLabel,newer-plugin suggestion,8unused resources,UseKtx."
+    },
+    {
+      "name": "Final native test driver packaging/lint",
+      "result": "PASS",
+      "log": "shell-84.log",
+      "command": ".\\gradlew.bat :app:assembleDebugAndroidTest :app:lintDebug --console=plain --max-workers=2",
+      "buildDuration": "34s",
+      "details": "Final test c71f00ee; production unchanged. Keeps original copy ownership/exact-payload assertions, adds safe allowlisted diagnostic and independent no-Copy state journey. Conditional UI load/scroll synchronization retains all behavior assertions."
+    },
+    {
+      "name": "Manifest/source security boundary inspection",
+      "result": "PASS",
+      "details": "Merged com.gem.keeppeer/version1.0(1)/min24/target37; backup false and both exclusions retained; no INTERNET/broad-storage permission. No schema/dependency/release/signing change. New dialogs protect/register; clipboard copy routing/guards inspected; no sensitive saved-state/settings/navigation values. Owned generator/filter/settings secure flags checked natively; About registration source-inspected in same retained protection path."
+    },
+    {
+      "name": "Release remains disabled",
+      "result": "PASS",
+      "log": "shell-90.log",
+      "details": "assembleRelease and bundleRelease dry-run task selections each fail because task absent, exits1/1,5s/2s. No release task executes, no packaging/signing/distribution; CLI script exits0 only after checking absence."
+    },
+    {
+      "name": "Working-tree whitespace and baseline window identity",
+      "result": "PASS",
+      "details": "shell-89 git diff --check exits0; only informational LF-to-CRLF warnings. Current revision151580860e9fbb4f3b18ca43dd513c8995b37e19 plus listed task changes. WindowRegistrationTest hash matches baseline exactly."
+    },
+    {
+      "name": "New AVD cleanup",
+      "result": "PASS",
+      "log": "shell-88.log",
+      "details": "Exact serial/name/qemu/API/ABI guard then emulator kill acknowledged; emulator process shell-60 ended0. Registration remains listed by emulator -list-avds in shell-90; userdata not wiped/deleted. Only this new fixture stopped."
+    }
+  ],
+  "nativeRuns": [
+    {
+      "name": "Retained mixed Phase4 feature group",
+      "log": "shell-71.log",
+      "selection": "com.gem.keeppeer.Phase4UiTest,com.gem.keeppeer.Phase4LayoutTest",
+      "result": "FAIL",
+      "expected": 3,
+      "started": 3,
+      "completed": 3,
+      "passed": 2,
+      "failed": 1,
+      "skipped": 0,
+      "seconds": 108.026,
+      "instrumentationCode": -1,
+      "runnerShellExit": 0,
+      "guardScriptExit": 1,
+      "appSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+      "testSha256": "68efdb34746dd886e1725093161807472ae324a07b727bf36785a7e4485b61f0",
+      "details": "Passing methods: favoritesCategoryAndLiteralSearchStayReactive and portraitLandscapeTwoTimesFontsAndAllThemesKeepActionsReachable. Real320dp content constraint, actual portrait/landscape and injected LocalDensity fontScale2.0; all appearance options selected and About/actions reachable. Generator failed because test expected transformed EditableText as raw input. Not a clean3/3 run or manual visual/TalkBack check."
+    },
+    {
+      "name": "Affected original regressions",
+      "log": "shell-76.log",
+      "selection": "com.gem.keeppeer.EncryptedVaultTest,com.gem.keeppeer.EntryPersistenceTest,com.gem.keeppeer.EntryDraftRotationTest,com.gem.keeppeer.VaultLifecycleUiTest,com.gem.keeppeer.WindowRegistrationTest,com.gem.keeppeer.CsvSafUiTest,com.gem.keeppeer.VaultSecurityTest#passwordChangeRestartWrongPasswordAndStaleRepositoryRevocation,com.gem.keeppeer.VaultSecurityTest#monotonicReturnEnforcesAllTimeoutOptionsAndDeviceLock",
+      "result": "PASS",
+      "expected": 11,
+      "started": 11,
+      "completed": 11,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 247.217,
+      "instrumentationCode": -1,
+      "runnerShellExit": 0,
+      "guardScriptExit": 0,
+      "appSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+      "testSha256": "893f0a94177fff0ab808b76e43db3c43556ffe68ef626855876e163e76a72878",
+      "details": "Native OK(11),0failure/skip. Real SQLCipher/SQLite persistence/CRUD, missing-schema refusal, draft rotation/cancel, background/manual lock and stale repository/password change, all timeout options with controlled elapsed clock/deviceLocked input, unchanged real window assertions, real local DocumentsUI export/reimport/defaultSkip/exact values/renewed approval/picker cancel/preview rotation and cancellation/stale callback. No biometric enrollment or blanket old matrix."
+    },
+    {
+      "name": "Theme writer process",
+      "log": "shell-80.log",
+      "selection": "com.gem.keeppeer.ThemeProcessTest#persistDarkForNextProcess",
+      "result": "PASS",
+      "expected": 1,
+      "started": 1,
+      "completed": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 0.094,
+      "instrumentationCode": -1,
+      "runnerShellExit": 0,
+      "guardScriptExit": 0,
+      "appSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+      "testSha256": "351737af7ee372c23c84588097af4f869fed6ae481cf278813f8e86ba5544526",
+      "details": "Real application appearance service writes Light then Dark and verifies no failure. Followed by guarded force-stop and observed target PID absence (shell-81), no app-data clear."
+    },
+    {
+      "name": "Theme new reader process",
+      "log": "shell-82.log",
+      "selection": "com.gem.keeppeer.ThemeProcessTest#newProcessReadsDarkThenRestoreSystem",
+      "result": "PASS",
+      "expected": 1,
+      "started": 1,
+      "completed": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 0.083,
+      "instrumentationCode": -1,
+      "runnerShellExit": 0,
+      "guardScriptExit": 0,
+      "appSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+      "testSha256": "351737af7ee372c23c84588097af4f869fed6ae481cf278813f8e86ba5544526",
+      "details": "Separate native instrumentation process after force-stop reads persisted Dark and restores System. This is actual app-process replacement on the synthetic fixture, beyond JVM closed-reader scope; not a normal-vault recovery claim."
+    },
+    {
+      "name": "Independent generator state journey, explicitly no Copy",
+      "log": "shell-86.log",
+      "selection": "com.gem.keeppeer.Phase4UiTest#generatorCancelUseThemeAndLockWithoutClipboard",
+      "result": "PASS",
+      "expected": 1,
+      "started": 1,
+      "completed": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 28.421,
+      "instrumentationCode": -1,
+      "runnerShellExit": 0,
+      "guardScriptExit": 0,
+      "appSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+      "testSha256": "c71f00ee3ad813f2f2808cdea2142f819aeebbe2db37f876b0ea54127fddc0a5",
+      "details": "Raw InputText compared against actual TextLayoutResult for masked/revealed state, candidate retained/reveal reset on rotation, regenerate, cancel preserving original, explicit use without auto-save, theme change retaining unsaved draft/access and masking, save/reopen, registered secure generator/settings dialogs, outgoing IME privacy flags, revoke/lock/unlock/background clearing. This separate method intentionally excludes clipboard and is not substituted for the failed full copy journey."
+    },
+    {
+      "name": "Final full generator Copy diagnostic",
+      "log": "shell-87.log",
+      "selection": "com.gem.keeppeer.Phase4UiTest#generatorDraftThemeRotationCopyAndLockJourney",
+      "result": "FAIL",
+      "expected": 1,
+      "started": 1,
+      "completed": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "seconds": 18.106,
+      "instrumentationCode": -1,
+      "runnerShellExit": 0,
+      "guardScriptExit": 1,
+      "appSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+      "testSha256": "c71f00ee3ad813f2f2808cdea2142f819aeebbe2db37f876b0ea54127fddc0a5",
+      "details": "FAIL retained: successful Copy service feedback followed by phase4_clip_label_classification=host_clipboard; phase4_clip_sensitive=false; phase4_clip_payload_checked=false. Original ownership assertion fails; exact copied payload assertion remains and is not reached. Host bridge interference is inferred from observed allowlisted label, not an independently inspected sharing toggle or replacement payload. No host sharing/security change, skip, mocked success or weakened assertion."
+    }
+  ],
+  "nativeSummary": {
+    "distinctPassingMethods": 16,
+    "distinctRequiredMethodStillFailing": 1,
+    "oneCleanCombinedRun": false,
+    "currentClipboardOwnershipPass": false,
+    "currentDirectClipboardExpiryReverified": false
+  },
+  "jvmSuites": [
+    {
+      "name": "BiometricDiagnosticsTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:07.826Z",
+      "time": "13.115"
+    },
+    {
+      "name": "CryptoManagerTest",
+      "tests": "3",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:20.969Z",
+      "time": "14.303"
+    },
+    {
+      "name": "CsvImportRoomTest",
+      "tests": "10",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:35.380Z",
+      "time": "17.699"
+    },
+    {
+      "name": "CsvTransferTest",
+      "tests": "10",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:53.112Z",
+      "time": "0.962"
+    },
+    {
+      "name": "EntryEditViewModelTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:54.125Z",
+      "time": "1.049"
+    },
+    {
+      "name": "EntryFiltersTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:55.198Z",
+      "time": "0.051"
+    },
+    {
+      "name": "EntryRepositoryRoomTest",
+      "tests": "5",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:55.270Z",
+      "time": "0.995"
+    },
+    {
+      "name": "ExampleUnitTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:56.269Z",
+      "time": "0.002"
+    },
+    {
+      "name": "FavoriteRoomTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:56.283Z",
+      "time": "0.302"
+    },
+    {
+      "name": "PasswordGeneratorTest",
+      "tests": "6",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:56.594Z",
+      "time": "0.259"
+    },
+    {
+      "name": "Phase4ViewModelTest",
+      "tests": "5",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:56.864Z",
+      "time": "0.07"
+    },
+    {
+      "name": "ThemeSettingsTest",
+      "tests": "4",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:21:56.950Z",
+      "time": "9.921"
+    },
+    {
+      "name": "VaultCsvTest",
+      "tests": "11",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-31T03:22:06.906Z",
+      "time": "0.185"
+    }
+  ],
+  "history": [
+    {
+      "log": "shell-51.log",
+      "result": "PASS",
+      "name": "Initial compile",
+      "duration": "2m3s",
+      "scope": "Earlier implementation"
+    },
+    {
+      "log": "shell-52.log",
+      "result": "TOOL DISCOVERY FAILURE",
+      "details": "avdmanager latest path absent; located installed23.0 with IDE file discovery."
+    },
+    {
+      "log": "shell-53.log",
+      "result": "NOT CREATED despite exit0",
+      "details": "avdmanager requiredJava17+, default PATH wasJava8; no override/bypass used."
+    },
+    {
+      "log": "shell-54.log",
+      "result": "NOT STARTED exit1",
+      "details": "Named AVD did not yet exist after unsuccessful creation."
+    },
+    {
+      "log": "shell-58.log",
+      "result": "PASS",
+      "name": "New unique AVD creation",
+      "details": "Existing API31 google_apis x86_64 image, pixel_2; used IDE bundled supported JDK as process-local JAVA_HOME, no version-check override/force/wipe."
+    },
+    {
+      "log": "shell-60.log",
+      "result": "PASS",
+      "name": "New fixture boot",
+      "details": "Named new AVD only, port5556, no snapshots; later boot1/unrestricted metadata verified before every install/run."
+    },
+    {
+      "log": "shell-55.log",
+      "result": "FAIL",
+      "duration": "2m48s",
+      "details": "69 JVM tests completed,1 theme close/reopen assertion failed in unmodelled plain JVM Android DataStore on Windows; other subjects passed. Debug/test assembly completed; no false overall pass."
+    },
+    {
+      "logs": [
+        "shell-57.log",
+        "shell-59.log"
+      ],
+      "result": "FAIL",
+      "durations": [
+        "14s",
+        "8s"
+      ],
+      "testsPerRun": 4,
+      "failuresPerRun": 1,
+      "details": "Kept actual overwrite/closed-reader assertions while diagnosing differing disk/cache values. Resolved library source shows SDK-dependent file-move path. Moved actual Android DataStore test to existing RobolectricAPI28; did not change dependencies or replace disk persistence with repository recreation. Added applied-theme rollback protection for failed writes."
+    },
+    {
+      "log": "shell-61.log",
+      "result": "PASS",
+      "duration": "7m21s",
+      "details": "Intermediate host assembly/unit/lint success after Robolectric/failure handling fix; final unit counts recorded separately at shell-63."
+    },
+    {
+      "logs": [
+        "shell-67.log",
+        "shell-68.log",
+        "shell-69.log"
+      ],
+      "result": "PASS",
+      "durations": [
+        "3m21s",
+        "3m36s",
+        "1m8s"
+      ],
+      "details": "Sequential production presentation/input/resource packaging/lint; final production identity is shell-69 appd784f58b. No JVM re-count assigned to packaging-only runs."
+    },
+    {
+      "log": "shell-66.log",
+      "result": "FAIL",
+      "expected": 3,
+      "started": 3,
+      "completed": 3,
+      "passed": 0,
+      "failed": 3,
+      "skipped": 0,
+      "seconds": 38.41,
+      "appSha256": "face621802eec623c6ba4fb90d6c39bc1c4f24dcf8c212a4c1b3c18f2821cea8",
+      "testSha256": "953fbd0f6b7534fdf2f728da2a62b5a1e13f85b8e6b9612a6596d0217932eae9",
+      "details": "New test selectors hit unmerged label instead of input, multiple stars, and underlying Cancel. Fixed merged-field/dialog/ID selectors without removing behavior assertions."
+    },
+    {
+      "log": "shell-75.log",
+      "result": "FAIL",
+      "expected": 1,
+      "completed": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "seconds": 40.7,
+      "appSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+      "testSha256": "893f0a94177fff0ab808b76e43db3c43556ffe68ef626855876e163e76a72878",
+      "details": "Field-visibility/Hide checks strengthened but raw expectation still came from transformed EditableText. Resolved Compose source confirms InputText is raw/not visually transformed; changed test reader while retaining actual masked/revealed layout assertions. Sensitive-node failure dumps sanitized, failure/location retained."
+    },
+    {
+      "log": "shell-79.log",
+      "result": "FAIL",
+      "expected": 1,
+      "completed": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "seconds": 36.649,
+      "appSha256": "d784f58ba34abff838de9c32f10ab924cee9eaab42022ca4f09e8f81fc1ef8eb",
+      "testSha256": "351737af7ee372c23c84588097af4f869fed6ae481cf278813f8e86ba5544526",
+      "details": "Correct raw semantics passed generator reveal/rotation/regeneration then failed ownership after Copy. Final diagnostic retained same assertions and safely classified label without reading a replacement payload."
+    },
+    {
+      "logs": [
+        "shell-72.log",
+        "shell-73.log",
+        "shell-77.log",
+        "shell-83.log",
+        "shell-84.log"
+      ],
+      "result": "PASS",
+      "durations": [
+        "1m28s",
+        "40s",
+        "1m32s",
+        "1m33s",
+        "34s"
+      ],
+      "details": "Native-driver-only packaging/lint corrections; no release/production semantic changes. Final test identityc71f00ee installed/host hashes matched in shell-85."
+    }
+  ],
+  "device": {
+    "avd": "Keeppeer_Guard_API31_Phase4_20261031_f4b782",
+    "serial": "emulator-5556",
+    "qemu": 1,
+    "api": 31,
+    "abi": "x86_64",
+    "bootCompleted": 1,
+    "guard": "tools/check-phase4.ps1 validates exact serial/name/qemu/API/ABI/boot/unrestricted policy before each install/run and stop; no unqualified connected-device Gradle task.",
+    "data": "synthetic contexts/credentials only; no PIN, keyguard bypass, fingerprint enrollment, personal/retained AVD or original vault/candidate/preservation action.",
+    "sharing": "No host/emulator clipboard-sharing control changed or old rejected command replayed.",
+    "stopped": true,
+    "registrationAndDataRetained": true
+  },
+  "deviceChecks": "16 distinct native methods passed across recorded scoped runs; one full generator Copy ownership method remains failed with safely classified host-labelled replacement. Only new API31 fixture used/stopped; no direct clip-expiry, hardware/real-biometric, manual TalkBack/palette/physical-provider/spreadsheet claim.",
+  "unresolvedIssues": [
+    "Required native generator clipboard ownership/exact-value verification remains open under observed host-labelled replacement. Existing failure/assertions retained, forbidden sharing changes not performed."
+  ],
+  "verificationLimits": [
+    "Manual TalkBack and manual visual palette/screenshot inspection were not performed; automated bounds/semantics and2.0 local font configuration are distinct.",
+    "No current direct clip expiry/background hardware/OEM clipboard or physical keyboard re-verification. Host-labelled replacement is observed; its payload was not inspected.",
+    "No real biometric enrollment/hardware/API24/25 Phase4 UI matrix rerun; original accepted evidence remains at original artifacts.",
+    "No manual spreadsheet, other/remote provider or physical-device CSV observation; real local SAF tests pass.",
+    "JVM Strings, library buffers, arbitrary external providers and third-party keyboards do not permit universal memory erasure, prompt cancellation or no-learning guarantees."
+  ],
+  "phase5": {
+    "status": "unstarted",
+    "checklist": "docs/phase-5-checklist.md",
+    "releaseEnabled": false,
+    "signingPublishingDistribution": "not performed"
+  },
+  "sourceReview": {
+    "path": "C:/Users/gemdu/AndroidStudioProjects/Keeppeer/source-code.txt",
+    "command": "powershell -NoProfile -File ./tools/export-source-code.ps1 -Phase 4 -Outcome incomplete",
+    "timing": "Generate after this final report/docs/checks; actual timestamp/bytes are in the delivered artifact header and handoff.",
+    "exporterChanged": false,
+    "newEligibleTypes": false,
+    "safeguards": "Existing sorted full inventory, matched BEGIN/END file boundaries, UTF8/temp validation, atomic replacement, exclusions and review-copy redactions reused. Snapshot, temp/previous copies, caches/Git/IDE/build/binaries/local credentials/runtime vaults/selected CSV/private captures/preservation/logs excluded. No automatic upload."
+  }
+}

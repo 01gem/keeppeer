@@ -14,6 +14,8 @@ interface EntryRepository {
     /** Preserves stored createdAt and strictly advances updatedAt. */
     suspend fun update(entry: PasswordEntry): Boolean
     suspend fun delete(id: Long): Boolean
+    /** Atomic field update, preserving credentials and createdAt. */
+    suspend fun setFavorite(id: Long, favorite: Boolean): Boolean
     suspend fun exportCsv(): List<PasswordEntry>
     suspend fun previewCsv(rows: List<PasswordEntry>): com.gem.keeppeer.csv.ImportPreview
     suspend fun importCsv(rows: List<PasswordEntry>, expected: com.gem.keeppeer.csv.ImportPreview,

@@ -44,5 +44,7 @@ fun SensitiveClipboardProvider(service: SensitiveClipboard, content: @Composable
             }
         }
     }
-    CompositionLocalProvider(LocalClipboard provides secure, LocalClipboardManager provides secureLegacy, content = content)
+    SensitiveInputProvider {
+        CompositionLocalProvider(LocalClipboard provides secure, LocalClipboardManager provides secureLegacy, content = content)
+    }
 }

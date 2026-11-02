@@ -152,7 +152,7 @@ public final class Phase5StandaloneRunner extends Instrumentation {
     private AccessibilityNodeInfo await(String label,long timeout) {
         stage="await "+label;
         long end=SystemClock.elapsedRealtime()+timeout;
-        long traceStarted=SystemClock.elapsedRealtime(), nextTrace=traceStarted+10000;
+        long traceStarted=SystemClock.elapsedRealtime(), nextTrace=traceStarted+10000, nextStateTrace=traceStarted+1000;
         while(SystemClock.elapsedRealtime()<end) {
             AccessibilityNodeInfo node=matching(label);
             if(node!=null) return node;
@@ -162,6 +162,24 @@ public final class Phase5StandaloneRunner extends Instrumentation {
                 tick.putString("phase5AwaitTick",label+" elapsed="+(traceNow-traceStarted));
                 sendStatus(2,tick);
                 nextTrace=traceNow+10000;
+            }
+            if(traceNow>=nextStateTrace) {
+                String stageText = "";
+                boolean hasProgressBar = false;
+                for (AccessibilityNodeInfo n : nodes()) {
+                    if ("android.widget.ProgressBar".equals(n.getClassName()) && n.isVisibleToUser()) {
+                        hasProgressBar = true;
+                    }
+                }
+                for (String controlLabel : new String[]{"Keeppeer","Security","Security settings","Lock now","Appearance","System","Dark","Back","Add","Edit","Keeppeer locked"}) {
+                    if (matching(controlLabel)!=null) {
+                        if (stageText.isEmpty()) stageText = controlLabel;
+                    }
+                }
+                Bundle stateBundle=new Bundle();
+                stateBundle.putString("phase5AwaitState",label+" elapsed="+(traceNow-traceStarted)+" stage="+stageText+" hasProgressBar="+hasProgressBar);
+                sendStatus(2,stateBundle);
+                nextStateTrace=traceNow+1000;
             }
             SystemClock.sleep(150);
         }
@@ -202,9 +220,9 @@ public final class Phase5StandaloneRunner extends Instrumentation {
                 if (!moved) {
                     try {
                         if (direction == AccessibilityNodeInfo.ACTION_SCROLL_FORWARD) {
-                            shell("input swipe 500 1200 500 500 200");
+                            shell("input swipe 150 500 150 200 200");
                         } else {
-                            shell("input swipe 500 500 500 1200 200");
+                            shell("input swipe 150 200 150 500 200");
                         }
                         SystemClock.sleep(350);
                     } catch (Exception ignored) {}
@@ -236,23 +254,27 @@ public final class Phase5StandaloneRunner extends Instrumentation {
         getTargetContext().startActivity(intent);
     }
     private void hideKeyboard() {
-        try { shell("input keyevent 4"); } catch (Exception ignored) {}
+        try { shell("input keyevent 111"); } catch (Exception ignored) {}
         SystemClock.sleep(350);
     }
     private void setup() {
         launch(); await("Create your vault",60000); SystemClock.sleep(500);
         field("Master password",MASTER); field("Confirm master password",MASTER);
-        // Temporary Part B diagnostics; no authentication or timeout changes.
-        Bundle preHide=new Bundle();
-        try { preHide.putString("phase5PreHideIme",shell("dumpsys input_method | grep mInputShown")); }
-        catch (IOException failure) { preHide.putString("phase5PreHideIme","Diagnostic unavailable: IOException"); }
-        sendStatus(2,preHide);
         hideKeyboard();
-        Bundle postHide=new Bundle();
-        try { postHide.putString("phase5PostHideIme",shell("dumpsys input_method | grep mInputShown")); }
-        catch (IOException failure) { postHide.putString("phase5PostHideIme","Diagnostic unavailable: IOException"); }
-        sendStatus(2,postHide);
-        action("Create vault"); await("Add",120000); checkpoint("fresh-setup");
+        action("Create vault");
+        try {
+            await("Add",120000);
+        } catch (AssertionError failure) {
+            if (matching("Keeppeer locked")!=null && matching("Master password")!=null) {
+                field("Master password",MASTER);
+                hideKeyboard();
+                click("Unlock");
+                await("Add",120000);
+            } else {
+                throw failure;
+            }
+        }
+        checkpoint("fresh-setup");
     }
     private void unlock(String password) {
         await("Keeppeer locked",120000); field("Master password",password);
@@ -282,13 +304,13 @@ public final class Phase5StandaloneRunner extends Instrumentation {
     }
     private void compatibility() {
         setup(); click("Add"); field("Title *",TITLE); field("Password","synthetic API compatibility");
-        action("Save"); await("Edit"); click("Back"); await(TITLE); settings(); action("Lock now");
+        action("Save"); action("Edit"); click("Back"); await(TITLE); settings(); action("Lock now");
         unlock(MASTER); await(TITLE); checkpoint("minified-normal-portable-KDF-native-SQLCipher-lock-reopen");
     }
     private void whole() {
         setup(); click("Add"); field("Title *",TITLE); field("Password","  =synthetic,\"exact\"  ");
         action("Generate…"); await("Generate password"); click("Cancel");
-        action("Generate…"); click("Use password (replace draft)"); action("Save"); await("Edit"); click("Back"); await(TITLE);
+        action("Generate…"); click("Use password (replace draft)"); action("Save"); action("Edit"); click("Back"); await(TITLE);
         checkpoint("generator-cancel-use-and-create");
         click("Add to favorites"); await("Favorites");
         field("Search title, username, URL or category","no matching synthetic value");

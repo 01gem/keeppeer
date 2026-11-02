@@ -1,6 +1,15 @@
 # Keeppeer v1 — local candidate notes
 
-Confirmed version 1.0 (code 1), applicationId `com.gem.keeppeer`, API24+. Confirmed no prior distribution (no Play Store, sideload, or beta). GitHub repository source upload is planned; that is not app distribution and does not affect versionCode. This is a local review candidate, not a published release. Current engineering outcome and exact gates are in [the Phase5 report](reports/phase-5-report.json).
+Confirmed version 1.0 (code 1), applicationId `com.gem.keeppeer`, API24+. Confirmed no prior distribution (no Play Store, sideload, or beta). Phase 5 remains in progress: outcome incomplete; verificationComplete=false. P1a genuine validation rebuild (shell-3) executed all 49 tasks (Gradle PASS), producing 7ec589f5… / 10,170,209 bytes (fourth distinct hash). P1 finalOutcome is unresolved, reason validation-identity-new-hash. P1c signer audit PASS; P1d debug drift check PASS. Task G3-A executed on fresh API24 AVD Keeppeer_Guard_Phase5_24_20261101_g3a001 (60.6 GB free host disk); diagnostic run reproduced returnToOwnActivity timeout failure. Dumpsys failure dump captured: mResumedActivity=launcher, com.gem.keeppeer task absent on return -> diagnosis (ii). No test source edit made; Gate 3 remains OPEN. All 11 inherited nativeRuns remain unchanged. Historical recovery and reconciliation still await the 08:47:40 PM PHT snapshot. See [the Phase5 report](reports/phase-5-report.json).
+
+| Gate | Verification boundary |
+|---|---|
+| 1a — API31 setup diagnosis/pass | OPEN / NOT RUN. P1 shell-3 host identity FAIL (unexpected 7ec589f5…); no fresh diagnostic/classification/final. P3 not reached; prior P3b source preserved. |
+| 1b — API25 setup/API24 reopen | OPEN / NOT RUN under unresolved P1. API25 setup and same-fixture API24 setup -> reopen unexecuted. Historical shell-215 FAIL and shell-194 PASS retain scope. |
+| 2 — whole-app/cold and legacy pairs | OPEN / NOT RUN under unresolved P1. All four selections remain unexecuted on current binaries. |
+| 3 — API24 window registration | OPEN. Prior nativeRuns shell-161 FAIL and new shell-G3-diagnostic FAIL (1 run/1 failure, lifecycle=CREATED). Dumpsys captured mResumedActivity=launcher -> diagnosis (ii). No test source edit. |
+
+Production signing/distribution remain unchanged and out of scope: productionReleaseReady=false, published=false. No production identity was created/selected/used.
 
 V1 provides an on-device encrypted vault with exact-value entry CRUD/search, favorites/category filters, masked reveal, a SecureRandom password generator, ownership-aware sensitive clipboard copies, master-password setup/unlock/change, optional per-use Keystore biometric unlock with password fallback, immediate/1/5-minute background timeout choices, persisted System/Light/Dark appearance, and plaintext CSV backup/restore through Android SAF. There is no account, sync, analytics, network permission, attachment/sharing feature or browser autofill.
 

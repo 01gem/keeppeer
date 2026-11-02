@@ -1,19 +1,23 @@
 # Phase 5 checklist — in progress
 
-This task authorizes local release preparation and bounded synthetic verification. Phases0–4 are accepted within their recorded scopes; the old Phase4 prerequisite/unstarted wording is superseded. No production signing, publishing, upload or distribution is authorized or performed.
+Outcome incomplete; verificationComplete=false. P1a genuine validation rebuild (shell-3) produced 7ec589f5… / 10,170,209 bytes (fourth distinct hash); P1 finalOutcome unresolved, reason validation-identity-new-hash. P1c signer audit PASS; P1d debug drift check PASS. Task G3-A executed on fresh API24 AVD Keeppeer_Guard_Phase5_24_20261101_g3a001 (60.6 GB free host disk); diagnostic run reproduced returnToOwnActivity timeout failure. Dumpsys failure dump captured: mResumedActivity=launcher, com.gem.keeppeer task absent on return -> diagnosis (ii). No test source edit.
 
-- [x] Reconcile starting commit92e4f06 and seven pre-existing dirty Phase5 paths; preserve accepted reports/failures/artifact identities and unrelated/preserved data.
-- [x] Audit v1 source/config against [the requirement map](phase-5-verification.md), schema1, fail-closed storage, logging/saved-state/permission/backup boundaries and the pinned biometric preview exception.
-- [x] Prepare opt-in whole-app R8/resource shrinking, unsigned production candidate, non-debuggable visibly development-signed validation, and safe separately opted-in production signing configuration. No production credential sources read or key created/used.
-- [x] Remove ordinary minified legacy-reset eligibility, repair invalid partial Compose import, and replace default launcher metadata with the project lock vector.
-- [x] Run69 JVM tests, debug/test packaging and lint; build and inspect actual initial minified artifacts, mapping/usage/DEX, merged manifest, signing and12 native libraries across4 ABIs. Earlier failed commands/harness starts remain history.
-- [x] Register new distinct API24/25 fixtures from installed images without overwrite. Only one emulator runs at a time; exact identity guard precedes actions.
-- [x] Initial normal minified API24 synthetic setup/save and cold unlock expose an actual Settings IME layout defect. Apply the documented full-screen Dialog edge-to-edge correction without changing secure-window registration or cryptography.
-- [x] Complete refreshed final-source builds/JVM/lint/packaging and affected normal minified Settings regression (Phase5Harness ordinaryCompatibilityReopen PASS on API24 post-DialogProperties fix; EncryptedVaultTest 2/2 PASS, VaultSecurityTest 7/7 PASS; WindowRegistrationTest NOT APPLICABLE on API24 as test source restricts API to 25/31).
-- [/] Complete actual normal minified whole-app SAF/generator/favorite/theme/password-change/cold journeys and targeted API24/25 native security/window evidence (API25 ordinaryCompatibilitySetupAndReopen failure recorded at await Edit — visible ScrollView present, harness await("Edit") does not scroll; consistent with harness scroll deficiency rather than proven product failure).
-- [ ] Reopen modern API31 verification (API31 fixture Keeppeer_Guard_Phase5_31_20261031_e31b2 was successfully created with JDK 25 JAVA_HOME and booted, but Phase5StandaloneRunner ordinaryCompatibilitySetupAndReopen FAILED at await("Add") on that fixture; required pass not yet achieved).
-- [x] Establish actual distribution history (confirmed no prior distribution; versionCode 1 / versionName 1.0 confirmed as initial v1 release version).
-- [x] Record actual ABI/API/page-size and optional hardware/OEM/manual/TalkBack/spreadsheet limits. No compatible16KiB image is installed; packaging alignment alone is not runtime evidence. Client-wide settings restored.
-- [ ] Finish release notes/checklist/security/status/report and atomically regenerate source-code.txt after the final included change. Engineering completion must remain distinct from pending production signing/distribution.
+- [/] Reconcile history: all 11 inherited nativeRuns objects, including nine restored historical entries, remain unchanged/in original order. P2 evidenceRecovery unchanged; shell-18/shell-36 and ProgressBar reconciliation await the 08:47:40 PM PHT snapshot.
+- [/] Audit v1 source/config against the requirement map; inherited evidence retains its original artifact scope.
+- [/] Prepare opt-in whole-app R8/resource shrinking/signing isolation. Current validation identity remains unresolved (validation-identity-new-hash; shell-3 produced 7ec589f5… / 10,170,209 B).
+- [/] Reconcile current byte counts: debug 32,260,929 and release 10,157,737 at unchanged hashes.
+- [/] Retain earlier production corrections; no production or test source edit in this continuation.
+- [/] Historical host checks and shell-145 AndroidTest compilation PASS retain original scopes.
+- [/] Fresh API24 fixture creation/start: Keeppeer_Guard_Phase5_24_20261101_g3a001 created, booted, installed debug/test APKs. G3-A diagnostic run executed; dumpsys captured mResumedActivity=launcher -> diagnosis (ii). Stopped via emu kill with name guard.
+- [/] Initial API24 setup/Settings evidence remains historical: shell-194 ordinaryCompatibilityReopen, EncryptedVaultTest 2/2 and VaultSecurityTest 7/7 PASS retain original scope.
+- [ ] Complete normal minified whole-app SAF/generator/favorite/theme/password-change/cold journeys and legacy seed/refusal pair (Gate 2): all four NOT RUN, P1 unresolved.
+- [ ] Complete API31 unchanged setup diagnostic, raw-evidence classification, conditional correction and fresh-fixture PASS (Gate 1a): NOT RUN, P1 unresolved. P3 applies only after P1 resolution; prior P3b source preserved.
+- [ ] Complete API25 setup and same-fixture API24 setup -> reopen at final test hash (Gate 1b): NOT RUN, P1 unresolved.
+- [/] Execute API24 WindowRegistrationTest and require OK (1 test) / INSTRUMENTATION_CODE: -1 (Gate 3). Prior shell-161 FAIL and new shell-G3-diagnostic FAIL (1 run/1 failure, lifecycle=CREATED return timeout). Dumpsys captured diagnosis (ii). No assertion or timeout change.
+- [x] Establish distribution history: no prior distribution; versionCode 1/versionName 1.0 confirmed as initial v1 (owner confirmation, not a native test).
+- [x] Keep hardware/OEM/manual/TalkBack/remote-provider/16 KiB runtime limits explicit; outside task, no execution claim.
+- [/] Reconcile report/docs and regenerate source-code.txt with -Outcome incomplete.
 
-Exact counts, selections, durations, identities, failures and remaining gates: [phase-5-report.json](reports/phase-5-report.json). Reproducible commands and signing handoff: [release-checklist.md](release-checklist.md).
+Gate 3 remains open; its checklist state changes only after G3-C PASS. ProductionReleaseReady=false, published=false.
+
+Exact evidence: [phase-5-report.json](reports/phase-5-report.json). Local procedure: [release-checklist.md](release-checklist.md).

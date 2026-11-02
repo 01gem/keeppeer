@@ -191,6 +191,7 @@ function Test-IsReviewableFile($fileItem, $relPath) {
 
     # Explicit exclusions
     if ($name -like 'source-code.txt*' -or $name -like '*.tmp' -or $name -like '*.bak') { return $false }
+    if ($name -like 'window_dump*') { return $false }
     if ($name -like '.env*' -or $name -like '*.env') { return $false }
     if ($name -in @('local.properties', 'secrets.properties', 'signing.properties', 'keystore.properties')) { return $false }
     if ($name -like '*secret*.properties' -or $name -like '*signing*.properties' -or $name -like '*credential*.properties') { return $false }

@@ -39,7 +39,7 @@ class WindowRegistrationTest {
             shell("getprop ro.kernel.qemu.avd_name").ifEmpty { shell("getprop qemu.avd_name") }
         }
         assertTrue("Dedicated synthetic Guard emulator required", avd.startsWith("Keeppeer_Guard_"))
-        assertTrue(shell("getprop ro.build.version.sdk") in listOf("25", "31"))
+        assertTrue(shell("getprop ro.build.version.sdk") in listOf("24", "25", "31"))
         assertEquals("x86_64", shell("getprop ro.product.cpu.abi"))
         val action = when (key) {
             "KEYCODE_APP_SWITCH" -> android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_RECENTS
@@ -86,12 +86,13 @@ class WindowRegistrationTest {
 
     @Suppress("DEPRECATION")
     private fun returnToOwnActivity() {
-        // Bring back this Scenario's task.
-        val intent = android.content.Intent(host, MainActivity::class.java).apply {
-            addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or
-                     android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+        // Bring back this Scenario's task from host activity context.
+        main {
+            val intent = android.content.Intent(host, MainActivity::class.java).apply {
+                addFlags(android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            }
+            host.startActivity(intent)
         }
-        InstrumentationRegistry.getInstrumentation().targetContext.startActivity(intent)
         // A showing Dialog owns focus instead of its Activity window on API31.
         // The caller still verifies the exact original Window and its restored alpha.
         waitFor {

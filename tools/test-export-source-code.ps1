@@ -134,6 +134,7 @@ try {
     # TEST 1: First creation (no existing snapshot) from OUTSIDE fixture root
     # -------------------------------------------------------------
     Write-Host "[TEST 1] First creation: Invoking exporter from outside fixture root..." -ForegroundColor Yellow
+    [System.IO.File]::WriteAllText((Join-Path $fixtureDir 'window_dump.xml'), "<hierarchy><node text='synthetic diagnostic UI dump' /></hierarchy>`n")
     Push-Location $env:TEMP
     try {
         & powershell.exe -ExecutionPolicy Bypass -File (Join-Path $fixtureToolsDir 'export-source-code.ps1') `
@@ -150,6 +151,11 @@ try {
     $snapshot1Content = [System.IO.File]::ReadAllText($snapshot1Path, [System.Text.Encoding]::UTF8)
 
     # Verify discovery & exclusions
+    if ($snapshot1Content -match '(?m)^\s*window_dump\.xml\s*$' -or
+        $snapshot1Content -match '===== BEGIN FILE: window_dump\.xml =====' -or
+        $snapshot1Content -match 'synthetic diagnostic UI dump') {
+        throw "ASSERTION FAILED: window_dump.xml was leaked into snapshot"
+    }
     if ($snapshot1Content -notmatch '===== BEGIN FILE: gradlew =====') {
         throw "ASSERTION FAILED: extensionless gradlew missing from snapshot"
     }

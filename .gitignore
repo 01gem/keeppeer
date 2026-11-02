@@ -31,6 +31,9 @@ source-code.txt
 source-code.txt.tmp
 source-code.txt.bak
 
+# Diagnostic UI dumps (not project source)
+window_dump*.xml
+
 # Secrets / environment
 .env
 *.env

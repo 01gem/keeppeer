@@ -12,7 +12,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 $adb = 'C:/Users/gemdu/AppData/Local/Android/Sdk/platform-tools/adb.exe'
-if ($Avd -notmatch '^Keeppeer_Guard_Phase5_(24|25|31)_(20261031|20261101)_[a-z0-9]+$') {
+if ($Avd -notmatch '^Keeppeer_Guard_Phase5_(24|25|31)_(20261031|20261101|20261109)_[a-z0-9]+$') {
     throw 'Only explicitly recorded new Phase5 fixtures are eligible.'
 }
 if ($Serial -notmatch '^emulator-[0-9]+$') { throw 'Explicit emulator serial required.' }

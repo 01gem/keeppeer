@@ -5,7 +5,7 @@
   "verificationComplete": false,
   "productionReleaseReady": false,
   "published": false,
-  "summary": "Phase 5 incomplete. P1a genuine rebuild (shell-3) produced a fourth distinct hash 7ec589f5691ddd76d38f493b06be5aad71325a1b48fd5b058747a901f6080ddf / 10,170,209 bytes. P1 finalOutcome is unresolved with reason validation-identity-new-hash. P1c signer audit confirmed dev cert 4ebec5d7ca8e083b6d652b7e3c550c6223ddbab8ea3d4cbb68846b93015c9629 and -validation-test-signed suffix; P1d debug drift check passed. Gates 1a/1b/2 NOT RUN. Task G3-A executed on fresh API24 AVD Keeppeer_Guard_Phase5_24_20261101_g3a001 (60.6 GB free host disk); diagnostic run reproduced shell-161 returnToOwnActivity timeout failure. Dumpsys failure dump showed mResumedActivity=launcher and com.gem.keeppeer task absent on return, yielding diagnosis (ii). No test source edit made; Gate 3 remains OPEN. Historical recovery/reconciliation still blocked on missing snapshot; production signing/distribution out of scope.",
+  "summary": "Phase 5 remains incomplete. A fresh validation build succeeded but produced SHA-256 d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 / 10170209 bytes, not recorded target 218e1375...; pre-existing AGP 9.5.1 edit preserved and toolchain drift not isolated. Fresh API24, API25 and API31 AVDs were registered, but emulator -accel-check exited 6 and software boots did not reach ADB boot-complete. No APK was installed and no Phase5 selection started. Gates 1a, 1b and 2 remain not run; Gate 3 retains its historical API24 failure with no retry here. Samsung A12 USB serial RR8R402RR7T was absent from ADB after restart. Historical recovery and production signing remain open/out of scope. A reversible AGP 9.5.0 rebuild also succeeded but produced c3b3fc422ea4db8b4b792fca92ccfd9f3f837fd105c5170d46cc146f3f5209cb, not the target; the version catalog was restored byte-for-byte and current candidate d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 restored. The source revision metadata differs from the recorded earlier revision; exact identity cause remains unresolved.",
   "baseline": {
     "reviewedSnapshot": "2026-10-31 02:59:20 PM PHT (UTC+08:00)",
     "bytes": 1308427,
@@ -152,6 +152,60 @@
       "avd": "Keeppeer_Guard_Phase5_24_20261101_g3a001",
       "details": "Re-executed WindowRegistrationTest on fresh API24 AVD (60.6 GB free host disk). Reproduced shell-161 failure (19.28 s, lifecycle=CREATED at returnToOwnActivity()). Dumpsys captured mResumedActivity=launcher, com.gem.keeppeer absent on return -> diagnosis (ii). No test source edit.",
       "hostElapsedSeconds": 22.1
+    },
+    {
+      "name": "Fresh validation package under current working-tree toolchain",
+      "result": "BUILD PASS / IDENTITY MISMATCH",
+      "command": ".\\gradlew.bat :app:packageValidation --rerun-tasks -Pkeeppeer.enableReleaseBuilds=true --console=plain",
+      "hostElapsedSeconds": 669,
+      "bytes": 10170209,
+      "sha256": "d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186",
+      "expectedSha256": "218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714",
+      "details": "BUILD SUCCESSFUL in 11m 9s; 49 actionable tasks, all executed. The pre-existing working-tree AGP edit is 9.5.1 while the report baseline records 9.5.0. Compared with the saved pre-build APK 8105DD45508F1A8E98C9CB270000408FF74B7EE18EE83205B22E2CF19D1E4265 of equal size, app-metadata.properties, version-control-info.textproto, baseline.prof and classes.dex differ. Toolchain drift is plausible; its cause is not isolated.",
+      "log": "C:/Users/gemdu/Documents/Codex/2026-11-09/ho/work/packageValidation-attempt.log",
+      "installed": false,
+      "appTestsStarted": 0
+    },
+    {
+      "name": "Debug and AndroidTest packaging for cross-API attempt",
+      "result": "PASS",
+      "command": ".\\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest --console=plain",
+      "hostElapsedSeconds": 67,
+      "details": "BUILD SUCCESSFUL in 1m 7s; 73 actionable tasks: 5 executed, 68 up-to-date. No APK was installed.",
+      "debugApk": {
+        "sha256": "feb56f1be7d2b1be1ea02b17ac7b3b6e72999c9a0cd3cb0f83adf5bd54047e3d",
+        "bytes": 32253280
+      },
+      "androidTestApk": {
+        "sha256": "877ded9a423c43d599469a43968c4d0c31a95b1395d85a74aadf0a5dd2c5df1c",
+        "bytes": 1244584
+      },
+      "log": "C:/Users/gemdu/Documents/Codex/2026-11-09/ho/work/androidTest-build.log",
+      "installed": false,
+      "appTestsStarted": 0
+    },
+    {
+      "name": "API24/API25/API31 emulator boot preflight",
+      "result": "BLOCKED BEFORE APP INSTALL OR INSTRUMENTATION",
+      "details": "emulator -accel-check exited 6. Hyper-V detected and Windows Hypervisor Platform is available; enable both Windows features. Fresh x86_64 AVDs were registered for API24, API25 and API31. Each no-acceleration startup stayed ADB-offline; sys.boot_completed could not be read. No APK was installed and no test started. Final ADB inventory was empty, including Samsung USB serial RR8R402RR7T.",
+      "accelerationCheckExitCode": 6,
+      "appTestsStarted": 0,
+      "installed": false
+    },
+    {
+      "name": "Reversible AGP 9.5.0 validation identity experiment",
+      "result": "BUILD PASS / IDENTITY MISMATCH",
+      "command": "Temporarily set AGP to 9.5.0, run :app:packageValidation --rerun-tasks, then restore catalog",
+      "hostElapsedSeconds": 877,
+      "sha256": "c3b3fc422ea4db8b4b792fca92ccfd9f3f837fd105c5170d46cc146f3f5209cb",
+      "bytes": 10170209,
+      "expectedSha256": "218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714",
+      "details": "BUILD SUCCESSFUL in 14m 37s; 49 tasks executed. AGP 9.5.0 alone did not reproduce the target. Before the experiment, the saved pre-build APK 8105DD45508F1A8E98C9CB270000408FF74B7EE18EE83205B22E2CF19D1E4265 reported AGP 9.5.0 and Git revision 0754694504672157cddc295bfad10a4c82832a06; it also differs from the required target. Current HEAD is afd20e40e1ae4b0ca2966728b788a46bccd4a093. App main source has no path changes between 0754694 and HEAD; validation package embeds current Git revision metadata. Exact target cause remains unresolved.",
+      "catalogRestoredByteForByte": true,
+      "catalogSha256": "15b72bed91deddfd00dce447537f812a3262e9ac2b8ec34192053b718012b3ba",
+      "postCleanupValidationSha256": "d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186",
+      "postCleanupCandidateRestored": true,
+      "log": "C:/Users/gemdu/Documents/Codex/2026-11-09/ho/work/packageValidation-agp950.log"
     }
   ],
   "artifacts": {
@@ -245,12 +299,14 @@
   ],
   "deletedPaths": [],
   "unresolvedIssues": [
-    "Gate 1a OPEN — P1 blocker: validation-identity-new-hash. Genuine rebuild (shell-3) produced 7ec589f5691ddd76d38f493b06be5aad71325a1b48fd5b058747a901f6080ddf / 10170209 bytes (fourth distinct hash).",
-    "Gate 1b OPEN — P1 blocker: validation-identity-new-hash. API25 setup and fresh API24 setup -> reopen NOT RUN.",
-    "Gate 2 OPEN — P1 blocker: validation-identity-new-hash. All four whole-app/cold and seed/refusal selections NOT RUN.",
-    "Gate 3 OPEN — G3-A diagnosis (ii): API24 alpha-0 fixture cannot reliably return task to RESUMED without weakening assertion; requires fresh investigative authorization. G3-A dump: mResumedActivity=launcher, com.gem.keeppeer task absent on return.",
-    "Historical evidence restoration OPEN — required 2026-11-01 08:47:40 PM PHT snapshot not available in this workspace/conversation. Retained all 9 entries from Git 0754694; shell-18/36 absent.",
-    "Production signing and distribution outside task; no production identity used."
+    "Gate 1a OPEN: validation hash d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 differs from target 218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714; a reversible AGP 9.5.0 rebuild also missed the target, and API31 AVD did not boot.",
+    "Gate 1b OPEN: API24 and API25 AVDs did not reach ADB boot-complete; setup/reopen not run.",
+    "Gate 2 OPEN: no AVD booted; full application and legacy journeys not run.",
+    "Gate 3 OPEN: historical API24 WindowRegistrationTest failure remains; this continuation could not retry because emulators remained offline before app installation.",
+    "Emulator host blocker: emulator -accel-check exited 6 and reports Hyper-V and Windows Hypervisor Platform features need enabling; restart may be required.",
+    "USB app-test target unavailable: ADB inventory was empty after restart; Samsung A12 serial RR8R402RR7T not found. No phone app test ran here.",
+    "Historical evidence restoration OPEN: required 2026-11-01 08:47:40 PM PHT snapshot unavailable; retained all 9 entries from Git 0754694; shell-18/36 absent.",
+    "Production signing and distribution remain outside task; no production identity used."
   ],
   "deviceChecks": "P1a validation rebuild (shell-3): Gradle PASS, validation identity FAIL (7ec589f5... / 10,170,209 B, fourth distinct hash). P1c signer audit PASS (dev cert 4ebec5d7..., -validation-test-signed suffix). P1d debug drift check PASS (7553bdf9... / 32,260,929 B). G3-A diagnostic run on fresh API24 AVD Keeppeer_Guard_Phase5_24_20261101_g3a001 (60.6 GB free host disk) FAIL (19.28s, returnToOwnActivity timeout, lifecycle=CREATED). Dumpsys captured mResumedActivity=launcher, com.gem.keeppeer task absent on return -> diagnosis (ii). No test source edit.",
   "harnessQualityObservation": "The Android harness is compiled by :app:assembleDebugAndroidTest and executed on enumerated fixtures; JVM unit tests do not execute these journeys. G3-A diagnostic run on Keeppeer_Guard_Phase5_24_20261101_g3a001 reproduced shell-161 returnToOwnActivity timeout failure. Dumpsys failure dump yielded diagnosis (ii). Phase5StandaloneRunner G1a/G1b/G2 selections remain unexecuted because P1 is unresolved.",
@@ -407,7 +463,7 @@
       "installedTestSha256": "4fa9e0c5a6dcf6919e7ebc7f270e6cde66434dcdc4a82598c103d235a9441bbd",
       "runnerSourceSha256": "7f9e05386452a9cd0a7557e3d35adaaa2335724f567a8b0080ed46464e7b60f6",
       "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/478ac303-04d1-4ebd-8b03-36165ddf75e9/session/agent/shell-logs/shell-20.log",
-      "startedAtUtc": "2026-10-31T12:31:27.6877060+00:00",
+      "startedAtUtc": "2026-10-31T20:31:27.687706+08:00",
       "phase5PreHideIme": null,
       "phase5PostHideIme": null,
       "imeEvidence": "Neither status reached: initial Create your vault await failed before fields or hideKeyboard. BACK hypothesis neither confirmed nor refuted; no conditional-BACK fix applied.",
@@ -704,7 +760,7 @@
     "workspaceSearch": "studio_find_files found only source-code.txt at workspace depth 2; source-code.txt has the 11:13:22 PM PHT header. No requested historical snapshot found in source-name search or .artifacts inventory. Only references to the missing timestamp were found."
   },
   "continuationAudit": {
-    "revision": "0754694504672157cddc295bfad10a4c82832a06 plus pre-existing working-tree edits",
+    "revision": "afd20e40e1ae4b0ca2966728b788a46bccd4a093 plus pre-existing AGP 9.5.1 edit and tools/check-phase5.ps1 date allowance",
     "priorContinuation": {
       "revision": "0754694504672157cddc295bfad10a4c82832a06 plus pre-existing working-tree edits",
       "actions": "P1a authorized validation regeneration and host rehash; P2 workspace snapshot search; P3b no runner edit. Built AndroidTest without ordinaryLifecycleTests for Task C; created fresh API24 fixture; ran InstallDebug, installed-byte attestation, and one WindowRegistrationTest selection (FAIL); stopped only new fixture. No production/test-source edit, validation install, Task A/B selection, personal-device action, production signing or distribution.",
@@ -920,13 +976,13 @@
         "result": "FAIL"
       }
     ],
-    "actions": "Read current handoff in order; genuinely re-executed packageValidation with --rerun-tasks (shell-3: 7ec589f5... / 10,170,209 B, validation-identity-new-hash); executed P1c signer audit (PASS) and P1d debug drift check (PASS). Created fresh API24 AVD Keeppeer_Guard_Phase5_24_20261101_g3a001 (60.6 GB free host disk); executed InstallDebug and G3-A diagnostic selection (FAIL, returnToOwnActivity timeout); captured dumpsys failure dump (diagnosis (ii)); stopped fixture via emu kill with name guard. No test source edit.",
-    "productionSourceDiff": "Before and after: git diff --name-only -- app/src/main app/build.gradle.kts gradle/libs.versions.toml gradle.properties gradle/wrapper returned no paths. Release/debug/test APK hashes unchanged; validation genuinely rebuilt to 7ec589f5.../10170209.",
+    "actions": "Rebuilt/hash-attested validation; packaged debug and AndroidTest; created workspace-local API24/API25/API31 x86_64 AVDs; checked acceleration and attempted no-acceleration boots across all three APIs; restarted ADB and rechecked the USB A12 serial. No APK install, instrumentation or app/test source edit. Preserved the pre-existing AGP 9.5.1 edit. Ran one temporary AGP 9.5.0 rebuild to test identity; it produced c3b3fc... rather than the target. Restored gradle/libs.versions.toml byte-for-byte and restored the saved D8A5 validation APK.",
+    "productionSourceDiff": "No app/src/main or app/src/androidTest source changes. Pre-existing gradle/libs.versions.toml AGP 9.5.1 edit preserved. This continuation changed tools/check-phase5.ps1 to allow 20261109 fixture names and updated Phase5 documentation/report.",
     "gateResults": {
-      "2": "OPEN / NOT RUN — P1a validation-identity-new-hash",
-      "3": "OPEN / FAIL — G3-A diagnostic run (diagnosis (ii) launcher foreground; no test edit)",
-      "1a": "OPEN / NOT RUN — P1a validation-identity-new-hash",
-      "1b": "OPEN / NOT RUN — P1a validation-identity-new-hash"
+      "1a": "OPEN / NOT RUN: neither current AGP 9.5.1 hash d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 nor controlled AGP 9.5.0 hash c3b3fc422ea4db8b4b792fca92ccfd9f3f837fd105c5170d46cc146f3f5209cb matches recorded 218e1375...; API31 AVD did not boot.",
+      "1b": "OPEN / NOT RUN: API24/API25 AVDs did not reach boot-complete.",
+      "2": "OPEN / NOT RUN: no booted AVD; zero app journeys started.",
+      "3": "OPEN / HISTORICAL API24 FAIL; no retry because API24/API25/API31 AVDs did not reach boot-complete."
     },
     "g3Diagnosis": {
       "result": "FAIL",
@@ -1038,7 +1094,80 @@
         }
       ],
       "cleanup": "Every launched new emulator exited on its own before boot. No emu kill was needed or sent; registrations/files of completed new AVD creations retained. No existing/new AVD wiped, reset or deleted.",
-      "stopReason": "Freeing >=2.5 GiB or directly editing generated AVD configuration is outside the permitted actions. No smaller effective allocation was obtained through authorized creation options."
-    }
+      "stopReason": "Freeing >=2.5 GiB or directly editing generated AVD configuration is outside the permitted actions. No smaller effective allocation was obtained through authorized creation options.",
+      "latestCrossApiAttempt": {
+        "date": "2026-11-09",
+        "imageFamily": "google_apis;x86_64",
+        "newAvdsOnly": true,
+        "avdHome": "C:/Users/gemdu/Documents/Codex/2026-11-09/ho/work/android/avd",
+        "accelerationCheckExitCode": 6,
+        "rawAccelerationCheck": "emulator -accel-check exited 6. Hyper-V detected and Windows Hypervisor Platform is available; enable both Windows features.",
+        "avds": [
+          {
+            "api": 24,
+            "name": "Keeppeer_Guard_Phase5_24_20261109_v24a001",
+            "serialAttempted": "emulator-5592",
+            "start": "ADB device not registered; sys.boot_completed unavailable",
+            "appInstalled": false,
+            "testsStarted": 0
+          },
+          {
+            "api": 25,
+            "name": "Keeppeer_Guard_Phase5_25_20261109_v25a001",
+            "serialAttempted": "emulator-5594",
+            "start": "ADB device offline; sys.boot_completed unavailable",
+            "appInstalled": false,
+            "testsStarted": 0
+          },
+          {
+            "api": 31,
+            "name": "Keeppeer_Guard_Phase5_31_20261109_v31a001",
+            "serialAttempted": "emulator-5590",
+            "start": "QEMU startup attempted; ADB offline; sys.boot_completed unavailable",
+            "appInstalled": false,
+            "testsStarted": 0
+          }
+        ],
+        "emulatorHomeIsolation": "ANDROID_AVD_HOME, ANDROID_USER_HOME and ANDROID_EMULATOR_HOME redirected into workspace after profile .android lock write error.",
+        "cleanup": "ADB server restarted after checking no qemu/emulator process remained; final adb devices -l inventory empty. AVD registrations and data retained."
+      }
+    },
+    "latestAttempt": {
+      "date": "2026-11-09",
+      "hostArtifacts": {
+        "validation": {
+          "sha256": "d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186",
+          "bytes": 10170209,
+          "expectedBaselineSha256": "218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714",
+          "installed": false
+        },
+        "debug": {
+          "sha256": "feb56f1be7d2b1be1ea02b17ac7b3b6e72999c9a0cd3cb0f83adf5bd54047e3d",
+          "bytes": 32253280
+        },
+        "androidTest": {
+          "sha256": "877ded9a423c43d599469a43968c4d0c31a95b1395d85a74aadf0a5dd2c5df1c",
+          "bytes": 1244584
+        }
+      },
+      "avdBase": "C:/Users/gemdu/Documents/Codex/2026-11-09/ho/work/android/avd",
+      "accelerationCheckExitCode": 6,
+      "appInstallCount": 0,
+      "instrumentationStarted": 0,
+      "usbTargetFound": false,
+      "usbTargetSerial": "RR8R402RR7T",
+      "conclusion": "No Phase5 app test started. Resume after Windows Hyper-V/Windows Hypervisor Platform are usable by the emulator and the Samsung USB A12 is re-enumerated.",
+      "agp950Experiment": {
+        "result": "BUILD PASS / IDENTITY MISMATCH",
+        "sha256": "c3b3fc422ea4db8b4b792fca92ccfd9f3f837fd105c5170d46cc146f3f5209cb",
+        "expectedSha256": "218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714",
+        "catalogRestoredByteForByte": true,
+        "catalogSha256": "15b72bed91deddfd00dce447537f812a3262e9ac2b8ec34192053b718012b3ba",
+        "validationArtifactRestored": "d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186",
+        "log": "C:/Users/gemdu/Documents/Codex/2026-11-09/ho/work/packageValidation-agp950.log"
+      }
+    },
+    "statusDocument": "docs/phase-status.md updated; Phase0-4 historical text retained.",
+    "checklistDocument": "docs/phase-5-checklist.md updated; no gate marked complete."
   }
 }

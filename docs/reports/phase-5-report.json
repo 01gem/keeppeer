@@ -5,7 +5,7 @@
   "verificationComplete": false,
   "productionReleaseReady": false,
   "published": false,
-  "summary": "Phase 5 remains incomplete. A fresh validation build succeeded but produced SHA-256 d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 / 10170209 bytes, not recorded target 218e1375...; pre-existing AGP 9.5.1 edit preserved and toolchain drift not isolated. Fresh API24, API25 and API31 AVDs were registered, but emulator -accel-check exited 6 and software boots did not reach ADB boot-complete. No APK was installed and no Phase5 selection started. Gates 1a, 1b and 2 remain not run; Gate 3 retains its historical API24 failure with no retry here. Samsung A12 USB serial RR8R402RR7T was absent from ADB after restart. Historical recovery and production signing remain open/out of scope. A reversible AGP 9.5.0 rebuild also succeeded but produced c3b3fc422ea4db8b4b792fca92ccfd9f3f837fd105c5170d46cc146f3f5209cb, not the target; the version catalog was restored byte-for-byte and current candidate d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 restored. The source revision metadata differs from the recorded earlier revision; exact identity cause remains unresolved.",
+  "summary": "Phase 5 remains incomplete. A fresh validation build succeeded under the current working tree (HEAD revision 67a63926568c755909109ae7e0e36f674b6073aa), producing SHA-256 d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 / 10170209 bytes, not recorded target 218e1375...; the exact cause of the validation APK identity mismatch remains unresolved without a direct target-versus-candidate binary comparison (AGP 9.5.0 build also mismatched). adb devices -l showed only the USB Samsung A12 (RR8R402RR7T), and emulator -list-avds was unavailable on PATH; current per-AVD state was not verified in this session, and prior boot attempts are cited only as historical attempts. Gates 1a, 1b, 2, and 3 remain open. Production release ready = false, published = false.",
   "baseline": {
     "reviewedSnapshot": "2026-10-31 02:59:20 PM PHT (UTC+08:00)",
     "bytes": 1308427,
@@ -53,6 +53,12 @@
     "Updated Phase5StandaloneRunner compatibility() and whole() to use action('Edit') instead of await('Edit') for robust scrolling."
   ],
   "checks": [
+    {
+      "name": "Host unit test suite rerun (shell-85)",
+      "result": "PASS",
+      "details": "shell-85; 69/69 JVM unit tests passed cleanly, 0 failed, 0 skipped.",
+      "session": "shell-85"
+    },
     {
       "name": "Initial host suite",
       "result": "PASS",
@@ -206,6 +212,15 @@
       "postCleanupValidationSha256": "d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186",
       "postCleanupCandidateRestored": true,
       "log": "C:/Users/gemdu/Documents/Codex/2026-11-09/ho/work/packageValidation-agp950.log"
+    },
+    {
+      "name": "Host JVM unit test suite rerun",
+      "result": "PASS",
+      "command": ".\\gradlew.bat :app:testDebugUnitTest --rerun-tasks --console=plain",
+      "session": "shell-28",
+      "timestamp": "2026-11-09 06:10 AM PHT (UTC+08:00)",
+      "revision": "67a63926568c755909109ae7e0e36f674b6073aa",
+      "details": "69/69 JVM unit tests passed cleanly, 0 failed, 0 skipped."
     }
   ],
   "artifacts": {
@@ -636,7 +651,7 @@
       "hostElapsedSeconds": 22.14,
       "preflight": [
         "Target: Keeppeer_Guard_Phase5_24_20261101_g3a001 / emulator-5554 / API24 / x86_64 / qemu1",
-        "Free disk space: 60.6 GB (≥ 8 GB requirement satisfied)",
+        "Free disk space: 60.6 GB (\u2265 8 GB requirement satisfied)",
         "BootCount=1"
       ],
       "failureDump": [
@@ -644,7 +659,7 @@
         "mCurrentFocus=Window{56e02f u0 com.android.launcher3/com.android.launcher3.Launcher}",
         "mAwake=true mScreenOnEarly=true mScreenOnFully=true",
         "dumpsys activity com.gem.keeppeer: Bad activity command, or no activities match: com.gem.keeppeer",
-        "Classification: diagnosis (ii) — launcher foreground with no trace of return"
+        "Classification: diagnosis (ii) \u2014 launcher foreground with no trace of return"
       ],
       "fixtureProof": {
         "avdName": "Keeppeer_Guard_Phase5_24_20261101_g3a001",
@@ -755,7 +770,7 @@
     "historicalFieldsPolicy": "Recovered nativeRuns objects are unchanged. No historical marker added because the original schema has none. Original sparse identity fields and original NOT APPLICABLE classification are retained, not retroactively manufactured.",
     "requestedSnapshot": "2026-11-01 08:47:40 PM PHT (UTC+08:00)",
     "availableSnapshot": "2026-11-01 10:09:06 PM PHT",
-    "progressBarReconciliation": "BLOCKED — required snapshot unavailable",
+    "progressBarReconciliation": "BLOCKED \u2014 required snapshot unavailable",
     "nextAction": "await 08:47:40 PM PHT snapshot",
     "workspaceSearch": "studio_find_files found only source-code.txt at workspace depth 2; source-code.txt has the 11:13:22 PM PHT header. No requested historical snapshot found in source-name search or .artifacts inventory. Only references to the missing timestamp were found."
   },
@@ -797,10 +812,10 @@
         }
       ],
       "gateResults": {
-        "2": "OPEN / NOT RUN — P1b (shell-141 host-artifact FAIL)",
-        "3": "OPEN / FAIL — shell-161",
-        "1a": "OPEN / NOT RUN — P1b (shell-141 host-artifact FAIL)",
-        "1b": "OPEN / NOT RUN — P1b (shell-141 host-artifact FAIL); B3a chosen but blocked"
+        "2": "OPEN / NOT RUN \u2014 P1b (shell-141 host-artifact FAIL)",
+        "3": "OPEN / FAIL \u2014 shell-161",
+        "1a": "OPEN / NOT RUN \u2014 P1b (shell-141 host-artifact FAIL)",
+        "1b": "OPEN / NOT RUN \u2014 P1b (shell-141 host-artifact FAIL); B3a chosen but blocked"
       },
       "priorContinuation": {
         "revision": "0754694504672157cddc295bfad10a4c82832a06 plus pre-existing working-tree edits",
@@ -843,7 +858,7 @@
         "bytes": 10170209,
         "requiredSha256": "218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714",
         "matchesPostFixArtifacts": false,
-        "resolution": "P1b — validation identity mismatch persists; no InstallValidation or Task A/B selection authorized on this binary",
+        "resolution": "P1b \u2014 validation identity mismatch persists; no InstallValidation or Task A/B selection authorized on this binary",
         "log": "C:/Users/gemdu/.android/studio/agent/conversations/Keeppeer-3e303456340a7b8dc0dbedcd81c5b1/f2ca43f1-65d9-49cc-bbd9-b6f31a20aff9/session/agent/shell-logs/shell-141.log",
         "logAvailability": "Tool reported this path on completion; later studio_read_file returned File not found. Original tool response retained the build result and full task stream; no replacement log manufactured."
       },
@@ -861,7 +876,7 @@
           "ordinaryCompatibilityReopen"
         ],
         "sameFreshFixtureRequired": true,
-        "result": "NOT RUN — P1b validation identity mismatch"
+        "result": "NOT RUN \u2014 P1b validation identity mismatch"
       },
       "preconditionOrder": [
         "P1a regeneration completed; P1b validation-dependent native work stopped",
@@ -963,7 +978,7 @@
       }
     },
     "diagnosticEmissionDecision": {
-      "path": "not applicable — P1 unresolved",
+      "path": "not applicable \u2014 P1 unresolved",
       "previousPath": "P3b",
       "runnerEdited": false,
       "emissionsPresent": false,
@@ -998,7 +1013,7 @@
         "dumpsys activity com.gem.keeppeer: Bad activity command, or no activities match: com.gem.keeppeer"
       ],
       "failureDumpReason": "Captured immediately after returnToOwnActivity() timeout on Keeppeer_Guard_Phase5_24_20261101_g3a001.",
-      "finalRun": "NOT RUN — diagnosis (ii) does not support an authorized G3-B source correction",
+      "finalRun": "NOT RUN \u2014 diagnosis (ii) does not support an authorized G3-B source correction",
       "historicalApi25Context": {
         "session": "shell-701",
         "testSha256": "6369b61150d51bcb824d5d8411597f03683d8d15a3ef67ecd819307bf883e433",

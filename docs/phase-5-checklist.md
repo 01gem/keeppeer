@@ -2,6 +2,7 @@
 
 Outcome incomplete; verificationComplete=false. Fresh validation packaging passed under the current working tree but produced SHA-256 d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 / 10170209 bytes instead of recorded target 218e1375…. The pre-existing AGP 9.5.1 edit is preserved; the baseline records 9.5.0. Debug and AndroidTest packaging passed. API24/API25/API31 AVDs were registered; emulator acceleration check exited 6, and software boots stayed offline. No APK install or app test occurred.
 
+- [x] Host JVM unit test suite rerun (`.\gradlew.bat :app:testDebugUnitTest --rerun-tasks --console=plain`): **69/69 passed**, 0 failed, 0 skipped at ~06:10 AM PHT on 2026-11-09 (session `shell-28`, revision `67a63926568c755909109ae7e0e36f674b6073aa`).
 - [x] Register fresh API24/API25/API31 x86_64 AVDs under workspace work/android/avd; startup attempts recorded, no fixture booted.
 - [x] Run validation rebuild and package debug/AndroidTest; a reversible AGP 9.5.0 build also succeeded but missed the target. Both the 9.5.1 catalog and D8A5 candidate were restored. Identity remains unresolved.
 - [x] Check emulator acceleration and retry boot across API24/API25/API31. Host reports Hyper-V/Windows Hypervisor Platform configuration required; no app tests started.

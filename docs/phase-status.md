@@ -4,6 +4,7 @@
 
 - **Unlock stall (2026-11-19): not reproduced by hand.** With a fresh synthetic vault, setup and unlock open the vault on debug (about 15 s), traced validation/R8 (about 4 s) and clean validation builds; a wrong password shows the error. Earlier stalls appeared only in instrumented runs (`Phase5StandaloneRunner`, retired harness); that cause is inferred, not traced. No app code change.
 - All 11 A12 acceptance items passed (owner-verified, 2026-11-19), JVM 69/69, release signed with personal key (cert ec37b324).
+- **List COPY button (2026-11-19):** COPY beside each row's star copies that entry's password via SensitiveClipboard (fetched on tap only, never in state); v1.1 (versionCode 2). JVM 76/76, lintDebug 0 errors, release cert ec37b324, installed in place on A12 (`install -r`).
 - **Done when:** A12 acceptance fully checked + 69/69 JVM tests passing + release build signed with the owner's personal key.
 
 Last JVM run: 69/69 passed, 0 failed, 0 skipped (2026-11-19). productionReleaseReady=false, published=false. Earlier Phase 5 evidence stays in the [Phase 5 report](reports/phase-5-report.json) and [checklist](phase-5-checklist.md).

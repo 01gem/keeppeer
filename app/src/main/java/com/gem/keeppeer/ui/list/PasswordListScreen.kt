@@ -36,6 +36,7 @@ fun PasswordListScreen(
     onAdd: () -> Unit, onEntry: (Long) -> Unit, onSettings: () -> Unit,
     onCategory: (CategoryFilter) -> Unit, onFavoritesOnly: (Boolean) -> Unit,
     onClear: () -> Unit, onFavorite: (Long, Boolean) -> Unit,
+    onCopyPassword: (Long) -> Unit,
 ) {
     var filters by remember { mutableStateOf(false) }
     PrototypePage(title = stringResource(R.string.app_title),
@@ -63,11 +64,11 @@ fun PasswordListScreen(
                 else -> {
                     if (state.sections.favorites.isNotEmpty()) {
                         item(key = "favorites") { SectionHeading(stringResource(R.string.favorites)) }
-                        items(state.sections.favorites, key = { it.id }) { EntryRow(it, state, onEntry, onFavorite) }
+                        items(state.sections.favorites, key = { it.id }) { EntryRow(it, state, onEntry, onFavorite, onCopyPassword) }
                     }
                     if (state.sections.remaining.isNotEmpty()) {
                         item(key = "remaining") { SectionHeading(stringResource(if (state.sections.favorites.isEmpty()) R.string.all_entries else R.string.other_entries)) }
-                        items(state.sections.remaining, key = { it.id }) { EntryRow(it, state, onEntry, onFavorite) }
+                        items(state.sections.remaining, key = { it.id }) { EntryRow(it, state, onEntry, onFavorite, onCopyPassword) }
                     }
                 }
             }
@@ -96,19 +97,38 @@ fun PasswordListScreen(
     )
 }
 
+private fun copyStatusText(status: CopyStatus): Int = when (status) {
+    CopyStatus.COPIED -> R.string.clipboard_copied
+    CopyStatus.FAILED -> R.string.clipboard_failed
+    CopyStatus.MISSING -> R.string.copy_missing
+    CopyStatus.EMPTY -> R.string.copy_no_password
+}
+
 @Composable
 private fun EntryRow(entry: EntrySummary, state: EntryListState, open: (Long) -> Unit,
-    favorite: (Long, Boolean) -> Unit) {
-    Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-        ListItem(headlineContent = { Text(entry.title) }, supportingContent = {
-            Column { entry.username?.let { Text(it) }; entry.url?.let { Text(it) }; entry.category?.let { Text(it) } }
-        }, modifier = Modifier.weight(1f).clickable { open(entry.id) })
-        IconToggleButton(checked = entry.isFavorite, enabled = entry.id !in state.updating,
-            modifier = Modifier.testTag("favorite-${entry.id}"),
-            onCheckedChange = { favorite(entry.id, it) }) {
-            Icon(if (entry.isFavorite) Icons.Filled.Star else Icons.Outlined.StarBorder,
-                contentDescription = stringResource(if (entry.isFavorite) R.string.remove_favorite else R.string.add_favorite))
+    favorite: (Long, Boolean) -> Unit, copyPassword: (Long) -> Unit) {
+    Column {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+            ListItem(headlineContent = { Text(entry.title) }, supportingContent = {
+                Column { entry.username?.let { Text(it) }; entry.url?.let { Text(it) }; entry.category?.let { Text(it) } }
+            }, modifier = Modifier.weight(1f).clickable { open(entry.id) })
+            val copyDescription = stringResource(R.string.copy_password_for, entry.title)
+            TextButton(onClick = { copyPassword(entry.id) }, enabled = entry.id !in state.copying,
+                modifier = Modifier.testTag("copy-${entry.id}").heightIn(min = 48.dp)
+                    .semantics { contentDescription = copyDescription }) {
+                Text(stringResource(R.string.copy_short))
+            }
+            IconToggleButton(checked = entry.isFavorite, enabled = entry.id !in state.updating,
+                modifier = Modifier.testTag("favorite-${entry.id}"),
+                onCheckedChange = { favorite(entry.id, it) }) {
+                Icon(if (entry.isFavorite) Icons.Filled.Star else Icons.Outlined.StarBorder,
+                    contentDescription = stringResource(if (entry.isFavorite) R.string.remove_favorite else R.string.add_favorite))
+            }
         }
+        if (state.copyStatusId == entry.id) state.copyStatus?.let {
+            Text(stringResource(copyStatusText(it)),
+                Modifier.padding(start = 16.dp, bottom = 8.dp).semantics { liveRegion = LiveRegionMode.Polite })
+        }
+        HorizontalDivider()
     }
-    HorizontalDivider()
 }

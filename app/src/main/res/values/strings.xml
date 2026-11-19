@@ -38,4 +38,8 @@
         <item quantity="other">%d entries skipped</item>
     </plurals>
     <string name="csv_password_nudge">You can export a CSV backup above before changing your password. Export is optional; plaintext exports need separate protection.</string>
+    <string name="copy_short">COPY</string>
+    <string name="copy_password_for">Copy password for %1$s</string>
+    <string name="copy_no_password">This entry has no password.</string>
+    <string name="copy_missing">This entry no longer exists.</string>
 </resources>

@@ -37,6 +37,7 @@ fun KeeppeerApp(repository: EntryRepository, onSettings: () -> Unit, onCopy: (St
                 onSettings = onSettings,
                 onCategory = vm::category, onFavoritesOnly = vm::favoritesOnly,
                 onClear = vm::clearFilters, onFavorite = vm::favorite,
+                onCopyPassword = { id -> vm.copyPassword(id, onCopy) },
             )
         }
         composable(ADD) {

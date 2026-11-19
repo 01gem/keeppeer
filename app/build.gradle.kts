@@ -87,8 +87,8 @@ android {
         // Provisional first-version identity pending user distribution-history confirmation.
         // Do not infer distribution from local commits.
         // Any later update that replaces an actually distributed build must increase versionCode.
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
 
         // This changes only the separate test APK runner; shipped variants contain none.
         testInstrumentationRunner = if (providers.gradleProperty("keeppeer.ordinaryLifecycleTests")

@@ -125,6 +125,10 @@ android {
             optimization {
                 enable = true
             }
+            // Gate 1a re-baseline (owner decision 2026-11-19): omit embedded VCS revision.
+            vcsInfo {
+                include = false
+            }
             isDebuggable = false
             buildConfigField("boolean", "SHOW_DEVELOPMENT_BANNER", "false")
             buildConfigField("boolean", "VALIDATION_BUILD", "false")
@@ -146,6 +150,9 @@ android {
             initWith(getByName("release"))
             matchingFallbacks += listOf("release")
             versionNameSuffix = "-validation-test-signed"
+            vcsInfo {
+                include = false
+            }
             isDebuggable = false
             buildConfigField("boolean", "SHOW_DEVELOPMENT_BANNER", "false")
             buildConfigField("boolean", "VALIDATION_BUILD", "true")
@@ -157,6 +164,11 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    // Reproducible Gate 1a candidates: omit AGP's per-build encrypted dependency-info block.
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
     }
     buildFeatures {
         compose = true

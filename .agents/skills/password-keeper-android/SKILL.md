@@ -7,6 +7,16 @@ description: Implement and review phases of the Password Keeper Android project 
 
 Use this skill with the user's Password Keeper phase prompt. It carries the project rules and the review-file handoff across agent conversations; the phase prompt supplies the detailed implementation checklist.
 
+## Scope override (owner decision 2026-11-19)
+
+This section overrides any conflicting Phase 5 instruction in this skill, the phase prompt, or earlier reports.
+
+- Target device: Samsung A12 (adb serial `RR8R402RR7T`) only. The emulator, API24, API25 and API31 verification matrices are retired.
+- Retired requirements: validation APK hash equality, `Keeppeer_Guard_*` AVD fixtures, historical snapshot reconciliation (2026-11-01 08:47:40 PM PHT), and cross-API `nativeRuns` bookkeeping. Retired means no longer required, not passed. Do not reopen them unless the owner asks.
+- Phase 5 is done when all three hold: every item in `docs/a12-acceptance.md` is checked on the A12; the JVM unit suite passes 69/69; the release build is signed with the owner's personal key.
+- Reports stay short: one result line per check. Do not add new multi-thousand-line JSON history; append to existing reports, never rewrite them.
+- Unchanged: every security rule in this skill (no `INTERNET`, SAF only, `android:allowBackup="false"`, `FLAG_SECURE`, no secrets in logs or saved state, no destructive migration, no silent vault wipe) and minSdk 24.
+
 ## Choose the current work
 
 Read applicable repository instructions, the supplied phase prompt, README, `docs/phase-status.md`, and `docs/security.md` when present. Inspect the actual project before treating a phase as complete. Preserve existing package identifiers, architecture decisions, and unrelated changes.

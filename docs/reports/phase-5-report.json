@@ -5,7 +5,7 @@
   "verificationComplete": false,
   "productionReleaseReady": false,
   "published": false,
-  "summary": "Phase 5 remains incomplete. A fresh validation build succeeded under the current working tree (HEAD revision 67a63926568c755909109ae7e0e36f674b6073aa), producing SHA-256 d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 / 10170209 bytes, not recorded target 218e1375...; the exact cause of the validation APK identity mismatch remains unresolved without a direct target-versus-candidate binary comparison (AGP 9.5.0 build also mismatched). adb devices -l showed only the USB Samsung A12 (RR8R402RR7T), and emulator -list-avds was unavailable on PATH; current per-AVD state was not verified in this session, and prior boot attempts are cited only as historical attempts. Gates 1a, 1b, 2, and 3 remain open. Production release ready = false, published = false.",
+  "summary": "Phase 5 remains incomplete. 2026-11-19 continuation: Gate 1a identity rule re-baselined by owner decision on 2026-11-19; prior target 218e1375… retired because AGP embeds VCS/AGP metadata. vcsInfo.include=false added to release/validation; candidate validation eb213062da801a0ac3a8ddad697e5529f98512a8598f8a00b93cc718365ae012 / 10170124 B, test d93681c343142f1461f1dadb1d3d29156a3c24d40f30fe2afdd5a94923e829b8 / 1245770 B. A forced second rebuild was NOT hash-stable (validation aa547fe2..., test c87bb30d...): every zip entry is byte-identical; the only validation difference is the AGP encrypted dependency-info signing sub-block 0x504b4453. After owner-approved dependenciesInfo.includeInApk=false, two forced rebuilds are hash-stable: validation 33c824c85dfe5a39525d1a8cdd91eaada72a44554df5c59d5fb4c92926a85110 / 10161932 B, test 1ed336de81264d9b5d91cfd2056eaf812b4a1735f849f0676f09283fbc86eacb / 1244360 B (reproducible candidate baseline). Physical Samsung A12 lane (supplementary, API 31, arm): install PASS; whole journey FAIL at await Add (stuck UNLOCKING after Create vault, vault created); cold reopen NOT RUN. Gates 1a/1b/2/3 remain open. Prior text: A fresh validation build succeeded under the current working tree (HEAD revision 67a63926568c755909109ae7e0e36f674b6073aa), producing SHA-256 d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 / 10170209 bytes, not recorded target 218e1375...; the exact cause of the validation APK identity mismatch remains unresolved without a direct target-versus-candidate binary comparison (AGP 9.5.0 build also mismatched). adb devices -l showed only the USB Samsung A12 (RR8R402RR7T), and emulator -list-avds was unavailable on PATH; current per-AVD state was not verified in this session, and prior boot attempts are cited only as historical attempts. Gates 1a, 1b, 2, and 3 remain open. Production release ready = false, published = false.",
   "baseline": {
     "reviewedSnapshot": "2026-10-31 02:59:20 PM PHT (UTC+08:00)",
     "bytes": 1308427,
@@ -294,6 +294,151 @@
     "elfInspection": "Supplemental in-memory ELF program-header parser: every observed PT_LOAD p_align 16384",
     "runtime16KiB": "NOT RUN: only API24/25/31 x86_64 images installed; no compatible 16KiB fixture discovered"
   },
+  "gate1aRebaseline": {
+    "date": "2026-11-19",
+    "note": "Gate 1a identity rule re-baselined by owner decision on 2026-11-19; prior target 218e1375… retired because AGP embeds VCS/AGP metadata.",
+    "retiredTargetSha256": "218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714",
+    "change": "app/build.gradle.kts: vcsInfo { include = false } in release and validation build types. META-INF/version-control-info.textproto no longer packaged; app-metadata.properties (AGP version) remains.",
+    "command": ".\\gradlew.bat :app:assembleValidation :app:assembleDebugAndroidTest -Pkeeppeer.enableReleaseBuilds=true -Pkeeppeer.ordinaryLifecycleTests=true --console=plain",
+    "build1": {
+      "result": "PASS",
+      "gradle": "BUILD SUCCESSFUL in 4m 6s; 105 actionable tasks: 54 executed, 51 up-to-date",
+      "validationSha256": "eb213062da801a0ac3a8ddad697e5529f98512a8598f8a00b93cc718365ae012",
+      "validationBytes": 10170124,
+      "testSha256": "d93681c343142f1461f1dadb1d3d29156a3c24d40f30fe2afdd5a94923e829b8",
+      "testBytes": 1245770,
+      "testRunner": "com.gem.keeppeer.Phase5StandaloneRunner",
+      "role": "Phase 5 candidate baseline (owner-requested record); not reproducible, see stability"
+    },
+    "build2": {
+      "command": "same command plus --rerun-tasks (a plain rerun would be UP-TO-DATE and trivially identical)",
+      "result": "PASS",
+      "gradle": "BUILD SUCCESSFUL in 3m 24s; 105 actionable tasks: 105 executed",
+      "validationSha256": "aa547fe2116d001024a0efca3dda322af648cd6afe9c8e70e5b6140c1ab9e824",
+      "validationBytes": 10170124,
+      "testSha256": "c87bb30da6e27420ce9a9ff4ac4759745c2e74883ae6b7b2058e69bfa20f84eb",
+      "testBytes": 1244268
+    },
+    "stable": false,
+    "postFix": {
+      "change": "Owner-approved app/build.gradle.kts dependenciesInfo { includeInApk = false; includeInBundle = false } (2026-11-19), plus androidTest phase5PhysicalSerial runner and WindowRegistrationTest hypothesis edits.",
+      "command": "same command plus --rerun-tasks, run twice back to back",
+      "buildA": "BUILD SUCCESSFUL in 3m 30s; 103 actionable tasks: 103 executed",
+      "buildB": "BUILD SUCCESSFUL in 4m 13s; 103 actionable tasks: 103 executed",
+      "validationSha256": "33c824c85dfe5a39525d1a8cdd91eaada72a44554df5c59d5fb4c92926a85110",
+      "validationBytes": 10161932,
+      "testSha256": "1ed336de81264d9b5d91cfd2056eaf812b4a1735f849f0676f09283fbc86eacb",
+      "testBytes": 1244360,
+      "stable": true,
+      "role": "Reproducible Phase 5 candidate baseline; supersedes build1 eb213062.../d93681c3... Gate 1a still needs the API31 emulator run."
+    },
+    "stabilityAnalysis": {
+      "validation": "All 469 zip entries byte-identical (per-entry SHA-256) in identical order; bytes before the APK Signing Block identical; v2 signature sub-block 0x7109871a and padding 0x42726577 identical. Only sub-block 0x504b4453 (AGP dependency-info metadata, encrypted per build) differs.",
+      "androidTest": "All 53 entries byte-identical; entry order differs (build1 incremental packaging vs build2 full rerun), changing size and hash.",
+      "proposedFix": "android { dependenciesInfo { includeInApk = false; includeInBundle = false } } — applied after owner approval 2026-11-19; see postFix.",
+      "consequence": "Installed-hash attestation remains valid per build (host bytes == installed bytes), but a fixed cross-build Gate 1a hash cannot be reproduced until the fix is approved and two forced rebuilds match."
+    }
+  },
+  "physicalDeviceLane": {
+    "label": "physical-device supplementary evidence, API 31, arm",
+    "closesGates": false,
+    "script": "tools/check-phase5-physical.ps1 (check-phase5.ps1 unchanged)",
+    "step0": {
+      "adbDevices": "RR8R402RR7T device product:a12nnxx model:SM_A125F device:a12 transport_id:2",
+      "sdk": "31",
+      "release": "12",
+      "abi": "arm64-v8a",
+      "abilist": "arm64-v8a,armeabi-v7a,armeabi",
+      "model": "SM-A125F",
+      "serialno": "RR8R402RR7T",
+      "qemu": "0",
+      "bootCompleted": "1",
+      "pmListPackages": "package:com.gem.keeppeer.test (com.gem.keeppeer not installed)",
+      "dumpsysAppVersionSignatures": "no match (app not installed)",
+      "testPackage": "com.gem.keeppeer.test signatures:[de88078f], firstInstall 2026-10-29 08:15:25, lastUpdate 2026-11-09 08:27:15"
+    },
+    "signatureCheck": "Host debug/validation certificate Arrays.hashCode = de88078f (SHA-256 4ebec5d7ca8e083b6d652b7e3c550c6223ddbab8ea3d4cbb68846b93015c9629) matches installed test package; install -r permitted.",
+    "runnerGuards": [
+      "phase5Avd argument must start with Keeppeer_Guard_Phase5_",
+      "ro.boot.qemu.avd_name / ro.kernel.qemu.avd_name / qemu.avd_name must equal phase5Avd",
+      "ro.kernel.qemu must equal 1",
+      "sys.boot_completed must equal 1",
+      "target package com.gem.keeppeer, non-debuggable, ordinary KeeppeerApplication",
+      "installed app/test APK SHA-256 must equal host-supplied hashes",
+      "No ABI check in the runner; x86_64 ABI is enforced only by tools/check-phase5.ps1"
+    ],
+    "runnerChange": "APPLIED (owner 'apply' 2026-11-19): androidTest-only -e phase5PhysicalSerial RR8R402RR7T replaces AVD/qemu checks only when it equals ro.serialno and ro.kernel.qemu != 1.",
+    "inspect": "PASS 2026-11-19T10:15:09Z; wrong-case serial and legacy journey refused by script.",
+    "installValidation": "PASS 2026-11-19T10:26:36Z: adb install -r Success for validation 33c824c8... and test 1ed336de...; both signers de88078f; no uninstall/-d/clear.",
+    "journeys": {
+      "ordinaryApplicationMinifiedJourney": {
+        "result": "FAIL",
+        "startedUtc": "2026-11-19T10:29:05Z",
+        "runLine": "Phase5Harness: FAIL expected=1 started=1 completed=1 passed=0 failed=1 skipped=0",
+        "installedHashesMatchHost": true,
+        "pageSize": 4096,
+        "stage": "await Add (inside setup(), after Create vault)",
+        "durationMs": 125055,
+        "hostElapsedSeconds": 127.743,
+        "instrumentationCode": -2,
+        "failureState": "Only known control 'Keeppeer locked'; visible ProgressBar at [42,241][112,311]; no Master password field. Source mapping: VaultRoot LockScreen VaultStage.UNLOCKING (spinner + opening-vault text).",
+        "logcat": "No FATAL/ANR/crash for com.gem.keeppeer; process force-stopped only by finished instrumentation at 18:31:21 PHT.",
+        "postRunProbe": "Non-destructive cold launch (am start -W) showed 'Keeppeer locked' with Master password and Unlock: the vault was created, but the in-process post-create transition stayed in UNLOCKING for >=120s.",
+        "correlation": "Same symptom as API31 emulator shell-13 (Keeppeer locked + ProgressBar at await Add). Cause not isolated: product hang vs. slow first unlock vs. harness interaction remain unproven. No production edit.",
+        "retries": 0
+      },
+      "ordinaryCompatibilityReopenUnlockDiagnostic": {
+        "purpose": "Owner-requested unlock-only diagnostic on the existing A12 vault (distinguish setup stall from unlock stall). Expected to fail at the entry title at best; not a Gate 2 journey.",
+        "result": "FAIL",
+        "startedUtc": "2026-11-19T10:34:30Z",
+        "runLine": "Phase5Harness: FAIL expected=1 started=1 completed=1 passed=0 failed=1 skipped=0",
+        "installedHashesMatchHost": true,
+        "stage": "await Add (inside unlock(), after Unlock tap)",
+        "durationMs": 122941,
+        "hostElapsedSeconds": 125.008,
+        "instrumentationCode": -2,
+        "awaitState": "From 1156 ms to timeout: only 'Keeppeer locked' + visible ProgressBar.",
+        "logcatTimeline": [
+          "18:34:43.74 PHT keystore2 create_operation success (storage-key operation)",
+          "18:34:46.52 libsqlcipher.so loaded; 18:34:46.535 'Database keying operation returned:0'",
+          "18:34:47.82 keystore2 create_operation success (consistent with envelopes.readRecord at VaultSession.kt:227)",
+          "No further app log; no FATAL/ANR; keystore watchdog idle at 18:34:57.8 (no stuck keystore op reported)",
+          "18:35:18 a touch was delivered to the app window (not generated by the harness, which was in await Add); occurred after the stall began"
+        ],
+        "conclusion": "The stall also occurs on plain unlock of an existing vault, so it is not setup-specific. Password unwrap, SQLCipher keying and the envelope re-read all ran; the UI then stayed on the locked-branch spinner (VaultStage.UNLOCKING or CHECKING; the caption is not captured by the harness summary). Exact blocking point unproven: the validation build is non-debuggable, so no shell thread dump is possible. No production edit.",
+        "retries": 0
+      },
+      "ordinaryCompatibilityReopenCaptionDiagnostic": {
+        "purpose": "Owner-approved rerun after an androidTest-only controlSummary change that lists visible non-editable, non-password app captions.",
+        "runnerChange": "Phase5StandaloneRunner.controlSummary(): adds captions=[...] (app package, visible, !isEditable, !isPassword, max 80 chars). Assertions unchanged.",
+        "build": "BUILD SUCCESSFUL in 11s; 103 actionable tasks: 7 executed, 96 up-to-date (incremental)",
+        "installedAppSha256": "33c824c85dfe5a39525d1a8cdd91eaada72a44554df5c59d5fb4c92926a85110",
+        "installedTestSha256": "ad8ec9c99920f93f7dd1e94208838ee64534a4b40af0032b51859b43c0031757",
+        "testBytes": 1397850,
+        "testHashNote": "Incremental-packaging test APK; diagnostic only, not the reproducible baseline.",
+        "install": "adb install -r Success for both; signers de88078f",
+        "startedUtc": "2026-11-19T10:51:16Z",
+        "result": "FAIL",
+        "runLine": "Phase5Harness: FAIL expected=1 started=1 completed=1 passed=0 failed=1 skipped=0",
+        "stage": "await Add",
+        "durationMs": 124004,
+        "hostElapsedSeconds": 126.777,
+        "instrumentationCode": -2,
+        "captions": "[Validation build • Local test-signed only • Not a production signing identity][Opening encrypted vault…][Keeppeer locked]",
+        "logcatTimeline": [
+          "18:51:30.69 PHT keystore2 create_operation success",
+          "18:51:33.57 'Database keying operation returned:0'",
+          "18:51:34.87 keystore2 create_operation success",
+          "No further app log, no FATAL/ANR; keystore watchdog idle 18:51:44.88"
+        ],
+        "conclusion": "Caption 'Opening encrypted vault…' = VaultStage.UNLOCKING, not CHECKING. VaultSession.authenticate() never reached the UNLOCKED assignment, lock() (which would show CHECKING) or the error path (RECOVERABLE_ERROR). The attempt coroutine stays blocked or suspended after SQLCipher keying and the second keystore operation (consistent with envelopes.readRecord), i.e. somewhere in VaultSession.kt:227-238 (readRecord doFinal, initialization.complete(), gate release, return to the session dispatcher, deviceLocked()). Exact line unproven without a thread dump. No production edit.",
+        "retries": 0
+      },
+      "ordinaryApplicationColdReopen": "NOT RUN: precondition unmet (no synthetic entry, password never changed, Dark not saved). Fresh-vault chain on the A12 is consumed; another whole run needs a fresh install state, which requires the forbidden uninstall/pm clear.",
+      "seedOnlyDedicatedLegacyFixture": "NOT RUN (refused on physical lane: fixture removable only by forbidden uninstall/pm clear)",
+      "ordinaryMinifiedLegacyRefusalPreservesFixture": "NOT RUN (refused on physical lane)"
+    }
+  },
   "officialReferences": [
     "https://developer.android.com/topic/performance/app-optimization/enable-app-optimization",
     "https://developer.android.com/guide/practices/page-sizes",
@@ -301,8 +446,11 @@
     "https://developer.android.com/training/testing/instrumented-tests",
     "https://developer.android.com/reference/kotlin/androidx/compose/ui/window/DialogProperties"
   ],
-  "addedPaths": [],
+  "addedPaths": [
+    "tools/check-phase5-physical.ps1"
+  ],
   "modifiedPaths": [
+    "app/build.gradle.kts",
     "app/src/androidTest/java/com/gem/keeppeer/Phase5StandaloneRunner.java",
     "app/src/androidTest/java/com/gem/keeppeer/WindowRegistrationTest.kt",
     "docs/phase-5-checklist.md",
@@ -314,12 +462,16 @@
   ],
   "deletedPaths": [],
   "unresolvedIssues": [
-    "Gate 1a OPEN: validation hash d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 differs from target 218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714; a reversible AGP 9.5.0 rebuild also missed the target, and API31 AVD did not boot.",
+    "Gate 1a OPEN (2026-11-19): 218e1375... equality rule retired by owner decision. With vcsInfo off and dependenciesInfo off, two forced rebuilds are identical (validation 33c824c8..., test 1ed336de...). API31 emulator run still required.",
+    "Physical A12 (supplementary, API 31, arm): whole journey FAIL at await Add after Create vault; UI stayed in UNLOCKING >=120s; vault created. Matches API31 emulator shell-13 symptom. Cold reopen NOT RUN; A12 fresh-vault chain consumed (no uninstall/pm clear permitted). Legacy pair refused on this lane.",
+    "API31 locked-branch spinner stall now seen on emulator (setup) and real hardware (setup and plain unlock of an existing vault). On the A12 the logcat shows unwrap, SQLCipher keying and envelope re-read completing before the stall. Root cause unproven (product vs. harness); a thread dump needs a debuggable build or the API31 emulator. app/src/main untouched. Caption rerun (2026-11-19 10:51Z) shows 'Opening encrypted vault…' (UNLOCKING): the authenticate() attempt never completes after VaultSession.kt:226.",
+    "Gate 3 hypothesis (shell am start -W -f 0x00020000 in returnToOwnActivity) applied to androidTest after owner approval; hypothesis untested until a real API24 run passes.",
+    "Historical (superseded 2026-11-19) Gate 1a OPEN: validation hash d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 differs from target 218e13750b43dc831aca865cda2b6d900299df2e3de401139b37d449538f1714; a reversible AGP 9.5.0 rebuild also missed the target, and API31 AVD did not boot.",
     "Gate 1b OPEN: API24 and API25 AVDs did not reach ADB boot-complete; setup/reopen not run.",
     "Gate 2 OPEN: no AVD booted; full application and legacy journeys not run.",
     "Gate 3 OPEN: historical API24 WindowRegistrationTest failure remains; this continuation could not retry because emulators remained offline before app installation.",
     "Emulator host blocker: emulator -accel-check exited 6 and reports Hyper-V and Windows Hypervisor Platform features need enabling; restart may be required.",
-    "USB app-test target unavailable: ADB inventory was empty after restart; Samsung A12 serial RR8R402RR7T not found. No phone app test ran here.",
+    "Historical (2026-11-09): USB app-test target unavailable: ADB inventory was empty after restart; Samsung A12 serial RR8R402RR7T not found. Resolved 2026-11-19: A12 attached and inspected read-only.",
     "Historical evidence restoration OPEN: required 2026-11-01 08:47:40 PM PHT snapshot unavailable; retained all 9 entries from Git 0754694; shell-18/36 absent.",
     "Production signing and distribution remain outside task; no production identity used."
   ],
@@ -1184,5 +1336,62 @@
     },
     "statusDocument": "docs/phase-status.md updated; Phase0-4 historical text retained.",
     "checklistDocument": "docs/phase-5-checklist.md updated; no gate marked complete."
+  },
+  "scopeChange": {
+    "date": "2026-11-19",
+    "ownerDecision": "Keeppeer is a personal app for one device, the owner's Samsung A12 (adb serial RR8R402RR7T). Phase 5 is re-scoped to that device.",
+    "targetDevice": {
+      "model": "Samsung A12 (SM-A125F)",
+      "serial": "RR8R402RR7T",
+      "api": 31
+    },
+    "retired": [
+      "Emulator/API24/API25/API31 verification matrices",
+      "Gate 1a (validation APK hash equality; API31 fixture run)",
+      "Gate 1b (API25 setup; API24 setup -> reopen)",
+      "Gate 3 (API24 WindowRegistrationTest)",
+      "Keeppeer_Guard_* AVD fixtures",
+      "Historical snapshot reconciliation (2026-11-01 08:47:40 PM PHT)",
+      "Cross-API nativeRuns bookkeeping"
+    ],
+    "retiredMeaning": "No longer required; not passed.",
+    "superseded": {
+      "gate2": "docs/a12-acceptance.md"
+    },
+    "unchanged": [
+      "minSdk 24",
+      "No INTERNET permission",
+      "SAF only for CSV",
+      "allowBackup=false",
+      "FLAG_SECURE",
+      "No secrets in logs or saved state",
+      "No destructive migration",
+      "No silent vault wipe"
+    ],
+    "definitionOfDone": [
+      "docs/a12-acceptance.md fully checked on the A12",
+      "69/69 JVM unit tests passing",
+      "Release build signed with the owner's personal key"
+    ],
+    "reportingRule": "One result line per check; no new multi-thousand-line JSON history.",
+    "openItem": "Unlock stall: UI stays on 'Opening encrypted vault…' after SQLCipher keying (VaultSession.kt:227-238).",
+    "historyRewritten": false
+  },
+  "unlockStallFollowUp": {
+    "date": "2026-11-19",
+    "method": "Temporary step trace in VaultSession.authenticate() (step names and booleans only); fresh synthetic vault via owner-approved pm clear; setup and unlock by hand on the A12.",
+    "checks": [
+      "Debug + trace: setup PASS (branch UNLOCKED, ~15 s); wrong password -> AEADBadTagException error path PASS; unlock PASS (~15 s).",
+      "Validation (R8) + trace: setup PASS (~4.3 s); unlock PASS (~4.4 s).",
+      "Clean validation 11ef248576fb2cc65c636bf16e1c451a2798bcfb8fbdf03a04db90a2cbf04ce3 (trace removed): setup PASS; unlock PASS (owner-observed)."
+    ],
+    "result": "Stall not reproduced by hand. Earlier stalls appeared only in instrumented runs (retired harness); inferred, not traced.",
+    "codeChange": "None retained; temporary trace and UNLOCK_TRACE flag removed.",
+    "nextStep": "Run docs/a12-acceptance.md."
+  },
+  "releaseBuild": {
+    "date": "2026-11-19",
+    "certSha256Prefix": "ec37b324",
+    "jvmResult": "69/69 passed, 0 failed, 0 skipped"
   }
 }

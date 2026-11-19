@@ -1,4 +1,6 @@
-# Phase 5 checklist — re-scoped to Samsung A12
+# Phase 5 checklist — complete (Samsung A12 scope)
+
+Superseded by docs/a12-acceptance.md (11/11, 2026-11-19). Items below are historical.
 
 **2026-11-19 owner re-scope.** Target is the Samsung A12 (`RR8R402RR7T`) only. Gates 1a, 1b and 3 and the historical snapshot reconciliation are RETIRED (owner re-scope 2026-11-19), not passed. Gate 2 is superseded by [docs/a12-acceptance.md](a12-acceptance.md). Entries below are kept as history.
 

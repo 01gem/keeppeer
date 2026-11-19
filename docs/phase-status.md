@@ -1,9 +1,9 @@
-# Phase 5 — re-scoped to Samsung A12 (in progress)
+# Phase 5 — complete (Samsung A12 scope)
 
 **Owner decision 2026-11-19:** Keeppeer is a personal app for one device, the Samsung A12 (`RR8R402RR7T`, Android 12 / API 31, arm64). The emulator/API24/API25/API31 matrices, validation APK hash equality, `Keeppeer_Guard_*` fixtures, the 2026-11-01 08:47:40 PM PHT snapshot reconciliation and cross-API `nativeRuns` bookkeeping are retired, not passed. minSdk stays 24; every security rule stays.
 
 - **Unlock stall (2026-11-19): not reproduced by hand.** With a fresh synthetic vault, setup and unlock open the vault on debug (about 15 s), traced validation/R8 (about 4 s) and clean validation builds; a wrong password shows the error. Earlier stalls appeared only in instrumented runs (`Phase5StandaloneRunner`, retired harness); that cause is inferred, not traced. No app code change.
-- **Next:** run the [A12 acceptance checklist](a12-acceptance.md).
+- All 11 A12 acceptance items passed (owner-verified, 2026-11-19), JVM 69/69, release signed with personal key (cert ec37b324).
 - **Done when:** A12 acceptance fully checked + 69/69 JVM tests passing + release build signed with the owner's personal key.
 
 Last JVM run: 69/69 passed, 0 failed, 0 skipped (2026-11-19). productionReleaseReady=false, published=false. Earlier Phase 5 evidence stays in the [Phase 5 report](reports/phase-5-report.json) and [checklist](phase-5-checklist.md).

@@ -1,11 +1,11 @@
 {
   "phase": 5,
-  "outcome": "incomplete",
+  "outcome": "complete",
   "implementationComplete": true,
-  "verificationComplete": false,
+  "verificationComplete": true,
   "productionReleaseReady": false,
   "published": false,
-  "summary": "Phase 5 remains incomplete. 2026-11-19 continuation: Gate 1a identity rule re-baselined by owner decision on 2026-11-19; prior target 218e1375… retired because AGP embeds VCS/AGP metadata. vcsInfo.include=false added to release/validation; candidate validation eb213062da801a0ac3a8ddad697e5529f98512a8598f8a00b93cc718365ae012 / 10170124 B, test d93681c343142f1461f1dadb1d3d29156a3c24d40f30fe2afdd5a94923e829b8 / 1245770 B. A forced second rebuild was NOT hash-stable (validation aa547fe2..., test c87bb30d...): every zip entry is byte-identical; the only validation difference is the AGP encrypted dependency-info signing sub-block 0x504b4453. After owner-approved dependenciesInfo.includeInApk=false, two forced rebuilds are hash-stable: validation 33c824c85dfe5a39525d1a8cdd91eaada72a44554df5c59d5fb4c92926a85110 / 10161932 B, test 1ed336de81264d9b5d91cfd2056eaf812b4a1735f849f0676f09283fbc86eacb / 1244360 B (reproducible candidate baseline). Physical Samsung A12 lane (supplementary, API 31, arm): install PASS; whole journey FAIL at await Add (stuck UNLOCKING after Create vault, vault created); cold reopen NOT RUN. Gates 1a/1b/2/3 remain open. Prior text: A fresh validation build succeeded under the current working tree (HEAD revision 67a63926568c755909109ae7e0e36f674b6073aa), producing SHA-256 d8a5a2d72a5fd443ef5b49332261b3eb901c0df373737dcbc8af4109142ac186 / 10170209 bytes, not recorded target 218e1375...; the exact cause of the validation APK identity mismatch remains unresolved without a direct target-versus-candidate binary comparison (AGP 9.5.0 build also mismatched). adb devices -l showed only the USB Samsung A12 (RR8R402RR7T), and emulator -list-avds was unavailable on PATH; current per-AVD state was not verified in this session, and prior boot attempts are cited only as historical attempts. Gates 1a, 1b, 2, and 3 remain open. Production release ready = false, published = false.",
+  "summary": "Phase 5 complete under the owner's Samsung A12 scope (2026-11-19): A12 acceptance 11/11 owner-verified, JVM 69/69, release signed with the owner's personal key (cert ec37b324). Emulator gates and hash identity were retired, not passed. Not distributed.",
   "baseline": {
     "reviewedSnapshot": "2026-10-31 02:59:20 PM PHT (UTC+08:00)",
     "bytes": 1308427,
@@ -1393,5 +1393,12 @@
     "date": "2026-11-19",
     "certSha256Prefix": "ec37b324",
     "jvmResult": "69/69 passed, 0 failed, 0 skipped"
+  },
+  "completion": {
+    "date": "2026-11-19",
+    "scope": "Samsung A12 (RR8R402RR7T)",
+    "a12Acceptance": "11/11 owner-verified",
+    "jvm": "69/69",
+    "releaseCertSha256Prefix": "ec37b324"
   }
 }

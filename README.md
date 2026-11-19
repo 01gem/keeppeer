@@ -2,11 +2,11 @@
 
 An Android password keeper built with Kotlin, Jetpack Compose, and Material 3. The encrypted vault stays on-device and the app has no network permission. A user-selected SAF provider controls where plaintext CSV backups are stored, including possible remote destinations.
 
-**Phase 5 is re-scoped by owner decision (2026-11-19): Keeppeer targets one device, the owner's Samsung A12, and the emulator/API matrices, validation APK hash gate and historical snapshot reconciliation are retired, not passed.** The earlier unlock stall did not reproduce when unlocking by hand on the A12 (debug and validation builds); next is the [A12 acceptance checklist](docs/a12-acceptance.md). Done means that checklist fully checked on the A12, 69/69 JVM tests passing and a release build signed with the owner's personal key ([status](docs/phase-status.md), [report](docs/reports/phase-5-report.json)).
+**Phase 5 is complete: v1 is finished for personal use on the owner's Samsung A12 (11/11 A12 acceptance items owner-verified, JVM 69/69).** The release build is signed with the owner's personal key (cert `ec37b324…`) and is not distributed; see [status](docs/phase-status.md) and [report](docs/reports/phase-5-report.json).
 
 The finished v1 includes encrypted CRUD/search, generator, favorites/category filters, master-password and optional biometric unlock, appearance/security settings and plaintext SAF CSV backup/restore. Follow the [local build/signing procedure](docs/release-checklist.md); the release/validation variants remain disabled during ordinary builds. The biometric preview compatibility exception and security/recovery limits remain documented. Version 1/1.0 is provisional pending actual distribution-history confirmation.
 
-Current review export (actual outcome incomplete): `powershell -NoProfile -File ./tools/export-source-code.ps1 -Phase 5 -Outcome incomplete`, matching the structured report. Upload source-code.txt manually to the originating review chat; never include vault CSVs. Earlier phase sections below are historical and retain their original artifact scope.
+Current review export: `powershell -NoProfile -File ./tools/export-source-code.ps1 -Phase 5 -Outcome complete`. Upload source-code.txt manually to the review chat; never include vault CSVs. Earlier phase sections below are historical and retain their original artifact scope.
 
 ## Accepted Phase 3 baseline (historical)
 

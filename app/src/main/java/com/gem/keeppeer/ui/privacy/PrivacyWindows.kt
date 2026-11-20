@@ -32,6 +32,23 @@ internal class PrivacyWindows : AutoCloseable {
     // independently of listener ownership, without strongly retaining disposed windows.
     // Values must never reference their weak Window keys.
     private val originalAlphas = WeakHashMap<Window, Float>()
+    // Locked-screen biometric unlock only: the system prompt takes focus while the vault is
+    // still locked, so the lock screen stays visible behind it. FLAG_SECURE is unaffected.
+    private var exemptions = 0
+
+    /** Keeps windows visible without focus until the returned release runs (idempotent). */
+    fun exempt(): () -> Unit {
+        exemptions++
+        updateVisibility()
+        var released = false
+        return {
+            if (!released) {
+                released = true
+                exemptions = (exemptions - 1).coerceAtLeast(0)
+                updateVisibility()
+            }
+        }
+    }
 
     fun register(window: Window): () -> Unit {
         check(window !in windows)
@@ -51,7 +68,7 @@ internal class PrivacyWindows : AutoCloseable {
     }
 
     private fun updateVisibility() {
-        val visible = windows.keys.any { it.decorView.hasWindowFocus() }
+        val visible = exemptions > 0 || windows.keys.any { it.decorView.hasWindowFocus() }
         windows.forEach { (window, registration) ->
             val alpha = if (visible) registration.alpha else 0f
             if (window.attributes.alpha != alpha) {
@@ -69,6 +86,7 @@ internal class PrivacyWindows : AutoCloseable {
         }
         windows.clear()
         originalAlphas.clear()
+        exemptions = 0
     }
 }
 

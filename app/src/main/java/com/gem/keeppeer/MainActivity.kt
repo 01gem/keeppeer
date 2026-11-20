@@ -93,9 +93,11 @@ class MainActivity : FragmentActivity() {
         var completed = false
         var awaitingPrompt = true
         lateinit var localPrompt: BiometricPrompt
+        var releasePrivacy: () -> Unit = {}
         fun complete(result: BiometricResult) {
             if (completed) return
             completed = true
+            releasePrivacy()
             if (enroll && !result.success) session.cancelBiometricEnrollment(cipher)
             if (prompt === localPrompt) { prompt = null; cancelPrompt = null }
             done(result)
@@ -106,6 +108,8 @@ class MainActivity : FragmentActivity() {
                     BiometricDiagnostics.record(BiometricStage.PROMPT_SUCCEEDED)
                     if (completed || !awaitingPrompt) return
                     awaitingPrompt = false
+                    // The prompt is done: restore focus-based redaction before any vault unlock work.
+                    releasePrivacy()
                     val authenticated = result.cryptoObject?.cipher
                     BiometricDiagnostics.record(BiometricStage.CIPHER_BINDING)
                     if (authenticated !== cipher) {
@@ -139,6 +143,8 @@ class MainActivity : FragmentActivity() {
         }
         try {
             BiometricDiagnostics.record(BiometricStage.PROMPT_LAUNCH)
+            // Unlock only: the vault is locked, so the lock screen may stay visible behind the prompt.
+            if (!enroll) releasePrivacy = privacyWindows.exempt()
             localPrompt.authenticate(BiometricPrompt.PromptInfo.Builder()
                 .setTitle(getString(if (enroll) R.string.biometric_prompt_enable else R.string.biometric_prompt_unlock))
                 .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)

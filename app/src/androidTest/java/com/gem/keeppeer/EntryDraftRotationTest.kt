@@ -45,7 +45,7 @@ class EntryDraftRotationTest {
             VaultStage.UNLOCKED, opened.stage)
         val repository = requireNotNull(session.state.value.access).repository
         val before = runBlocking { repository.observeAll().first().map { it.id } }
-        compose.onNodeWithText("Add").performClick()
+        compose.onNodeWithText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.add)).performClick()
         compose.onNodeWithText("Title *").performTextInput("Synthetic rotation")
         compose.onNodeWithText("Password").performScrollTo().performTextInput(" synthetic rotation ")
         compose.onNodeWithText("Notes (optional)").performScrollTo().performTextInput("雲\nSecond line")

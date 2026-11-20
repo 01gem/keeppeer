@@ -38,12 +38,12 @@ class VaultAvailabilityUiTest {
                 }
             }
             assertTrue(entered.await(10, TimeUnit.SECONDS))
-            compose.onNodeWithText("Checking vault availability…").assertIsDisplayed()
+            compose.onNodeWithText(str(R.string.checking_vault)).assertIsDisplayed()
             fun noAuthenticationControls() {
-                compose.onNodeWithText("Create vault").assertDoesNotExist()
-                compose.onNodeWithText("Unlock", useUnmergedTree = true).assertDoesNotExist()
-                compose.onNodeWithText("Master password").assertDoesNotExist()
-                compose.onNodeWithText("Unlock with biometrics").assertDoesNotExist()
+                compose.onNodeWithText(str(R.string.create_vault)).assertDoesNotExist()
+                compose.onNodeWithText(str(R.string.unlock), useUnmergedTree = true).assertDoesNotExist()
+                compose.onNodeWithText(str(R.string.master_password)).assertDoesNotExist()
+                compose.onNodeWithText(str(R.string.biometric_unlock)).assertDoesNotExist()
             }
             noAuthenticationControls()
             val password = "synthetic guard master".toCharArray()
@@ -52,7 +52,7 @@ class VaultAvailabilityUiTest {
             assertTrue(password.all { it == '\u0000' } && confirmation.all { it == '\u0000' })
             release.countDown()
             compose.waitUntil(30_000) { session.state.value.stage == VaultStage.UNAVAILABLE }
-            compose.onNodeWithText("Vault unavailable").assertIsDisplayed()
+            compose.onNodeWithText(str(R.string.vault_unavailable_title)).assertIsDisplayed()
             noAuthenticationControls()
             assertNull(session.state.value.access)
         } finally {
@@ -61,3 +61,6 @@ class VaultAvailabilityUiTest {
         }
     }
 }
+
+private fun str(id: Int): String =
+    InstrumentationRegistry.getInstrumentation().targetContext.getString(id)

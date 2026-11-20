@@ -61,7 +61,7 @@ class SecureCaptureTest {
             }
             compose.waitUntil(120_000) { session.state.value.stage != VaultStage.UNLOCKING }
             assertEquals(VaultStage.UNLOCKED, session.state.value.stage)
-            compose.onNodeWithText("Add").performClick()
+            compose.onNodeWithText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.add)).performClick()
             compose.onNodeWithText("Title *").performTextReplacement("Synthetic capture fixture")
             compose.onNodeWithText("Password").performScrollTo().performTextReplacement("synthetic capture only")
             compose.onNodeWithText(compose.activity.getString(R.string.show_password)).performScrollTo().performClick()
@@ -71,8 +71,8 @@ class SecureCaptureTest {
             }
             capture("revealed-synthetic-draft")
             compose.onNodeWithText("Cancel").performScrollTo().performClick()
-            compose.onNodeWithText("Security").performClick()
-            compose.onNodeWithText("Enable biometrics").performScrollTo().performClick()
+            compose.onNodeWithContentDescription(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.settings)).performClick()
+            compose.onNodeWithText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.biometric_heading)).performScrollTo().performClick()
             compose.onNodeWithText("Current master password for biometrics")
                 .performTextReplacement("synthetic test master")
             compose.onNodeWithText("Confirm biometric enrollment").assertIsDisplayed()

@@ -67,47 +67,47 @@ class VaultVerificationTest {
                 }
             }
             compose.waitUntil(30_000) { session.state.value.stage != VaultStage.CHECKING }
-            compose.onNodeWithText("Reset synthetic development data…").performClick()
-            compose.onNodeWithText("Cancel").performClick()
+            compose.onNodeWithText(str(R.string.legacy_reset)).performClick()
+            compose.onNodeWithText(str(R.string.csv_cancel)).performClick()
             assertEquals(contents, legacy.readText())
             assertEquals(VaultStage.LEGACY_RESET, session.state.value.stage)
             assertFalse(context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists())
             compose.waitUntil(30_000) { session.state.value.stage != VaultStage.CHECKING }
-            compose.onNodeWithText("Reset synthetic development data…").performClick()
-            compose.onNodeWithText("Delete synthetic data").performClick()
+            compose.onNodeWithText(str(R.string.legacy_reset)).performClick()
+            compose.onNodeWithText(str(R.string.reset_confirm)).performClick()
             compose.waitUntil(10_000) { session.state.value.stage == VaultStage.FIRST_RUN }
             assertFalse(legacy.exists())
-            compose.onNodeWithText("Master password").performTextReplacement("short")
-            compose.onNodeWithText("Confirm master password").performTextReplacement("short")
+            compose.onNodeWithText(str(R.string.master_password)).performTextReplacement("short")
+            compose.onNodeWithText(str(R.string.confirm_master)).performTextReplacement("short")
             // Validate the button action independently of coordinate/IME timing on API 24/25.
-            compose.onNodeWithText("Create vault").performScrollTo()
+            compose.onNodeWithText(str(R.string.create_vault)).performScrollTo()
                 .performSemanticsAction(SemanticsActions.OnClick) { assertTrue(it()) }
-            compose.onNodeWithText("Use at least 12 characters and matching passwords.")
+            compose.onNodeWithText(str(R.string.setup_invalid))
                 .performScrollTo().assertIsDisplayed()
             assertFalse(context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists())
-            for (label in listOf("Master password", "Confirm master password")) {
+            for (label in listOf(str(R.string.master_password), str(R.string.confirm_master))) {
                 assertTrue("Rejected setup must clear $label", compose.onNodeWithText(label)
                     .fetchSemanticsNode().config[SemanticsProperties.InputText].text.isEmpty())
             }
-            compose.onNodeWithText("Master password").performTextReplacement("synthetic test master")
-            compose.onNodeWithText("Confirm master password").performTextReplacement("synthetic mismatch master")
+            compose.onNodeWithText(str(R.string.master_password)).performTextReplacement("synthetic test master")
+            compose.onNodeWithText(str(R.string.confirm_master)).performTextReplacement("synthetic mismatch master")
             // Validate the button action independently of coordinate/IME timing on API 24/25.
-            compose.onNodeWithText("Create vault").performScrollTo()
+            compose.onNodeWithText(str(R.string.create_vault)).performScrollTo()
                 .performSemanticsAction(SemanticsActions.OnClick) { assertTrue(it()) }
             assertFalse(context.getDatabasePath(EncryptedDatabaseProvider.VAULT_NAME).exists())
-            for (label in listOf("Master password", "Confirm master password")) {
+            for (label in listOf(str(R.string.master_password), str(R.string.confirm_master))) {
                 assertTrue("Rejected setup must clear $label", compose.onNodeWithText(label)
                     .fetchSemanticsNode().config[SemanticsProperties.InputText].text.isEmpty())
             }
-            compose.onNodeWithText("Master password").performTextReplacement("synthetic test master")
-            compose.onNodeWithText("Confirm master password").performTextReplacement("synthetic test master")
-            for (label in listOf("Master password", "Confirm master password")) {
+            compose.onNodeWithText(str(R.string.master_password)).performTextReplacement("synthetic test master")
+            compose.onNodeWithText(str(R.string.confirm_master)).performTextReplacement("synthetic test master")
+            for (label in listOf(str(R.string.master_password), str(R.string.confirm_master))) {
                 assertTrue("Valid setup must receive the intended synthetic value in $label",
                     compose.onNodeWithText(label).fetchSemanticsNode()
                         .config[SemanticsProperties.InputText].text == "synthetic test master")
             }
             // Validate the button action independently of coordinate/IME timing on API 24/25.
-            compose.onNodeWithText("Create vault").performScrollTo()
+            compose.onNodeWithText(str(R.string.create_vault)).performScrollTo()
                 .performSemanticsAction(SemanticsActions.OnClick) { assertTrue(it()) }
             compose.waitUntil(120_000) { session.state.value.stage != VaultStage.UNLOCKING }
             assertEquals(session.state.value.message, VaultStage.UNLOCKED, session.state.value.stage)
@@ -214,14 +214,14 @@ class VaultVerificationTest {
             automation.serviceInfo = automation.serviceInfo.apply {
                 flags = flags or android.accessibilityservice.AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
             }
-            compose.onNodeWithText("Add").performClick()
+            compose.onNodeWithText(str(R.string.add)).performClick()
             val text = "syntheticcutfixture"
-            compose.onNodeWithText("Notes (optional)").performScrollTo().performTextReplacement(text)
-            compose.onNodeWithText("Notes (optional)").performTouchInput {
+            compose.onNodeWithText(str(R.string.notes_optional)).performScrollTo().performTextReplacement(text)
+            compose.onNodeWithText(str(R.string.notes_optional)).performTouchInput {
                 // The center of a multiline field can be below its single populated line.
                 longClick(androidx.compose.ui.geometry.Offset(center.x * 0.3f, center.y * 0.7f))
             }
-            val selection = compose.onNodeWithText("Notes (optional)").fetchSemanticsNode()
+            val selection = compose.onNodeWithText(str(R.string.notes_optional)).fetchSemanticsNode()
                 .config[SemanticsProperties.TextSelectionRange]
             assertFalse("Touch long press must select the synthetic word", selection.collapsed)
             val cutLabel = compose.activity.getString(android.R.string.cut)
@@ -242,7 +242,7 @@ class VaultVerificationTest {
             android.os.ParcelFileDescriptor.AutoCloseInputStream(automation.executeShellCommand(
                 "input tap ${bounds.centerX()} ${bounds.centerY()}"
             )).use { it.readBytes() }
-            compose.onNodeWithText("Notes (optional)").assertTextEquals("Notes (optional)", "")
+            compose.onNodeWithText(str(R.string.notes_optional)).assertTextEquals("Notes (optional)", "")
             main {
                 assertEquals(text, manager.primaryClip?.getItemAt(0)?.text?.toString())
                 assertTrue("Touch Cut must use central ownership",
@@ -259,11 +259,11 @@ class VaultVerificationTest {
     @Test fun keyboardSelectionCopyExpiresAndBackgroundReturnClearsOwnedClip() = runBlocking {
         val session = appSession()
         val manager = syntheticOnMain { compose.activity.getSystemService(ClipboardManager::class.java) }
-        compose.onNodeWithText("Add").performClick()
+        compose.onNodeWithText(str(R.string.add)).performClick()
         val text = "synthetic selected clipboard"
-        compose.onNodeWithText("Notes (optional)").performScrollTo().performTextInput(text)
-        compose.onNodeWithText("Notes (optional)").performTextInputSelection(TextRange(0, text.length))
-        compose.onNodeWithText("Notes (optional)").performKeyInput {
+        compose.onNodeWithText(str(R.string.notes_optional)).performScrollTo().performTextInput(text)
+        compose.onNodeWithText(str(R.string.notes_optional)).performTextInputSelection(TextRange(0, text.length))
+        compose.onNodeWithText(str(R.string.notes_optional)).performKeyInput {
             keyDown(Key.CtrlLeft); pressKey(Key.C); keyUp(Key.CtrlLeft)
         }
         var label = ""
@@ -293,8 +293,11 @@ class VaultVerificationTest {
                 session.foreground()
                 assertFalse(manager.primaryClipDescription?.label?.toString()?.startsWith("Keeppeer:") == true)
             }
-            compose.onNodeWithText("Keeppeer locked").assertIsDisplayed()
+            compose.onNodeWithText(str(R.string.locked_title)).assertIsDisplayed()
         } finally { main { session.clipboard.clear(); session.lock() } }
         Unit
     }
 }
+
+private fun str(id: Int): String =
+    InstrumentationRegistry.getInstrumentation().targetContext.getString(id)

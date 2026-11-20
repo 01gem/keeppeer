@@ -37,7 +37,10 @@ class CsvSafUiTest {
         compose.onNodeWithText(text, useUnmergedTree = true).performClick()
         compose.waitForIdle() // Drive Compose effects before waiting on an external system window.
     }
-    private fun settings() { click("Security") }
+    private fun settings() {
+        compose.onNodeWithContentDescription(str(R.string.settings)).performClick()
+        compose.waitForIdle()
+    }
     private fun action(text: String) {
         compose.onNodeWithText(text, useUnmergedTree = true).performScrollTo().performClick()
         compose.waitForIdle()
@@ -86,10 +89,10 @@ class CsvSafUiTest {
         val id = originalAccess.repository.create(synthetic)
         val stored = requireNotNull(originalAccess.repository.getById(id))
         settings()
-        action("Export CSV")
-        compose.onNodeWithText("This file contains your passwords in plain text. Store it somewhere safe.").assertIsDisplayed()
+        action(str(R.string.csv_export))
+        compose.onNodeWithText(str(R.string.csv_plaintext)).assertIsDisplayed()
         dialogRegistered()
-        click("Continue")
+        click(str(R.string.csv_continue))
         pickerReady()
         // Default immediate lock must revoke the original repository while DocumentsUI is visible.
         compose.waitUntil(30_000) { session.state.value.access == null }
@@ -102,41 +105,41 @@ class CsvSafUiTest {
             android.os.Bundle().apply { putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, filename) }))
         systemClick { it.text?.toString()?.equals("Save", ignoreCase = true) == true && it.isEnabled }
         compose.waitUntil(30_000) { session.state.value.stage == VaultStage.LOCKED }
-        compose.onNodeWithText("Keeppeer locked").assertIsDisplayed()
+        compose.onNodeWithText(str(R.string.locked_title)).assertIsDisplayed()
         val picker = syntheticOnMain { ViewModelProvider(compose.activity)[CsvPickerModel::class.java] }
         compose.waitUntil(30_000) { picker.state.value.selection != null }
         val exportUri = requireNotNull(picker.state.value.selection).uri
         unlock()
         // A renewed plaintext approval is mandatory in the new session; no automatic writing.
-        compose.onNodeWithText("This file contains your passwords in plain text. Store it somewhere safe.").assertIsDisplayed()
+        compose.onNodeWithText(str(R.string.csv_plaintext)).assertIsDisplayed()
         dialogRegistered()
-        click("Continue")
+        click(str(R.string.csv_continue))
         compose.waitUntil(30_000) {
-            compose.onAllNodesWithText("CSV export finished. Protect the plaintext file separately.").fetchSemanticsNodes().isNotEmpty()
+            compose.onAllNodesWithText(str(R.string.csv_exported)).fetchSemanticsNodes().isNotEmpty()
         }
         dialogRegistered()
         val decoded = compose.activity.contentResolver.openInputStream(exportUri)!!.use { VaultCsv.parse(it) }
         assertTrue("Synthetic roundtrip exact", decoded.single() == stored.copy(id = 0))
-        click("Continue")
+        click(str(R.string.csv_continue))
         settings()
-        action("Import CSV")
+        action(str(R.string.csv_import))
         pickerReady()
         systemClick { it.text?.toString() == filename }
         compose.waitUntil(30_000) { picker.state.value.selection != null }
         unlock()
-        click("Continue")
+        click(str(R.string.csv_continue))
         compose.waitUntil(30_000) {
-            compose.onAllNodesWithText("Total: 1 · New: 0 · Conflicting: 1").fetchSemanticsNodes().isNotEmpty()
+            compose.onAllNodesWithText(str(R.string.csv_counts, 1, 0, 1)).fetchSemanticsNodes().isNotEmpty()
         }
         dialogRegistered()
         val beforeRotation = requireNotNull(session.state.value.access).id
         compose.activityRule.scenario.recreate()
         compose.waitForIdle()
         assertTrue("Rotation keeps current session", session.state.value.access?.id == beforeRotation)
-        compose.onNodeWithText("Total: 1 · New: 0 · Conflicting: 1").assertIsDisplayed()
+        compose.onNodeWithText(str(R.string.csv_counts, 1, 0, 1)).assertIsDisplayed()
         dialogRegistered()
-        compose.onNodeWithText("Skip (default)").assertIsDisplayed()
-        click("Continue")
+        compose.onNodeWithText(str(R.string.csv_skip)).assertIsDisplayed()
+        click(str(R.string.csv_continue))
         compose.waitUntil(30_000) {
             compose.onAllNodesWithText(compose.activity.getString(R.string.csv_applied,
                 compose.activity.resources.getQuantityString(R.plurals.csv_inserted, 0, 0),
@@ -144,9 +147,9 @@ class CsvSafUiTest {
                 compose.activity.resources.getQuantityString(R.plurals.csv_skipped, 1, 1))).fetchSemanticsNodes().isNotEmpty()
         }
         assertTrue("Existing values and count unchanged", requireNotNull(session.state.value.access).repository.exportCsv() == listOf(stored))
-        click("Continue")
+        click(str(R.string.csv_continue))
         settings()
-        action("Import CSV")
+        action(str(R.string.csv_import))
         pickerReady()
         check(instrumentation.uiAutomation.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK))
         compose.waitUntil(30_000) { picker.state.value.awaiting == null }
@@ -192,12 +195,15 @@ class CsvSafUiTest {
             picker.request(CsvAction.IMPORT); picker.launched()
             picker.result(android.net.Uri.parse("content://synthetic/document/stale"))
         }
-        compose.onNodeWithText("Read and validate the selected CSV in this unlocked session? No entries change until you confirm the duplicate policy.").assertDoesNotExist()
+        compose.onNodeWithText(str(R.string.csv_read_confirm)).assertDoesNotExist()
         unlock()
-        compose.onNodeWithText("Read and validate the selected CSV in this unlocked session? No entries change until you confirm the duplicate policy.").assertIsDisplayed()
+        compose.onNodeWithText(str(R.string.csv_read_confirm)).assertIsDisplayed()
         dialogRegistered()
-        click("Cancel")
+        click(str(R.string.csv_cancel))
         assertNull(picker.state.value.selection)
     }
     companion object { private const val MASTER = "synthetic test master" }
 }
+
+private fun str(id: Int, vararg args: Any): String =
+    InstrumentationRegistry.getInstrumentation().targetContext.getString(id, *args)

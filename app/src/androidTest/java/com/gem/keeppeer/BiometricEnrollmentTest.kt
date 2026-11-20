@@ -108,8 +108,8 @@ class BiometricEnrollmentTest {
                 session.biometrics.available())
         }
         org.junit.Assume.assumeTrue("Strong biometric enrollment required for the settings button", session.biometrics.available())
-        compose.onNodeWithText("Security").performClick()
-        compose.onNodeWithText("Enable biometrics").performScrollTo().performClick()
+        compose.onNodeWithContentDescription(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.settings)).performClick()
+        compose.onNodeWithText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.biometric_heading)).performScrollTo().performClick()
         compose.onNodeWithText("Continue to fingerprint").performClick()
         compose.onNodeWithText("Enter your current master password to enable biometrics.").assertIsDisplayed()
         compose.onNodeWithText("Current master password for biometrics").performTextInput("synthetic wrong password")
@@ -118,7 +118,7 @@ class BiometricEnrollmentTest {
             compose.onAllNodesWithText("Current master password is incorrect. Try again.").fetchSemanticsNodes().isNotEmpty()
         }
         assertFalse(session.biometrics.enabled())
-        compose.onNodeWithText("Enable biometrics").performScrollTo().performClick()
+        compose.onNodeWithText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.biometric_heading)).performScrollTo().performClick()
         compose.onNodeWithText("Current master password for biometrics").assertTextEquals("Current master password for biometrics", "")
         compose.onNodeWithText("Cancel", useUnmergedTree = true).performClick()
         compose.onNodeWithText("Confirm biometric enrollment").assertDoesNotExist()
@@ -126,7 +126,7 @@ class BiometricEnrollmentTest {
 
         // Open the actual platform/compat fingerprint window: checking availability alone
         // misses legacy dialog theme crashes. Cancel without fabricating biometric success.
-        compose.onNodeWithText("Enable biometrics").performScrollTo().performClick()
+        compose.onNodeWithText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.biometric_heading)).performScrollTo().performClick()
         compose.onNodeWithText("Current master password for biometrics")
             .performTextReplacement("synthetic test master")
         compose.onNodeWithText("Continue to fingerprint")

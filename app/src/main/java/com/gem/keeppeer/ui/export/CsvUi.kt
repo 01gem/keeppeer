@@ -1,5 +1,6 @@
 package com.gem.keeppeer.ui.export
 
+import com.gem.keeppeer.ui.components.VaultTextButton
 import android.app.Activity
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -11,6 +12,17 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.ui.Modifier
 import com.gem.keeppeer.ui.components.OptionRadio
+import com.gem.keeppeer.ui.components.VaultDivider
+import com.gem.keeppeer.ui.components.VaultGroup
+import com.gem.keeppeer.ui.components.VaultRow
+import com.gem.keeppeer.ui.components.PrimaryButton
+import com.gem.keeppeer.ui.components.WarningNote
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.FileDownload
+import androidx.compose.material.icons.outlined.FileUpload
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
@@ -52,14 +64,23 @@ fun CsvActions(vm: CsvViewModel, picker: CsvPickerModel, enabled: Boolean) {
     val state by vm.state.collectAsStateWithLifecycle()
     val pending by picker.state.collectAsStateWithLifecycle()
     val ready = enabled && !state.busy && state.preview == null && pending == CsvPickerState()
-    Text(stringResource(R.string.csv_heading), style = MaterialTheme.typography.titleMedium)
-    Text(stringResource(R.string.csv_provider))
-    Column {
-        OutlinedButton(enabled = ready, onClick = { picker.request(CsvAction.IMPORT) }) {
-            Text(stringResource(R.string.csv_import))
-        }
-        OutlinedButton(enabled = ready, onClick = vm::warning) { Text(stringResource(R.string.csv_export)) }
+    VaultGroup {
+        VaultRow(
+            title = stringResource(R.string.csv_export),
+            icon = Icons.Outlined.FileUpload,
+            onClick = vm::warning,
+            enabled = ready,
+        )
+        VaultDivider()
+        VaultRow(
+            title = stringResource(R.string.csv_import),
+            icon = Icons.Outlined.FileDownload,
+            onClick = { picker.request(CsvAction.IMPORT) },
+            enabled = ready,
+        )
     }
+    Text(stringResource(R.string.csv_provider), style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
 
 @Composable
@@ -68,17 +89,18 @@ fun CsvDialogs(vm: CsvViewModel, picker: CsvPickerModel, transfer: CsvTransfer) 
     val pending by picker.state.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
     if (state.warning) CsvDialog(R.string.csv_export, {
-        Text(stringResource(R.string.csv_plaintext))
-        Text(stringResource(R.string.csv_provider))
-        Text(stringResource(R.string.csv_formulas))
+        WarningNote(stringResource(R.string.csv_plaintext))
+        BodyText(stringResource(R.string.csv_provider))
+        BodyText(stringResource(R.string.csv_formulas))
     }, dismiss = vm::dismiss, confirm = {
         vm.dismiss(); picker.request(CsvAction.EXPORT)
     })
     pending.selection?.let { selected ->
         CsvDialog(if (selected.action == CsvAction.EXPORT) R.string.csv_export else R.string.csv_import, {
-            Text(stringResource(if (selected.action == CsvAction.EXPORT) R.string.csv_plaintext else R.string.csv_read_confirm))
-            Text(stringResource(R.string.csv_provider))
-            Text(stringResource(R.string.csv_formulas))
+            if (selected.action == CsvAction.EXPORT) WarningNote(stringResource(R.string.csv_plaintext))
+            else BodyText(stringResource(R.string.csv_read_confirm))
+            BodyText(stringResource(R.string.csv_provider))
+            BodyText(stringResource(R.string.csv_formulas))
         }, dismiss = {
             val discarded = picker.take()
             if (discarded?.action == CsvAction.EXPORT) {
@@ -91,8 +113,9 @@ fun CsvDialogs(vm: CsvViewModel, picker: CsvPickerModel, transfer: CsvTransfer) 
     }
     state.preview?.let { preview ->
         CsvDialog(R.string.csv_import, {
-            Text(stringResource(R.string.csv_counts, preview.total, preview.new, preview.conflicting))
-            Text(stringResource(R.string.csv_duplicates))
+            Text(stringResource(R.string.csv_counts, preview.total, preview.new, preview.conflicting),
+                style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurface)
+            BodyText(stringResource(R.string.csv_duplicates))
             DuplicatePolicy.entries.forEach { policy ->
                 OptionRadio(stringResource(when(policy) {
                     DuplicatePolicy.SKIP -> R.string.csv_skip
@@ -100,18 +123,18 @@ fun CsvDialogs(vm: CsvViewModel, picker: CsvPickerModel, transfer: CsvTransfer) 
                     DuplicatePolicy.KEEP_BOTH -> R.string.csv_keep_both
                 }), state.policy == policy, !state.busy) { vm.policy(policy) }
             }
-            if (state.message == "changed") Text(stringResource(R.string.csv_changed))
+            if (state.message == "changed") WarningNote(stringResource(R.string.csv_changed))
         }, enabled = !state.busy, dismiss = vm::dismiss, confirm = vm::submit)
     }
     if (state.busy && state.preview == null) AlertDialog(
         onDismissRequest = {},
         title = { ProtectDialogWindow(); Text(stringResource(R.string.csv_working)) },
-        text = { CircularProgressIndicator() },
-        confirmButton = { TextButton(onClick = vm::cancel) { Text(stringResource(R.string.csv_cancel)) } },
+        text = { CircularProgressIndicator(color = MaterialTheme.colorScheme.primary) },
+        confirmButton = { VaultTextButton(onClick = vm::cancel, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.csv_cancel)) } },
     )
     if (state.message != null && state.preview == null && !state.busy) {
         CsvDialog(R.string.csv_heading, {
-            Text(when {
+            val result = when {
                 state.message == "exported" -> stringResource(R.string.csv_exported)
                 state.message == "partial" -> stringResource(R.string.csv_partial)
                 state.message == "interrupted" -> stringResource(R.string.csv_interrupted)
@@ -133,12 +156,14 @@ fun CsvDialogs(vm: CsvViewModel, picker: CsvPickerModel, transfer: CsvTransfer) 
                     stringResource(R.string.csv_rejected_location, stringResource(reason), problem.record, problem.line)
                 }
                 else -> stringResource(R.string.csv_failed)
-            })
+            }
+            // Plaintext-at-rest outcomes are warnings; the rest are plain results.
+            if (state.message == "partial" || state.message == "interrupted") WarningNote(result) else BodyText(result)
         }, dismiss = vm::dismiss, confirm = vm::dismiss)
     }
     if (pending.notice) CsvDialog(R.string.csv_heading, {
-        Text(stringResource(R.string.csv_partial))
-        Text(stringResource(R.string.csv_expired))
+        WarningNote(stringResource(R.string.csv_partial))
+        BodyText(stringResource(R.string.csv_expired))
     }, dismiss = picker::dismissNotice, confirm = picker::dismissNotice)
 }
 
@@ -148,8 +173,20 @@ private fun CsvDialog(
     dismiss: () -> Unit, confirm: () -> Unit,
 ) {
     AlertDialog(onDismissRequest = { if (enabled) dismiss() },
-        title = { ProtectDialogWindow(); Text(stringResource(title)) },
-        text = { Column(Modifier.verticalScroll(rememberScrollState()).selectableGroup()) { body() } },
-        confirmButton = { TextButton(enabled = enabled, onClick = confirm) { Text(stringResource(R.string.csv_continue)) } },
-        dismissButton = { TextButton(enabled = enabled, onClick = dismiss) { Text(stringResource(R.string.csv_cancel)) } })
+        title = { ProtectDialogWindow(); Text(stringResource(title), style = MaterialTheme.typography.titleLarge) },
+        text = {
+            Column(Modifier.verticalScroll(rememberScrollState()).selectableGroup(),
+                verticalArrangement = Arrangement.spacedBy(10.dp)) { body() }
+        },
+        confirmButton = { PrimaryButton(stringResource(R.string.csv_continue), confirm, enabled = enabled) },
+        dismissButton = {
+            VaultTextButton(enabled = enabled, onClick = dismiss, modifier = Modifier.heightIn(min = 48.dp)) {
+                Text(stringResource(R.string.csv_cancel))
+            }
+        })
+}
+
+@Composable
+private fun BodyText(text: String) {
+    Text(text, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }

@@ -23,9 +23,11 @@ class Phase4UiTest {
     private val session get() = app.container.session
     private fun text(id: Int) = compose.activity.getString(id)
     private fun node(id: Int): SemanticsNodeInteraction {
-        val dialog = hasText(text(id)) and hasAnyAncestor(isDialog())
+        // Icon-only controls (detail back/edit) carry their label as a content description.
+        val label = hasText(text(id)) or hasContentDescription(text(id))
+        val dialog = label and hasAnyAncestor(isDialog())
         return if (compose.onAllNodes(dialog).fetchSemanticsNodes().isNotEmpty()) compose.onNode(dialog)
-            else compose.onNodeWithText(text(id))
+            else compose.onNode(label)
     }
     private fun click(id: Int) { node(id).performClick(); compose.waitForIdle() }
     private fun scrollClick(id: Int) { node(id).performScrollTo().performClick(); compose.waitForIdle() }
@@ -133,13 +135,13 @@ class Phase4UiTest {
         assertTrue(value(R.string.password) == chosen)
         rendering(R.string.password, chosen, false)
         scrollClick(R.string.save)
-        compose.waitUntil(10_000) { compose.onAllNodesWithText(text(R.string.entry_details)).fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(10_000) { compose.onAllNodesWithText(text(R.string.show_short)).fetchSemanticsNodes().isNotEmpty() }
         val stored = access.repository.exportCsv().single { it.title == "Phase4 synthetic" }
         assertTrue(stored.password == chosen)
         click(R.string.back)
         compose.onNodeWithText("Phase4 synthetic").performScrollTo().performClick()
-        compose.waitUntil(10_000) { compose.onAllNodesWithText(text(R.string.show_password)).fetchSemanticsNodes().isNotEmpty() }
-        node(R.string.show_password).assertExists()
+        compose.waitUntil(10_000) { compose.onAllNodesWithText(text(R.string.show_short)).fetchSemanticsNodes().isNotEmpty() }
+        node(R.string.show_short).assertExists()
         scrollClick(R.string.edit)
         compose.waitUntil(10_000) { compose.onAllNodesWithText(text(R.string.generate)).fetchSemanticsNodes().isNotEmpty() }
         scrollClick(R.string.generate)
@@ -156,7 +158,7 @@ class Phase4UiTest {
         assertFalse("Generated value must be absent after revocation", retainedSecret)
         unlock()
         node(R.string.generator_title).assertDoesNotExist()
-        node(R.string.add_entry).assertDoesNotExist()
+        node(R.string.title_required).assertDoesNotExist()
         assertTrue(session.state.value.access!!.repository.getById(stored.id)!!.password == chosen)
         // Background uses the unchanged immediate policy and cannot recover the prior draft.
         click(R.string.add)
@@ -186,19 +188,14 @@ class Phase4UiTest {
         compose.waitUntil(10_000) { runBlocking { repo.getById(first)?.isFavorite == true } }
         compose.waitUntil(10_000) { compose.onAllNodesWithText(text(R.string.favorites)).fetchSemanticsNodes().isNotEmpty() }
         node(R.string.search).performScrollTo().performTextInput("école 100%_\\")
-        click(R.string.filters)
-        secureDialogs()
         compose.onNodeWithText(compose.activity.getString(R.string.named_category, "All")).performScrollTo().performClick()
         scrollClick(R.string.favorites_only)
-        click(R.string.csv_continue)
         compose.onNodeWithText("École 100%_\\ favorite").assertExists()
         compose.onNodeWithText("École other").assertDoesNotExist()
         repo.delete(first)
         compose.waitUntil(10_000) { compose.onAllNodesWithText(text(R.string.no_results)).fetchSemanticsNodes().isNotEmpty() }
-        click(R.string.filters)
         node(R.string.active_category_removed).performScrollTo().assertIsDisplayed()
         click(R.string.clear_filters)
-        click(R.string.csv_continue)
         compose.onNodeWithText("École other").assertExists()
         compose.onNodeWithText("Blank").assertExists()
         Unit

@@ -25,7 +25,7 @@ class SensitiveClipboard(context: Context) {
         }
         clipboard.setPrimaryClip(clip)
         token = label
-        expiry = scope.launch { delay(30_000); clear() }
+        expiry = scope.launch { delay(CLEAR_DELAY_MS); clear() }
         true
     } catch (_: Exception) { false }
     fun clear() {
@@ -39,5 +39,9 @@ class SensitiveClipboard(context: Context) {
                 token = null
             } else if (clipboard.primaryClipDescription != null) token = null
         } catch (_: Exception) { /* Retain ownership token for a foreground retry. */ }
+    }
+    companion object {
+        /** Each copy restarts this delay before the owned clip is cleared. */
+        const val CLEAR_DELAY_MS = 30_000L
     }
 }

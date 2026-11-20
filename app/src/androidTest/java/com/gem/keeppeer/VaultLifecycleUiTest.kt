@@ -1,6 +1,7 @@
 package com.gem.keeppeer
 
 import android.view.WindowManager
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
@@ -25,21 +26,24 @@ class VaultLifecycleUiTest {
         compose.runOnUiThread {
             assertTrue(compose.activity.window.attributes.flags and WindowManager.LayoutParams.FLAG_SECURE != 0)
         }
-        compose.onNodeWithText("Add").performClick()
-        compose.onNodeWithText("Title *").performTextInput("Synthetic discarded on lock")
+        compose.onNodeWithText(str(R.string.add)).performClick()
+        compose.onNodeWithText(str(R.string.title_required)).performTextInput("Synthetic discarded on lock")
         compose.activityRule.scenario.moveToState(Lifecycle.State.CREATED)
         assertNull(session.state.value.access)
         compose.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
-        compose.onNodeWithText("Keeppeer locked").assertIsDisplayed()
+        compose.onNodeWithText(str(R.string.locked_title)).assertIsDisplayed()
         compose.onNodeWithText("Synthetic discarded on lock").assertDoesNotExist()
         try { runBlocking { repository.getById(1) }; fail("Revoked repository must fail") }
         catch (_: IllegalStateException) {}
         compose.waitUntil(30_000) { session.state.value.stage == VaultStage.LOCKED }
-        compose.onNodeWithText("Master password").performTextInput("synthetic test master")
-        compose.onNodeWithText("Unlock", useUnmergedTree = true).performClick()
+        compose.onNodeWithText(str(R.string.master_password)).performTextInput("synthetic test master")
+        compose.onNodeWithText(str(R.string.unlock), useUnmergedTree = true).performClick()
         compose.waitUntil(120_000) { session.state.value.access != null }
-        compose.onNodeWithText("Security").performClick()
-        compose.onNodeWithText("Lock now").performClick()
-        compose.onNodeWithText("Keeppeer locked").assertIsDisplayed()
+        compose.onNodeWithContentDescription(str(R.string.settings)).performClick()
+        compose.onNodeWithText(str(R.string.lock_now)).performClick()
+        compose.onNodeWithText(str(R.string.locked_title)).assertIsDisplayed()
     }
 }
+
+private fun str(id: Int): String =
+    InstrumentationRegistry.getInstrumentation().targetContext.getString(id)

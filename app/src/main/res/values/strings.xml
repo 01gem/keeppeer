@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">Keeppeer</string>
-    <string name="placeholder_empty_list">No passwords yet.\nThey will appear here once added.</string>
     <string name="development_notice">Development build • Synthetic entries only • Not a release candidate</string>
     <string name="validation_notice">Validation build • Local test-signed only • Not a production signing identity</string>
-    <string name="csv_heading">CSV backup</string>
-    <string name="csv_import">Import CSV</string>
-    <string name="csv_export">Export CSV</string>
+    <string name="csv_heading">Backup</string>
+    <string name="csv_import">Import from CSV</string>
+    <string name="csv_export">Export to CSV</string>
     <string name="csv_plaintext">This file contains your passwords in plain text. Store it somewhere safe.</string>
     <string name="csv_provider">The selected document provider controls where the plaintext file is stored and may offer remote locations.</string>
     <string name="csv_formulas">Spreadsheet apps may interpret values as formulas or change formatting. Keeppeer preserves backup values exactly; quoting does not prevent formula interpretation.</string>
@@ -37,9 +36,57 @@
         <item quantity="one">%d entry skipped</item>
         <item quantity="other">%d entries skipped</item>
     </plurals>
-    <string name="csv_password_nudge">You can export a CSV backup above before changing your password. Export is optional; plaintext exports need separate protection.</string>
-    <string name="copy_short">COPY</string>
+    <string name="csv_password_nudge">You can export a CSV backup in Security settings before changing your password. Export is optional; plaintext exports need separate protection.</string>
+    <string name="copy_short">Copy</string>
     <string name="copy_password_for">Copy password for %1$s</string>
     <string name="copy_no_password">This entry has no password.</string>
     <string name="copy_missing">This entry no longer exists.</string>
+    <string name="locked_subtitle">Your vault is encrypted on this phone. Unlock to see your passwords.</string>
+    <string name="unlock_or_password">or use your master password</string>
+    <string name="offline_footer">Offline vault. No account, no sync.</string>
+    <string name="create_vault_subtitle">Set one master password. It is the only key to this vault.</string>
+    <string name="show_short">Show</string>
+    <string name="hide_short">Hide</string>
+    <string name="strength_weak">Weak</string>
+    <string name="strength_fair">Fair</string>
+    <string name="strength_strong">Strong</string>
+    <plurals name="strength_with_length">
+        <item quantity="one">%1$s, %2$d character</item>
+        <item quantity="other">%1$s, %2$d characters</item>
+    </plurals>
+    <string name="legend_letters">Letters</string>
+    <string name="legend_digits">Digits</string>
+    <string name="legend_symbols">Symbols</string>
+    <string name="password_shown">Password shown</string>
+    <string name="password_hidden">Password hidden</string>
+    <plurals name="clipboard_clears_in">
+        <item quantity="one">Copied. Clipboard clears in %d second.</item>
+        <item quantity="other">Copied. Clipboard clears in %d seconds.</item>
+    </plurals>
+    <string name="vault_title">Vault</string>
+    <plurals name="entry_count">
+        <item quantity="one">%d entry</item>
+        <item quantity="other">%d entries</item>
+    </plurals>
+    <plurals name="entry_match_count">
+        <item quantity="one">%d match</item>
+        <item quantity="other">%d matches</item>
+    </plurals>
+    <string name="uncategorized_short">Uncategorized</string>
+    <string name="clear_search">Clear search</string>
+    <string name="status_protected">Vault is protected</string>
+    <string name="status_fingerprint_on">Fingerprint on.</string>
+    <string name="status_fingerprint_off">Fingerprint off.</string>
+    <string name="status_locks_immediate">Locks as soon as you leave.</string>
+    <string name="status_locks_minute">Locks 1 minute after you leave.</string>
+    <string name="status_locks_five">Locks 5 minutes after you leave.</string>
+    <string name="section_unlocking">Unlocking</string>
+    <string name="section_auto_lock">Auto-lock</string>
+    <string name="version_label">Version</string>
+    <string name="about_limits_title">What can\'t be recovered</string>
+    <string name="biometric_verifying">Checking your master password…</string>
+    <string name="licenses_title">Open-source licenses</string>
+    <string name="license_onest">Onest: Copyright 2021 The Onest Project Authors (https://github.com/googlefonts/onest)</string>
+    <string name="license_jetbrains_mono">JetBrains Mono: Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)</string>
+    <string name="license_ofl">Licensed under the SIL Open Font License 1.1.</string>
 </resources>

@@ -64,7 +64,7 @@ class LiveRecentsPrivacyTest {
             compose.waitUntil(120_000) { session.state.value.access != null }
             val access = requireNotNull(session.state.value.access)
             val title = "Synthetic live Recents draft"
-            compose.onNodeWithText("Add").performClick()
+            compose.onNodeWithText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.add)).performClick()
             compose.onNodeWithText("Title *").performTextInput(title)
             compose.onNodeWithText("Password").performScrollTo().performTextInput("synthetic recents value")
             compose.onNodeWithText(compose.activity.getString(R.string.show_password)).performClick()

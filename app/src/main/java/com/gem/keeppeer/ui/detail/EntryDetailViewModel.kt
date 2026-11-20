@@ -17,6 +17,8 @@ data class EntryDetailState(
     val deleting: Boolean = false,
     val deleted: Boolean = false,
     val error: String? = null,
+    val favoriteUpdating: Boolean = false,
+    val favoriteError: Boolean = false,
 )
 
 class EntryDetailViewModel(
@@ -48,6 +50,21 @@ class EntryDetailViewModel(
     override fun onCleared() {
         mutableState.value = EntryDetailState()
         super.onCleared()
+    }
+
+    // Mirrors the list's favorite(): one field-only write at a time; repeated taps do not queue.
+    fun favorite(value: Boolean) {
+        val current = state.value
+        if (current.loading || current.deleting || current.deleted || current.entry == null || current.favoriteUpdating) return
+        mutableState.update { it.copy(favoriteUpdating = true, favoriteError = false) }
+        viewModelScope.launch {
+            try {
+                val found = repository.setFavorite(entryId, value)
+                mutableState.update { it.copy(favoriteError = !found) }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutableState.update { it.copy(favoriteError = true) } }
+            finally { mutableState.update { it.copy(favoriteUpdating = false) } }
+        }
     }
 
     fun delete() {

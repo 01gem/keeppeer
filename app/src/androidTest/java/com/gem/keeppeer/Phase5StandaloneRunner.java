@@ -44,7 +44,7 @@ public final class Phase5StandaloneRunner extends Instrumentation {
             String selection = arguments.getString("phase5Journey", "");
             switch (selection) {
                 case "ordinaryCompatibilitySetupAndReopen": compatibility(); break;
-                case "ordinaryCompatibilityReopen": launch(); unlock(MASTER); await(TITLE); settings(); action("Lock now"); unlock(MASTER); await(TITLE); checkpoint("minified-normal-cold-and-manual-lock-reopen"); break;
+                case "ordinaryCompatibilityReopen": launch(); unlock(MASTER); await(TITLE); settings(); clickTag("settings-lock-now"); unlock(MASTER); await(TITLE); checkpoint("minified-normal-cold-and-manual-lock-reopen"); break;
                 case "ordinaryApplicationMinifiedJourney": whole(); break;
                 case "ordinaryApplicationColdReopen": coldReopen(); break;
                 case "seedOnlyDedicatedLegacyFixture": seedLegacy(); break;
@@ -171,7 +171,7 @@ public final class Phase5StandaloneRunner extends Instrumentation {
                         hasProgressBar = true;
                     }
                 }
-                for (String controlLabel : new String[]{"Keeppeer","Security","Security settings","Lock now","Appearance","System","Dark","Back","Add","Edit","Keeppeer locked"}) {
+                for (String controlLabel : new String[]{"Keeppeer","Security","Security settings","Lock now","Appearance","System","Dark","Back","Add entry","Edit","Keeppeer is locked"}) {
                     if (matching(controlLabel)!=null) {
                         if (stageText.isEmpty()) stageText = controlLabel;
                     }
@@ -233,7 +233,7 @@ public final class Phase5StandaloneRunner extends Instrumentation {
     }
     private String controlSummary() {
         StringBuilder out = new StringBuilder("Known visible controls=");
-        for (String label : new String[]{"Keeppeer","Security","Security settings","Lock now","Appearance","System","Dark","Back","Add","Edit","Keeppeer locked"}) {
+        for (String label : new String[]{"Keeppeer","Security","Security settings","Lock now","Appearance","System","Dark","Back","Add entry","Edit","Keeppeer is locked"}) {
             if (matching(label)!=null) out.append(label).append(';');
         }
         Set<String> packages=new HashSet<>();
@@ -247,6 +247,30 @@ public final class Phase5StandaloneRunner extends Instrumentation {
         return out.toString();
     }
     private void action(String label) { scrollTo(label); click(label); }
+    /** Compose testTag exposed as a resource id; searches every app window so a covered control cannot match. */
+    private void clickTag(String tag) {
+        stage="tag "+tag;
+        long end=SystemClock.elapsedRealtime()+30000;
+        while(SystemClock.elapsedRealtime()<end) {
+            for (android.view.accessibility.AccessibilityWindowInfo window:getUiAutomation().getWindows()) {
+                AccessibilityNodeInfo root=window.getRoot();
+                if (root==null || !"com.gem.keeppeer".equals(String.valueOf(root.getPackageName()))) continue;
+                List<AccessibilityNodeInfo> list=new ArrayList<>();
+                visit(root,list);
+                for (AccessibilityNodeInfo node:list) {
+                    if (tag.equals(node.getViewIdResourceName()) && node.isVisibleToUser()) {
+                        AccessibilityNodeInfo target=node;
+                        while(target!=null && !target.isClickable()) target=target.getParent();
+                        require(target!=null && target.performAction(AccessibilityNodeInfo.ACTION_CLICK),"Click failed: "+tag);
+                        SystemClock.sleep(350);
+                        return;
+                    }
+                }
+            }
+            SystemClock.sleep(150);
+        }
+        throw new AssertionError("Expected tagged control unavailable: "+tag+"; "+controlSummary());
+    }
     private void launch() {
         Intent intent=getTargetContext().getPackageManager().getLaunchIntentForPackage("com.gem.keeppeer");
         require(intent!=null,"Launcher missing");
@@ -263,13 +287,13 @@ public final class Phase5StandaloneRunner extends Instrumentation {
         hideKeyboard();
         action("Create vault");
         try {
-            await("Add",120000);
+            await("Add entry",120000);
         } catch (AssertionError failure) {
-            if (matching("Keeppeer locked")!=null && matching("Master password")!=null) {
+            if (matching("Keeppeer is locked")!=null && matching("Master password")!=null) {
                 field("Master password",MASTER);
                 hideKeyboard();
                 click("Unlock");
-                await("Add",120000);
+                await("Add entry",120000);
             } else {
                 throw failure;
             }
@@ -277,9 +301,9 @@ public final class Phase5StandaloneRunner extends Instrumentation {
         checkpoint("fresh-setup");
     }
     private void unlock(String password) {
-        await("Keeppeer locked",120000); field("Master password",password);
+        await("Keeppeer is locked",120000); field("Master password",password);
         hideKeyboard();
-        click("Unlock"); await("Add",120000);
+        click("Unlock"); await("Add entry",120000);
     }
     private void settings() { click("Security"); await("Security settings"); }
     private void checkpoint(String name) {
@@ -303,12 +327,12 @@ public final class Phase5StandaloneRunner extends Instrumentation {
         checkpoint("ordinary-cold-entry-and-persisted-dark");
     }
     private void compatibility() {
-        setup(); click("Add"); field("Title *",TITLE); field("Password","synthetic API compatibility");
-        action("Save"); action("Edit"); click("Back"); await(TITLE); settings(); action("Lock now");
+        setup(); click("Add entry"); field("Title *",TITLE); field("Password","synthetic API compatibility");
+        action("Save"); action("Edit"); click("Back"); await(TITLE); settings(); clickTag("settings-lock-now");
         unlock(MASTER); await(TITLE); checkpoint("minified-normal-portable-KDF-native-SQLCipher-lock-reopen");
     }
     private void whole() {
-        setup(); click("Add"); field("Title *",TITLE); field("Password","  =synthetic,\"exact\"  ");
+        setup(); click("Add entry"); field("Title *",TITLE); field("Password","  =synthetic,\"exact\"  ");
         action("Generate…"); await("Generate password"); click("Cancel");
         action("Generate…"); click("Use password (replace draft)"); action("Save"); action("Edit"); click("Back"); await(TITLE);
         checkpoint("generator-cancel-use-and-create");
@@ -318,10 +342,10 @@ public final class Phase5StandaloneRunner extends Instrumentation {
         field("Search title, username, URL or category",""); await(TITLE);
         checkpoint("favorite-and-search");
         click(TITLE); await("Edit"); click("Back"); settings(); action("Dark"); click("Back");
-        settings(); action("Lock now"); await("Keeppeer locked"); click("Unlock"); await(WRONG,120000);
+        settings(); clickTag("settings-lock-now"); await("Keeppeer is locked"); click("Unlock"); await(WRONG,120000);
         field("Master password","incorrect synthetic master"); click("Unlock"); await(WRONG,120000);
         unlock(MASTER); await(TITLE); checkpoint("empty-wrong-password-lock-reopen");
-        settings(); action("Export CSV"); await("This file contains your passwords in plain text. Store it somewhere safe."); click("Continue");
+        settings(); action("Export to CSV"); await("This file contains your passwords in plain text. Store it somewhere safe."); click("Continue");
         long end=SystemClock.elapsedRealtime()+30000; AccessibilityNodeInfo filename=null;
         while(SystemClock.elapsedRealtime()<end && filename==null) {
             for(AccessibilityNodeInfo node:nodes()) if(node.isEditable() && String.valueOf(node.getPackageName()).contains("documentsui")) { filename=node; break; }
@@ -336,15 +360,15 @@ public final class Phase5StandaloneRunner extends Instrumentation {
         checkpoint("real-SAF-export-immediate-lock-renewed-approval");
         click(TITLE); action("Delete"); await("Delete entry?"); click("Delete");
         await("No entries yet. Add an entry to get started.");
-        settings(); action("Import CSV"); click("keeppeer-phase5-synthetic.csv"); unlock(MASTER); click("Continue");
+        settings(); action("Import from CSV"); click("keeppeer-phase5-synthetic.csv"); unlock(MASTER); click("Continue");
         await("Total: 1 · New: 1 · Conflicting: 0"); click("Continue");
         await("Import finished: 1 entry inserted, 0 entries updated, 0 entries skipped."); click("Continue"); await(TITLE);
         checkpoint("real-SAF-restore-after-delete");
-        settings(); scrollTo("Current master password"); field("Current master password",MASTER);
+        settings(); action("Change master password"); scrollTo("Current master password"); field("Current master password",MASTER);
         scrollTo("New master password"); field("New master password",CHANGED);
         scrollTo("Confirm new password"); field("Confirm new password",CHANGED);
         action("Change password"); await("Master password changed. Existing entries and database key are unchanged.",120000);
-        click("Back"); settings(); action("Lock now"); unlock(CHANGED); await(TITLE); checkpoint("password-change-preserves-entry");
+        click("Back"); click("Back"); settings(); clickTag("settings-lock-now"); unlock(CHANGED); await(TITLE); checkpoint("password-change-preserves-entry");
     }
     private void seedLegacy() throws IOException {
         require(!getTargetContext().getDatabasePath("keeppeer_vault.db").exists(),"Fresh legacy fixture required");

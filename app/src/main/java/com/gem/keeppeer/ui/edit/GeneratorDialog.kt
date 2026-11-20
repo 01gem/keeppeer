@@ -1,8 +1,12 @@
 package com.gem.keeppeer.ui.edit
 
+import com.gem.keeppeer.ui.components.vaultFieldColors
+import com.gem.keeppeer.ui.components.VaultTextButton
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -14,7 +18,11 @@ import androidx.compose.ui.unit.dp
 import com.gem.keeppeer.R
 import com.gem.keeppeer.domain.*
 import com.gem.keeppeer.ui.components.OptionToggle
+import com.gem.keeppeer.ui.components.OutlineSteelButton
+import com.gem.keeppeer.ui.components.PrimaryButton
+import com.gem.keeppeer.ui.components.VaultShapes
 import com.gem.keeppeer.ui.privacy.ProtectDialogWindow
+import com.gem.keeppeer.ui.theme.JetBrainsMono
 import com.gem.keeppeer.ui.theme.LocalThemeMode
 import kotlin.math.roundToInt
 
@@ -25,16 +33,20 @@ fun GeneratorDialog(state: EntryEditState, options: (GeneratorOptions) -> Unit,
     var copied by remember(state.candidate) { mutableStateOf<Boolean?>(null) }
     val o = state.generatorOptions
     val lengthLabel = stringResource(R.string.generator_length_label)
+    val scheme = MaterialTheme.colorScheme
     AlertDialog(
         onDismissRequest = dismiss,
-        title = { ProtectDialogWindow(); Text(stringResource(R.string.generator_title)) },
+        title = { ProtectDialogWindow(); Text(stringResource(R.string.generator_title), style = MaterialTheme.typography.titleLarge) },
         text = {
             Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(stringResource(R.string.generator_length, o.length))
+                Text(stringResource(R.string.generator_length, o.length), style = MaterialTheme.typography.titleMedium,
+                    color = scheme.onSurface)
                 Slider(value = o.length.toFloat(), onValueChange = { options(o.copy(length = it.roundToInt())) },
                     valueRange = GeneratorPolicy.MIN_LENGTH.toFloat()..GeneratorPolicy.MAX_LENGTH.toFloat(),
                     steps = GeneratorPolicy.MAX_LENGTH - GeneratorPolicy.MIN_LENGTH - 1,
+                    colors = SliderDefaults.colors(thumbColor = scheme.primary, activeTrackColor = scheme.primary,
+                        inactiveTrackColor = scheme.outline),
                     modifier = Modifier.semantics { contentDescription = lengthLabel })
                 OptionToggle(stringResource(R.string.generator_lower), o.lowercase) { options(o.copy(lowercase = it)) }
                 OptionToggle(stringResource(R.string.generator_upper), o.uppercase) { options(o.copy(uppercase = it)) }
@@ -44,22 +56,37 @@ fun GeneratorDialog(state: EntryEditState, options: (GeneratorOptions) -> Unit,
                 OutlinedTextField(value = state.candidate.orEmpty(), onValueChange = {}, readOnly = true,
                     label = { Text(stringResource(R.string.generator_candidate)) },
                     visualTransformation = if (reveal) VisualTransformation.None else PasswordVisualTransformation(),
+                    // JetBrains Mono only for revealed password characters.
+                    textStyle = if (reveal) MaterialTheme.typography.bodyLarge.copy(fontFamily = JetBrainsMono) else MaterialTheme.typography.bodyLarge,
+                    shape = VaultShapes.Field,
+                    colors = vaultFieldColors(),
                     modifier = Modifier.fillMaxWidth())
-                TextButton(enabled = state.candidate != null, onClick = { reveal = !reveal }) {
-                    Text(stringResource(if (reveal) R.string.hide_password else R.string.show_password))
+                // Row 1: two equal buttons, no icons so labels get the full width. Row 2: Regenerate full width.
+                // At large font sizes labels wrap to a second line instead of clipping.
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                    OutlineSteelButton(stringResource(if (reveal) R.string.hide_password else R.string.show_password),
+                        { reveal = !reveal }, Modifier.weight(1f), enabled = state.candidate != null,
+                        compact = true)
+                    OutlineSteelButton(stringResource(R.string.copy_password),
+                        { state.candidate?.let { copied = copy(it) } }, Modifier.weight(1f), enabled = state.candidate != null,
+                        compact = true)
                 }
-                TextButton(enabled = state.candidate != null, onClick = { state.candidate?.let { copied = copy(it) } }) {
-                    Text(stringResource(R.string.copy_password))
+                OutlineSteelButton(stringResource(R.string.generator_regenerate), regenerate, Modifier.fillMaxWidth(),
+                    icon = Icons.Outlined.Refresh)
+                copied?.let {
+                    Text(stringResource(if (it) R.string.clipboard_copied else R.string.clipboard_failed),
+                        style = MaterialTheme.typography.bodyMedium, color = if (it) scheme.onSurface else scheme.error,
+                        modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
                 }
-                copied?.let { Text(stringResource(if (it) R.string.clipboard_copied else R.string.clipboard_failed)) }
-                if (state.generationFailed) Text(stringResource(R.string.generator_failed), color = MaterialTheme.colorScheme.error)
-                TextButton(onClick = regenerate) { Text(stringResource(R.string.generator_regenerate)) }
-                Text(stringResource(R.string.generator_replace))
+                if (state.generationFailed) Text(stringResource(R.string.generator_failed), color = scheme.error,
+                    style = MaterialTheme.typography.bodyMedium)
+                Text(stringResource(R.string.generator_replace), style = MaterialTheme.typography.bodySmall,
+                    color = scheme.onSurfaceVariant)
             }
         },
-        confirmButton = { TextButton(enabled = state.candidate != null && !state.saving, onClick = use) {
-            Text(stringResource(R.string.generator_use))
-        } },
-        dismissButton = { TextButton(onClick = dismiss) { Text(stringResource(R.string.cancel)) } },
+        confirmButton = {
+            PrimaryButton(stringResource(R.string.generator_use), use, enabled = state.candidate != null && !state.saving)
+        },
+        dismissButton = { VaultTextButton(onClick = dismiss, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.cancel)) } },
     )
 }

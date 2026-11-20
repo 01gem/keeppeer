@@ -25,9 +25,11 @@ class Phase4LayoutTest {
     private val app get() = compose.activity.application as KeeppeerApplication
     private fun text(id: Int) = compose.activity.getString(id)
     private fun click(id: Int, scroll: Boolean = false) {
-        val dialog = hasText(text(id)) and hasAnyAncestor(isDialog())
+        // Icon-only controls (Security, Back) carry their label as a content description.
+        val label = hasText(text(id)) or hasContentDescription(text(id))
+        val dialog = label and hasAnyAncestor(isDialog())
         val node = if (compose.onAllNodes(dialog).fetchSemanticsNodes().isNotEmpty()) compose.onNode(dialog)
-            else compose.onNodeWithText(text(id))
+            else compose.onNode(label)
         if (scroll) node.performScrollTo()
         node.performClick()
     }

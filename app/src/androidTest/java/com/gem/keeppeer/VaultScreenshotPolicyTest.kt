@@ -90,7 +90,7 @@ class VaultScreenshotPolicyTest {
                 else if (session.state.value.access == null) session.unlock("synthetic test master".toCharArray())
             }
             compose.waitUntil(120_000) { session.state.value.access != null }
-            compose.onNodeWithText("Add").performClick()
+            compose.onNodeWithText(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.add)).performClick()
             compose.onNodeWithText("Title *").performTextReplacement("Synthetic screenshot fixture")
             compose.onNodeWithText("Password").performScrollTo().performTextReplacement("synthetic screenshot only")
             compose.onNodeWithText(compose.activity.getString(R.string.show_password)).performScrollTo().performClick()

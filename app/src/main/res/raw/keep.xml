@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Font licenses ship in the APK (SIL OFL 1.1); nothing references them in code, so keep them from resource shrinking. -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/onest_ofl,@raw/jetbrains_mono_ofl" />
